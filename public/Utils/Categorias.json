@@ -1,0 +1,47 @@
+[
+    {
+        "id":1,
+        "nombre":"laptops",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898549/Gohcomputer/cat/fwtcik9onk9irpfxgpze.jpg"
+    },
+    {
+        "id":2,
+        "nombre":"Almacenamiento",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092016/Gohcomputer/cat/qof2edyhcbpmdmjdlrvk.jpg"
+    },
+    {
+        "id":3,
+        "nombre":"Monitores",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898549/Gohcomputer/cat/fwtcik9onk9irpfxgpze.jpg"
+    },
+    {
+        "id":4,
+        "nombre":"Procesadores",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092016/Gohcomputer/cat/qof2edyhcbpmdmjdlrvk.jpg"
+    },
+    {
+        "id":5,
+        "nombre":"Memorias Ram",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898549/Gohcomputer/cat/fwtcik9onk9irpfxgpze.jpg"
+    },
+    {
+        "id":6,
+        "nombre":"Motherboards",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092016/Gohcomputer/cat/qof2edyhcbpmdmjdlrvk.jpg"
+    },
+    {
+        "id":7,
+        "nombre":"Mouses",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898549/Gohcomputer/cat/fwtcik9onk9irpfxgpze.jpg"
+    },
+    {
+        "id":8,
+        "nombre":"Teclados",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092016/Gohcomputer/cat/qof2edyhcbpmdmjdlrvk.jpg"
+    },
+    {
+        "id":9,
+        "nombre":"Cases",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898549/Gohcomputer/cat/fwtcik9onk9irpfxgpze.jpg"
+    }
+]

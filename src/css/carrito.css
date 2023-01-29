@@ -1,0 +1,28 @@
+@media(min-width:992px){
+    .carr{
+        width: 63% !important;
+    }
+    .TPagar{
+        width: 100%;
+    }
+}
+.carr{
+    width: 90%;
+}
+.TPagar{
+    width: 90%;
+}
+.carr li{
+    margin-left: 20px;
+    list-style: none;
+}
+.carr img{
+    min-width: 64px;
+    width: 100%;
+    max-width: 100px;
+}
+#idTotal{
+    border-top:1px solid #ccc ;
+    padding-top: 10px;
+    margin-top: 10px;
+}

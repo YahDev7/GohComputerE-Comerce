@@ -1,0 +1,92 @@
+[
+    {
+        "id":"1",
+        "nombre":"laptop lenovo vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665080050/Gohcomputer/productos/nlqnm2sjyu1expddmhrl.jpg",
+        "categoria_id":1,
+        "subcategoria_id":1
+    },
+    {
+        "id":"2",
+        "nombre":"laptop Dell vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664597629/Gohcomputer/productos/vwb70nwr39swefh1dklf.jpg",
+        "categoria_id":1,
+        "subcategoria_id":1
+    },
+    {
+        "id":"3",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665080050/Gohcomputer/productos/nlqnm2sjyu1expddmhrl.jpg",
+        "categoria_id":1,
+        "subcategoria_id":1
+    },
+    {
+        "id":"4",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664596589/Gohcomputer/productos/fcdchgew8gztleb9bj6i.jpg",
+        "categoria_id":2,
+        "subcategoria_id":2
+    },
+    {
+        "id":"5",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665274613/Gohcomputer/productos/nsi6viy4bqx5nq7c0npg.jpg",
+        "categoria_id":2,
+        "subcategoria_id":2
+    },
+    {
+        "id":"6",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665178509/Gohcomputer/productos/pbgj2zgksvwtyrj23u4x.jpg",
+        "categoria_id":3,
+         "subcategoria_id":3
+    },
+    {
+        "id":"7",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665078595/Gohcomputer/productos/qhyi03anokb7hvlijgrt.jpg",
+        "categoria_id":3,
+         "subcategoria_id":3
+    },
+    {
+        "id":"8",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664597629/Gohcomputer/productos/vwb70nwr39swefh1dklf.jpg",
+        "categoria_id":4,
+        "subcategoria_id":4
+    },
+    {
+        "id":"9",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664596589/Gohcomputer/productos/fcdchgew8gztleb9bj6i.jpg",
+        "categoria_id":4,
+         "subcategoria_id":4
+    },
+    {
+        "id":"10",
+        "nombre":"laptop asus vivobook",
+        "preciodolares":1000,
+        "preciosoles":4000,
+        "link":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665080050/Gohcomputer/productos/nlqnm2sjyu1expddmhrl.jpg",
+        "categoria_id":5,
+        "subcategoria_id":4
+    }
+]

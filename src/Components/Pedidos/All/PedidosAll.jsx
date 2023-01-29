@@ -1,0 +1,60 @@
+import { useEffect, useState } from "react";
+import { FetchsPedidos } from "../../../Fetchs/pedidos";
+
+
+const AllPedidos = () => {
+    const [pedidosAll, setPedidosAll] = useState([]);
+
+    const allpedi=async()=>{
+          let res= await FetchsPedidos.getallpedidos();
+        console.log(res);
+        setPedidosAll(res)
+    }
+    useEffect(() => {
+        allpedi()
+    }, []);
+
+
+    const getpropedido = () => {
+        let box=[];
+        for (let i = 0; i < pedidosAll.length; i++) {
+           
+           box.push( 
+            <tr  key={pedidosAll[i].id*Math.random()*100}>
+                <td><a style={{textDecoration:"none",cursor:"pointer"}} onClick={()=>{location.href="#/detallepedido/"+pedidosAll[i].id}} >{pedidosAll[i].id}</a></td>
+                <td>{pedidosAll[i].estado}</td>
+                <td>{pedidosAll[i].fecha}</td>
+                <td>{pedidosAll[i].total}</td>
+                <td>{pedidosAll[i].persona_id}</td>
+            </tr>
+               )
+       }
+
+       if(box.length===0) return <tr><td className="text-center" colSpan="5">Aun no tiene ningun pedido</td></tr> 
+       return box
+   }
+    return ( 
+        <>
+        <div className="containerAllPedidos">
+            <h2 >Todos los pedidos</h2>
+            <table className="table">
+            <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Usuario</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {getpropedido()}
+            </tbody>
+           </table>
+
+        </div>
+        </>
+     );
+}
+ 
+export default AllPedidos;

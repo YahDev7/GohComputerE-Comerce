@@ -1,0 +1,27 @@
+#MainCategorias{
+    display: grid;
+    grid-template-columns: repeat(4,1fr) ;
+}
+.card{
+    margin-top:20px ;
+    margin-left:20px ;
+}
+.card a{
+    text-decoration: none;
+     color: black;
+}
+.card a:hover{
+    outline: 1px solid #375A7F ;
+    color: black;
+}
+.card-text{
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+
+@media(max-width:1000px){
+    #MainCategorias{
+        grid-template-columns: repeat(3,1fr) ;
+    } 
+}

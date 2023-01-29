@@ -1,0 +1,56 @@
+[
+    {
+        "id":1,
+        "nombre":"laptops core i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092360/Gohcomputer/subcat/zasau5ggicxf6icdyzq6.jpg",
+        "categoria_id":1
+    },
+    {
+        "id":2,
+        "nombre":"laptops core i3",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898370/Gohcomputer/subcat/t0phjgzh9b3rwwybbj8x.jpg",
+        "categoria_id":2
+    },
+    {
+        "id":3,
+        "nombre":"laptops core i7",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092360/Gohcomputer/subcat/zasau5ggicxf6icdyzq6.jpg",
+        "categoria_id":3
+    },
+    {
+        "id":4,
+        "nombre":"laptops core i9",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898370/Gohcomputer/subcat/t0phjgzh9b3rwwybbj8x.jpg",
+        "categoria_id":3
+    },
+    {
+        "id":5,
+        "nombre":"laptops ryzen i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092360/Gohcomputer/subcat/zasau5ggicxf6icdyzq6.jpg",
+        "categoria_id":3
+    },
+    {
+        "id":6,
+        "nombre":"laptops ryzen i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898370/Gohcomputer/subcat/t0phjgzh9b3rwwybbj8x.jpg",
+        "categoria_id":5
+    },
+    {
+        "id":7,
+        "nombre":"laptops ryzen i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092360/Gohcomputer/subcat/zasau5ggicxf6icdyzq6.jpg",
+        "categoria_id":8
+    },
+    {
+        "id":8,
+        "nombre":"laptops ryzen i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1664898370/Gohcomputer/subcat/t0phjgzh9b3rwwybbj8x.jpg",
+        "categoria_id":3
+    },
+    {
+        "id":9,
+        "nombre":"laptops ryzen i5",
+        "url":"https://res.cloudinary.com/dfsflp11q/image/upload/v1665092360/Gohcomputer/subcat/zasau5ggicxf6icdyzq6.jpg",
+        "categoria_id":9
+    }
+]
