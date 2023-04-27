@@ -3,10 +3,11 @@ import { useContext } from "react";
 import CarrContext from "../Context/carr";
 import { useHeader } from "./Hooks/UseHeader";
 
+
 const Header = () => {
     
     const navigate=useNavigate()
-    const {itemsCarr,statesidebarCarr, statesetSidebarCarr,stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal} =useContext(CarrContext);
+    const {itemsCarr,statesidebarCarr, statesetSidebarCarr,stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal,login} =useContext(CarrContext);
     const{searchnav,boxsCat,procarr}=useHeader(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal);
    
     return (
@@ -42,19 +43,29 @@ const Header = () => {
                             </div>
 
                             <div className="col-4 col-md-2 row">
-                                <li className="nav-item dropdown w-25 btnUser col" style={{listStyle:"none"}}>
-                                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i className="fas fa-user"></i>
-                                    </a>
-                                    <ul className="dropdown-menu mt-2 menuDesktop" aria-labelledby="navbarScrollingDropdown" >
-                                        <li><a className="dropdown-item" href="#">Perfil</a></li>
-                                        <li><a className="dropdown-item" href="#">Ajustes</a></li>
-                                        <li><hr className="dropdown-divider" /></li>
-                                        <li><a className="dropdown-item" href="#">Cerrar Sesión</a></li>
-                                    </ul>
-                                </li>
+                                {  
+                                login?<li className="nav-item dropdown w-25 btnUser col" style={{listStyle:"none"}}>
+                                <a className="nav-link dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="fas fa-user"></i>
+                                </a>
+                                <ul className="dropdown-menu mt-2 menuDesktop" aria-labelledby="navbarScrollingDropdown" >
+                                    <li><a className="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a className="dropdown-item" href="#">Ajustes</a></li>
+                                    <li><a className="dropdown-item" href="#/pedidos">Mis pedidos</a></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item" href="#">Cerrar Sesión</a></li>
+                                </ul>
+                            </li>:
+                                 <li className="col" style={{listStyle: "none",fontWeight:'bold' }}>
+                                 <a className="nav-link iconCarr text-white" href="#/login" >
+                                    Iniciar Sesion
+                                 </a>
+                             </li>
 
-                                <li className="col" style={{listStyle: "none" }}>
+                                }
+                              
+
+                                <li className="col-3" style={{listStyle: "none" }}>
                                     <a className="nav-link iconCarr text-white" onClick={()=>statesetSidebarCarr(true)} data-bs-toggle="" data-bs-target="" >
                                         <i style={{cursor:"pointer"}} className="fas fa-car iconCarr"></i>
                                     </a>

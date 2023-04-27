@@ -22,7 +22,7 @@ const AllPedidos = () => {
            box.push( 
             <tr  key={pedidosAll[i].id*Math.random()*100}>
                 <td><a style={{textDecoration:"none",cursor:"pointer"}} onClick={()=>{location.href="#/detallepedido/"+pedidosAll[i].id}} >{pedidosAll[i].id}</a></td>
-                <td>{pedidosAll[i].estado}</td>
+                <td><span class="badge rounded-pill bg-primary">{pedidosAll[i].estado}</span></td>
                 <td>{pedidosAll[i].fecha}</td>
                 <td>{pedidosAll[i].total}</td>
                 <td>{pedidosAll[i].persona_id}</td>
@@ -36,7 +36,7 @@ const AllPedidos = () => {
     return ( 
         <>
         <div className="containerAllPedidos">
-            <h2 >Todos los pedidos</h2>
+            <h2 >Todos tus pedidos</h2>
             <table className="table">
             <thead>
                     <tr>

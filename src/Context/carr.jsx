@@ -16,7 +16,7 @@ import { Fetchs } from "../Fetchs/fetchs";
         const [stateProducts, setStateProducts] = useState([]); 
         const [stateCategorias, setStateCategorias] = useState([]);
         const [loader, setloader] = useState(false);
-
+        const [login, setlogin] = useState(false);
         const [tokcarr, setTokcarr] = useState(tokencarr===null?[]:tokencarr);
         const itemscarrtoken=async(tok)=>{
             const options={
@@ -182,6 +182,8 @@ import { Fetchs } from "../Fetchs/fetchs";
           }
 
           const data={
+            login,
+            setlogin,
             itemsCarr,
             setloader,
             loader,

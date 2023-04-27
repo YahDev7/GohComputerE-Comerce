@@ -58,6 +58,7 @@ const Confirm = () => {
             : 
            <div className="containerPedido pb-5">
            <h2 >Tu pedido a sido guardado con éxito</h2>
+           <p style={{color:"red",fontWeight:"bold"}}>Tienes 5 horas antes que tu pedido se cancele</p>
            <div className="pt-4">
                <p className="mb-2"><strong>Nro pedido:</strong> {idpedido}</p>
                <p className="mb-2"><strong>Total a pagar:</strong> s/{propedido[0]?.total?propedido[0].total:"nada"} </p>
@@ -65,7 +66,7 @@ const Confirm = () => {
            </div>
 
            <button className="btn btnpedido mt-3 mb-3" onClick={()=>depositopedido()}>Pagar Pedido</button>
-
+            <h3>Detalles del Pedido</h3>
            <table className="table">
             <thead>
                     <tr>

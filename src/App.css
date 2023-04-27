@@ -42,6 +42,9 @@
   text-align: center;
   color: var(--primary-color);
 }
+.containerAllPedidos .badge{
+font-size: 10px !important;
+}
 
 .containerPedido h2{
   margin-top: 20px;

@@ -14,15 +14,15 @@ const Login = () => {
                     <label htmlFor="password">Contraseña</label>
                 </div>
             </form>
-
-            <div className="row optionslogin" >
-                <a className="col" href="">Olvide mi contraseña</a>
-                <a className="col" href="">Registrar</a>
-            </div>
-
-            <div>
+            <div className="text-center">
                 <button className="btn btn-success" type="submit">Login</button>
             </div>
+            <div className="row optionslogin text-center" >
+                <a className="col-12 pt-3" href="">Olvide mi contraseña</a>
+                <a className="col-12 p-2" href="">Registrar</a>
+            </div>
+
+           
          </div>
         </> 
     );
