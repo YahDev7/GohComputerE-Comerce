@@ -9,9 +9,10 @@ export const UseDesc=(id,setloader)=>{
         preciodolares:null,
         preciosoles:null,
         link:"",
-        categoria_id:null
+        categoria_id:null,
+        subcategoria_id:null,
+        imagenes:[]
     }
-
 
     const [stateonepro, setStateonepro] = useState(initalProd);
     const [porespec, setPorespec] = useState([]);
@@ -21,7 +22,7 @@ export const UseDesc=(id,setloader)=>{
     const product=async(id)=>{
         setloader(true)
         const res= await Fetchs.getOne(id)
-        setStateonepro(res)
+        setStateonepro(...res)
         const resespe= await Fetchs.getOne(id,true)
         setPorespec(resespe)
 

@@ -45,6 +45,7 @@ export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
     };
 
     const handleCatActive=(e)=>{
+      console.log(e.target.value)
         setBtnactive(e.target.value)
     }
     const listcategorias=()=>{
@@ -58,10 +59,10 @@ export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
       return box 
   }
   const listarProd = () => {
-      let cat_id=Number(btnactive);
+      let cat_id=btnactive;
       let box=[];
-    
       for (let i = 0; i < stateProducts.length; i++) {
+        console.log(cat_id===stateProducts[i].idcat)
          //retorname todos los productos que sean solo de esta categoria 
           if(Number(stateProducts[i].idcat)===cat_id){
               box.push( 
@@ -74,6 +75,11 @@ export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
                 <CardProducts key={stateProducts[i].idcomp*Math.random()*100}  dolar={dolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
               )
           }
+          
+         /*    box.push( 
+              <CardProducts  key={Math.random()*100} dolar={dolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
+            ) */
+        
       }
 
       if(box.length===0) return <h2>No hay productos que mostrar</h2>

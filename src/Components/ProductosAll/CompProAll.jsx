@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { UseProAll } from "./Hooks/UseProAll";
 import Loader from "../Loader";
 const CompProAll = () => {
-    
     const {id}=useParams()
     const { addcarr,stateDolar,viewpro,loader}=useContext(CarrContext)
     const {proAll,ProdBysubcat}=  UseProAll(id,addcarr,stateDolar,viewpro)
     
+    console.log(proAll)
     
     return ( 
         <div className="pt-0 pt-sm-4">

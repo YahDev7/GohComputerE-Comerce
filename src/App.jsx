@@ -31,7 +31,6 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/confirmado/:idpedido" element={<Confirmado/>} />
         <Route path="/depositopedido/:idpedido" element={<DepositoPedido/>} />
-        
       </Routes>
     </div>
   )

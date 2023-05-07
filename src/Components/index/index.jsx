@@ -11,10 +11,10 @@ const Index = () => {
     return (
         <>
         <CarrProvider>
-            <Header></Header>
-            <Banner></Banner>
+             <Header></Header> 
+             <Banner></Banner>
             <ProDes></ProDes>
-            <ProDes nuevos={true}></ProDes>
+            <ProDes nuevos={true}></ProDes> 
             <ProIndex></ProIndex>
             <Footer></Footer>
         </CarrProvider>

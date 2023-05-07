@@ -4,7 +4,7 @@ const SubCardCategorias = ({subcat}) => {
 
     
     return <div className="card m-3" >
-        <a href={"/#/productos/"+subcat.id} >
+        <a href={"/#/productos/"+subcat._id} >
 
             <img src={subcat.url_imagen} className="card-img-top" alt="..." />
 

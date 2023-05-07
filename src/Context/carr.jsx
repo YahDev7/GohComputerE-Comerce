@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { Fetchs } from "../Fetchs/fetchs";
+import { FetchCat, Fetchs } from "../Fetchs/fetchs";
 
  
     const CarrContext= createContext()
@@ -46,13 +46,13 @@ import { Fetchs } from "../Fetchs/fetchs";
 
         const loadProducts= async()=>{
           setloader(true)
-          const res =await Fetchs.get("pro")
+          const res =await Fetchs.get()
           setStateProducts(res)
           setloader(false)
         }
         const loadCategorias= async()=>{
           setloader(true)
-          const res =await Fetchs.get("cat")
+          const res =await FetchCat.get()
           setStateCategorias(res)
           setloader(false)
 

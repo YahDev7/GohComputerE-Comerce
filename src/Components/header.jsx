@@ -8,15 +8,15 @@ const Header = () => {
     
     const navigate=useNavigate()
     const {itemsCarr,statesidebarCarr, statesetSidebarCarr,stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal,login} =useContext(CarrContext);
-    const{searchnav,boxsCat,procarr}=useHeader(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal);
+    const{searchnav,boxsCat,procarr}=useHeader(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal); 
    
     return (
         <>
-            <header id="Header" style={{height: "150px", transition: "300ms all"}}>
+             <header id="Header" style={{height: "150px", transition: "300ms all"}}>
 
                 <div id="HMain">
                     <div className="container" style={{width: "100%", textAlign:"center", paddingTop: "20px"}}>
-                        <a className="navbar-brand me-5" href="#/gohcomputer"><img src="https://res.cloudinary.com/dfsflp11q/image/upload/v1664857271/Gohcomputer/GOHComputer_qdtw9r.png" width="125px" className="logoGoh" alt="" /> </a>
+                        <a className="navbar-brand me-5" href="#/gohcomputer"><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1683210226/GOHComputer/Public/Group_324_1_vdhts9.png" width="505px" className="logoGoh" alt="" /> </a>
                     </div>
 
                     <div id="fi" className="" >
@@ -125,7 +125,7 @@ const Header = () => {
                 </div>
 }
 
-            </header>
+            </header> 
         </>
     );
 }

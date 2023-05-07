@@ -10,8 +10,7 @@ const CompDescription = () => {
     const {addcarr,stateDolar,loader,setloader} = useContext(CarrContext)
     const {stateonepro,porespec,setcantProd,cantProd} =UseDesc(id,setloader)
 
-//console.log(stateonepro);
-
+console.log(stateonepro)
     const espec = () => {
         let box=[];
         for (let i = 0; i < porespec.length; i++) {
@@ -30,7 +29,6 @@ const CompDescription = () => {
 
     return (  <div>
 
-       
         {stateonepro.err?<h2>{stateonepro.statusText}</h2>:
         <div className="pt-0 pt-sm-4">
             
@@ -53,15 +51,17 @@ const CompDescription = () => {
                             <div className="row imgAndDescri">
                                 <div className="imgDescripSlider  col-lg-7 col-12 col-md-7 " >
                                     <div className="boxDescrip">
-                                        <img src={stateonepro.url_imagencom} className="imgProDescrip" alt="" />
+                     <img src={stateonepro?.imagenes[0]?.URL||'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
+ 
+                                       {/*  <img src={stateonepro.url_imagencom} className="imgProDescrip" alt="" /> */}
                                     </div>
                                 </div>
 
                                 <div className="comDescrip m-auto  col-lg-7 col-10 col-md-7  mt-md-0 ps-0" >
                                     <h2 className="pb-0 pb-3 h2Des" >{stateonepro.nomcomp}</h2>
                                     <div className="row groupCodUrl" >
-                                        <p className="col-3" >codigo: {stateonepro.idcomp} </p>
-                                        <p className="col-3" >URL Fab: {stateonepro.url_fab} </p>
+                                        <p className="col-5" >codigo: {stateonepro.idcomp} </p>
+                                        <p className="col-3" >URL Fab: <a href={stateonepro.url_fab} target="_blank">Link</a> </p>
 
                                     </div>
 
@@ -86,7 +86,7 @@ const CompDescription = () => {
                                         </div>
 
                                     </div>
-                                    <p className="pb-3 pt-3 precioVentaPro col"> S/{stateonepro.precio_venta*stateDolar}</p>
+                                    <p className="pb-3 pt-3 precioVentaPro col"> S/{stateonepro.precio_venta*3.8}</p>
 
                                     <div className="divbtndesc">
                                         <button type="button" className="addCarr btn-description btn p-2" onClick={()=>addcarr(stateonepro.idcomp,cantProd)} > Agregar al carrito o comprar</button>
