@@ -59,7 +59,7 @@ export const UseProDest=(stateDolar,viewpro,addcarr)=>{
         for (let i = 0; i < stateProductsDest.length; i++) {
            
            box.push( 
-               <CardProducts dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsDest[i]} key={stateProductsDest[i].idcomp*Math.random()*100} ></CardProducts>
+               <CardProducts dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsDest[i]} key={stateProductsDest[i].idcomp} ></CardProducts>
                )
        }
 

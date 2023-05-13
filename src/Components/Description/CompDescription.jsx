@@ -10,20 +10,21 @@ const CompDescription = () => {
     const {addcarr,stateDolar,loader,setloader} = useContext(CarrContext)
     const {stateonepro,porespec,setcantProd,cantProd} =UseDesc(id,setloader)
 
-console.log(stateonepro)
     const espec = () => {
         let box=[];
-        for (let i = 0; i < porespec.length; i++) {
+        if(!stateonepro?.especificaciones)return <h2>No hay especificaciones que mostrar</h2>
+        if(stateonepro.especificaciones.length===0 )return <h2>No hay especificaciones que mostrar</h2>
+
+        for (let i = 0; i < stateonepro.especificaciones.length; i++) {
            
            box.push( 
-                <div key={porespec[i].idcomesp}>
-                    <h3>{porespec[i].title}</h3>
-                    <p>{porespec[i].nombre}</p>
+                <div >
+                    <h3>{stateonepro.especificaciones[i].Nombre}</h3>
+                    <p>{stateonepro.especificaciones[i].Descripcion}</p>
                 </div>
                )
        }
 
-       if(box.length===0) return <h2>No hay especificaciones que mostrar</h2>
        return box
    }
 
@@ -86,7 +87,7 @@ console.log(stateonepro)
                                         </div>
 
                                     </div>
-                                    <p className="pb-3 pt-3 precioVentaPro col"> S/{stateonepro.precio_venta*3.8}</p>
+                                    <p className="pb-3 pt-3 precioVentaPro col"> S/{ stateonepro?.precio_promoventa|| stateonepro.precio_venta}</p>
 
                                     <div className="divbtndesc">
                                         <button type="button" className="addCarr btn-description btn p-2" onClick={()=>addcarr(stateonepro.idcomp,cantProd)} > Agregar al carrito o comprar</button>
@@ -97,7 +98,7 @@ console.log(stateonepro)
                             <div className="m-5 ">
                                 <h2 className="pb-4 espec" >Especificaciones</h2>
 
-                            {espec()}
+                           {espec()}
 
                             </div>
                         </div>

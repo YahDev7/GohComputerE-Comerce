@@ -2,7 +2,7 @@
 const CardCategorias = ({cat,handleCatActive,btnactive,opcion}) => {
     if(!opcion){
         return (  
-            <button className={ Number(btnactive)===Number(cat._id)?"boxCat acti":"boxCat"} onClick={handleCatActive} value={cat._id} >{cat.nombre}</button>
+            <button className={btnactive===cat._id?"boxCat acti":"boxCat"} onClick={handleCatActive} value={cat._id} >{cat.nombre}</button>
         );
     }
     

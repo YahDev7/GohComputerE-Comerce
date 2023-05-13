@@ -1,6 +1,14 @@
 import { BaseURLAPI, BaseURLAPI2 } from "./Base_URL.js";
 
 export const Fetchs={
+     getpromo: async()=> {
+        const res = await fetch(`${BaseURLAPI2}/products/gohcomputer/allpromo`)
+       
+        const res2 =await res.json();
+        if(res2.err) return res2;
+
+       return res2
+    }, 
     get: async()=> {
         const res = await fetch(`${BaseURLAPI2}/products/gohcomputer/main`)
        
@@ -35,12 +43,12 @@ export const Fetchs={
         return res2
     },
     search: async(prod)=> {
-      /*   const res = await fetch(`${BaseURLAPI}/gohcomputer/search/?search=${prod}`)
+        console.log(prod)
+         const res = await fetch(`${BaseURLAPI2}/products/gohcomputer/search/${prod}`)
         const res2 =await res.json();
        
         if(res2.err) return {err:true,status:200,statusText:"No hay Productos"}
- */
-        return [];
+        return res2;
     }
 
 }

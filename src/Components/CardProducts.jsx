@@ -1,5 +1,4 @@
 const CardProducts = ({dolar,laptops, opcion,addcarr,viewpro }) => {
-
     if (!opcion) {
         return (
             <div className="boxProAll">
@@ -20,7 +19,7 @@ const CardProducts = ({dolar,laptops, opcion,addcarr,viewpro }) => {
                     </a>
 
                     <div className="row">
-                        <p className="PrecioDolar">${Number(laptops.precio_venta)}- <span className="preciosol">S/{(laptops.precio_venta*Number(3.8)).toFixed(2)}</span></p>
+                        <p className="PrecioDolar"><strike>${Number(laptops.precio_venta)} </strike> - <span className="preciosol">S/{ laptops?.precio_promoventa|| laptops.precio_venta}</span></p>
                     </div>
                     <p className="stock pb-3">Stock:{laptops.stock}</p>
                     <p className="Oferta d-none"> $20</p>

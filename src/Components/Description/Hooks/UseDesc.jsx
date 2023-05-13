@@ -22,7 +22,8 @@ export const UseDesc=(id,setloader)=>{
     const product=async(id)=>{
         setloader(true)
         const res= await Fetchs.getOne(id)
-        setStateonepro(...res)
+        console.log(res)
+        setStateonepro(res)
         const resespe= await Fetchs.getOne(id,true)
         setPorespec(resespe)
 

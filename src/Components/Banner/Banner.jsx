@@ -12,13 +12,11 @@ const Banner = () => {
                         <a href="#/gohcomputer">
                             <img src="https://res.cloudinary.com/dfsflp11q/image/upload/v1665883615/Gohcomputer/setup_k3r5ip.jpg" className="d-block w-100 sliderMain" alt="..." />
                         </a>
-
                     </div>
                     <div className="carousel-item" data-bs-interval="2000">
                         <a href="#/gohcomputer">
-                            <img src="https://res.cloudinary.com/dfsflp11q/image/upload/v1665883615/Gohcomputer/setup2_ytzn55.jpg" className="d-block w-100 sliderMain" alt="..." />
+                            <img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1683851250/GOHComputer/Public/338174183_608262604164035_4654114067080847872_n_oia6kp.png" className="d-block w-100 sliderMain" alt="..." />
                         </a>
-
 
                     </div>
                     <div className="carousel-item">

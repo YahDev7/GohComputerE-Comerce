@@ -22,6 +22,53 @@ body{
     --body-bg-color:#f8fafc;
 }
 
+.minusBtn,.minusBtnsidebar,.plusBtnsidebar,.plusBtn{
+    background: var(--primary-color) !important;
+    border:var(--primary-color) !important;
+}
+
+.minusBtn:hover,.minusBtnsidebar:hover,.plusBtnsidebar:hover,.plusBtn:hover{
+    background: var(--primary-color) !important;
+    border:var(--primary-color) !important;
+}
+
+.features-section{
+    background-color:var(--body-bg-color);
+    padding: 20px;
+}
+
+.features-section h3{
+  font-size: 20px !important;
+  margin-bottom: 0 !important;
+}
+.features-section .fea{
+ margin-top: 10px !important; 
+  }
+
+.features-section i{
+   font-size: 30px !important;
+}
+
+
+#contact{
+    height: 400px !important ;
+}
+#contact h2{
+    font-size: 30px !important;
+}
+
+#contact a{
+
+   background: var(--main-bg-color);
+   border: var(--main-bg-color);
+}
+#contact .grupocontact{
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+
 #Header,#HMain{
     background: var(--main-bg-color);
 }
