@@ -62,7 +62,7 @@ export const UseProDest=(stateDolar,viewpro,addcarr)=>{
         for (let i = 0; i < stateProductsDest.length; i++) {
            
            box.push( 
-               <CardProducts key={stateProductsDest[i].idcomp*Math.random()*120}  dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsDest[i]} ></CardProducts>
+               <CardProducts key={stateProductsDest[i].idcomp}  dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsDest[i]} ></CardProducts>
                )
        }
 
@@ -74,7 +74,7 @@ export const UseProDest=(stateDolar,viewpro,addcarr)=>{
     for (let i = 0; i < stateProductsNews.length; i++) {
        
        box.push( 
-           <CardProducts key={stateProductsNews[i].idcomp*Math.random()*140} dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsNews[i]}  ></CardProducts>
+           <CardProducts key={stateProductsNews[i].idcomp} dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProductsNews[i]}  ></CardProducts>
            )
    }
 

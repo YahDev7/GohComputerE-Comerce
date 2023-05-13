@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Fetchs } from "../../../Fetchs/fetchs"
 import CardProducts from "../../CardProducts";
@@ -16,18 +17,22 @@ export const UseProAll=(id,addcarr,stateDolar,viewpro)=>{
     }, [id]);
 
     const ProdBysubcat = () => {
+        console.log(proAll)
         let box = [];
+
+        if(proAll.message) return <h2>{proAll.message}</h2>
         for (let i = 0; i < proAll.length; i++) {
             box.push(
                 <CardProducts dolar={stateDolar} viewpro={viewpro} key={proAll[i].idcomp} addcarr={addcarr} laptops={proAll[i]}></CardProducts>
             )
 
         }
-        if(box.length===0) return <h2>No hay productos joder que mostrar</h2>
-
         return box
     }
 
     return {proAll,ProdBysubcat}
 
 }
+
+
+

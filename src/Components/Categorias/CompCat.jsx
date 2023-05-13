@@ -9,7 +9,7 @@ const CompCat = () => {
     const {allcat}= Usecat(stateCategorias)
    
     return ( 
-        <div id="categorias" className="container mt-5 pt-5 mb-5" >
+        <div id="categorias" className="container mt-5 mb-5" >
         <div id="titlecategorias" className="  mb-5">
             <h2 className="text-center">Todas las categorias</h2>
         </div>

@@ -6,7 +6,7 @@ export const useHeader=(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr
     const [StatesubCats, setStatesubCats] = useState([]);
 
     const subCatsbyCat=async(id)=>{
-        let res = await FetchSubCat.getOne(id)
+        let res = await FetchSubCat.getByCat(id)
         setStatesubCats(res)
 
     }
@@ -21,8 +21,8 @@ export const useHeader=(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr
         if(StatesubCats.length){
             for (let i = 0; i < StatesubCats.length; i++) {
                 box.push(
-                    <div className="ps-5" key={StatesubCats[i].id} >     
-                    <a href={"#/productos/"+StatesubCats[i].id}>
+                    <div className="ps-5" key={StatesubCats[i]._id} >     
+                    <a href={"#/productos/"+StatesubCats[i]._id}>
                     {StatesubCats[i].nombre}
 
                     </a>
@@ -72,10 +72,10 @@ export const useHeader=(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr
         let box = [];
         for (let i = 0; i < stateCategorias.length; i++) {
             box.push(
-                <li className="accordion-item " key={stateCategorias[i].id}>
+                <li className="accordion-item " key={stateCategorias[i]._id}>
 
-                <a href={"#/subcategorias/"+stateCategorias[i].id} className="nav-link menuLateralCateAcordeon" id="flush-acordionOne" > {stateCategorias[i].nombre}</a>
-                <i className="fas fa-plus fs-4 collapsed subCatBtn" onClick={()=>subCatsbyCat(stateCategorias[i].id)}  data-categoria_id="laptops" data-bs-toggle="collapse" data-bs-target={"#flush-"+(stateCategorias[i].nombre).replace(" ","")} aria-controls="flush-laptops"></i>
+                <a href={"#/subcategorias/"+stateCategorias[i]._id} className="nav-link menuLateralCateAcordeon" id="flush-acordionOne" > {stateCategorias[i].nombre}</a>
+                <i className="fas fa-plus fs-4 collapsed subCatBtn" onClick={()=>subCatsbyCat(stateCategorias[i]._id)}  data-categoria_id="laptops" data-bs-toggle="collapse" data-bs-target={"#flush-"+(stateCategorias[i].nombre).replace(" ","")} aria-controls="flush-laptops"></i>
                 
                 <div id={"flush-"+(stateCategorias[i].nombre).replace(" ","")} className="accordion-collapse collapse" aria-labelledby="flush-laptops" data-bs-parent="#MenuLateralAccordionDnone">
                    {subcatsBox()}

@@ -16,9 +16,9 @@ const ItemsCarr = ({itemsCarr,pluscarr,minuscarr,btnremovepro}) => {
 
                 </div>
                 <div className="cantidad p-0 col-3 col-md-3 text-center align-self-center">
-                    <button className="minusBtn" onClick={()=>minuscarr(itemsCarr.id) } data-idminus="6" >-</button>
-                    <input type="number" className="inputcarrcantidad" value={itemsCarr.unidad} />
-                    <button className="plusBtn" onClick={()=>pluscarr(itemsCarr.id)} data-idplus="6" >+</button>
+                    <button className="minusBtn btn btn-success" onClick={()=>minuscarr(itemsCarr.id) } data-idminus="6" >-</button>
+                    <input type="number" className="inputcarrcantidad" value={itemsCarr.unidad}  /* defaultValue={itemsCarr.unidad} se necesita para evitar la advertencia *//>
+                    <button className="plusBtn btn btn-success" onClick={()=>pluscarr(itemsCarr.id)} data-idplus="6" >+</button>
                 </div>
                 <div className="precio p-0 col-2 col-md-3 text-center align-self-center">
                    S/{itemsCarr.precio}

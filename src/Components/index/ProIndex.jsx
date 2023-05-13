@@ -7,14 +7,14 @@ import Loader from "../Loader";
 
 const ProIndex = () => {
     const {addcarr,stateDolar,stateProducts,viewpro,stateCategorias,loader} =useContext(CarrContext)
-    const {handleCatActive, btnactive,settings,listcategorias,listarProd}= UseCats(addcarr,stateDolar,viewpro,stateProducts,stateCategorias)
+    const {handleCatActive,idsubcat, btnactive,settings,listcategorias,listarProd}= UseCats(addcarr,stateDolar,viewpro,stateProducts,stateCategorias)
     
 
     return (  
         <section className="sectionProductosAll container">
-            <h2 className="titleProAll"> Productos</h2>
+            <h2 className="titleProAll"> Promociones</h2>
 
-            <div style={{position:"relative"}}>
+         {/*    <div style={{position:"relative"}}>
                 {loader&&<Loader></Loader>}
                 <section className="sliderCat">
                     <Slider key={Math.random()*100} {...settings}>
@@ -22,11 +22,12 @@ const ProIndex = () => {
                         {listcategorias()}
                     </Slider>
                 </section>
-            </div>
+            </div> */}
 
             <div style={{position:"relative"}}>             
                 {loader&&<Loader></Loader>}
-                <a href="#/categorias" className="vermas" >Ver más</a>    
+               {/*  <a href={idsubcat===0?"#/categorias":`#/subcategorias/${idsubcat}`} className="vermas" >Ver más</a>   */}  
+              <a href="#/Gohcomputer/productos/allPromo" className="vermas" >Ver más</a>     
                 <section className="prodAll" id="ProAll">   
                 {
                 listarProd()

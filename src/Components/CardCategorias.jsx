@@ -2,12 +2,12 @@
 const CardCategorias = ({cat,handleCatActive,btnactive,opcion}) => {
     if(!opcion){
         return (  
-            <button className={ Number(btnactive)===Number(cat.id)?"boxCat acti":"boxCat"} onClick={handleCatActive} value={cat.id} >{cat.nombre}</button>
+            <button className={btnactive===cat._id?"boxCat acti":"boxCat"} onClick={handleCatActive} value={cat._id} >{cat.nombre}</button>
         );
     }
     
     return <div className="card m-3" >
-        <a href={"#/subcategorias/"+cat.id} >
+        <a href={"#/subcategorias/"+cat._id} >
 
             <img src={cat.url_imagen} className="card-img-top" alt="..." />
 

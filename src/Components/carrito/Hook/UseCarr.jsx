@@ -11,7 +11,6 @@ export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro)=>{
 
     const productCarr = () => {
         let box = [];
-     
         if(itemsCarr.length){
             for (let i = 0; i < itemsCarr.length; i++) {
                 box.push(<ItemsCarr btnremovepro={btnremovepro} pluscarr={ pluscarr} minuscarr={ minuscarr} itemsCarr={itemsCarr[i]} key={itemsCarr[i].id}></ItemsCarr>)

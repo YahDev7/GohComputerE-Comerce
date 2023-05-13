@@ -12,6 +12,7 @@ import ProductosAll from "./Components/ProductosAll/ProductosAll"
 import Prueba from "./Components/Prueba"
 import Search from "./Components/Search/Search"
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
+import All from "./Components/ProductosAll/all"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/Gohcomputer" element={<Index></Index>} />
         <Route path="/description/:id" element={<Description></Description>} />
+        <Route path="/Gohcomputer/Productos/allPromo" element={<All></All>} />
         <Route path="/Productos/:id" element={<ProductosAll></ProductosAll>} />
         <Route path="/subcategorias/:id" element={<Subcategoria/>} />
         <Route path="/categorias" element={<Categorias/>} />
@@ -31,7 +33,6 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/confirmado/:idpedido" element={<Confirmado/>} />
         <Route path="/depositopedido/:idpedido" element={<DepositoPedido/>} />
-        
       </Routes>
     </div>
   )

@@ -13,9 +13,9 @@ const CarrItemsSide = ({itemsCarr, pluscarr,minuscarr,btnremovepro}) => {
               
             </div>
             <div className="precio row ">
-                <button className="minusBtnsidebar col-2" onClick={ ()=>minuscarr(itemsCarr.id)} >-</button>
+                <button className="minusBtnsidebar btn btn-success col-2" onClick={ ()=>minuscarr(itemsCarr.id)} >-</button>
                 <p className=" col-8">S/{itemsCarr.precio+" x "+itemsCarr.unidad} </p>
-                <button className="plusBtnsidebar col-2" onClick={ ()=>pluscarr(itemsCarr.id)}  >+</button>
+                <button className="plusBtnsidebar btn btn-success col-2" onClick={ ()=>pluscarr(itemsCarr.id)}  >+</button>
             </div>
         </div>
         <div className="col-2" style={{alignSelf: "center"}} >
