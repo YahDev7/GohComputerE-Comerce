@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { FetchCat, Fetchs } from "../Fetchs/fetchs";
+import { BaseURLAPI2 } from "../Fetchs/Base_URL";
 
  
     const CarrContext= createContext()
@@ -105,7 +106,7 @@ import { FetchCat, Fetchs } from "../Fetchs/fetchs";
           body:JSON.stringify(carr),
           headers:{'Content-Type': 'application/json'} 
         };
-        const res = await fetch("http://localhost:4005/carrito/gohcomputer",options);
+        const res = await fetch(`${BaseURLAPI2}/carrito/gohcomputer`,options);
        
         const res2 =await res.json();
       
@@ -119,7 +120,7 @@ import { FetchCat, Fetchs } from "../Fetchs/fetchs";
           body:JSON.stringify({tok}),
           headers:{'Content-Type': 'application/json','Authorization':`Bearer ${tok}`} 
         };
-        const res = await fetch("http://localhost:4005/carrito/gohcomputer/get",options);
+        const res = await fetch(`${BaseURLAPI2}/carrito/gohcomputer/get`,options);
         const res2 =await res.json();
         if(res2.err){
           localStorage.removeItem("tokencarr")
