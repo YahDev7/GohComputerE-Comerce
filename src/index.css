@@ -10,6 +10,9 @@ body{
     /* background-color: var(--body-bg-color); */
 }
 
+
+
+
 :root{
     --main-bg-color:#2F466E;
     --second-bg-color:#F2F5F2;
@@ -26,6 +29,17 @@ body{
     background: var(--primary-color) !important;
     border:var(--primary-color) !important;
 }
+
+.btn-login{
+    background: var(--primary-color) !important;
+    border:var(--primary-color) !important;
+    color: white;
+}
+.btn-login:hover{
+  
+    color: white;
+}
+
 
 .minusBtn:hover,.minusBtnsidebar:hover,.plusBtnsidebar:hover,.plusBtn:hover{
     background: var(--primary-color) !important;
@@ -538,10 +552,9 @@ input[type="number"]::-webkit-outer-spin-button{
 }
 
 .loginweb{
+    margin-top: 100px !important;
+    margin-bottom: 100px !important;
     padding: 15px;
-    position: absolute;
-    top: 30%;
-    left: 30%;
     outline: 00.5px solid #ccc;
     width: 540px;
     margin: auto;
@@ -557,7 +570,7 @@ input[type="number"]::-webkit-outer-spin-button{
     text-align: center;
 }
 .optionslogin a{
-    color:#999999 ;
-    font-weight: bold;
+    color:var(--primary-color) ;
+  font-weight: 500;
     text-decoration: none;
 }

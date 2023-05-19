@@ -90,3 +90,13 @@ if(Subcat.length===0) return {err:true,status:200,statusText:"No hay subcategori
 
     }
 }
+
+export const fetchLogin={
+    login:async (body)=>{
+        return console.log(body)
+        const res = await fetch(`${BaseURLAPI2}/login/gohcomputer`)
+        const res2 =await res.json();
+        
+        return res2;
+    }
+}

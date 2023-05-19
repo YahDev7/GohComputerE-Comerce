@@ -23,7 +23,7 @@ const Contact=()=> {
                     <i className="fa fa-phone mr-2 me-2"></i>Contacto
                 </a>
                 <a
-                    href="https://api.whatsapp.com/send?phone=989471269"
+                    href="https://api.whatsapp.com/send?phone=989471269&text=Hola,%20deseo%un%20producto%20de%20GOH%20Computer"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary btn-xl col-4 pt-2 pb-2"

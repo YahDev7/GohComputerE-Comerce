@@ -3,7 +3,6 @@ import Carrito from "./Components/carrito/Carrito"
 import Categorias from "./Components/Categorias/Categorias"
 import Description from "./Components/Description/Description"
 import Index from "./Components/index"
-import Login from "./Components/Login/Login"
 import DetailPedi from "./Components/Pedidos/All/DetailPed"
 import Pedidos from "./Components/Pedidos/All/MisPedidos"
 import Confirmado from "./Components/Pedidos/confirm/PedidoConfirm"
@@ -13,6 +12,7 @@ import Prueba from "./Components/Prueba"
 import Search from "./Components/Search/Search"
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
 import All from "./Components/ProductosAll/all"
+import LoginIndex from "./Components/Login/LoginIndex"
 
 function App() {
 
@@ -30,7 +30,7 @@ function App() {
         <Route path="/prueba" element={<Prueba/>} />
         <Route path="/pedidos" element={<Pedidos/>} />
         <Route path="/detallepedido/:idpedido" element={<DetailPedi/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<LoginIndex/>} />
         <Route path="/confirmado/:idpedido" element={<Confirmado/>} />
         <Route path="/depositopedido/:idpedido" element={<DepositoPedido/>} />
       </Routes>
