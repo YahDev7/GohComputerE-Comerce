@@ -1,3 +1,8 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* @import "./css/componentes.css";
 @import "./css/description.css";
 @import "./css/carrito.css";
@@ -574,3 +579,4 @@ input[type="number"]::-webkit-outer-spin-button{
   font-weight: 500;
     text-decoration: none;
 }
+

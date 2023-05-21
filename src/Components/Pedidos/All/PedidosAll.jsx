@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../Fetchs/pedidos";
+import CarrContext from "../../../Context/carr";
 
 
 const AllPedidos = () => {
     const [pedidosAll, setPedidosAll] = useState([]);
+    const {tokensession,tokensessionset}=useContext(CarrContext)
 
+    if(!tokensession) return location.href='/#/gohcomputer'
     const allpedi=async()=>{
           let res= await FetchsPedidos.getallpedidos();
         console.log(res);

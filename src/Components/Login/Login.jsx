@@ -1,31 +1,86 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { fetchLogin } from "../../Fetchs/fetchs";
-
-let frmlogin={
-  email:'',
-  password:''
+import withReactContent from "sweetalert2-react-content";
+import CarrContext from "../../Context/carr";
+const MySwal = withReactContent(Swal) 
+let frmlogin = {
+  email: '',
+  pass: ''
 }
 const Login = () => {
 
   const [form, setform] = useState(frmlogin);
 
-  const handleChange=(e)=>{
-    const {name,value} =e.target;
+  const {tokensession} =useContext(CarrContext)
+
+  console.log(tokensession)
+  if(tokensession)return location.href="/#/gohcomputer"
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setform({
       ...form,
-      [name]:value
+      [name]: value
     })
 
   }
 
-  const send =(e)=>{
-    fetchLogin.login(form)
+  const send = async (e) => {
+   let res=await fetchLogin.login(form)
+
+    console.log(res)
+    if(res.statusCode) return MySwal.fire({
+        title: <h2>{res.message[0]}</h2>,
+        icon: 'error'
+      }) 
+
+      MySwal.fire({
+        title: <h2>Bienvenido {res.user.nombres}</h2>,
+        icon: 'success'
+      })           
+     // document.cookie=`token=${res.token}`
+      localStorage.setItem("tokensession",res.token)
+
+      location.href="/#/gohcomputer";   
   }
 
 
-    return (
-        <>
-<div className="loginweb">
+  return (
+    <>
+
+      <div className='w-5/12 min-h-screen grid place-items-center w-sm-8/12 m-auto text-center'>
+        <div className='w-full'>
+          <div className='w-full flex flex-col'>
+            <h3 className='!text-3xl font-semibold mb-4 text-[#0d1a44]'>Login</h3>
+            <p className='text-sm mb-2'>GOH Computer</p>
+          </div>
+          <form action="" onSubmit={(e)=>{e.preventDefault();send(e)}}>
+
+            <div className='w-full'>
+              <input type="email" placeholder='Email' id="email" name="email" onChange={(e)=>handleChange(e)}
+                className='w-full text-[#0d1a44] bg-transparent border-[#0d1a44] py-4 my-2 bg-none border-b outline-none focus:outline-none' />
+              <input type="password" placeholder='Password'  name="pass"  id="pass" onChange={(e)=>handleChange(e)}
+                className='w-full text-[#0d1a44] bg-transparent border-[#0d1a44] py-4 my-2  bg-none border-b outline-none focus:outline-none' />
+            </div>
+
+            <div className='w-full flex items-center justify-between'>
+              <div className='w-full flex items-center'>
+                <input type="checkbox" className='w-4 h-4 mr-2' />
+                <p className='text-sm'> Recuerdalo</p>
+              </div>
+              <p className='text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>¿Olvidaste tu contraseña?</p>
+            </div>
+            <div className='w-full flex flex-col my-4'>
+              <button className='w-full text-white my-2 font-semibold bg-[#0d1a44] rounded-md p-4 text-center flex items-center justify-center'>Log in</button>
+              <a href="/#/Register" className='w-full text-[#0d1a44] my-2 font-semibold bg-white border-2  focus:bg rounded-md p-4 text-center flex items-center justify-center'>Register</a>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      {/* <div className="loginweb">
 
 <h3>Login</h3> 
 <form action="" onSubmit={(e)=>{e.preventDefault();send(e)}}>
@@ -47,9 +102,9 @@ const Login = () => {
 </div>
 
 
-</div> 
+</div>  */}
 
-{/*  
+      {/*  
       <form >
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -93,7 +148,7 @@ const Login = () => {
 
 
 
-{/* 
+      {/* 
 <div id="main-wrapper" >
     <div className="row justify-content-center">
         <div className="col-xl-10">
@@ -147,7 +202,7 @@ const Login = () => {
 </div> */}
 
 
-{/* <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+      {/* <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
   <li className="nav-item" role="presentation">
     <a className="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
       aria-controls="pills-login" aria-selected="true">Login</a>
@@ -275,9 +330,9 @@ const Login = () => {
 
 
 
-         
-        </> 
-    );
+
+    </>
+  );
 }
- 
+
 export default Login;

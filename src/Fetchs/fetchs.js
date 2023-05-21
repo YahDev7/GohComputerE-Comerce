@@ -93,10 +93,43 @@ if(Subcat.length===0) return {err:true,status:200,statusText:"No hay subcategori
 
 export const fetchLogin={
     login:async (body)=>{
-        return console.log(body)
-        const res = await fetch(`${BaseURLAPI2}/login/gohcomputer`)
+        let options= {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+            // otras opciones...
+          }
+        const res = await fetch(`${BaseURLAPI2}/customer/gohcomputer/login`,options)
         const res2 =await res.json();
-        
+        console.log(res2)
+        return res2;
+    },
+    register:async (body)=>{
+        body={...body,"enterprise_id": "6463b7176f62eabdc5d7329d","estado": "A"}
+        console.log(body)
+/* 
+        const options={
+            method:"POST",
+            body:JSON.stringify({"user":frmLogin.user.value,"password":frmLogin.password.value}),
+            headers:{"Content-Type":"application/json"}
+        }; */
+       let options= {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+            // otras opciones...
+          }
+          
+
+
+        const res = await fetch(`${BaseURLAPI2}/customer/gohcomputer/register`,options)
+        const res2 =await res.json();
+        console.log(res2)
+    
         return res2;
     }
 }

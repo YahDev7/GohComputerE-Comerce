@@ -10,6 +10,10 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
     const CarrProvider=({children})=>{
       
       let tokencarr=localStorage.getItem("tokencarr")
+      let tokenSession=localStorage.getItem("tokensession")
+
+       const [tokensession, tokensessionset] = useState(tokenSession===null?null:tokenSession);
+       console.log(tokensession)
         const [itemsCarr, setItemsCarr] = useState(initalcarr);
         const [subtotal, setsubtotal] = useState(0);
         const [statesidebarCarr, statesetSidebarCarr] = useState(false);
@@ -104,7 +108,7 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
         const options={
           method:"POST",
           body:JSON.stringify(carr),
-          headers:{'Content-Type': 'application/json'} 
+          headers:{'Content-Type': 'application/json', "Authorization": `Bearer ${tokensession}`,}
         };
         const res = await fetch(`${BaseURLAPI2}/carrito/gohcomputer`,options);
        
@@ -122,7 +126,7 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
         };
         const res = await fetch(`${BaseURLAPI2}/carrito/gohcomputer/get`,options);
         const res2 =await res.json();
-        if(res2.err){
+        if(res2.statusCode){
           localStorage.removeItem("tokencarr")
           return [];
         } 
@@ -205,6 +209,8 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
             subtotal,
             btnremovepro,
             tokcarr,
+            tokensession,
+            tokensessionset
            /*  stateProductsPromo */
           }
 

@@ -13,6 +13,13 @@ import Search from "./Components/Search/Search"
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
 import All from "./Components/ProductosAll/all"
 import LoginIndex from "./Components/Login/LoginIndex"
+import Register from "./Components/Login/Register"
+import AdminSidebar from "./Components/admin/sidebar"
+import UserAdmin from "./Components/admin/User/users"
+import UnidadAdmin from "./Components/admin/Unidades/Unidades"
+import ProductosAdmin from "./Components/admin/Productos/Productos"
+import CategoriaAdmin from "./Components/admin/Categoria/Categoria"
+import SubcatAdmin from "./Components/admin/Subcategoria/Subcategoria"
 
 function App() {
 
@@ -31,8 +38,23 @@ function App() {
         <Route path="/pedidos" element={<Pedidos/>} />
         <Route path="/detallepedido/:idpedido" element={<DetailPedi/>} />
         <Route path="/login" element={<LoginIndex/>} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/confirmado/:idpedido" element={<Confirmado/>} />
         <Route path="/depositopedido/:idpedido" element={<DepositoPedido/>} />
+
+        <Route path="/dashadmin/gohcomputer/Unidades" element={<UnidadAdmin/>} />
+        {/* <Route path="/dashadmin/gohcomputer/Servicios" element={<UserAdmin/>} /> */}
+        <Route path="/dashadmin/gohcomputer/Users" element={<UserAdmin/>} />
+        <Route path="/dashadmin/gohcomputer/Customers" element={<AdminSidebar/>} />
+        <Route path="/dashadmin/gohcomputer/Providers" element={<AdminSidebar/>} />
+        <Route path="/dashadmin/gohcomputer/Productos" element={<ProductosAdmin/>} />
+        <Route path="/dashadmin/gohcomputer/Categoria" element={<CategoriaAdmin/>} />
+        <Route path="/dashadmin/gohcomputer/Subcategoria" element={<SubcatAdmin/>} />
+        <Route path="/dashadmin/gohcomputer/Documentos" element={<AdminSidebar/>} />
+        <Route path="/dashadmin/gohcomputer/Movimientos" element={<AdminSidebar/>} />
+        <Route path="/dashadmin/gohcomputer/Caja" element={<AdminSidebar/>} />
+        <Route path="/dashadmin/gohcomputer/Setting" element={<AdminSidebar/>} />
+
       </Routes>
     </div>
   )

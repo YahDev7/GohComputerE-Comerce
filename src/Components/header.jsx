@@ -7,9 +7,16 @@ import { useHeader } from "./Hooks/UseHeader";
 const Header = () => {
     
     const navigate=useNavigate()
-    const {itemsCarr,statesidebarCarr, statesetSidebarCarr,stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal,login} =useContext(CarrContext);
+    const {tokensession,tokensessionset,itemsCarr,statesidebarCarr, statesetSidebarCarr,stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal,login} =useContext(CarrContext);
     const{searchnav,boxsCat,procarr}=useHeader(navigate, itemsCarr, stateCategorias, pluscarr,minuscarr,btnremovepro,subtotal); 
    
+    const logout=()=>{
+      /*   console.log(tokensession)
+       */
+        localStorage.removeItem("tokensession")
+        tokensessionset(null)
+    }
+
     return (
         <>
              <header id="Header" style={{height: "150px", transition: "300ms all"}}>
@@ -44,7 +51,7 @@ const Header = () => {
 
                             <div className="col-4 col-md-2 row">
                                 {  
-                                login?<li className="nav-item dropdown w-25 btnUser col" style={{listStyle:"none"}}>
+                                tokensession?<li className="nav-item dropdown w-25 btnUser col" style={{listStyle:"none"}}>
                                 <a className="nav-link dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="fas fa-user"></i>
                                 </a>
@@ -53,13 +60,16 @@ const Header = () => {
                                     <li><a className="dropdown-item" href="#">Ajustes</a></li>
                                     <li><a className="dropdown-item" href="#/pedidos">Mis pedidos</a></li>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Cerrar Sesión</a></li>
+                                    {tokensession&&<li><a className="dropdown-item"  onClick={(e)=>logout()}>Cerrar Sesión</a></li>}
                                 </ul>
                             </li>:
                                  <li className="col" style={{listStyle: "none",fontWeight:'bold' }}>
-                                 <a className="nav-link iconCarr text-white" href="#/login" >
+                                
+                                
+                                 {tokensession?<li><a className="nav-link iconCarr text-white" onClick={(e)=>logout()} >Cerrar Sesión</a></li>:<a className="nav-link iconCarr text-white" href="#/login" >
                                     Iniciar Sesion
-                                 </a>
+                                 </a>}
+
                              </li>
 
                                 }
