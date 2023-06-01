@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Fetchs } from "../../../Fetchs/fetchs"
+import { Fetchs } from "../../../api/fetchs"
 import CardProducts from "../../CardProducts";
 
 export const UseProAll=(id,addcarr,stateDolar,viewpro)=>{
@@ -17,7 +17,6 @@ export const UseProAll=(id,addcarr,stateDolar,viewpro)=>{
     }, [id]);
 
     const ProdBysubcat = () => {
-        console.log(proAll)
         let box = [];
 
         if(proAll.message) return <h2>{proAll.message}</h2>

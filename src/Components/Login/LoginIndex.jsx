@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import CarrContext, { CarrProvider } from "../../Context/carr";
+import CarrContext, { CarrProvider } from "../../context/carr";
 import Footer from "../Footer";
 import Header from "../header";
 

@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import { UseCarr } from "./Hook/UseCarr";
 
 const CompCarr = () => {
 
-    const {itemsCarr, pluscarr,minuscarr,subtotal,btnremovepro,tokcarr}=useContext(CarrContext)
-    const {productCarr,confirmPedido} =UseCarr(itemsCarr, pluscarr,minuscarr,btnremovepro)
+    const {itemsCarr, pluscarr,minuscarr,subtotal,btnremovepro,tokcarr,tokensession}=useContext(CarrContext)
+    const {productCarr,confirmPedido} =UseCarr(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)
     //console.log(itemsCarr);
     
     return ( 
@@ -13,17 +13,17 @@ const CompCarr = () => {
 
             {productCarr().err?
             <>
-                <h2>No tiene  porductos en el carrito</h2>
+                <h2 className="mb-5 text-3xl font-bold">No tiene  porductos en el carrito</h2>
                 <div className=" pb-2">
-                    <a href="#/gohcomputer" className="btn btn-success">Continuar comprando</a>
+                    <a href="#/gohcomputer" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar comprando</a>
                 </div>
             </>
             : 
             <>
                 <div className="carrContent row m-auto mb-4 " >
                     <div className="col-lg-12">
-                        <h2 className="ps-4" >Carrito de compras</h2>
-                        <button type="button" className="btn btn-danger limpiarCarr">Limpiar carrito</button>
+                        <h2 className=" !text-4xl font-extrabold text-[#2F466E]" >Carrito de compras</h2>
+                        <button type="button" className="mt-4 limpiarCarr focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Limpiar carrito</button>
                     </div>
 
 
@@ -47,15 +47,15 @@ const CompCarr = () => {
                             <span className="col-6 text-end">S/{subtotal}</span>
                         </div>
                         <div className="p-4 w-100" >
-                            <button type="button" className="btn btn-danger" 
+                            <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" 
                                 onClick={()=>confirmPedido(tokcarr,subtotal)}
                             >Comprar</button>
                         </div>
                     </div>
 
                 </div>
-                <div className=" pb-2">
-                    <a href="#/gohcomputer" className="btn btn-success">Continuar comprando</a>
+                <div className=" mb-7">
+                    <a href="#/gohcomputer" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar comprando</a>
                 </div>
             </>
             }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  FetchCat, FetchSubCat } from "../../../Fetchs/fetchs";
+import {  FetchCat, FetchSubCat } from "../../../api/fetchs";
 import SubCardCategorias from "../../CardSubCategorias";
 
 export const UseSubCats =(id)=>{
@@ -21,7 +21,6 @@ export const UseSubCats =(id)=>{
         let box = [];
         if(stateSubCategorias.message) return <h2>{stateSubCategorias.message}</h2>
         
-        console.log(stateSubCategorias)
         if(stateSubCategorias.length){
         for (let i = 0; i < stateSubCategorias.length; i++) {
                 box.push(

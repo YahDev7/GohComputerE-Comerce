@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FetchsPedidos } from "../../../Fetchs/pedidos";
+import { FetchsPedidos } from "../../../api/pedidos";
 import { useParams} from "react-router-dom"
 
 

@@ -1,4 +1,4 @@
-import { BaseURLAPI } from "./Base_URL.js";
+import { BaseURLAPI } from "../config/Base_URL.js";
 
 export const FetchsPedidos={
     getallpedidos: async()=> {

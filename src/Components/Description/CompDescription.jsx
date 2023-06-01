@@ -2,7 +2,7 @@
 import { UseDesc } from "./Hooks/UseDesc";
 import { useParams} from "react-router-dom"
 import { useContext } from "react";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import Loader from "../Loader";
 
 const CompDescription = () => {
@@ -10,6 +10,7 @@ const CompDescription = () => {
     const {addcarr,stateDolar,loader,setloader} = useContext(CarrContext)
     const {stateonepro,porespec,setcantProd,cantProd} =UseDesc(id,setloader)
 
+    console.log(stateonepro?.imagenes[0]?.URL)
     const espec = () => {
         let box=[];
         if(!stateonepro?.especificaciones)return <h2>No hay especificaciones que mostrar</h2>
@@ -18,9 +19,9 @@ const CompDescription = () => {
         for (let i = 0; i < stateonepro.especificaciones.length; i++) {
            
            box.push( 
-                <div >
-                    <h3>{stateonepro.especificaciones[i].Nombre}</h3>
-                    <p>{stateonepro.especificaciones[i].Descripcion}</p>
+                <div className="pb-2">
+                    <h3 className="!text-2xl font-semibold text-[#191919]">{stateonepro.especificaciones[i].Nombre}</h3>
+                    <p className="font-semibold text-[#03449d]">{stateonepro.especificaciones[i].Descripcion}</p>
                 </div>
                )
        }
@@ -59,10 +60,10 @@ const CompDescription = () => {
                                 </div>
 
                                 <div className="comDescrip m-auto  col-lg-7 col-10 col-md-7  mt-md-0 ps-0" >
-                                    <h2 className="pb-0 pb-3 h2Des" >{stateonepro.nomcomp}</h2>
+                                    <h2 className=" pb-3 h2Des font-bold !text-3xl max-sm:!text-2x1 max-sm:mt-5" >{stateonepro.nomcomp}</h2>
                                     <div className="row groupCodUrl" >
                                         <p className="col-5" >codigo: {stateonepro.idcomp} </p>
-                                        <p className="col-3" >URL Fab: <a href={stateonepro.url_fab} target="_blank">Link</a> </p>
+                                        <p className="col-3" >URL Fab: <a href={stateonepro.url_pro} target="_blank">Link</a> </p>
 
                                     </div>
 
@@ -87,7 +88,7 @@ const CompDescription = () => {
                                         </div>
 
                                     </div>
-                                    <p className="pb-3 pt-3 precioVentaPro col"> S/{ stateonepro?.precio_promoventa|| stateonepro.precio_venta}</p>
+                                    <p className="pb-3 pt-3 precioVentaPro col font-bold !text-4xl max-sm:!text-2x1"> S/{ stateonepro?.precio_promoventa|| stateonepro.precio_venta}</p>
 
                                     <div className="divbtndesc">
                                         <button type="button" className="addCarr btn-description btn p-2" onClick={()=>addcarr(stateonepro.idcomp,cantProd)} > Agregar al carrito o comprar</button>
@@ -96,7 +97,7 @@ const CompDescription = () => {
                             </div>
 
                             <div className="m-5 ">
-                                <h2 className="pb-4 espec" >Especificaciones</h2>
+                                <h2 className="pb-4 espec font-bold !text-3xl" >Especificaciones</h2>
 
                            {espec()}
 

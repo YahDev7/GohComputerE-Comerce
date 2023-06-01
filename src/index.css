@@ -101,14 +101,14 @@ input[type="number"]::-webkit-outer-spin-button{
     -webkit-appearance:none;
     margin: 0;
 }
-.fixed{
+/* .fixed{
     position: fixed;
     z-index: 100;
     width: 100%;
     transition: 300ms all;
      background: var(--main-bg-color);
     
-}
+} */
 .AnombrePro{
     font-weight: bold;
     text-decoration: none;
@@ -272,7 +272,7 @@ input[type="number"]::-webkit-outer-spin-button{
         grid-template-columns: repeat(2,1fr) ;
     }
     .logoGoh{
-        width: 90px;
+        width: 260px;
     }
     .prodAll{
         grid-template-columns: repeat(2,1fr) !important;

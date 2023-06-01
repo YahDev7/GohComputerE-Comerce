@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FetchsPedidos } from "../../../Fetchs/pedidos";
+import { FetchsPedidos } from "../../../api/pedidos";
 
 const DetallePedido = () => {
    /*     const {itemsCarr} =useContext(CarrContext);

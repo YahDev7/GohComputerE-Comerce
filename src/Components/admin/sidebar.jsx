@@ -26,11 +26,9 @@ const AdminSidebar = () => {
         { title: "Setting", src: "Setting" },
     ];
     return (
-            <div className="flex">
+            <div className="">
                 <div
-                    className={` ${open ? "w-72" : "w-24"
-                        } bg-dark-purple h-auto p-4  pt-8 relative duration-300`}
-                >
+                    className={` ${open ? "w-72" : "w-24"} bg-dark-purple h-100 p-4  pt-8 relative duration-300`}>
                     <img
                         src="./src/components/admin/assets/control.png"
                         className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple

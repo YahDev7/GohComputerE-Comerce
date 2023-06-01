@@ -1,4 +1,4 @@
-import { Fetchs } from "../../../Fetchs/fetchs";
+import { Fetchs } from "../../../api/fetchs";
 import { useEffect, useState } from "react";
 
 export const UseDesc=(id,setloader)=>{
@@ -22,7 +22,6 @@ export const UseDesc=(id,setloader)=>{
     const product=async(id)=>{
         setloader(true)
         const res= await Fetchs.getOne(id)
-        console.log(res)
         setStateonepro(res)
         const resespe= await Fetchs.getOne(id,true)
         setPorespec(resespe)

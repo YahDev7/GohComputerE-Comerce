@@ -1,4 +1,4 @@
-import { CarrProvider } from "../../Context/carr";
+import { CarrProvider } from "../../context/carr";
 import Footer from "../Footer";
 import Header from "../header";
 import CompProAll from "./CompProAll";

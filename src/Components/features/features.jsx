@@ -5,17 +5,17 @@ const Features = () => {
         <div className="container">
           <div className="row">
             <div className="fea col-lg col-md-6">
-              <div className="feature-item">
+              <div className="feature-item text-center">
                 <i className="fas fa-shipping-fast"></i>
                 <h3>Envío Rápido</h3>
                 <p>Entrega rápida y segura de tus productos a nivel nacional.</p>
               </div>
             </div>
             <div className="fea col-lg col-md-6">
-              <div className="feature-item">
+              <div className="feature-item text-center">
                 <i className="fas fa-shield-alt"></i>
                 <h3>Pago Seguro</h3>
-                <p>Opciones de pago confiables y seguras para tus compras.</p>
+                <p className="">Opciones de pago confiables y seguras para tus compras.</p>
               </div>
             </div>
            {/*  <div className="fea col-lg col-md-6">
@@ -26,14 +26,14 @@ const Features = () => {
               </div>
             </div> */}
             <div className="fea col-lg col-md-6">
-              <div className="feature-item">
+              <div className="feature-item text-center">
                 <i className="fas fa-star"></i>
                 <h3>Calidad Garantizada</h3>
                 <p>Productos de alta calidad y marcas reconocidas.</p>
               </div>
             </div>
             <div className="fea col-lg col-md-6">
-              <div className="feature-item">
+              <div className="feature-item text-center">
                 <i className="fas fa-comments"></i>
                 <h3>Soporte en Línea</h3>
                 <p>Equipo de soporte disponible para atender tus consultas.</p>

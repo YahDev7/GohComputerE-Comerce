@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import { useParams } from "react-router-dom";
 import { UseProAll } from "./Hooks/UseProAll";
 import Loader from "../Loader";
@@ -25,7 +25,7 @@ const CompProAll = () => {
             </div>
 
             <div className="produts pb-5 container">
-                <h2 className="text-center pb-3" >{proAll.length!==0&&proAll[0]?.subcatnombre}</h2>
+                <h2 className="text-center pb-3 text-4x1 !font-bold" >{proAll.length!==0&&proAll[0]?.subcatnombre}</h2>
                 <div className="mt-3  d-lg-none filter-btn">
                     <button className="btn btn-warning navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNavBarCali" aria-controls="offcanvasNavbar">
                         <span className="">Filtrar</span>
@@ -89,7 +89,7 @@ const CompProAll = () => {
                     {loader&& <Loader></Loader>}
                 <section className="sectionProductosAll ">
 
-                    <div className="prodAll">
+                    <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">
 
                         {ProdBysubcat()}
 

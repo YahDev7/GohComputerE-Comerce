@@ -1,12 +1,13 @@
-import { FetchsPedidos } from "../../../Fetchs/pedidos";
+import { FetchsPedidos } from "../../../api/pedidos";
 import ItemsCarr from "../itemsCarr";
 
-export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro)=>{
+export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>{
    
     const confirmPedido=async(tokcarr,subtotal)=>{
-            const residpedido=await FetchsPedidos.save(tokcarr,subtotal);
-            localStorage.removeItem("tokencarr")
-            location.href="#/confirmado/"+residpedido.id_pedido;    
+        if(!tokensession) location.href="#/login"
+        const residpedido=await FetchsPedidos.save(tokcarr,subtotal);
+        localStorage.removeItem("tokencarr")
+        location.href="#/confirmado/"+residpedido.id_pedido;    
     }
 
     const productCarr = () => {

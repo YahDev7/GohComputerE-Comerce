@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { FetchCat, Fetchs } from "../Fetchs/fetchs";
-import { BaseURLAPI2 } from "../Fetchs/Base_URL";
+import { FetchCat, Fetchs } from "../api/fetchs";
+import { BaseURLAPI2 } from "../config/Base_URL";
 
  
     const CarrContext= createContext()
@@ -13,7 +13,6 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
       let tokenSession=localStorage.getItem("tokensession")
 
        const [tokensession, tokensessionset] = useState(tokenSession===null?null:tokenSession);
-       console.log(tokensession)
         const [itemsCarr, setItemsCarr] = useState(initalcarr);
         const [subtotal, setsubtotal] = useState(0);
         const [statesidebarCarr, statesetSidebarCarr] = useState(false);
@@ -99,7 +98,7 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
        }, []);
 
        useEffect(() => {
-        itemscarrtoken(tokcarr)
+        if(tokcarr.length!==0) itemscarrtoken(tokcarr)
        }, [tokcarr]);
       
 
@@ -155,7 +154,7 @@ import { BaseURLAPI2 } from "../Fetchs/Base_URL";
           let firstCarr=[ ...itemsCarr,
             {
             id: res.idcomp,
-            img:res.imagenes[0].URL,
+            img:res.imagenes[0]?.URL||"https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
             nombre:res.nomcomp,
             unidad:cantidad,
             precio:res?.precio_promoventa||res.precio_venta  

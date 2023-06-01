@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { fetchLogin } from "../../Fetchs/fetchs";
+import { fetchLogin } from "../../api/fetchs";
 import withReactContent from "sweetalert2-react-content";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 const MySwal = withReactContent(Swal) 
 let frmlogin = {
   email: '',

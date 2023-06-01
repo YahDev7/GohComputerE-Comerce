@@ -9,7 +9,7 @@ const SubCardCategorias = ({subcat}) => {
             <img src={subcat.url_imagen} className="card-img-top" alt="..." />
 
             <div className="card-body">
-                <p className="card-text">{subcat.nombre}</p>
+                <p className="card-text ">{subcat.nombre}</p>
             </div>
         </a>
     </div>

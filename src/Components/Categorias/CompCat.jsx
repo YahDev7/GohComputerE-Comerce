@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import Loader from "../Loader";
 import { Usecat } from "./Hook/UseCat";
 
@@ -11,12 +11,12 @@ const CompCat = () => {
     return ( 
         <div id="categorias" className="container mt-5 mb-5" >
         <div id="titlecategorias" className="  mb-5">
-            <h2 className="text-center">Todas las categorias</h2>
+            <h2 className="text-center text-4x1 !font-bold">Todas las categorias</h2>
         </div>
 
         <div style={{position:"relative"}}>
                     {loader&& <Loader></Loader>}
-            <div id="MainCategorias">
+            <div id="" className="grid grid-cols-6 max-xl:grid-cols-5  max-sm:grid-cols-2 max-md:grid-cols-4 ">
                 {allcat()}
                 
             </div>

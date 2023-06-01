@@ -2,7 +2,7 @@
 import Slider from "react-slick";
 import { UseCats } from "./Hooks/UseIndex";
 import { useContext } from "react";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import Loader from "../Loader";
 
 const ProIndex = () => {
@@ -12,7 +12,7 @@ const ProIndex = () => {
 
     return (  
         <section className="sectionProductosAll container">
-            <h2 className="titleProAll"> Promociones</h2>
+            <h2 className="titleProAll font-bold"> Promociones</h2>
 
          {/*    <div style={{position:"relative"}}>
                 {loader&&<Loader></Loader>}

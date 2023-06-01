@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 import Loader from "../Loader";
 import { UseSubCats } from "./Hooks/UseSubCat";
 
@@ -24,11 +24,11 @@ const CompSubCat = () => {
                     </div>
                     <div id="subCategorias" className="mb-5 container" >
                         <div id="titleSubCategorias" className=" ms-4 mb-5">
-                            <h2 className="text-center">{onesubcat.nombre}</h2>
+                            <h2 className="text-center text-4x1 !font-bold">{onesubcat.nombre}</h2>
                         </div>
                         <div style={{position:"relative"}}>
                             {loader&& <Loader></Loader>}
-                            <div id="MainSubCategorias">
+                            <div /* id="MainSubCategorias" */ className="grid grid-cols-6 max-xl:grid-cols-5  max-sm:grid-cols-2 max-md:grid-cols-4">
                                 {boxsubcatsBycat()}
                             </div>
                         </div>

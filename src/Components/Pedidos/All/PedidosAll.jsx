@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { FetchsPedidos } from "../../../Fetchs/pedidos";
-import CarrContext from "../../../Context/carr";
+import { FetchsPedidos } from "../../../api/pedidos";
+import CarrContext from "../../../context/carr";
 
 
 const AllPedidos = () => {

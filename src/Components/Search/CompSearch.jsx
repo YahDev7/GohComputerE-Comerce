@@ -1,6 +1,6 @@
 import { useContext} from "react";
 import { useParams } from "react-router-dom";
-import CarrContext from "../../Context/carr";
+import CarrContext from "../../context/carr";
 
 import { UseSearch } from "./Hook/UseSeach";
 
