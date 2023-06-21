@@ -1,11 +1,13 @@
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjNiN2MzN2Q2ZTAyOThlZTczM2UxZSIsIm5vbWJyZSI6IndpZWwiLCJlbnRlcnByaXNlX2lkIjoiNjQ2M2I3MTc2ZjYyZWFiZGM1ZDczMjlkIiwicm9sIjoiQURNSU4iLCJpYXQiOjE2ODYzMzQyOTYsImV4cCI6MTY4NzE5ODI5Nn0.eTlZP-OMGonCzsioBaGixSLPioAcPku8sOMGpGb3zIA';
 
 export const method={
-    get:async(url)=>{
-        const res = await fetch(url)
+    
+    get:async(url,headers={ Authorization: `Bearer ${token}`,})=>{
+        const res = await fetch(url,{headers})
         const res2 =await res.json(); 
         return res2;
     },
-    post:async(url,body,headers={ "Content-Type": "application/json"})=>{
+    post:async(url,body,headers={ "Content-Type": "application/json", Authorization: `Bearer ${token}`})=>{
         let options= {
             method: "POST",
             body: JSON.stringify(body),

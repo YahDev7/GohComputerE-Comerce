@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { UseCats } from "./Hooks/UseIndex";
 import { useContext } from "react";
 import CarrContext from "../../context/carr";
-import Loader from "../Loader";
+import Loader from "../public/Loader";
 
 const ProIndex = () => {
     const {addcarr,stateDolar,stateProducts,viewpro,stateCategorias,loader} =useContext(CarrContext)

@@ -1,22 +1,16 @@
-
-import { useContext } from "react";
-import CarrContext, { CarrProvider } from "../../context/carr";
-import Footer from "../Footer";
-import Header from "../header";
-
+import { TokenProvider } from "../../context/token";
 import Login from "./Login";
-
 const LoginIndex = () => {
 
 /*   const {tokensession} =useContext(CarrContext)
   console.log(tokensession) */
     return (
         <>
-        <CarrProvider>
+        <TokenProvider>
            {/*  <Header></Header> */}
             <Login></Login>
           {/*   <Footer></Footer> */}
-        </CarrProvider>
+        </TokenProvider>
         </>
     );
 }

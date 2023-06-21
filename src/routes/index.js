@@ -8,6 +8,13 @@ export const ROUTES_BACK = {
     GET_BY_SUBCAT: (id) => `/products/gohcomputer/getBySubcat/${id}`,
     GET_BY_ID_PROD: (id) => `/products/gohcomputer/getByIdProd/${id}`,
     SEARCH: (prod) => `/products/gohcomputer/search/${prod}`,
+    SEARCH: (prod) => `/products/gohcomputer/search/${prod}`,
+
+    POSTS:{
+      BYENTERPRISE:`/products/enterprise`,
+
+    }
+
   },
   CATEGORIAS: {
     GET_ALL: `/categoria/gohcomputer/all`,
@@ -20,6 +27,15 @@ export const ROUTES_BACK = {
     LOGIN: `/customer/gohcomputer/login`,
     REGISTER: `/customer/gohcomputer/register`,
   },
+  USER: {
+    LOGIN: `/user/login`,
+    REGISTER: `/user/register`,
+  },
+  CARRITO: {
+    SAVE: `/carrito/gohcomputer`,
+    GET_ITEMS: `/carrito/gohcomputer/get`,
+  },
+  
 }
 
 
@@ -36,6 +52,8 @@ export const ROUTES = {
     PEDIDOS: "/pedidos",
     DETALLE_PEDIDO: "/detallepedido/:idpedido",
     LOGIN: "/login",
+    LOGIN_ADMIN: "/login/admin",
+    REGISTER_ADMIN: "/register/admin",
     REGISTER: "/register",
     CONFIRMADO: "/confirmado/:idpedido",
     DEPOSITO_PEDIDO: "/depositopedido/:idpedido",
@@ -52,4 +70,5 @@ export const ROUTES = {
     CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
     SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
   };
+  
   

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import CarrContext from "../../context/carr";
-import Loader from "../Loader";
+import Loader from "../public/Loader";
 import { UseSubCats } from "./Hooks/UseSubCat";
 
 const CompSubCat = () => {

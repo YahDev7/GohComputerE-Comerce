@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useContext } from "react";
 import CarrContext from "../../context/carr";
 import { UseProDest } from "./Hooks/UsePorDes";
-import Loader from "../Loader";
+import Loader from "../public/Loader";
 
 const ProDes = ({nuevos}) => {
 

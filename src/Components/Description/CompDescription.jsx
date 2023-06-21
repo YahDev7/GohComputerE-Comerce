@@ -3,7 +3,7 @@ import { UseDesc } from "./Hooks/UseDesc";
 import { useParams} from "react-router-dom"
 import { useContext } from "react";
 import CarrContext from "../../context/carr";
-import Loader from "../Loader";
+import Loader from "../public/Loader";
 
 const CompDescription = () => {
     const {id} =useParams()

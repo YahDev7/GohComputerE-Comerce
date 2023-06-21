@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Fetchs } from "../../../api/fetchs"
-import CardProducts from "../../CardProducts";
+import CardProducts from "../../productos/CardProducts";
 
 export const UseProPromo=(id,addcarr,stateDolar,viewpro)=>{
     

@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { fetchLogin } from "../../api/fetchs";
 import withReactContent from "sweetalert2-react-content";
-import CarrContext from "../../context/carr";
+import TokenContext from "../../context/token";
+
 const MySwal = withReactContent(Swal) 
 let frmlogin = {
   email: '',
@@ -11,10 +12,9 @@ const Login = () => {
 
   const [form, setform] = useState(frmlogin);
 
-  const {tokensession} =useContext(CarrContext)
+  const {stateToken} =useContext(TokenContext)
 
-  console.log(tokensession)
-  if(tokensession)return location.href="/#/gohcomputer"
+  if(stateToken)return location.href="/#/gohcomputer"
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -1,17 +1,16 @@
-import Productos from "./Products";
-import AdminSidebar from "../sidebar";
 import { TokenAdminProvider } from "../../../context/tokenAdmin";
+import AdminSidebar from "../sidebar";
+import Subcategoria from "./Subcategoria";
 
-const ProductosAdmin = () => {
+const SubCategoriaAdmin = () => {
   return (
     <TokenAdminProvider>
-      
     <div className="flex">
       <AdminSidebar></AdminSidebar>
-      <Productos></Productos>
+      <Subcategoria/>
     </div>
     </TokenAdminProvider>
   );
 }
 
-export default ProductosAdmin;
+export default SubCategoriaAdmin;

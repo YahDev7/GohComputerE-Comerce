@@ -1,5 +1,5 @@
-import Footer from "../Footer";
-import Header from "../header";
+import Footer from "../public/Footer";
+import Header from "../public/header";
 import { CarrProvider } from "../../context/carr";
 import CompDescription from "./CompDescription";
 

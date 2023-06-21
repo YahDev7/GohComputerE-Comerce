@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StatusOnlineIcon } from "@heroicons/react/outline";
-
-
 import {
   Card,
   Table,
@@ -15,65 +13,20 @@ import {
   Title,
   Badge,
 } from "@tremor/react";
-import AdminSidebar from "../sidebar";
+import { data } from "./data/data";
+import TokenAdminContext from "../../../context/tokenAdmin";
 
-const data = [
-  {
-    name: "Viola Amherd",
-    Role: "Federal Councillor",
-    departement:
-      "The Federal Department of Defence, Civil Protection and Sport (DDPS)",
-    status: "active",
-  },
-  {
-    name: "Simonetta Sommaruga",
-    Role: "Federal Councillor",
-    departement:
-      "The Federal Department of the Environment, Transport, Energy and Communications (DETEC)",
-    status: "active",
-  },
-  {
-    name: "Alain Berset",
-    Role: "Federal Councillor",
-    departement: "The Federal Department of Home Affairs (FDHA)",
-    status: "active",
-  },
-  {
-    name: "Ignazio Cassis",
-    Role: "Federal Councillor",
-    departement: "The Federal Department of Foreign Affairs (FDFA)",
-    status: "active",
-  },
-  {
-    name: "Ueli Maurer",
-    Role: "Federal Councillor",
-    departement: "The Federal Department of Finance (FDF)",
-    status: "active",
-  },
-  {
-    name: "Guy Parmelin",
-    Role: "Federal Councillor",
-    departement:
-      "The Federal Department of Economic Affairs, Education and Research (EAER)",
-    status: "active",
-  },
-  {
-    name: "Karin Keller-Sutter",
-    Role: "Federal Councillor",
-    departement: "The Federal Department of Justice and Police (FDJP)",
-    status: "active",
-  },
-];
+const User = () => {
 
+  const {stateTokenAdmin} =useContext(TokenAdminContext)
 
-const UserAdmin = () => {
-
+  useEffect(() => {
+    if(!stateTokenAdmin) return location.href="/#/login/admin"
+  }, [stateTokenAdmin]); 
 
     return (
-<div className="flex"> 
-      <AdminSidebar></AdminSidebar>
       <Card>
-      <Title>List of Swiss Federal Councillours</Title>
+      <Title>Uusarios</Title>
       <Table className="mt-5">
         <TableHead>
           <TableRow>
@@ -103,9 +56,9 @@ const UserAdmin = () => {
         </TableBody>
       </Table>
     </Card>
-</div> 
+
 
     );
 }
 
-export default UserAdmin;
+export default User;

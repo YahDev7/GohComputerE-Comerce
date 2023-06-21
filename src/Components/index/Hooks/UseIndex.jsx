@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CardCategorias from "../../CardCategorias";
-import CardProducts from "../../CardProducts";
+import CardCategorias from "../../Categorias/CardCategorias";
+import CardProducts from "../../productos/CardProducts";
 
 export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
    /*  const [stateProducts, setStateProducts] = useState([]);  */

@@ -10,7 +10,6 @@ const CompCarr = () => {
     
     return ( 
         <div className="container pt-5">
-
             {productCarr().err?
             <>
                 <h2 className="mb-5 text-3xl font-bold">No tiene  porductos en el carrito</h2>

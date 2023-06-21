@@ -8,17 +8,6 @@ const Banner = () => {
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div className="carousel-inner">
-                  {/*   <div className="carousel-item " data-bs-interval="10000">
-                        <a href="#/gohcomputer">
-                            <img src="https://res.cloudinary.com/dfsflp11q/image/upload/v1665883615/Gohcomputer/setup_k3r5ip.jpg" className="d-block w-100 sliderMain" alt="..." />
-                        </a>
-                    </div>
-                    <div className="carousel-item">
-                        <a href="#/gohcomputer">
-                            <img src="https://res.cloudinary.com/dfsflp11q/image/upload/v1665883615/Gohcomputer/setup1_qvhat6.jpg" className="d-block w-100 sliderMain" alt="..." />
-                        </a>
-
-                    </div> */}
                     <div className="carousel-item active" data-bs-interval="2000">
                         <a href="#/gohcomputer">
                             <img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1683851250/GOHComputer/Public/338174183_608262604164035_4654114067080847872_n_oia6kp.png" className="d-block w-100 sliderMain" alt="..." />

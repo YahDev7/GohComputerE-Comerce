@@ -2,7 +2,7 @@ import { useContext } from "react";
 import CarrContext from "../../context/carr";
 import { useParams } from "react-router-dom";
 import { UseProAll } from "./Hooks/UseProAll";
-import Loader from "../Loader";
+import Loader from "../public/Loader";
 const CompProAll = () => {
     const {id}=useParams()
     const { addcarr,stateDolar,viewpro,loader}=useContext(CarrContext)

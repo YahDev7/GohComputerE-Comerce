@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {  FetchCat, FetchSubCat } from "../../../api/fetchs";
-import SubCardCategorias from "../../CardSubCategorias";
+import SubCardCategorias from "../CardSubCategorias";
 
 export const UseSubCats =(id)=>{
 

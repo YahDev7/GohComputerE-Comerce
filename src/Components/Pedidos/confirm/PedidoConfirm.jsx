@@ -1,6 +1,6 @@
 import { CarrProvider } from "../../../context/carr";
-import Footer from "../../Footer";
-import Header from "../../header";
+import Footer from "../../public/Footer";
+import Header from "../../public/header";
 import Confirm from "./Confirm";
 
 const Confirmado = () => {

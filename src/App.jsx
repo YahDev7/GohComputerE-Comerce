@@ -9,21 +9,22 @@ import Pedidos from "./Components/Pedidos/All/MisPedidos"
 import Confirmado from "./Components/Pedidos/confirm/PedidoConfirm"
 import DepositoPedido from "./Components/Pedidos/deposito/DepositoPedido"
 import ProductosAll from "./Components/ProductosAll/ProductosAll"
-import Prueba from "./Components/Prueba"
 import Search from "./Components/Search/Search"
+import IndexAdmin from "./Components/admin/Login/Index"
+
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
 import All from "./Components/ProductosAll/all"
 import LoginIndex from "./Components/Login/LoginIndex"
 import Register from "./Components/Login/Register"
 import AdminSidebar from "./Components/admin/sidebar"
-import UserAdmin from "./Components/admin/User/users"
 import UnidadAdmin from "./Components/admin/Unidades/Unidades"
-import ProductosAdmin from "./Components/admin/Productos/index"
-import CategoriaAdmin from "./Components/admin/Categoria/Categoria"
+import ProductosAdmin from "./Components/admin/Productos/Index"
+import CategoriaAdmin from "./Components/admin/Categoria"
 import SubcatAdmin from "./Components/admin/Subcategoria/Subcategoria"
-import ServicioAdmin from "./Components/admin/Servicio/Servicio"
 import { ROUTES } from "./Routes"
-import { useEffect } from "react"
+import ServiciosIndex from "./Components/admin/Servicio"
+import SubCategoriaAdmin from "./Components/admin/Subcategoria"
+import UserAdmin from "./Components/admin/User"
 
 function App() {
 
@@ -38,21 +39,23 @@ function App() {
       <Route path={ROUTES.CATEGORIAS} element={<Categorias />} />
       <Route path={ROUTES.CARRITO} element={<Carrito />} />
       <Route path={ROUTES.SEARCH} element={<Search />} />
-      <Route path={ROUTES.PRUEBA} element={<Prueba />} />
       <Route path={ROUTES.PEDIDOS} element={<Pedidos />} />
       <Route path={ROUTES.DETALLE_PEDIDO} element={<DetailPedi />} />
       <Route path={ROUTES.LOGIN} element={<LoginIndex />} />
       <Route path={ROUTES.REGISTER} element={<Register />} />
+      <Route path={ROUTES.LOGIN_ADMIN} element={<IndexAdmin/>} />
+      <Route path={ROUTES.REGISTER_ADMIN} element={<Register />} />
       <Route path={ROUTES.CONFIRMADO} element={<Confirmado />} />
       <Route path={ROUTES.DEPOSITO_PEDIDO} element={<DepositoPedido />} />
+
       <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
-      <Route path={ROUTES.SERVICIO_ADMIN} element={<ServicioAdmin />} />
+      <Route path={ROUTES.SERVICIO_ADMIN} element={<ServiciosIndex />} />
       <Route path={ROUTES.USER_ADMIN} element={<UserAdmin />} />
       <Route path={ROUTES.CUSTOMERS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.PROVIDERS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.PRODUCTOS_ADMIN} element={<ProductosAdmin />} />
       <Route path={ROUTES.CATEGORIA_ADMIN} element={<CategoriaAdmin />} />
-      <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubcatAdmin />} />
+      <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubCategoriaAdmin />} />
       <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />

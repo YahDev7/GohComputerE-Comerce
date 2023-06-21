@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react";
-import CarrContext from "../context/carr";
-import { useHeader } from "./Hooks/UseHeader";
+import CarrContext from "../../context/carr";
+import { useHeader } from "../Hooks/UseHeader";
 
 
 const Header = () => {
@@ -29,11 +29,11 @@ const Header = () => {
                     <div id="fi" className="" >
                         <div className="grid grid-cols-7  gap-4 mt-4  m-auto container">
 
-                        <div class="..."> <button className="navbar-toggler btn text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="offcanvasNavbar">
+                        <div className="..."> <button className="navbar-toggler btn text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="offcanvasNavbar">
                                     <i className="fas fa-bars"></i>
                                 </button>
                         </div>
-                        <div class="max-sm:col-start-2 max-sm:col-end-6  col-start-3 col-end-6">
+                        <div className="max-sm:col-start-2 max-sm:col-end-6  col-start-3 col-end-6">
                                 <form onSubmit={(e) => {
                                     e.preventDefault()
                                     searchnav(e)
@@ -44,7 +44,7 @@ const Header = () => {
                                     </div>
                                 </form>
                         </div>
-                        <div class=" col-start-7 grid grid-cols-2 justify-items-end  gap-4">
+                        <div className=" col-start-7 grid grid-cols-2 justify-items-end  gap-4">
 
                                  <li className="  nav-item dropdown  btnUser p-0" style={{ listStyle: "none" }}>
                                     <a className="nav-link dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -160,9 +160,9 @@ const Header = () => {
 
 
                                 <div className="text-center pt-2">
-                                    <a href="#/carrito"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <a href="#/carrito"  type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Ver detalle de mi carrito
-                                     <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                     <svg aria-hidden="true" className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     </a>
                                 </div>
                             </div>

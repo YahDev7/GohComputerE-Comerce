@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { Grid, Col, Card, Text, Metric, Title, BarChart, } from "@tremor/react";
+import TokenAdminContext from "../../../context/tokenAdmin";
 import AdminSidebar from "../sidebar";
 
 
@@ -31,11 +31,15 @@ const dataFormatter = (number) => {
 
 const ServicioAdmin = () => {
 
+  const {stateTokenAdmin} =useContext(TokenAdminContext)
+
+  useEffect(() => {
+    if(!stateTokenAdmin) return location.href="/#/login/admin"
+  }, [stateTokenAdmin]); 
+
 
   return (
-
-    <div className="flex ">
-      <AdminSidebar></AdminSidebar>
+  
       <div className="w-100 p-5">
         <Grid numCols={1} numColsSm={2} numColsLg={4} className="gap-2">
           <Col /* numColSpan={1} numColSpanLg={2} */>
@@ -89,8 +93,6 @@ const ServicioAdmin = () => {
           </Col>
         </Grid>
 
-
-
         <div className="grid  md:grid-cols-2 gap-4">
         <Card className="mt-5 w-100">
           <Title>Ingresos</Title>
@@ -134,7 +136,7 @@ const ServicioAdmin = () => {
         </div>
       </div>
 
-    </div>
+    
   );
 
 }
