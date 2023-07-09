@@ -10,13 +10,13 @@ import { BaseURLAPI2 } from "../config/Base_URL";
       
 
         const [stateCategorias, setStateCategorias] = useState([]);
-
+    const [loadercat, setloadercat] = useState(false);
       
         const loadCategorias= async()=>{
-          setloader(true)
+          setloadercat(true)
           const res =await FetchCat.get()
           setStateCategorias(res)
-          setloader(false)
+          setloadercat(false)
         }
 
        useEffect(() => {
@@ -26,6 +26,7 @@ import { BaseURLAPI2 } from "../config/Base_URL";
 
           const data={
             stateCategorias,
+            loadercat
           }
 
         return(

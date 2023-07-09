@@ -1,13 +1,28 @@
+import { useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../api/pedidos";
 import ItemsCarr from "../itemsCarr";
 
 export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>{
    
+    const [idsprod, setidsprod] = useState(null);
+
     const confirmPedido=async(tokcarr,subtotal)=>{
-        if(!tokensession) location.href="#/login"
+        if(!tokensession) return location.href="#/login"
+        if(!tokcarr) return location.href="#/login"
         const residpedido=await FetchsPedidos.save(tokcarr,subtotal);
+        console.log(residpedido)
         localStorage.removeItem("tokencarr")
         location.href="#/confirmado/"+residpedido.id_pedido;    
+    }
+
+    const getidsprod=()=>{
+      let res=itemsCarr.map((el)=> {
+        return JSON.stringify({
+            "id":el.id,
+            "cantidad":el.unidad
+        })
+      });
+      setidsprod(res)
     }
 
     const productCarr = () => {
@@ -22,6 +37,11 @@ export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>
         return {err:true,Text:"Carrito vacio"}
         
     }
+    
+    useEffect(() => {
+        getidsprod()
+       
+    }, [itemsCarr]);
  
-    return {productCarr,confirmPedido}
+    return {productCarr,confirmPedido,idsprod}
 }

@@ -2,12 +2,13 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjNiN2MzN2Q2ZTAy
 
 export const method={
     
-    get:async(url,headers={ Authorization: `Bearer ${token}`,})=>{
+    get:async(url,headers={ })=>{
         const res = await fetch(url,{headers})
         const res2 =await res.json(); 
+
         return res2;
     },
-    post:async(url,body,headers={ "Content-Type": "application/json", Authorization: `Bearer ${token}`})=>{
+    post:async(url,body,headers={ "Content-Type": "application/json"})=>{
         let options= {
             method: "POST",
             body: JSON.stringify(body),
@@ -29,7 +30,7 @@ export const method={
         const res2 =await res.json();    
         return res2;
     },
-    delete:async(url,body,headers={ "Content-Type": "application/json"})=>{
+    delete:async(url,headers={ "Content-Type": "application/json"})=>{
         let options= {
             method: "DELETE",
             //body: JSON.stringify(body),

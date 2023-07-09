@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { FetchsPedidos } from "../../../api/pedidos";
 
 const DetallePedido = () => {
-   /*     const {itemsCarr} =useContext(CarrContext);
+   /*     const {itemsCarr} =useContext(CarritoContext);
  */    let {idpedido}=useParams();
 /*     const [inconfirm, setinconfirm] = useState(true);
  */

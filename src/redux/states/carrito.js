@@ -9,7 +9,6 @@ export const initCarr=async ()=>{
     let res= await Fetchs.get();
 
     dispatch(setCarrito(res))
-    console.log(res)
 }
 
 const initialState=[]
@@ -20,7 +19,6 @@ export const userSlice =createSlice({
     reducers:{
         addUser:(state,action)=>{
           /*   const{user,password}=action.payload; */
-          console.log(state,action)
         },
         setCarrito:(state,action)=>{
             state=action.payload

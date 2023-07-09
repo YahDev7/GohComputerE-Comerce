@@ -2,13 +2,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useContext } from "react";
-import CarrContext from "../../context/carr";
+import CarritoContext from "../../context/carr";
 import { UseProDest } from "./Hooks/UsePorDes";
 import Loader from "../public/Loader";
 
 const ProDes = ({nuevos}) => {
 
-    const {addcarr,stateDolar,viewpro,loader} =useContext(CarrContext)
+    const {addcarr,stateDolar,viewpro,loader} =useContext(CarritoContext)
     //hacer independiente y en un contex los productos cat y subcats
     const {settings,prodestacados,prodNuevos} = UseProDest(stateDolar,viewpro,addcarr);  
     if(nuevos){

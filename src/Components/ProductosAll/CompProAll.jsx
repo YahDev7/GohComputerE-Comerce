@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import CarrContext from "../../context/carr";
 import { useParams } from "react-router-dom";
 import { UseProAll } from "./Hooks/UseProAll";
 import Loader from "../public/Loader";
+import ProductContext from "../../context/products";
+import CarritoContext from "../../context/carrito";
 const CompProAll = () => {
     const {id}=useParams()
-    const { addcarr,stateDolar,viewpro,loader}=useContext(CarrContext)
-    const {proAll,ProdBysubcat}=  UseProAll(id,addcarr,stateDolar,viewpro)
-    
+    const { addcarr}=useContext(CarritoContext)
+    const {viewpro,loaderprod}=useContext(ProductContext)
+    const {proAll,ProdBysubcat}=  UseProAll(id,addcarr,viewpro)
     
     return ( 
         <div className="pt-0 pt-sm-4">
@@ -86,7 +87,7 @@ const CompProAll = () => {
                 </div>
 
                 <div style={{position:"relative"}}>
-                    {loader&& <Loader></Loader>}
+                    {loaderprod&& <Loader></Loader>}
                 <section className="sectionProductosAll ">
 
                     <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">

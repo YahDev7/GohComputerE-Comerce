@@ -17,7 +17,6 @@ import All from "./Components/ProductosAll/all"
 import LoginIndex from "./Components/Login/LoginIndex"
 import Register from "./Components/Login/Register"
 import AdminSidebar from "./Components/admin/sidebar"
-import UnidadAdmin from "./Components/admin/Unidades/Unidades"
 import ProductosAdmin from "./Components/admin/Productos/Index"
 import CategoriaAdmin from "./Components/admin/Categoria"
 import SubcatAdmin from "./Components/admin/Subcategoria/Subcategoria"
@@ -25,6 +24,8 @@ import { ROUTES } from "./Routes"
 import ServiciosIndex from "./Components/admin/Servicio"
 import SubCategoriaAdmin from "./Components/admin/Subcategoria"
 import UserAdmin from "./Components/admin/User"
+import UnidadAdmin from "./Components/admin/Unidades"
+import CompraIndex from "./Components/Compra"
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
       <Route path={ROUTES.SUBCATEGORIAS} element={<Subcategoria />} />
       <Route path={ROUTES.CATEGORIAS} element={<Categorias />} />
       <Route path={ROUTES.CARRITO} element={<Carrito />} />
+      <Route path={ROUTES.COMPRA} element={<CompraIndex />} />
       <Route path={ROUTES.SEARCH} element={<Search />} />
       <Route path={ROUTES.PEDIDOS} element={<Pedidos />} />
       <Route path={ROUTES.DETALLE_PEDIDO} element={<DetailPedi />} />

@@ -17,7 +17,6 @@ export const UseProPromo=(id,addcarr,stateDolar,viewpro)=>{
     }, [id]);
 
     const ProdBysubcat = () => {
-        console.log(stateProductsPromo)
         let box = [];
 
         if(stateProductsPromo.message) return <h2>{stateProductsPromo.message}</h2>

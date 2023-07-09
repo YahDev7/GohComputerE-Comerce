@@ -22,7 +22,7 @@ export const FetchsPedidos={
             body:JSON.stringify({tokcarr,subtotal}),
             headers:{"Content-Type":"application/json"}
         };
-        const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido`,options)
+        const res = await fetch(`${BaseURLAPI2}/documento`,options)
         const res2 =await res.json();
         return res2;
 

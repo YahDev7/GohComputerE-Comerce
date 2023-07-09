@@ -1,4 +1,4 @@
-const CardProducts = ({dolar,laptops, opcion,addcarr,viewpro }) => {
+const CardProducts = ({laptops, opcion,addcarr,viewpro }) => {
     if (!opcion) {
         return (
             <div className="boxProAll">

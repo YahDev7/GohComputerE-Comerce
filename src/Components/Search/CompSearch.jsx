@@ -1,13 +1,13 @@
 import { useContext} from "react";
 import { useParams } from "react-router-dom";
-import CarrContext from "../../context/carr";
+import CarritoContext from "../../context/carr";
 
 import { UseSearch } from "./Hook/UseSeach";
 
 const CompSearch = () => {
     //pasarloa  un hook
     const { search } = useParams()
-    const {addcarr,stateDolar,viewpro} =useContext(CarrContext)
+    const {addcarr,stateDolar,viewpro} =useContext(CarritoContext)
     const {results} =UseSearch(addcarr,stateDolar,viewpro,search)
 
     return ( 

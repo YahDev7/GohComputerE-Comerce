@@ -1,5 +1,7 @@
 
-import { CarrProvider } from "../../context/carr";
+import { CarritoProvider } from "../../context/carrito";
+import { CategoriaProvider } from "../../context/categorias";
+import { TokenProvider } from "../../context/token";
 import Footer from "../public/Footer";
 import Header from "../public/header";
 import CompCarr from "./CompCarr";
@@ -8,11 +10,18 @@ const Carrito = () => {
     
     return (
         <>
-        <CarrProvider>
+        <TokenProvider>
+
+        <CarritoProvider>
+        <CategoriaProvider>
+
             <Header></Header>
             <CompCarr></CompCarr>           
             <Footer></Footer>
-        </CarrProvider>
+
+        </CategoriaProvider>
+        </CarritoProvider>
+        </TokenProvider>
         </>
     );
 }

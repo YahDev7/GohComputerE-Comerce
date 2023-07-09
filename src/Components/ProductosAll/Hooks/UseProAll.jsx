@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Fetchs } from "../../../api/fetchs"
 import CardProducts from "../../productos/CardProducts";
 
-export const UseProAll=(id,addcarr,stateDolar,viewpro)=>{
+export const UseProAll=(id,addcarr,viewpro)=>{
     
     const [proAll, setProAll] = useState([]);
 
@@ -22,7 +22,7 @@ export const UseProAll=(id,addcarr,stateDolar,viewpro)=>{
         if(proAll.message) return <h2>{proAll.message}</h2>
         for (let i = 0; i < proAll.length; i++) {
             box.push(
-                <CardProducts dolar={stateDolar} viewpro={viewpro} key={proAll[i].idcomp} addcarr={addcarr} laptops={proAll[i]}></CardProducts>
+                <CardProducts viewpro={viewpro} key={proAll[i].idcomp} addcarr={addcarr} laptops={proAll[i]}></CardProducts>
             )
 
         }

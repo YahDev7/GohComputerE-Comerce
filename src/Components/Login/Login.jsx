@@ -27,7 +27,6 @@ const Login = () => {
 
   const send = async (e) => {
    let res=await fetchLogin.login(form)
-
     console.log(res)
     if(res.statusCode) return MySwal.fire({
         title: <h2>{res.message[0]}</h2>,

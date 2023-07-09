@@ -1,16 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../api/pedidos";
-import CarrContext from "../../../context/carr";
+import CarritoContext from "../../../context/carr";
 
 
 const AllPedidos = () => {
     const [pedidosAll, setPedidosAll] = useState([]);
-    const {tokensession,tokensessionset}=useContext(CarrContext)
 
-    if(!tokensession) return location.href='/#/gohcomputer'
+    //if(!tokensession) return location.href='/#/gohcomputer'
     const allpedi=async()=>{
           let res= await FetchsPedidos.getallpedidos();
-        console.log(res);
         setPedidosAll(res)
     }
     useEffect(() => {
@@ -25,7 +23,7 @@ const AllPedidos = () => {
            box.push( 
             <tr  key={pedidosAll[i].id*Math.random()*100}>
                 <td><a style={{textDecoration:"none",cursor:"pointer"}} onClick={()=>{location.href="#/detallepedido/"+pedidosAll[i].id}} >{pedidosAll[i].id}</a></td>
-                <td><span class="badge rounded-pill bg-primary">{pedidosAll[i].estado}</span></td>
+                <td><span className="badge rounded-pill bg-primary">{pedidosAll[i].estado}</span></td>
                 <td>{pedidosAll[i].fecha}</td>
                 <td>{pedidosAll[i].total}</td>
                 <td>{pedidosAll[i].persona_id}</td>

@@ -7,11 +7,13 @@ const ProductContext = createContext()
 
 const ProductProvider = ({ children }) => {
     const [stateProducts, setStateProducts] = useState([]);
+    const [loaderprod, setloaderprod] = useState(false);
+
     const loadProducts = async () => {
-        setloader(true)
+        setloaderprod(true)
         const res = await Fetchs.getpromo()
         setStateProducts(res)
-        setloader(false)
+        setloaderprod(false)
     }
 
     const viewpro = (id) => {
@@ -26,6 +28,8 @@ const ProductProvider = ({ children }) => {
         setStateProducts,
         stateProducts,
         viewpro,
+        setloaderprod,
+        loaderprod
 
     }
 

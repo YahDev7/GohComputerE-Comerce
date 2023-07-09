@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import CarrContext from "../../context/carr";
+import CarritoContext from "../../context/carr";
 import { useParams } from "react-router-dom";
 
 import Loader from "../public/Loader";
 import { UseProPromo } from "./Hooks/all.products.hook";
 const AllPro = () => {
     const {id}=useParams()
-    const { addcarr,stateDolar,viewpro,loader}=useContext(CarrContext)
+    const { addcarr,stateDolar,viewpro,loader}=useContext(CarritoContext)
     const {stateProductsPromo,ProdBysubcat}=  UseProPromo(id,addcarr,stateDolar,viewpro)
     
     

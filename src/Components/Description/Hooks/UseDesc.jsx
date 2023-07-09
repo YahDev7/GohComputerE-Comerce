@@ -21,9 +21,9 @@ export const UseDesc=(id,setloader)=>{
     //cambiar por el context
     const product=async(id)=>{
         setloader(true)
-        const res= await Fetchs.getOne(id)
+        const res= await Fetchs.getOneGoh(id)
         setStateonepro(res)
-        const resespe= await Fetchs.getOne(id,true)
+        const resespe= await Fetchs.getOneGoh(id)
         setPorespec(resespe)
 
         setloader(false)

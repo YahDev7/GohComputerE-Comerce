@@ -66,6 +66,7 @@ import { BaseURLAPI2 } from "../config/Base_URL";
            let positionY =window.scrollY;
            
            addEventListener('scroll',()=>{
+
                let despazamiento_actual=window.scrollY;
  
                if(positionY>=despazamiento_actual){
@@ -134,7 +135,7 @@ import { BaseURLAPI2 } from "../config/Base_URL";
        
        let totalpagar=0;
       if(prodarr.length>0)totalpagar= prodarr.reduce((a,b)=>a+b);
-        setsubtotal(totalpagar)
+        setsubtotal(totalpagar.toFixed(2))
         setItemsCarr(res2)
       // document.cookie="tokencarr="+res2.tokencarr; 
       }
@@ -142,22 +143,22 @@ import { BaseURLAPI2 } from "../config/Base_URL";
       const addcarr=async(id,cantidad)=>{
 
         const res = await Fetchs.getOne(id);
-        if(res.message) return alert(res.statusText)
+        if(res.message) return alert(res.message)
 
-        let verifypro=itemsCarr.find(pro=>pro.id===res.idcomp)
+        let verifypro=itemsCarr.find(pro=>pro.id===res._id)
         if(verifypro){
-          let newcarr= itemsCarr.map(pro=>pro.id===res.idcomp? {...pro,unidad:pro.unidad+cantidad}:pro);
+          let newcarr= itemsCarr.map(pro=>pro.id===res._id? {...pro,unidad:pro.unidad+cantidad}:pro);
            jwtcarr(newcarr)
           //setItemsCarr(newcarr);
         }
         else{
           let firstCarr=[ ...itemsCarr,
             {
-            id: res.idcomp,
+            id: res._id,
             img:res.imagenes[0]?.URL||"https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
-            nombre:res.nomcomp,
+            nombre:res.nombre,
             unidad:cantidad,
-            precio:res?.precio_promoventa||res.precio_venta  
+            precio:res?.precio_promoventa||(res.precio_venta).toFixed(2) 
           }];
           //setItemsCarr(firstCarr)
           jwtcarr(firstCarr)

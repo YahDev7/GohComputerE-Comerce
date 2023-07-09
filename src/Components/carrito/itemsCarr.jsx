@@ -8,6 +8,7 @@ const ItemsCarr = ({itemsCarr,pluscarr,minuscarr,btnremovepro}) => {
                     <img style={{ width: "100px" }} src={itemsCarr.img} alt="" />
                 </div>
                 <div className="desc col-8 col-md-7">
+                    
                     <a href={"#/description/"+itemsCarr.id}>{itemsCarr.nombre}</a>
                 </div>
             </div>

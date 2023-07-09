@@ -9,9 +9,7 @@ let initalcarr = []
 const CarritoProvider = ({ children }) => {
 
     let tokencarr = localStorage.getItem("tokencarr")
-    let tokenSession = localStorage.getItem("tokensession")
-
-    const [tokensession, tokensessionset] = useState(tokenSession === null ? null : tokenSession);
+  
     const [itemsCarr, setItemsCarr] = useState(initalcarr);
     const [subtotal, setsubtotal] = useState(0);
     const [statesidebarCarr, statesetSidebarCarr] = useState(false);
@@ -23,40 +21,39 @@ const CarritoProvider = ({ children }) => {
 
     }
     const jwtcarr = async (carr) => {
-        const res2 = await FetchCarrito.save(carr, tokensession);
-        localStorage.setItem("tokencarr", res2.tokencarr)
-        setTokcarr(res2.tokencarr);
+        const res1 = await FetchCarrito.save(carr);
+        localStorage.setItem("tokencarr", res1.tokencarr)
+        setTokcarr(res1.tokencarr);
     }
     const itemscarrtoken = async (tok) => {
-
-        const res2 = await FetchCarrito.get(tok)
-        if (res2.statusCode) {
+        const res3 = await FetchCarrito.get(tok)
+        if (res3.statusCode) {
             localStorage.removeItem("tokencarr")
             return [];
         }
-        let prodarr = res2.map(el => (el.precio * el.unidad));
+        let prodarr = res3.map(el => (el.precio * el.unidad));
 
         let totalpagar = 0;
         if (prodarr.length > 0) totalpagar = prodarr.reduce((a, b) => a + b);
         setsubtotal(totalpagar)
-        setItemsCarr(res2)
+        setItemsCarr(res3)
     }
     const addcarr = async (id, cantidad) => {
 
         const res = await Fetchs.getOne(id);
-        if (res.message) return alert(res.statusText)
+        if (res.message) return alert(res.message)
 
-        let verifypro = itemsCarr.find(pro => pro.id === res.idcomp)
+        let verifypro = itemsCarr.find(pro => pro.id === res._id)
         if (verifypro) {
-            let newcarr = itemsCarr.map(pro => pro.id === res.idcomp ? { ...pro, unidad: pro.unidad + cantidad } : pro);
+            let newcarr = itemsCarr.map(pro => pro.id === res._id ? { ...pro, unidad: pro.unidad + cantidad } : pro);
             jwtcarr(newcarr)
         }
         else {
             let firstCarr = [...itemsCarr,
             {
-                id: res.idcomp,
+                id: res._id,
                 img: res.imagenes[0]?.URL || "https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
-                nombre: res.nomcomp,
+                nombre: res.nombre,
                 unidad: cantidad,
                 precio: res?.precio_promoventa || res.precio_venta
             }];
@@ -92,9 +89,7 @@ const CarritoProvider = ({ children }) => {
         minuscarr,
         subtotal,
         btnremovepro,
-        tokcarr,
-        tokensession,
-        tokensessionset
+        tokcarr
     }
 
     return (

@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import CarrContext from "../../context/carr";
 import { UseCarr } from "./Hook/UseCarr";
+import CarritoContext from "../../context/carrito";
+import TokenContext from "../../context/token";
 
 const CompCarr = () => {
 
-    const {itemsCarr, pluscarr,minuscarr,subtotal,btnremovepro,tokcarr,tokensession}=useContext(CarrContext)
-    const {productCarr,confirmPedido} =UseCarr(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)
-    //console.log(itemsCarr);
-    
+    const {itemsCarr, pluscarr,minuscarr,subtotal,btnremovepro,tokcarr}=useContext(CarritoContext)
+    const {stateToken} =useContext(TokenContext)
+
+
+    const {productCarr,confirmPedido,idsprod} =UseCarr(itemsCarr, pluscarr,minuscarr,btnremovepro,stateToken)
     return ( 
         <div className="container pt-5">
             {productCarr().err?
@@ -46,9 +48,12 @@ const CompCarr = () => {
                             <span className="col-6 text-end">S/{subtotal}</span>
                         </div>
                         <div className="p-4 w-100" >
-                            <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" 
-                                onClick={()=>confirmPedido(tokcarr,subtotal)}
-                            >Comprar</button>
+                            <a href={`https://wa.me/932069271?text=¡Hola! Estoy interesado en estos produtos "${idsprod}". Por favor, envíame más información`} target="_blank" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Comprar por Whatsapp</a>
+                         
+                         
+                          <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" 
+                                  onClick={()=>confirmPedido(tokcarr,subtotal)} 
+                            >Comprar</button> 
                         </div>
                     </div>
 

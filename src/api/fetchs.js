@@ -7,8 +7,9 @@ export const Fetchs={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_ALL_PROMO)
         return res
     }, 
-    get: async()=> {
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_MAIN)
+    get: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_MAIN,headers)
         return res
        
     },
@@ -26,8 +27,13 @@ export const Fetchs={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_BY_SUBCAT(id))
         return res;   
     },
-    getOne: async(id)=> {
-
+    getOne: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETBYID(id),headers)
+        return res;  
+    },
+    getOneGoh: async(id)=> {
+       // let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_BY_ID_PROD(id))
         return res;  
     },
@@ -36,17 +42,28 @@ export const Fetchs={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.SEARCH(prod))
         return res;  
     },
-    save:async(body)=>{
-        let newbody={...body,usuario_id:"6463b7c37d6e0298ee733e1e",enterprise_id:"6463b7176f62eabdc5d7329d"}
-        let res = await method.post(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.POSTS.BYENTERPRISE,newbody)
+    save:async(body,token)=>{
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+      //  let newbody={...body,usuario_id:"6463b7c37d6e0298ee733e1e",enterprise_id:"6463b7176f62eabdc5d7329d"}
+        let res = await method.post(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.POSTS.BYENTERPRISE,body,headers)
+        return res
+    },
+    update:async(id,body,token)=>{
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res = await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.UPDATE(id),body,headers)
+        return res
+    },
+    delete:async(id,token)=>{
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res = await method.delete(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.DELETE(id),headers)
         return res
     }
 }
 
  export const FetchCat={    
-    get: async()=> {
-
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.CATEGORIAS.GET_ALL)
+    get: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.CATEGORIAS.GET_ALL,headers)
         return res
     }, 
      getOne: async(id)=> {
@@ -56,11 +73,11 @@ export const Fetchs={
 } 
 
 export const FetchSubCat={
-  /*   get: async()=> {
-        const res = await fetch("Utils/SubCategorias.json")
-        const res2 =await res.json();
-        return res2;
-    }, */
+   get: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.SUBCATEGORIAS.GET_All_BY_ENTERPRISE,headers)
+    return res
+    }, 
     //subcategorias por categoria
     getByCat: async(id)=> {
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.SUBCATEGORIAS.GET_BY_CATEGORIA(id))
@@ -74,7 +91,7 @@ export const FetchSubCat={
 
 export const fetchLogin={
     login:async (body)=>{
-
+        
        let res= await method.post(BaseURLAPI2+ROUTES_BACK.CUSTOMER.LOGIN,body)
        return res
     },
@@ -110,13 +127,12 @@ export const fetchLogin={
 }
 
 export const fetchLoginAdmin={
-    login:async (body)=>{
-
-       let res= await method.post(BaseURLAPI2+ROUTES_BACK.USER.LOGIN,body)
+    login:async (body,token)=>{
+        let headers={ "Content-Type": "application/json", Authorization: `Bearer ${token}`}
+       let res= await method.post(BaseURLAPI2+ROUTES_BACK.USER.LOGIN,body,headers)
        return res
     },
     register:async (body)=>{
-console.log()
         return
         body={...body,"enterprise_id": "6463b7176f62eabdc5d7329d","estado": "A"}
 
@@ -126,12 +142,11 @@ console.log()
 }
 
 export const FetchCarrito={
-    save:async (carr,tokensession)=>{
-
+    save:async (carr)=>{
         const options = {
             method: "POST",
             body: JSON.stringify(carr),
-            headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${tokensession}`, }
+            headers: { 'Content-Type': 'application/json'}
         };
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.CARRITO.SAVE, options);
         const res2 = await res.json();
@@ -140,11 +155,43 @@ export const FetchCarrito={
     get:async (tok)=>{
         const options = {
             method: "POST",
-            body: JSON.stringify({ tok }),
+            body: JSON.stringify({ tok}),
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${tok}` }
         };
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.CARRITO.GET_ITEMS, options);
         const res2 = await res.json();
+        return res2
     }
 }
+export const uploadFilesFetch={
+    save:async (files,token)=>{
+        const formData = new FormData();
+        formData.append('files', files); // Suponiendo que `files` es el archivo o archivos que deseas cargar
 
+        const options = {
+            method: "POST",
+            body: formData,
+            headers: { 'Content-Type': 'multipart/form-data', "Authorization": `Bearer ${token}`, }
+        };
+        const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVE("646bb567f506378faf2f4854"), options);
+        const res2 = await res.json();
+        return res2
+    },
+}
+
+
+
+
+export const FetchMov={
+    getSumaVenta: async(token)=> {
+         let headers={ Authorization: `Bearer ${token}`,}
+         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.UNIDAD.SUMAVENTAS,headers)
+     return res
+     }, 
+     //subcategorias por categoria
+     getSumaCompras: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.UNIDAD.SUMACOMPRAS,headers)
+    return res
+    }, 
+ }

@@ -1,4 +1,6 @@
-import { CarrProvider } from "../../../context/carr";
+import { CarritoProvider } from "../../../context/carrito";
+import { CategoriaProvider } from "../../../context/categorias";
+import { ProductProvider } from "../../../context/products";
 import Footer from "../../public/Footer";
 import Header from "../../public/header";
 import Confirm from "./Confirm";
@@ -6,12 +8,16 @@ import Confirm from "./Confirm";
 const Confirmado = () => {
     return ( 
        <>
-       <CarrProvider>
+       <CarritoProvider>
+          <ProductProvider>
+               <CategoriaProvider>
 
             <Header></Header>
             <Confirm></Confirm>
             <Footer></Footer>
-       </CarrProvider>
+               </CategoriaProvider>
+          </ProductProvider>
+       </CarritoProvider>
        </>
      );
 }

@@ -23,7 +23,6 @@ const Register = () => {
 
     const send = async (e) => {
        let res = await fetchLogin.register(form)
-        console.log(res)
         if(res.statusCode) return MySwal.fire({
             title: <h2>{res.message[0]}</h2>,
             icon: 'error'

@@ -2,12 +2,20 @@
 import Slider from "react-slick";
 import { UseCats } from "./Hooks/UseIndex";
 import { useContext } from "react";
-import CarrContext from "../../context/carr";
 import Loader from "../public/Loader";
+import CarritoContext from "../../context/carrito";
+import ProductContext from "../../context/products";
+import CategoriaContext from "../../context/categorias";
+import LoaderContext from "../../context/loader";
 
 const ProIndex = () => {
-    const {addcarr,stateDolar,stateProducts,viewpro,stateCategorias,loader} =useContext(CarrContext)
-    const {handleCatActive,idsubcat, btnactive,settings,listcategorias,listarProd}= UseCats(addcarr,stateDolar,viewpro,stateProducts,stateCategorias)
+    const {addcarr} =useContext(CarritoContext)
+    const {stateProducts,viewpro,loaderprod} =useContext(ProductContext)
+    const {stateCategorias,loadercat} =useContext(CategoriaContext)
+    const {loader} =useContext(LoaderContext)
+
+
+    const {handleCatActive,idsubcat, btnactive,settings,listcategorias,listarProd}= UseCats(addcarr,viewpro,stateProducts,stateCategorias)
     
 
     return (  

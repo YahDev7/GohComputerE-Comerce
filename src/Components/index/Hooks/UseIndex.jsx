@@ -2,7 +2,7 @@ import { useState } from "react";
 import CardCategorias from "../../Categorias/CardCategorias";
 import CardProducts from "../../productos/CardProducts";
 
-export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
+export const UseCats=(addcarr,viewpro,stateProducts,stateCategorias)=>{
    /*  const [stateProducts, setStateProducts] = useState([]);  */
     const [btnactive, setBtnactive] = useState(0);
     const [idsubcat, setidsubcat] = useState(0);
@@ -66,13 +66,13 @@ export const UseCats=(addcarr,dolar,viewpro,stateProducts,stateCategorias)=>{
          //retorname todos los productos que sean solo de esta categoria 
           if(stateProducts[i].idcat===cat_id){
               box.push( 
-                <CardProducts  key={stateProducts[i].idcomp} dolar={dolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
+                <CardProducts  key={stateProducts[i].idcomp} viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
               )
           }
           //retorname todos los productos 
           if(Number(cat_id)===0){
               box.push( 
-                <CardProducts key={stateProducts[i].idcomp}  dolar={dolar} viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
+                <CardProducts key={stateProducts[i].idcomp}  viewpro={viewpro} addcarr={addcarr} laptops={stateProducts[i]}  ></CardProducts>
               )
           }
           

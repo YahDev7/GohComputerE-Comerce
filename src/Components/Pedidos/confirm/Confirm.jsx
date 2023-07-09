@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useParams} from "react-router-dom"
 
-import CarrContext from "../../../context/carr";
+import CarritoContext from "../../../context/carr";
 import { FetchsPedidos } from "../../../api/pedidos";
 
 //IMPORTANTE NO ESTOY SEGURO SI DEPOSITAR TODA LA CONFIANZA EN EL SUBTOTAL PARA REDIRIGIR AL CONFIRMAR EL PEDIDO
 
 const Confirm = () => {
-/*     const {itemsCarr} =useContext(CarrContext);
+/*     const {itemsCarr} =useContext(CarritoContext);
  */    let {idpedido}=useParams();
 /*     const [inconfirm, setinconfirm] = useState(true);
  */

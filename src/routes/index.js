@@ -1,5 +1,19 @@
 // routes.js
 export const ROUTES_BACK = {
+  ADMIN:{
+    PRODUCTOS:{
+      GETBYID:(id)=> `/products/${id}`,
+      UPDATE:(id)=> `/products/${id}`,
+      DELETE:(id)=>`/products/${id}`,
+    },
+    UNIDAD:{
+      SUMAVENTAS:`/movimiento-m/ventas/total`,
+      SUMACOMPRAS:`/movimiento-m/compras/total`
+    },
+    SERVICIO:{
+
+    }
+  },
   PRODUCTOS: {
     GET_ALL_PROMO: `/products/gohcomputer/allpromo`,
     GET_MAIN: `/products/gohcomputer/main`,
@@ -21,6 +35,7 @@ export const ROUTES_BACK = {
     GET_ONE: (id) => `/categoria/gohcomputer/onecat/${id}`,
   },
   SUBCATEGORIAS: {
+    GET_All_BY_ENTERPRISE:`/subcategoria`,//`/subcategoria/enterprise`
     GET_BY_CATEGORIA: (id) => `/subcategoria/gohcomputer/bycategoria/${id}`,
   },
   CUSTOMER: {
@@ -35,7 +50,9 @@ export const ROUTES_BACK = {
     SAVE: `/carrito/gohcomputer`,
     GET_ITEMS: `/carrito/gohcomputer/get`,
   },
-  
+  IMG:{
+    SAVE: (id) =>`/image/upload/product/${id}`,
+  }
 }
 
 
@@ -47,6 +64,7 @@ export const ROUTES = {
     SUBCATEGORIAS: "/subcategorias/:id",
     CATEGORIAS: "/categorias",
     CARRITO: "/carrito",
+    COMPRA: "/compra",
     SEARCH: "/search/:search",
     PRUEBA: "/prueba",
     PEDIDOS: "/pedidos",
