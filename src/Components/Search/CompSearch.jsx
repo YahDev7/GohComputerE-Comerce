@@ -1,14 +1,16 @@
 import { useContext} from "react";
 import { useParams } from "react-router-dom";
-import CarritoContext from "../../context/carr";
 
 import { UseSearch } from "./Hook/UseSeach";
+import CarritoContext from "../../context/carrito";
+import ProductContext from "../../context/products";
 
 const CompSearch = () => {
     //pasarloa  un hook
     const { search } = useParams()
-    const {addcarr,stateDolar,viewpro} =useContext(CarritoContext)
-    const {results} =UseSearch(addcarr,stateDolar,viewpro,search)
+    const {addcarr} =useContext(CarritoContext)
+    const{viewpro} =useContext(ProductContext)
+    const {results} =UseSearch(addcarr,viewpro,search)
 
     return ( 
         <div id="ResultsSearch" className="container mb-5 pt-5" >

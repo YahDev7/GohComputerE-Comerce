@@ -9,10 +9,14 @@ export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>
     const confirmPedido=async(tokcarr,subtotal)=>{
         if(!tokensession) return location.href="#/login"
         if(!tokcarr) return location.href="#/login"
-        const residpedido=await FetchsPedidos.save(tokcarr,subtotal);
+        
+        const residpedido=await FetchsPedidos.save(tokcarr,tokensession,subtotal);
         console.log(residpedido)
-        localStorage.removeItem("tokencarr")
-        location.href="#/confirmado/"+residpedido.id_pedido;    
+        if(!residpedido.err){
+            localStorage.removeItem("tokencarr")
+            return location.href="#/confirmado/"+residpedido.data;    
+        } 
+        //
     }
 
     const getidsprod=()=>{

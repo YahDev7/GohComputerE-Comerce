@@ -1,4 +1,7 @@
-import { CarrProvider } from "../../context/carr";
+import { CarritoProvider } from "../../context/carrito";
+import { CategoriaProvider } from "../../context/categorias";
+import { ProductProvider } from "../../context/products";
+import { TokenProvider } from "../../context/token";
 import Footer from "../public/Footer";
 import Header from "../public/header";
 import Compra from "./compra";
@@ -7,11 +10,19 @@ import Compra from "./compra";
 const CompraIndex = () => {
     return (
         <>
-            <CarrProvider>
-                <Header/>
-                <Compra/>
-                <Footer/>
-            </CarrProvider>
+            <TokenProvider>
+
+                <CarritoProvider>
+                    <CategoriaProvider>
+                        <ProductProvider>
+ 
+                            <Header />
+                            <Compra />
+                            <Footer />
+                        </ProductProvider>
+                    </CategoriaProvider>
+                </CarritoProvider>
+            </TokenProvider>
         </>
     );
 }

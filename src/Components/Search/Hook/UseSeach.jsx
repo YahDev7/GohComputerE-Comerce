@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Fetchs } from "../../../api/fetchs";
 import CardProducts from "../../productos/CardProducts";
 
-export const UseSearch=(addcarr,stateDolar,viewpro,search)=>{
+export const UseSearch=(addcarr,viewpro,search)=>{
     
     const [searchPro, setSearchPro] = useState([]);
 
@@ -20,7 +20,7 @@ export const UseSearch=(addcarr,stateDolar,viewpro,search)=>{
         let box=[];
         for (let i = 0; i < searchPro.length; i++) {
           box.push( 
-            <CardProducts dolar={stateDolar} viewpro={viewpro} addcarr={addcarr} laptops={searchPro[i]} key={searchPro[i].idcomp} ></CardProducts>
+            <CardProducts  viewpro={viewpro} addcarr={addcarr} laptops={searchPro[i]} key={searchPro[i].idcomp} ></CardProducts>
           )
         }
         

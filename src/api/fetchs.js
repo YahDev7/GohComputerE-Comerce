@@ -195,3 +195,14 @@ export const FetchMov={
     return res
     }, 
  }
+
+ 
+export const FetchCompra={
+    sendCorreo: async(body,token)=> {
+        // let headers={ Authorization: `Bearer ${token}`,}
+         let res= await method.post(BaseURLAPI2+ROUTES_BACK.CARRITO.SENDCORREO,body/* ,headers */)
+         
+        return res
+     }
+    
+ }

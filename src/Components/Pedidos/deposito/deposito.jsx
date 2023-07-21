@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../api/pedidos";
 import { useParams} from "react-router-dom"
+import TokenContext from "../../../context/token";
 
 
 const Deposito = () => {
   //si el pago ya se realizo
   const [enviado, setenviado] = useState({state:false,text:null});
   //total que se debe pagar
-  const [pagardeposito, setpagardeposito] = useState([]);
+  const [pagardeposito, setpagardeposito] = useState(null);
   //si ya se envio los datos del deposito
   const [depostiotrue, setdepostiotrue] = useState(null);
+  const { stateToken, setStateToken } = useContext(TokenContext)
   
   let {idpedido}=useParams();
 
   const totalpagar=async()=>{
-    let res= await FetchsPedidos.getDetallepedido(idpedido);       
+    let res= await FetchsPedidos.getDetallepedido(idpedido,stateToken);      
+    console.log(res) 
     setpagardeposito(res)
  }
  const confirmDeposito=async()=>{
@@ -25,25 +28,30 @@ const Deposito = () => {
 
  useEffect(() => {
   totalpagar();
-  confirmDeposito();
+  //confirmDeposito();
  }, []);
 
     const savedeposito=async(e)=>{
-      let arrsavede=[];
-        arrsavede.push(
-          {
-            "monto_pagar":pagardeposito[0]?.total,
-            "id_pedido":idpedido,
-            "nro_operacion":e.target.nro_operacion.value,
+    
+        let arrsavede={
+            "documento_id":idpedido,
+            "enterprise_id":"6463b7176f62eabdc5d7329d",
+            "fecha":e.target.fecha_deposito.value,
+            "tipo":"INGRESO",
             "metodo_pago":e.target.metodo_pago.value,
-            "fecha_deposito":e.target.fecha_deposito.value,
-            "monto_deposito":e.target.monto_deposito.value,
-          },
-        );
-
+            "nro_operacion":e.target.nro_operacion.value,
+            "monto_deposito":Number(e.target.monto_deposito.value),
+            "monto_pagar":pagardeposito?.total_pagar,
+            "vuelto":0,
+            "tipo_compra_venta": "VENTA",
+            "estado": "PENDIENTE"
+          }
+      
         let resdepopedi=await FetchsPedidos.depositopedido(arrsavede);
-          if(resdepopedi.err) return alert(resdepopedi.Text)
-        setenviado({state:true,text:resdepopedi.Text})
+          console.log(resdepopedi)
+          if(resdepopedi.err) return alert(resdepopedi.message)
+
+        setenviado({state:true,text:resdepopedi.message,data:resdepopedi.data})
    /*    for(let ind of e.target){
         if(ind.value){
           let  na=ind.name;
@@ -77,19 +85,19 @@ const Deposito = () => {
         enviado.state  /*|| depostiotrue.verify*/
           ? 
             <div  className="containerDepositopedido pb-5 pt-5">
-              <h2>
+              <h2 className="text-blue-700 font-bold">
               {enviado.text}
               {/*  {depostiotrue.Text} */}
               </h2>
 
-              <button className="btn btn-success" onClick={()=>location.href="#/pedidos"}>Ir a mis pedidos</button>
+              <button className="btn !bg-blue-700" onClick={()=>location.href="#/pedidos"}>Ir a mis pedidos</button>
             </div>
           :
             <div className="containerDepositopedido pb-5">
                 <h2 >Datos del Pedido</h2>
                 <div className="pt-4">
                     <p className="mb-2"><strong>Nro pedido:</strong> {idpedido}</p>
-                    <p className="mb-2"><strong>Total a pagar:</strong> s/{pagardeposito[0]?.total}</p>
+                    <p className="mb-2"><strong>Total a pagar:</strong> <strong className="text-blue-800">s/{pagardeposito?.total_pagar}</strong>   </p>
                 </div>
 
                 <form action=""  onSubmit={(e)=>{

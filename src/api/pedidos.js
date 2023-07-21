@@ -1,25 +1,26 @@
+import { ROUTES_BACK } from "../Routes/index.js";
 import { BaseURLAPI2 } from "../config/Base_URL.js";
+import { method } from "./methods.js";
 
 export const FetchsPedidos={
-    getallpedidos: async()=> {
-    
-        const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido/getall`)
-        const res2 =await res.json();
-        return res2;
+    getallpedidosByEnterprise: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.DOCUMENTO.GET,headers)
+       // const res = await fetch(`${BaseURLAPI2}/documento/gohcomputer/getall`,headers)
+        return res;
 
     },
-    getDetallepedido: async(pedido_id)=> {
-    
-        const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido/getone/${pedido_id}`)
-        const res2 =await res.json();
-        return res2;
+    getDetallepedido: async(pedido_id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.DOCUMENTO.GETID(pedido_id),headers)
+        return res;
 
     },
-    save: async(tokcarr,subtotal)=> {
+    save: async(tokcarr,tokensession,subtotal)=> {
      
         const options={
             method:"POST",
-            body:JSON.stringify({tokcarr,subtotal}),
+            body:JSON.stringify({tokcarr,tokensession,subtotal}),
             headers:{"Content-Type":"application/json"}
         };
         const res = await fetch(`${BaseURLAPI2}/documento`,options)
@@ -34,7 +35,7 @@ export const FetchsPedidos={
             body:JSON.stringify(form),
             headers:{"Content-Type":"application/json"}
         };
-        const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido/deposito`,options)
+        const res = await fetch(`${BaseURLAPI2}/movimiento-m/gohcomputer/deposito`,options)
         const res2 =await res.json();
         return res2;
 

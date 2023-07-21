@@ -26,6 +26,7 @@ import SubCategoriaAdmin from "./Components/admin/Subcategoria"
 import UserAdmin from "./Components/admin/User"
 import UnidadAdmin from "./Components/admin/Unidades"
 import CompraIndex from "./Components/Compra"
+import CompraConfirmada from "./Components/helps/comfirm"
 
 function App() {
 
@@ -62,7 +63,8 @@ function App() {
       <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} />
-
+      <Route path={ROUTES.CONFIRMADO_CORREO} element={<CompraConfirmada />} />
+      
       </Routes>
     </div>
   )

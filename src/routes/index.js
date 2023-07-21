@@ -49,9 +49,15 @@ export const ROUTES_BACK = {
   CARRITO: {
     SAVE: `/carrito/gohcomputer`,
     GET_ITEMS: `/carrito/gohcomputer/get`,
+    SENDCORREO:`/correo`
   },
   IMG:{
     SAVE: (id) =>`/image/upload/product/${id}`,
+  },
+  DOCUMENTO:{
+    GET:`/documento/getbyenterprise`,
+    GETID: (id) =>`/documento/getbyenterprise/${id}`,
+
   }
 }
 
@@ -87,6 +93,7 @@ export const ROUTES = {
     MOVIMIENTOS_ADMIN: "/dashadmin/gohcomputer/Movimientos",
     CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
     SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
+    CONFIRMADO_CORREO: "/confrimado_correo",
   };
   
   
