@@ -27,6 +27,7 @@ import UserAdmin from "./Components/admin/User"
 import UnidadAdmin from "./Components/admin/Unidades"
 import CompraIndex from "./Components/Compra"
 import CompraConfirmada from "./Components/helps/comfirm"
+import IndexDatosEnvio from "./Components/Pedidos/DatosEnvio"
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
       <Route path={ROUTES.SUBCATEGORIAS} element={<Subcategoria />} />
       <Route path={ROUTES.CATEGORIAS} element={<Categorias />} />
       <Route path={ROUTES.CARRITO} element={<Carrito />} />
-      <Route path={ROUTES.COMPRA} element={<CompraIndex />} />
+      <Route path={ROUTES.COMPRA.CORREO} element={<CompraIndex />} />
       <Route path={ROUTES.SEARCH} element={<Search />} />
       <Route path={ROUTES.PEDIDOS} element={<Pedidos />} />
       <Route path={ROUTES.DETALLE_PEDIDO} element={<DetailPedi />} />
@@ -63,8 +64,10 @@ function App() {
       <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} />
-      <Route path={ROUTES.CONFIRMADO_CORREO} element={<CompraConfirmada />} />
       
+      <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
+
+
       </Routes>
     </div>
   )

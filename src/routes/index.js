@@ -58,7 +58,13 @@ export const ROUTES_BACK = {
     GET:`/documento/getbyenterprise`,
     GETID: (id) =>`/documento/getbyenterprise/${id}`,
 
+  },
+  MOVIMIENTO:{
+    GET:`/movimiento-m`,
+    GETID: (id) =>`/movimiento-m/enterprise/${id}`,
+
   }
+
 }
 
 
@@ -94,6 +100,10 @@ export const ROUTES = {
     CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
     SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
     CONFIRMADO_CORREO: "/confrimado_correo",
+    COMPRA:{
+      WEB:`compraWeb/datosEnvio`,
+      CORREO:`compraCorreo`,
+    }
   };
   
   

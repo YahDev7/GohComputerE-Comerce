@@ -4,6 +4,7 @@ import { Navigate, redirect, useParams} from "react-router-dom"
 import CarritoContext from "../../../context/carr";
 import { FetchsPedidos } from "../../../api/pedidos";
 import TokenContext from "../../../context/token";
+import CompDetallePedido from "../../Detallepedido/DetallePedido";
 
 //IMPORTANTE NO ESTOY SEGURO SI DEPOSITAR TODA LA CONFIANZA EN EL SUBTOTAL PARA REDIRIGIR AL CONFIRMAR EL PEDIDO
 
@@ -46,42 +47,23 @@ const Confirm = () => {
            <div className="pt-4">
                <p className="mb-2"><strong>Nro pedido:</strong> {idpedido}</p>
                <p className="mb-2"><strong>Total a pagar:</strong > <strong className="text-blue-800">s/{propedido?propedido.total_pagar:"nada"}</strong>  </p>
-               <p className="mb-2"><strong>Nro de cuenta a cancelar</strong> 1232134988 8328483288</p>
-           </div>
+{/*                <p className="mb-2"><strong>Nro de cuenta a cancelar</strong> 1232134988 8328483288</p>
+ */}           </div>
 
-           <button className="btn btnpedido !bg-blue-800 mt-3 mb-3" onClick={()=>depositopedido()}>Pagar Pedido</button>
+           {/* <div className="flex flex-col">
+            <button className="btn btnpedido !bg-blue-800 mt-3 mb-3 w-40" onClick={()=>depositopedido()}>Pagar Pedido</button>
+            <label htmlFor="">Elija el Metodo de pago:</label>
+            <select className="form-select" name="metodo_pago" id="">
+                    <option value="">Seleccione</option>
+                    <option value="deposito">Deposito</option>
+                    <option value="transferencia">Transferencia</option>
+                  </select>
+            </div> */}
+            <button className="btn btnpedido !bg-blue-800 mt-3 mb-3 w-40" onClick={()=>depositopedido()}>Pagar Pedido</button>
+
             <h3 className=" font-bold">Detalles del Pedido</h3>
-           <table className="table">
-            <thead>
-                    <tr>
-                      {/*   <th>Id</th> */}
-                        <th>Imagen</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                      {/*   <th>Importe</th> */}
-                    </tr>
-            </thead>
-            <tbody>
-               {/*  {getpropedido()} */}
-                 {
-                propedido?.detalle.map((el)=>   
-                <tr> 
-                  {/*   <td>{el.id}</td> */}
-
-                    <td><img width="70px" height="70px" src={el?.img}/> </td>
-                    <td><a href={`#/description/${el.id}`} > {el.nombre}</a></td>
-                    <td>{el.precio}</td>
-                    <td>{el.unidad}</td>
-                    
-
-                </tr>
-                )
-                } 
-
-            
-            </tbody>
-           </table>
+            <CompDetallePedido idpedido={idpedido} stateToken={stateToken}></CompDetallePedido>
+          
                </div>  
         {/*  }   */}
         

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FetchsPedidos } from "../../../api/pedidos";
 import TokenContext from "../../../context/token";
+import CompDetallePedido from "../../Detallepedido/DetallePedido";
 
 const DetallePedido = () => {
    /*     const {itemsCarr} =useContext(CarritoContext);
@@ -37,16 +38,16 @@ const DetallePedido = () => {
                 <h2 >Pedido {idpedido}</h2>
 
                 <div className="pt-4 col-5">
-                    <h3>Direccion de envio</h3>
+                    <h3 className="text-blue-800 font-semibold">Direccion de envio</h3>
                     <p className="mb-1"><strong>Departamento:</strong> {propedido?.departamento}</p>
                     <p className="mb-1"><strong>Provincia</strong> {propedido?.provincia}</p>
                     <p className="mb-1"><strong>Distrito:</strong> {propedido?.distrito} </p>
                     <p className="mb-1"><strong>Direccion</strong> {propedido?.direccion}</p>
                 </div>
                 <div className="pt-4 col-5">
-                    <h3>Detalle del pedido</h3>
+                    <h3 className="text-blue-800 font-semibold">Detalle del pedido</h3>
                     <p className="mb-1"><strong>Nro pedido:</strong> {idpedido}</p>
-                    <p className="mb-1"><strong>Total a pagar:</strong> s/{propedido?.total_pagar ? propedido.total_pagar : "nada"} </p>
+                    <p className="mb-1  "><strong>Total a pagar:</strong > <strong className="text-blue-800">s/{propedido?.total_pagar ? propedido.total_pagar : "nada"} </strong>  </p>
                     <p className="mb-1"><strong>Nro de cuenta a cancelar</strong> 1232134988 8328483288</p>
                 </div> 
 
@@ -54,10 +55,10 @@ const DetallePedido = () => {
 
                 {
                     propedido?.estado !== "PENDIENTE" ? <h3 style={{ paddingTop: "20px", fontWeight: "bold" }}>{propedido?.estado}...</h3> :
-                        <button className="btn btnpedido mt-3 mb-3" onClick={() => depositopedido()}>Pagar Pedido</button>
+                        <button className="btn  mt-3 mb-3 !bg-blue-800" onClick={() => depositopedido()}>Pagar Pedido</button>
                 }
 
-                <table className="table">
+              {/*   <table className="table">
                     <thead>
                         <tr>
                             <th>Imagen</th>
@@ -67,7 +68,6 @@ const DetallePedido = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/*   {getpropedido()} */}
                         {
                             propedido?.detalle.map((el) =>
                                 <tr >
@@ -80,7 +80,8 @@ const DetallePedido = () => {
                         }
 
                     </tbody>
-                </table>
+                </table> */}
+                <CompDetallePedido idpedido={idpedido} stateToken={stateToken}></CompDetallePedido>
             </div>
 
 

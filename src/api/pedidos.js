@@ -16,11 +16,11 @@ export const FetchsPedidos={
         return res;
 
     },
-    save: async(tokcarr,tokensession,subtotal)=> {
+    save: async(tokcarr,tokensession,subtotal,dataCustomer,metodo_pago)=> {
      
         const options={
             method:"POST",
-            body:JSON.stringify({tokcarr,tokensession,subtotal}),
+            body:JSON.stringify({tokcarr,tokensession,subtotal,dataCustomer,metodo_pago}),
             headers:{"Content-Type":"application/json"}
         };
         const res = await fetch(`${BaseURLAPI2}/documento`,options)
@@ -40,10 +40,12 @@ export const FetchsPedidos={
         return res2;
 
     },
-    verifydeposito: async(pedido_id)=> {       
-        const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido/verifydeposito/${pedido_id}`)
+  /*   getId: async(pedido_id)=> {       
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.DOCUMENTO.GET,headers)
+
+        //const res = await fetch(`${BaseURLAPI2}/gohcomputer/pedido/verifydeposito/${pedido_id}`)
         const res2 =await res.json();
         return res2;
 
-    }
+    } */
 }

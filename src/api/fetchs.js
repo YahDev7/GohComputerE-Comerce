@@ -193,6 +193,11 @@ export const FetchMov={
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.UNIDAD.SUMACOMPRAS,headers)
     return res
+    },
+    getById :async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.MOVIMIENTO.GETID(id),headers)
+    return res
     }, 
  }
 
