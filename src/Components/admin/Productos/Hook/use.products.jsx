@@ -133,15 +133,19 @@ export const UseProdAdmin = () => {
     }
 
     //ENVIAR EL TOKEN PARA LAS APIS
-    /*  let newform = { ...form, usuario_id, enterprise_id }
+      let newform = { ...form, usuario_id, enterprise_id }
      let res = await Fetchs.save(newform,stateTokenAdmin)
      console.log(res)
      if (res.statusCode) return alert(res.message.map((el) => el))
      if (res.status) return alert(res.message)
-      */
+    
     if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
-    /*  alert(res)
-     setform(formInit) */
+
+    let resalert=  await Swal.fire({
+      icon: 'success',
+      title: 'Guardado con éxito',
+    })
+     setform(formInit)
     return;
   }
 

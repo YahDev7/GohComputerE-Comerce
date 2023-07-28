@@ -2,44 +2,38 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StatusOnlineIcon } from "@heroicons/react/outline";
 import {
-  Card,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableBody,
-  TableCell,
-  Text,
-  Title,
-  Badge,
+  Card, Title,
+
 } from "@tremor/react";
-import { data } from "./data/data";
 import TokenAdminContext from "../../../context/tokenAdmin";
 import { UserFetch } from "../../../api/users.fetch";
 import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
+import { CustomerFetch } from "../../../api/customer.fetch";
 
 let formInit = {
   enterprise_id: '',
-  userAdmin_id: '',
-  nombre: '',
+  user_id: '',
+  nombres: '',
   ap_paterno: '',
   ap_materno: '',
+  departamento:'',
+  provincia:'',
+  distrito:'',
+  direccion:'',
   dni: '',
   email: '',
   password: '',
-  rol: '',
   telefono: '',
-  fecha_creacion: '', // Fecha actual en formato 'YYYY-MM-DD'
   estado: '',
 }
 
-const User = () => {
+const Customer = () => {
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
 
-  const [users, setusers] = useState([]);
+  const [customer, setcustomer] = useState([]);
   const [form, setform] = useState(formInit)
 
   let { enterprise_id,
@@ -54,9 +48,10 @@ const User = () => {
     telefono,
     fecha_creacion,
     estado } = form;
-  const getusers = async (token) => {
-    let res = await UserFetch.get(token)
-    setusers(res)
+  const getcustomer = async (token) => {
+    let res = await CustomerFetch.get(token);
+    console.log(res)
+    setcustomer(res)
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,8 +71,8 @@ const User = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-          <button /* onClick={() => deleteProd(row.idcomp)}  */className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+          <button onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */ }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+          <button /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
         </div>
       ),
 
@@ -101,7 +96,7 @@ const User = () => {
   ];
 
   useEffect(() => {
-    getusers(stateTokenAdmin)
+    getcustomer(stateTokenAdmin)
   }, []);
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -346,7 +341,7 @@ const User = () => {
 
       <DataTable
         columns={columns}
-        data={users}
+        data={customer}
         pagination
         selectableRows
         striped
@@ -389,4 +384,4 @@ const User = () => {
   );
 }
 
-export default User;
+export default Customer;

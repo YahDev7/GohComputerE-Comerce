@@ -171,9 +171,26 @@ export const uploadFilesFetch={
         const options = {
             method: "POST",
             body: formData,
-            headers: { 'Content-Type': 'multipart/form-data', "Authorization": `Bearer ${token}`, }
+            headers: {"Authorization": `Bearer ${token}`, }
         };
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVE("646bb567f506378faf2f4854"), options);
+        const res2 = await res.json();
+        return res2
+    },
+    saveBilleteraVirtual:async (file,token,idMovi)=>{
+        const formData = new FormData();
+        formData.append('file', file); // Suponiendo que `files` es el archivo o archivos que deseas cargar
+
+        const options = {
+            method: "POST",
+            body: formData,
+            headers: {"Authorization": `Bearer ${token}` }
+        };
+
+        console.log(options)
+
+        const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVEBILLETERAVIRTUAL(idMovi), options);
+        console.log(res)
         const res2 = await res.json();
         return res2
     },

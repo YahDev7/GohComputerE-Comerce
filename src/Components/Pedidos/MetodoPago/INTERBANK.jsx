@@ -1,7 +1,7 @@
 import { useDeposito } from "../deposito/hook/useDeposito";
 
-const Interbank = ({ statePedido,setenviado }) => {
-  const { savedeposito } = useDeposito(statePedido,setenviado)
+const Interbank = ({ statePedido,setenviado,stateToken }) => {
+  const { savedeposito } = useDeposito(statePedido,setenviado,stateToken)
 
   return (
     <>

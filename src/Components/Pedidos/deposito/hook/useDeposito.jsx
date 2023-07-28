@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { FetchsPedidos } from "../../../../api/pedidos";
+import { uploadFilesFetch } from "../../../../api/fetchs";
 
-export const useDeposito=(statePedido,setenviado)=>{
+export const useDeposito=(statePedido,setenviado,tokencustomer)=>{
 
 //  const [enviado, setenviado] = useState({ state: false, text: null });
+const [uploadfile, setuploadfile] = useState(null);
 
+ const handleImagenChange = (e) => {
+
+  const { files } = e.target;
+//  const imagenesArray = Array.from(files).map((file) => file);
+  setuploadfile(files[0]) 
+}; 
 
     const savedepositoBilletera = async (e) => {
 
@@ -17,14 +25,18 @@ export const useDeposito=(statePedido,setenviado)=>{
           "monto_pagar": statePedido?.total_pagar,
           "tipo_compra_venta": "VENTA",
           "estado": "PENDIENTE",
-          "fileAdjunto":e.target.file[0]
         }
-    
+     
         let resdepopedi = await FetchsPedidos.depositopedido(arrsavede);
         console.log(resdepopedi)
         if (resdepopedi.err) return alert(resdepopedi.message)
-    
         setenviado({ state: true, text: resdepopedi.message, data: resdepopedi.data })
+
+      let res2= await uploadFilesFetch.saveBilleteraVirtual(uploadfile,tokencustomer, resdepopedi.data );
+
+       console.log(res2)
+        if(!res2) return alert("no se consigui subir el archivo")
+
         /*    for(let ind of e.target){
              if(ind.value){
                let  na=ind.name;
@@ -79,6 +91,7 @@ export const useDeposito=(statePedido,setenviado)=>{
       }
     return {
       savedeposito,
-      savedepositoBilletera
+      savedepositoBilletera,
+      handleImagenChange
       }
 }

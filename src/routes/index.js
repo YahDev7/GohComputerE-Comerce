@@ -1,6 +1,19 @@
 // routes.js
 export const ROUTES_BACK = {
   ADMIN:{
+    MOVIMIENTO:{
+      GET:'/movimiento-m/enterprise'
+
+    },
+    DOCUMENTO:{
+      GET:'/documento/enterprise'
+       },
+    USER:{
+      GET:`/user/enterprise`
+    },
+    CUSTOMER:{
+      GET:`/customer/enterprise`
+    },
     PRODUCTOS:{
       GETBYID:(id)=> `/products/${id}`,
       UPDATE:(id)=> `/products/${id}`,
@@ -53,6 +66,7 @@ export const ROUTES_BACK = {
   },
   IMG:{
     SAVE: (id) =>`/image/upload/product/${id}`,
+    SAVEBILLETERAVIRTUAL: (id) =>`/image/upload/billeteravirtual/${id}`,
   },
   DOCUMENTO:{
     GET:`/documento/getbyenterprise`,

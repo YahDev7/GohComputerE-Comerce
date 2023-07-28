@@ -3,43 +3,41 @@ import { Link } from "react-router-dom";
 import { StatusOnlineIcon } from "@heroicons/react/outline";
 import {
   Card,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableBody,
-  TableCell,
-  Text,
   Title,
-  Badge,
-} from "@tremor/react";
+  } from "@tremor/react";
 import { data } from "./data/data";
 import TokenAdminContext from "../../../context/tokenAdmin";
-import { UserFetch } from "../../../api/users.fetch";
+import { DocumentoFetch } from "../../../api/documento.fetch";
 import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
 
 let formInit = {
+  user_id: '',
+  customer_id: '',
+  provider_id: '',
+  caja_id: '',
   enterprise_id: '',
-  userAdmin_id: '',
-  nombre: '',
-  ap_paterno: '',
-  ap_materno: '',
-  dni: '',
-  email: '',
-  password: '',
-  rol: '',
-  telefono: '',
-  fecha_creacion: '', // Fecha actual en formato 'YYYY-MM-DD'
+  tipo_documento: '',
+  serie: '',
+  nro_documento: '',
+  fecha: '',
+  sub_total: 0,
+  descuento_total: 0,
+  igv: 0,
+  total_pagar: 0,
   estado: '',
+  tipo_compra_venta: '',
+  detalle: [],
+  dataCustomer: [],
+  metodo_pago: '',
 }
 
-const User = () => {
+const Documento = () => {
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
 
-  const [users, setusers] = useState([]);
+  const [documento, setdocumento] = useState([]);
   const [form, setform] = useState(formInit)
 
   let { enterprise_id,
@@ -54,9 +52,10 @@ const User = () => {
     telefono,
     fecha_creacion,
     estado } = form;
-  const getusers = async (token) => {
-    let res = await UserFetch.get(token)
-    setusers(res)
+  const getdocumento = async (token) => {
+    let res = await DocumentoFetch.get(token)
+    console.log(res)
+    setdocumento(res)
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -101,7 +100,7 @@ const User = () => {
   ];
 
   useEffect(() => {
-    getusers(stateTokenAdmin)
+    getdocumento(stateTokenAdmin)
   }, []);
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -109,7 +108,7 @@ const User = () => {
 
   return (
     <Card>
-      <Title>Uusarios</Title>
+      <Title>Documento</Title>
       <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
         Nuevo
       </button>
@@ -346,7 +345,7 @@ const User = () => {
 
       <DataTable
         columns={columns}
-        data={users}
+        data={documento}
         pagination
         selectableRows
         striped
@@ -389,4 +388,4 @@ const User = () => {
   );
 }
 
-export default User;
+export default Documento;

@@ -538,7 +538,6 @@ const ModalProduct = () => {
                                             name="estado"
                                             id="estado"
                                         >
-                                            <option value="" >Seleccione</option>
                                             <option value="A">A</option>
                                             <option value="D">D</option>
 
@@ -565,7 +564,7 @@ const ModalProduct = () => {
                 </div>
             }
  <div>
-                    <DataTable 
+                  <DataTable 
                     columns={columns}
                     data={prodc}
                     pagination
@@ -574,7 +573,7 @@ const ModalProduct = () => {
                     expandOnRowClicked
                     expandableRows
                     expandableRowsHideExpander
-                    />
+                    />  
                    </div> 
         </>
 

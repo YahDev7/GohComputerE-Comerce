@@ -28,6 +28,9 @@ import UnidadAdmin from "./Components/admin/Unidades"
 import CompraIndex from "./Components/Compra"
 import CompraConfirmada from "./Components/helps/comfirm"
 import IndexDatosEnvio from "./Components/Pedidos/DatosEnvio"
+import CustomerAdmin from "./Components/admin/Customer"
+import DocumentoAdmin from "./Components/admin/Documentos"
+import MovimientoAdmin from "./Components/admin/Movimientos"
 
 function App() {
 
@@ -51,17 +54,16 @@ function App() {
       <Route path={ROUTES.REGISTER_ADMIN} element={<Register />} />
       <Route path={ROUTES.CONFIRMADO} element={<Confirmado />} />
       <Route path={ROUTES.DEPOSITO_PEDIDO} element={<DepositoPedido />} />
-
       <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
       <Route path={ROUTES.SERVICIO_ADMIN} element={<ServiciosIndex />} />
       <Route path={ROUTES.USER_ADMIN} element={<UserAdmin />} />
-      <Route path={ROUTES.CUSTOMERS_ADMIN} element={<AdminSidebar />} />
+      <Route path={ROUTES.CUSTOMERS_ADMIN} element={<CustomerAdmin />} />
       <Route path={ROUTES.PROVIDERS_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.PRODUCTOS_ADMIN} element={<ProductosAdmin />} />
       <Route path={ROUTES.CATEGORIA_ADMIN} element={<CategoriaAdmin />} />
       <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubCategoriaAdmin />} />
-      <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<AdminSidebar />} />
-      <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<AdminSidebar />} />
+      <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<DocumentoAdmin />} />
+      <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<MovimientoAdmin />} />
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} />
       

@@ -1,8 +1,8 @@
 import { useDeposito } from "../deposito/hook/useDeposito";
 
-const Bcp = ({ statePedido, setenviado }) => {
+const Bcp = ({ statePedido, setenviado,stateToken }) => {
 
-  const { savedeposito } = useDeposito(statePedido, setenviado)
+  const { savedeposito } = useDeposito(statePedido, setenviado,stateToken)
   return (
     <>
 
