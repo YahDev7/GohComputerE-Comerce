@@ -8,8 +8,32 @@ export const CustomerFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GET,headers)
         return res
     }, 
- /*     getOne: async(id)=> {
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.CATEGORIAS.GET_ONE(id))
+    getOne: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.USER.GETID(id),headers)
         return res
-    }  */
+    },
+     post: async(token,body)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        console.log(body,token)
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.CUSTOMER.REGISTER,body,headers)
+        return res
+    },  
+    postByEnterprise: async(token,body)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        console.log(body,token)
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.POST,body,headers)
+        return res
+    }, 
+    put: async(id,body,token)=> {
+        
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.PUT(id),body,headers)
+        return res
+    }, 
+    delete: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.delete(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.DELETE(id),headers)
+        return res
+    }, 
 } 

@@ -15,6 +15,7 @@ export const method={
             headers
           }
 
+          console.log(options)
         const res = await fetch(url,options)
         const res2 =await res.json();    
         return res2;

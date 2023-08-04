@@ -4,69 +4,48 @@ import { StatusOnlineIcon } from "@heroicons/react/outline";
 import {
   Card,
   Title,
-  } from "@tremor/react";
+} from "@tremor/react";
 import { data } from "./data/data";
 import TokenAdminContext from "../../../context/tokenAdmin";
 import { DocumentoFetch } from "../../../api/documento.fetch";
 import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
+import { UseDocumento } from "./hook/use.documento";
 
-let formInit = {
-  user_id: '',
-  customer_id: '',
-  provider_id: '',
-  caja_id: '',
-  enterprise_id: '',
-  tipo_documento: '',
-  serie: '',
-  nro_documento: '',
-  fecha: '',
-  sub_total: 0,
-  descuento_total: 0,
-  igv: 0,
-  total_pagar: 0,
-  estado: '',
-  tipo_compra_venta: '',
-  detalle: [],
-  dataCustomer: [],
-  metodo_pago: '',
-}
+
 
 const Documento = () => {
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
 
-  const [documento, setdocumento] = useState([]);
-  const [form, setform] = useState(formInit)
+  const { documento,
+    setdocumento,
+    formInit,
+    form,
+    setform,
+    getdocumento,
+    handleChange,
+    handleSubmit } = UseDocumento(stateTokenAdmin)
 
-  let { enterprise_id,
-    userAdmin_id,
-    nombre,
-    ap_paterno,
-    ap_materno,
-    dni,
-    email,
-    password,
-    rol,
-    telefono,
-    fecha_creacion,
-    estado } = form;
-  const getdocumento = async (token) => {
-    let res = await DocumentoFetch.get(token)
-    console.log(res)
-    setdocumento(res)
-  }
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setform({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes enviar los datos del formulario a tu API o hacer lo que necesites.
-    console.log(form);
-  };
+  let { /* user_id,
+    customer_id,
+    provider_id,
+    caja_id,
+    enterprise_id, */
+    tipo_documento,
+    serie,
+    nro_documento,
+    fecha,
+    sub_total,
+    descuento_total,
+    igv,
+    total_pagar,
+    estado,
+    tipo_compra_venta,
+    detalle,
+    dataCustomer,
+    metodo_pago } = form;
 
   const columns = [
     {
@@ -75,8 +54,8 @@ const Documento = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-          <button /* onClick={() => deleteProd(row.idcomp)}  */className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+          <button type="button" onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */ }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+          <button type="button" /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
         </div>
       ),
 
@@ -99,12 +78,53 @@ const Documento = () => {
 
   ];
 
-  useEffect(() => {
-    getdocumento(stateTokenAdmin)
-  }, []);
-  useEffect(() => {
-    if (!stateTokenAdmin) return location.href = "/#/login/admin"
-  }, [stateTokenAdmin]);
+
+  const columnsDetalleDoc = [
+    {
+      name: 'Actions',
+      sortable: true,
+      maxWidth: '200px',
+      cell: row => (
+        <div className="flex max-md:flex-col pt-2">
+          <button type="button" /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+        </div>
+      ),
+
+    },
+    {
+      name: 'ID',
+      selector: row => row._id,
+      sortable: true,
+    },
+    {
+      name: 'Product',
+      selector: row => row.nombre,
+      sortable: true,
+    },
+    {
+      name: 'Cantidad',
+      selector: row => row.cantidad,
+      sortable: true,
+    },  
+    {
+      name: 'Desc Unitario',
+      selector: row => row.descuento,
+      sortable: true,
+    },  
+    {
+      name: 'Importe',
+      selector: row => row.precio,
+      sortable: true,
+    },
+
+  ];
+
+
+  const handleChangeTable = ({ selectedRows }) => {
+    // You can set state or dispatch with something like Redux so we can use the retrieved data
+    console.log('Selected Rows: ', selectedRows);
+  };
+
 
   return (
     <Card>
@@ -128,213 +148,226 @@ const Documento = () => {
                 {/*  <Title className="pb-3 font-bold ">Detalle Produto</Title> */}
                 <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
                   <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
-                        nombre
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input onChange={(e) => handleChange(e)}
-                      value={nombre}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="nombre"
-                      id="nombre"
-                      type="text"
-                      placeholder="nombre"
-                    />
-                  </div>
-                  <div className="w-full px-3 mb-6 md:mb-0">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
-                      ap_paterno
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipo_documento">
+                      Tipo de Documento
                     </label>
-                    <input
-                      value={ap_paterno}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                      onChange={(e) => handleChange(e)}
-                      name="ap_paterno"
-                      id="ap_paterno"
-                      type="text"
-                      placeholder="ap_paterno"
-                    />
-                  </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
-                        ap_paterno
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      onChange={(e) => handleChange(e)}
-                      value={ap_paterno}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="ap_paterno"
-                      id="ap_paterno"
-                      type="text"
-                      placeholder="ap_paterno"
-                    />
-                  </div>
 
-
-
-                  <div className="w-full px-3">
-                    <div className="flex">
-
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_materno">
-                        ap_materno
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      onChange={(e) => handleChange(e)}
-                      value={ap_materno}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="ap_materno"
-                      id="ap_materno"
-                      type="text"
-                      placeholder="ap_materno"
-                    />
-
-                  </div>
-
-                  <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni">
-                      dni
-                    </label>
-                    <input
-                      value={dni}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="dni"
-                      id="dni"
-                      type="text"
-                      placeholder="URL del Fabricante"
-                    />
-                  </div>
-                  <input name="enterprise_id" id="enterprise_id" type="hidden" />
-
-
-                </div>
-                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-
-                  <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
-                      email
-                    </label>
-                    <input
-                      value={email}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="email"
-                      id="email"
-                      type="text"
-                      placeholder="URL del Producto"
-                    />
-                  </div>
-
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
-                        password
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      value={password}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="password"
-                      id="password"
-                      type="text"
-                      placeholder="password"
-                    />
-                  </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="rol">
-                        rol
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
                     <select
-                      value={rol}
+                      value={tipo_documento}
                       onChange={(e) => handleChange(e)}
                       className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                      name="tipo_documento"
+                      id="tipo_documento"
+                    >
+                      <option value="A">Seleccione</option>
+                      <option value="A">Boleta</option>
+                      <option value="D">Factura</option>
+                      <option value="D">Ticked</option>
+
+                      {/* Agrega más opciones aquí */}
+                    </select>
+
+
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="serie">
+                      Serie
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={serie}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="serie"
+                      id="serie"
+                      type="text"
+                      placeholder="Serie"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="nro_documento">
+                      Número{/*  de Documento */}
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={nro_documento}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="nro_documento"
+                      id="nro_documento"
+                      type="text"
+                      placeholder="Número de Documento"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="fecha">
+                      Fecha
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={fecha}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="fecha"
+                      id="fecha"
+                      type="date" // Utilizar type="date" para campos de fecha
+                      placeholder="Fecha"
+                    />
+                  </div>
+
+                
+
+                </div>
+                <div>
+                <DataTable
+                    columns={columnsDetalleDoc}
+                    data={[{id:"1"}]}
+                    pagination
+                    selectableRows
+                    striped
+                  /*   onSelectedRowsChange={handleChangeTable} */
+                  /*   expandOnRowClicked */
+                    expandableRows
+                    expandableRowsHideExpander
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="sub_total">
+                      Sub Total
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={sub_total}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="sub_total"
+                      id="sub_total"
+                      type="number"
+                      placeholder="Sub Total"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="descuento_total">
+                      Descuento Total
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={descuento_total}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="descuento_total"
+                      id="descuento_total"
+                      type="number"
+                      placeholder="Descuento Total"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="igv">
+                      IGV
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={igv}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="igv"
+                      id="igv"
+                      type="number"
+                      placeholder="IGV"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="total_pagar">
+                      Total a Pagar
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={total_pagar}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="total_pagar"
+                      id="total_pagar"
+                      type="number"
+                      placeholder="Total a Pagar"
+                    />
+                  </div>
+
+                  {/*    <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="estado">
+                      Estado
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={estado}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                       name="estado"
                       id="estado"
+                      type="text"
+                      placeholder="Estado"
+                    />
+                  </div> */}
+
+            {/*       <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipo_compra_venta">
+                      Tipo de Compra/Venta
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={tipo_compra_venta}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="tipo_compra_venta"
+                      id="tipo_compra_venta"
+                      type="text"
+                      placeholder="Tipo de Compra/Venta"
+                    />
+                  </div> */}
+
+              {/*     <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="detalle">
+                      Detalle
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      value={detalle}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="detalle"
+                      id="detalle"
+                      type="text"
+                      placeholder="Detalle"
+                    />
+                  </div> */}
+
+        {/*           <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="metodo_pago">
+                      Método de Pago
+                    </label>
+
+
+                    <select
+                      value={metodo_pago}
+                      onChange={(e) => handleChange(e)}
+                      className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                      name="metodo_pago"
+                      id="metodo_pago"
                     >
                       <option value="">Seleccione</option>
-                      <option value="ADMIN">Admin</option>
-                      <option value="COMUN">Comun</option>
+                      <option value="YAPE">YAPE</option>
+                      <option value="PLIN">PLIN</option>
+                      <option value="INTERBANK">TRANS. INTERBANK</option>
+                      <option value="BCP">TRANS. BCP</option>
 
-                      {/* Agrega más opciones aquí */}
                     </select>
-                  </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="telefono">
-                        telefono
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      value={telefono}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="telefono"
-                      id="telefono"
-                      type="text"
-                      placeholder="telefono"
-                    />
-                  </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="fecha_creacion">
-                        fecha_creacion
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      value={fecha_creacion}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="fecha_creacion"
-                      id="fecha_creacion"
-                      type="text"
-                      placeholder="fecha_creacion"
-                    />
-                  </div>
 
 
+
+                  </div> */}
                 </div>
 
 
 
-                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-                  <div className="w-full px-3">
 
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
-                        Estado
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <select
-                      value={estado}
-                      onChange={(e) => handleChange(e)}
-                      className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-                      name="estado"
-                      id="estado"
-                    >
-                      <option value="A">A</option>
-                      <option value="D">D</option>
 
-                      {/* Agrega más opciones aquí */}
-                    </select>
-
-                  </div>
-
-                </div>
 
 
               </Card>

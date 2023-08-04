@@ -1,18 +1,46 @@
 // routes.js
 export const ROUTES_BACK = {
   ADMIN:{
+    SUBCATEGORIA:{
+      GET:'/subcategoria/enterprise',
+      GETID:(id)=>`/subcategoria/enterprise${id}`,
+      POST:`/subcategoria/enterprise`,
+      PUT:(id)=>`/subcategoria/enterprise/${id}`,
+      DELETE:(id)=>`/subcategoria/enterprise/${id}`
+    },
+    CATEGORIA:{
+      GET:'/categoria/enterprise',
+      GETID:(id)=>`/categoria/enterprise${id}`,
+      POST:`/categoria/enterprise`,
+      PUT:(id)=>`/categoria/enterprise/${id}`,
+      DELETE:(id)=>`/categoria/enterprise/${id}`
+
+    },
     MOVIMIENTO:{
-      GET:'/movimiento-m/enterprise'
+      GET:'/movimiento-m/enterprise',
+      GETID:(id)=>`/movimiento-m/enterprise${id}`,
+      POST:`/movimiento-m/enterprise`,
 
     },
     DOCUMENTO:{
-      GET:'/documento/enterprise'
+      GET:'/documento/enterprise',
+      GETID:(id)=>`/documento/enterprise${id}`,
+      POST:`/documento/enterprise/user`,
+      POSTANULAR:`/documento/enterprise/anular`,
        },
     USER:{
-      GET:`/user/enterprise`
+      GET:`/user/enterprise`,
+      GETID:(id)=>`/user/enterprise${id}`,
+      POST:`/user/enterprise`,
+      PUT:(id)=>`/user/enterprise/${id}`,
+      DELETE:(id)=>`/user/enterprise/${id}`
     },
     CUSTOMER:{
-      GET:`/customer/enterprise`
+      GET:`/customer/enterprise`,
+      GETID:(id)=>`/customer/enterprise${id}`,
+      POST:`/customer/enterprise`,
+      PUT:(id)=>`/customer/enterprise/${id}`,
+      DELETE:(id)=>`/customer/enterprise/${id}`
     },
     PRODUCTOS:{
       GETBYID:(id)=> `/products/${id}`,

@@ -1,49 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { StatusOnlineIcon } from "@heroicons/react/outline";
 import {
   Card,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableBody,
-  TableCell,
-  Text,
   Title,
-  Badge,
 } from "@tremor/react";
-import { data } from "./data/data";
-import TokenAdminContext from "../../../context/tokenAdmin";
-import { UserFetch } from "../../../api/users.fetch";
+import { useContext } from "react";
 import DataTable from "react-data-table-component";
-import { UseToggle } from "../hook/use.toggle";
 
-let formInit = {
-  enterprise_id: '',
-  userAdmin_id: '',
-  nombre: '',
-  ap_paterno: '',
-  ap_materno: '',
-  dni: '',
-  email: '',
-  password: '',
-  rol: '',
-  telefono: '',
-  fecha_creacion: '', // Fecha actual en formato 'YYYY-MM-DD'
-  estado: '',
-}
+import { UseToggle } from "../hook/use.toggle";
+import { UseUser } from "./hook/use.user";
+import TokenAdminContext from "../../../context/tokenAdmin";
+
 
 const User = () => {
-
+  const { StateModal,toggleModal } = UseToggle()
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  const { StateModal, setStateModal, toggleModal } = UseToggle()
+  const {  users,
+    form,formInit,
+    setform,
+    getusers,
+    handleChange,
+    handleSubmit}=UseUser(stateTokenAdmin)
 
-  const [users, setusers] = useState([]);
-  const [form, setform] = useState(formInit)
-
-  let { enterprise_id,
-    userAdmin_id,
+    let {/*  enterprise_id,
+    userAdmin_id, */
     nombre,
     ap_paterno,
     ap_materno,
@@ -54,21 +32,6 @@ const User = () => {
     telefono,
     fecha_creacion,
     estado } = form;
-  const getusers = async (token) => {
-    let res = await UserFetch.get(token)
-    setusers(res)
-  }
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setform({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes enviar los datos del formulario a tu API o hacer lo que necesites.
-    console.log(form);
-  };
-
   const columns = [
     {
       name: 'Actions',
@@ -76,8 +39,8 @@ const User = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-          <button /* onClick={() => deleteProd(row.idcomp)}  */className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+          <button onClick={() => { toggleModal(); /* getproductEdit(row.idcomp)  */ }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+          <button /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
         </div>
       ),
 
@@ -100,12 +63,7 @@ const User = () => {
 
   ];
 
-  useEffect(() => {
-    getusers(stateTokenAdmin)
-  }, []);
-  useEffect(() => {
-    if (!stateTokenAdmin) return location.href = "/#/login/admin"
-  }, [stateTokenAdmin]);
+
 
   return (
     <Card>
@@ -144,20 +102,7 @@ const User = () => {
                       placeholder="nombre"
                     />
                   </div>
-                  <div className="w-full px-3 mb-6 md:mb-0">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
-                      ap_paterno
-                    </label>
-                    <input
-                      value={ap_paterno}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                      onChange={(e) => handleChange(e)}
-                      name="ap_paterno"
-                      id="ap_paterno"
-                      type="text"
-                      placeholder="ap_paterno"
-                    />
-                  </div>
+
                   <div className="w-full px-3">
                     <div className="flex">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
@@ -213,11 +158,6 @@ const User = () => {
                     />
                   </div>
                   <input name="enterprise_id" id="enterprise_id" type="hidden" />
-
-
-                </div>
-                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-
                   <div className="w-full px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
                       email
@@ -232,6 +172,11 @@ const User = () => {
                       placeholder="URL del Producto"
                     />
                   </div>
+
+                </div>
+                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+
+
 
                   <div className="w-full px-3">
                     <div className="flex">
@@ -261,8 +206,8 @@ const User = () => {
                       value={rol}
                       onChange={(e) => handleChange(e)}
                       className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-                      name="estado"
-                      id="estado"
+                      name="rol"
+                      id="rol"
                     >
                       <option value="">Seleccione</option>
                       <option value="ADMIN">Admin</option>
@@ -301,17 +246,10 @@ const User = () => {
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                       name="fecha_creacion"
                       id="fecha_creacion"
-                      type="text"
+                      type="date"
                       placeholder="fecha_creacion"
                     />
                   </div>
-
-
-                </div>
-
-
-
-                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
                   <div className="w-full px-3">
 
                     <div className="flex">
@@ -355,34 +293,7 @@ const User = () => {
         expandableRowsHideExpander
       />
 
-      {/*  <Table className="mt-5">
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell>Position</TableHeaderCell>
-            <TableHeaderCell>Department</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {columns.map((item) => (
-            <TableRow key={item.name}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>
-                <Text>{item.Role}</Text>
-              </TableCell>
-              <TableCell>
-                <Text>{item.departement}</Text>
-              </TableCell>
-              <TableCell>
-                <Badge color="emerald" icon={StatusOnlineIcon}>
-                  {item.status}
-                </Badge>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table> */}
+
     </Card>
 
 

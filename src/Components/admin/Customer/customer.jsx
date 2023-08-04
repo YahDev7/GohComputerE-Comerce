@@ -10,59 +10,39 @@ import { UserFetch } from "../../../api/users.fetch";
 import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
 import { CustomerFetch } from "../../../api/customer.fetch";
+import { UseCustomer } from "./hook/use.customer";
 
-let formInit = {
-  enterprise_id: '',
-  user_id: '',
-  nombres: '',
-  ap_paterno: '',
-  ap_materno: '',
-  departamento:'',
-  provincia:'',
-  distrito:'',
-  direccion:'',
-  dni: '',
-  email: '',
-  password: '',
-  telefono: '',
-  estado: '',
-}
+
 
 const Customer = () => {
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
 
-  const [customer, setcustomer] = useState([]);
-  const [form, setform] = useState(formInit)
+  const {
+    customer,
+    formInit,
+    form,
+    setform,
+    handleChange,
+    handleSubmit
+  }=UseCustomer(stateTokenAdmin)
 
-  let { enterprise_id,
-    userAdmin_id,
-    nombre,
+  let { 
+    nombres,
     ap_paterno,
     ap_materno,
     dni,
     email,
     password,
-    rol,
+    departamento,
+    provincia,
+    distrito,
+    direccion,
     telefono,
-    fecha_creacion,
     estado } = form;
-  const getcustomer = async (token) => {
-    let res = await CustomerFetch.get(token);
-    console.log(res)
-    setcustomer(res)
-  }
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setform({ ...form, [name]: value });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes enviar los datos del formulario a tu API o hacer lo que necesites.
-    console.log(form);
-  };
+ 
 
   const columns = [
     {
@@ -84,7 +64,7 @@ const Customer = () => {
     },
     {
       name: 'Nombre',
-      selector: row => row.nombre,
+      selector: row => row.nombres,
       sortable: true,
     },
     {
@@ -95,12 +75,7 @@ const Customer = () => {
 
   ];
 
-  useEffect(() => {
-    getcustomer(stateTokenAdmin)
-  }, []);
-  useEffect(() => {
-    if (!stateTokenAdmin) return location.href = "/#/login/admin"
-  }, [stateTokenAdmin]);
+
 
   return (
     <Card>
@@ -126,17 +101,17 @@ const Customer = () => {
                   <div className="w-full px-3">
                     <div className="flex">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
-                        nombre
+                        nombres
                       </label>
                       <span className="pl-2 ">*</span>
                     </div>
                     <input onChange={(e) => handleChange(e)}
-                      value={nombre}
+                      value={nombres}
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="nombre"
-                      id="nombre"
+                      name="nombres"
+                      id="nombres"
                       type="text"
-                      placeholder="nombre"
+                      placeholder="nombres"
                     />
                   </div>
                   <div className="w-full px-3 mb-6 md:mb-0">
@@ -153,25 +128,6 @@ const Customer = () => {
                       placeholder="ap_paterno"
                     />
                   </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
-                        ap_paterno
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      onChange={(e) => handleChange(e)}
-                      value={ap_paterno}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="ap_paterno"
-                      id="ap_paterno"
-                      type="text"
-                      placeholder="ap_paterno"
-                    />
-                  </div>
-
-
 
                   <div className="w-full px-3">
                     <div className="flex">
@@ -207,65 +163,6 @@ const Customer = () => {
                       placeholder="URL del Fabricante"
                     />
                   </div>
-                  <input name="enterprise_id" id="enterprise_id" type="hidden" />
-
-
-                </div>
-                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-
-                  <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
-                      email
-                    </label>
-                    <input
-                      value={email}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="email"
-                      id="email"
-                      type="text"
-                      placeholder="URL del Producto"
-                    />
-                  </div>
-
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
-                        password
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <input
-                      value={password}
-                      onChange={(e) => handleChange(e)}
-                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="password"
-                      id="password"
-                      type="text"
-                      placeholder="password"
-                    />
-                  </div>
-                  <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="rol">
-                        rol
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <select
-                      value={rol}
-                      onChange={(e) => handleChange(e)}
-                      className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-                      name="estado"
-                      id="estado"
-                    >
-                      <option value="">Seleccione</option>
-                      <option value="ADMIN">Admin</option>
-                      <option value="COMUN">Comun</option>
-
-                      {/* Agrega más opciones aquí */}
-                    </select>
-                  </div>
                   <div className="w-full px-3">
                     <div className="flex">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="telefono">
@@ -283,23 +180,124 @@ const Customer = () => {
                       placeholder="telefono"
                     />
                   </div>
+
+
+                  <input name="enterprise_id" id="enterprise_id" type="hidden" />
+
+
+                </div>
+                <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+                  <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
+                      email
+                    </label>
+                    <input
+                      value={email}
+                      onChange={(e) => handleChange(e)}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="email"
+                      id="email"
+                      type="text"
+                      placeholder="URL del Producto"
+                    />
+                  </div>
                   <div className="w-full px-3">
                     <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="fecha_creacion">
-                        fecha_creacion
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
+                        password
                       </label>
                       <span className="pl-2 ">*</span>
                     </div>
                     <input
-                      value={fecha_creacion}
+                      value={password}
                       onChange={(e) => handleChange(e)}
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="fecha_creacion"
-                      id="fecha_creacion"
+                      name="password"
+                      id="password"
                       type="text"
-                      placeholder="fecha_creacion"
+                      placeholder="password"
                     />
                   </div>
+
+                  <div className="w-full px-3">
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
+                        departamento
+                      </label>
+                      <span className="pl-2 ">*</span>
+                    </div>
+                    <input
+                      onChange={(e) => handleChange(e)}
+                      value={departamento}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="departamento"
+                      id="departamento"
+                      type="text"
+                      placeholder="departamento"
+                    />
+                  </div>
+
+                  <div className="w-full px-3">
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
+                        provincia
+                      </label>
+                      <span className="pl-2 ">*</span>
+                    </div>
+                    <input
+                      onChange={(e) => handleChange(e)}
+                      value={provincia}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="provincia"
+                      id="provincia"
+                      type="text"
+                      placeholder="provincia"
+                    />
+                  </div>
+                  <div className="w-full px-3">
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
+                        distrito
+                      </label>
+                      <span className="pl-2 ">*</span>
+                    </div>
+                    <input
+                      onChange={(e) => handleChange(e)}
+                      value={distrito}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="distrito"
+                      id="distrito"
+                      type="text"
+                      placeholder="distrito"
+                    />
+                  </div>
+
+
+
+
+
+                  {/*         <div className="w-full px-3">
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="rol">
+                        rol
+                      </label>
+                      <span className="pl-2 ">*</span>
+                    </div>
+                    <select
+                      value={rol}
+                      onChange={(e) => handleChange(e)}
+                      className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                      name="estado"
+                      id="estado"
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="COMUN">Comun</option>
+
+                    </select>
+                  </div> */}
+
+
 
 
                 </div>
@@ -307,6 +305,23 @@ const Customer = () => {
 
 
                 <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+                  <div className="w-full px-3">
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
+                        direccion
+                      </label>
+                      <span className="pl-2 ">*</span>
+                    </div>
+                    <input
+                      onChange={(e) => handleChange(e)}
+                      value={direccion}
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                      name="direccion"
+                      id="direccion"
+                      type="text"
+                      placeholder="direccion"
+                    />
+                  </div>
                   <div className="w-full px-3">
 
                     <div className="flex">
@@ -329,6 +344,7 @@ const Customer = () => {
                     </select>
 
                   </div>
+             
 
                 </div>
 

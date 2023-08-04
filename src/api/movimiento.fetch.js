@@ -8,8 +8,15 @@ export const MovimientoFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GET,headers)
         return res
     }, 
- /*     getOne: async(id)=> {
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.CATEGORIAS.GET_ONE(id))
+    getOne: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETID(id),headers)
         return res
-    }  */
+    },
+    post: async(token,body)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+     
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.POST,body,headers)
+        return res
+    }
 } 
