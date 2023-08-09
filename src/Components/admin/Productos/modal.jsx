@@ -2,48 +2,52 @@ import { Button, Tab, TabList, Title, Card } from "@tremor/react";
 import { UseProdAdmin } from "./Hook/use.products";
 import { UseSubCatAdmin } from "../Subcategoria/hook/use.subcategoria";
 import DataTable from "react-data-table-component";
+import { useContext } from "react";
+import TokenAdminContext from "../../../context/tokenAdmin";
 
 const ModalProduct = () => {
 
-    let { subcats } = UseSubCatAdmin()
-    const {prodc}=  UseProdAdmin()
+    const { stateTokenAdmin } = useContext(TokenAdminContext)
+    let { subcategoria } = UseSubCatAdmin(stateTokenAdmin)
 
     const columns = [
-      {
-          name: 'Actions',
-          sortable: true,
-          maxWidth: '200px',
-          cell: row => (
-            <div className="flex max-md:flex-col pt-2">
-              <button onClick={() =>{toggleModal(); getproductEdit(row.idcomp)}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-              <button onClick={() => deleteProd(row.idcomp)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
-            </div>
-          ),
-    
-      },
-      {
-          name: 'ID',
-          selector: row => row.idcomp,
-          sortable: true,
-      },
-      {
-          name: 'Nombre',
-          selector: row => row.descomp,
-          sortable: true,
-      },
-      {
-          name: 'Precio',
-          selector: row => row.descomp,
-          sortable: true,
-      },
-      
-  ];
+        {
+            name: 'Actions',
+            sortable: true,
+            maxWidth: '200px',
+            cell: row => (
+                <div className="flex max-md:flex-col pt-2">
+                    <button onClick={() => { toggleModal(); getproductEdit(row.idcomp) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+                    <button onClick={() => deleteProd(row.idcomp)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+                </div>
+            ),
+
+        },
+        {
+            name: 'ID',
+            selector: row => row.idcomp,
+            sortable: true,
+        },
+        {
+            name: 'Nombre',
+            selector: row => row.descomp,
+            sortable: true,
+        },
+        {
+            name: 'Precio',
+            selector: row => row.descomp,
+            sortable: true,
+        },
+
+    ];
     const {
         handleImagenChange,
-        setGanancia,
-       handleAgregarEspecificacion,setform, StateModal, form,formInit, toggleModal, handleEliminarEspecificacion, handleEspecificacionChange, SubmirForm, handleChange,getproductEdit,deleteProd } = UseProdAdmin()
+        setGanancia, prodc,
+        handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal, handleEliminarEspecificacion, handleEspecificacionChange, SubmirForm, handleChange, getproductEdit, deleteProd } = UseProdAdmin()
 
-       const {
+    console.log(form)
+
+    const {
         codfabricante,
         codigo,
         descripcion,
@@ -67,20 +71,20 @@ const ModalProduct = () => {
         valor_dolar,
         ventas,
         especificaciones,
-       } = form
+    } = form
 
     return (
 
         <>
-            <button onClick={() => {setform(formInit); toggleModal()}} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+            <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                 New
             </button>
             {StateModal &&
 
                 <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50 top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100% - 1rem)]max-h-full">
-                   <input type="text" name="_id" id="_id" />
+                    <input type="hidden" name="_id" id="_id" />
                     <div className="relative bg-white rounded-lg p-2 w-[80%]">
-                        <button onClick={() =>{setform(formInit); toggleModal()}} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
+                        <button onClick={() => { setform(formInit); toggleModal() }} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
 
                         {/*   <TabList defaultValue="1" onValueChange={(value) => setcardProd(value === "1")} className="mt-6"  >
                             <Tab value="1" text="Detalle Prod" />
@@ -104,7 +108,7 @@ const ModalProduct = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <input onChange={(e) => handleChange(e)}
-                                        value={codigo}
+                                            value={codigo}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="codigo"
                                             id="codigo"
@@ -150,8 +154,8 @@ const ModalProduct = () => {
                                                 Subcategoria ID
                                             </label>
                                             <span className="pl-2 ">*</span>
-                                        </div>                 
-                                            <select
+                                        </div>
+                                        <select
                                             onChange={(e) => handleChange(e)}
                                             value={subcategoria_id}
                                             className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
@@ -160,12 +164,12 @@ const ModalProduct = () => {
                                         >
                                             <option value="" >Seleccione</option>
 
-                                             {
-                                                       subcats.map((el)=>
-                                                         <option value={el?._id}>{el?.nombre}</option>
-                                                       )
-                                                     /*   ShowSubcats() */
-                                                    } 
+                                            {
+                                                subcategoria.map((el) =>
+                                                    <option value={el?._id}>{el?.nombre}</option>
+                                                )
+                                                /*   Showsubcategoria() */
+                                            }
 
                                         </select>
                                     </div>
@@ -179,7 +183,7 @@ const ModalProduct = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <select
-                                        value={unidad}
+                                            value={unidad}
                                             onChange={(e) => handleChange(e)}
                                             className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 py-3 px-4 "
                                             name="unidad"
@@ -203,7 +207,7 @@ const ModalProduct = () => {
                                             URL del Fabricante
                                         </label>
                                         <input
-                                        value={url_fab}
+                                            value={url_fab}
                                             onChange={(e) => handleChange(e)}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="url_fab"
@@ -235,7 +239,7 @@ const ModalProduct = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <input
-                                        value={stock}
+                                            value={stock}
                                             onChange={(e) => handleChange(e)}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="stock"
@@ -252,7 +256,7 @@ const ModalProduct = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <textarea
-                                        value={descripcion}
+                                            value={descripcion}
                                             onChange={(e) => handleChange(e)}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="descripcion"
@@ -393,7 +397,7 @@ const ModalProduct = () => {
                                         </div>
                                         <input
                                             value={precio_compra_dolar}
-                                            onChange={(e) => { handleChange(e)}}
+                                            onChange={(e) => { handleChange(e) }}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="precio_compra_dolar"
                                             id="precio_compra_dolar"
@@ -408,9 +412,9 @@ const ModalProduct = () => {
                                             </label>
                                             <span className="pl-2 ">*</span>
                                         </div>
-                                      <p id="precio_compra_dolar_igv" className=" pt-3">${form.precio_compra_dolar_igv}</p> 
+                                        <p id="precio_compra_dolar_igv" className=" pt-3">${form.precio_compra_dolar_igv}</p>
 
-                                       {/*  <input
+                                        {/*  <input
                                             onChange={(e) => handleChange(e)}
                                             value={form.precio_compra_dolar_igv}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -427,9 +431,9 @@ const ModalProduct = () => {
                                             </label>
                                             <span className="pl-2 ">*</span>
                                         </div>
-                                         <p id="precio_compra_dolar_con_IGV">${form.precio_compra_dolar_con_IGV}</p> 
+                                        <p id="precio_compra_dolar_con_IGV">${form.precio_compra_dolar_con_IGV}</p>
 
-                                      {/*     <input
+                                        {/*     <input
                                                     onChange={(e) => {handleChange(e)}}
                                                     value={form.precio_compra_dolar_con_IGV}
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -467,7 +471,7 @@ const ModalProduct = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <input
-                                        value={ganancia}
+                                            value={ganancia}
                                             onChange={(e) => { handleChange(e); setGanancia(e.target.value) }}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="ganancia"
@@ -516,7 +520,7 @@ const ModalProduct = () => {
                                         </div>
                                         <input
                                             value={valor_dolar}
-                                            onChange={(e) => { handleChange(e); /* setDolar(e.target.value) | */}}
+                                            onChange={(e) => { handleChange(e); /* setDolar(e.target.value) | */ }}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="valor_dolar"
                                             id="valor_dolar"
@@ -563,8 +567,8 @@ const ModalProduct = () => {
                     </div>
                 </div>
             }
- <div>
-                  <DataTable 
+            <div>
+                <DataTable
                     columns={columns}
                     data={prodc}
                     pagination
@@ -573,8 +577,8 @@ const ModalProduct = () => {
                     expandOnRowClicked
                     expandableRows
                     expandableRowsHideExpander
-                    />  
-                   </div> 
+                />
+            </div>
         </>
 
     );

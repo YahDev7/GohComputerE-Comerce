@@ -18,7 +18,7 @@ const Productos = () => {
     return (
         <Card>
             <Title className="!text-4x1">Productos</Title>
-            <ModalProduct></ModalProduct>
+            <ModalProduct stateTokenAdmin={stateTokenAdmin}></ModalProduct>
                   
         </Card>
     );

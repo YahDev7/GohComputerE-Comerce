@@ -28,20 +28,94 @@ export const UseUser = (stateTokenAdmin) => {
       let res = await UserFetch.get(token)
       setusers(res)
     }
+
+    const deleteUser = async (id) => {
+
+      let res2 = await MySwal.fire({
+        title: '¿Estas seguro de eliminar este registro?',
+        text: "Se eliminara de manera permanente!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar'
+      })
+  
+      if (res2.isConfirmed) {
+        let res = await UserFetch.delete(id, stateTokenAdmin)
+        console.log(res)
+         if(res.status) return  Swal.fire(
+          'Alerta!',
+          res.message,
+          'warning'
+        ) 
+
+        if(res.statusCode) return  Swal.fire(
+          'Alerta!',
+          res.message,
+          'warning'
+        ) 
+
+        return  Swal.fire(
+          'Eliminado!',
+          'El registro fue eliminado con exito',
+          'success'
+        )
+  
+      }
+    }
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setform({ ...form, [name]: value });
     };
-  
+    const getEdit = async (id) => {
+      let res = await UserFetch.getOne(id, stateTokenAdmin)
+      let {__v,enterprise_id,...res2} = res
+      setform(res2)
+    }
+
     const handleSubmit = async (e) => {
       e.preventDefault();
+
+      if (form?._id) {
+        const { _id, ...form2 } = form
+        let res3 = await UserFetch.put(_id, form2, stateTokenAdmin)
+        console.log(res3)
+       // if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
+        
+      if (res3.statusCode) return alert(res3.message.map((el) => el))
+      if (res3.status) return  await MySwal.fire({
+        title: <h2>{res3.message}</h2>,
+        icon: 'error'
+      })  
+
+      await MySwal.fire({
+        title: <h2>{res3.message}</h2>,
+        icon: 'success'
+      }) 
+        setform(formInit)
+        return;
+      }
+
+      
   
       let res = await UserFetch.postByEnterprise(stateTokenAdmin, form)
+      console.log(res)
 
-      if(!res.err) return MySwal.fire({
+      if (res.statusCode) return alert(res.message.map((el) => el))
+      if (res.status) return  await MySwal.fire({
+        title: <h2>{res.message}</h2>,
+        icon: 'error'
+      })  
+
+      await MySwal.fire({
         title: <h2>{res.message}</h2>,
         icon: 'success'
       })  
+     setform(formInit)
+
+      return;
 
     };
     useEffect(() => {
@@ -58,7 +132,8 @@ export const UseUser = (stateTokenAdmin) => {
     getusers,
     handleChange,
     handleSubmit,
-    formInit
-
+    formInit,
+    getEdit,
+    deleteUser
   };
 }

@@ -6,7 +6,7 @@ import TokenContext from "../../context/token";
 const MySwal = withReactContent(Swal) 
 let frmlogin = {
   email: '',
-  pass: ''
+  password: ''
 }
 const Login = () => {
 
@@ -58,7 +58,7 @@ const Login = () => {
             <div className='w-full'>
               <input type="email" placeholder='Email' id="email" name="email" onChange={(e)=>handleChange(e)}
                 className='w-full text-[#0d1a44] bg-transparent border-[#0d1a44] py-4 my-2 bg-none border-b outline-none focus:outline-none' />
-              <input type="password" placeholder='Password'  name="pass"  id="pass" onChange={(e)=>handleChange(e)}
+              <input type="password" placeholder='Password'  name="password"  id="password" onChange={(e)=>handleChange(e)}
                 className='w-full text-[#0d1a44] bg-transparent border-[#0d1a44] py-4 my-2  bg-none border-b outline-none focus:outline-none' />
             </div>
 

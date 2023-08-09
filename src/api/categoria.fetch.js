@@ -24,7 +24,7 @@ export const CategoriaFetch={
         let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.CATEGORIA.PUT(id),body,headers)
         return res
     }, 
-    delete: async(id,token)=> {
+    delete: async(id,token)=> { //IDENTIFICAR EL ERROR
         let headers={ Authorization: `Bearer ${token}`}
         let res= await method.delete(BaseURLAPI2+ROUTES_BACK.ADMIN.CATEGORIA.DELETE(id),headers)
         return res

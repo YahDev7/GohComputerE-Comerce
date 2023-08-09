@@ -3,14 +3,14 @@ export const ROUTES_BACK = {
   ADMIN:{
     SUBCATEGORIA:{
       GET:'/subcategoria/enterprise',
-      GETID:(id)=>`/subcategoria/enterprise${id}`,
+      GETID:(id)=>`/subcategoria/enterprise/${id}`,
       POST:`/subcategoria/enterprise`,
       PUT:(id)=>`/subcategoria/enterprise/${id}`,
       DELETE:(id)=>`/subcategoria/enterprise/${id}`
     },
     CATEGORIA:{
       GET:'/categoria/enterprise',
-      GETID:(id)=>`/categoria/enterprise${id}`,
+      GETID:(id)=>`/categoria/enterprise/${id}`,
       POST:`/categoria/enterprise`,
       PUT:(id)=>`/categoria/enterprise/${id}`,
       DELETE:(id)=>`/categoria/enterprise/${id}`
@@ -30,22 +30,23 @@ export const ROUTES_BACK = {
        },
     USER:{
       GET:`/user/enterprise`,
-      GETID:(id)=>`/user/enterprise${id}`,
+      GETID:(id)=>`/user/enterprise/${id}`,
       POST:`/user/enterprise`,
       PUT:(id)=>`/user/enterprise/${id}`,
       DELETE:(id)=>`/user/enterprise/${id}`
     },
     CUSTOMER:{
       GET:`/customer/enterprise`,
-      GETID:(id)=>`/customer/enterprise${id}`,
+      GETID:(id)=>`/customer/enterprise/${id}`,
       POST:`/customer/enterprise`,
       PUT:(id)=>`/customer/enterprise/${id}`,
       DELETE:(id)=>`/customer/enterprise/${id}`
     },
     PRODUCTOS:{
-      GETBYID:(id)=> `/products/${id}`,
-      UPDATE:(id)=> `/products/${id}`,
-      DELETE:(id)=>`/products/${id}`,
+      GET:`/products/enterprise`,
+      GETBYID:(id)=> `/products/enterprise/${id}`,
+      UPDATE:(id)=> `/products/enterprise/${id}`,
+      DELETE:(id)=>`/products/enterprise/${id}`,
     },
     UNIDAD:{
       SUMAVENTAS:`/movimiento-m/ventas/total`,

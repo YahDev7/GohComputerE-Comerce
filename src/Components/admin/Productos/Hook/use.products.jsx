@@ -12,7 +12,7 @@ export const UseProdAdmin = () => {
     enterprise_id: '',
     usuario_id: '',
     subcategoria_id: '',
-    estado: '',
+    estado: 'A',
     /* fechafinpromo: '', */
     garantia: '',
     /*  igv: 0,
@@ -52,14 +52,10 @@ export const UseProdAdmin = () => {
   ]
 
   const [form, setform] = useState(formInit)
-  //const [formEdit, setformEdit] = useState(null);
-
-
   const [uploadfiles, setuploadfiles] = useState(initfiles);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
   let datauser = JSON.parse(user)
   const { usuario_id, enterprise_id } = datauser
-
 
   const getproductEdit = async (id) => {
     let res = await Fetchs.getOne(id, stateTokenAdmin)
@@ -94,22 +90,15 @@ export const UseProdAdmin = () => {
         res.message,
         'warning'
       ) */
-
-      return   Swal.fire(
+      if(!res.err) return  Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
+
+      return alert(res)
     }
   }
-
-  /*   useEffect(() => {
-     // if (formEdit) getproductEdit(formEdit)
-  
-      console.log(formEdit)
-  
-    }, [formEdit]); */
-
 
   const [showCard, setShowCard] = useState(true);
   const [cardProd, setcardProd] = useState(true);
@@ -157,6 +146,7 @@ export const UseProdAdmin = () => {
 
   const getprod = async () => {
     let res = await Fetchs.get(stateTokenAdmin)
+    console.log(res)
     setProdc(res)
   }
 

@@ -11,19 +11,19 @@ const Subcategoria = () => {
 
     return (
         <>
-        <TokenProvider>
-            <CarritoProvider>
-                <SubCategoriaProvider>
-                    <CategoriaProvider>
+            <TokenProvider>
+                <CarritoProvider>
+                    <SubCategoriaProvider>
+                        <CategoriaProvider>
 
 
-                        <Header></Header>
-                        <CompSubCat></CompSubCat>
-                        <Footer></Footer>
-                    </CategoriaProvider>
-                </SubCategoriaProvider>
-            </CarritoProvider>
-                    </TokenProvider>
+                            <Header></Header>
+                            <CompSubCat></CompSubCat>
+                            <Footer></Footer>
+                        </CategoriaProvider>
+                    </SubCategoriaProvider>
+                </CarritoProvider>
+            </TokenProvider>
         </>
 
     );

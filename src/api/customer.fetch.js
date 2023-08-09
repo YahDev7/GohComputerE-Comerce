@@ -10,12 +10,11 @@ export const CustomerFetch={
     }, 
     getOne: async(id,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.USER.GETID(id),headers)
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GETID(id),headers)
         return res
     },
      post: async(token,body)=> {
         let headers={ Authorization: `Bearer ${token}`,}
-        console.log(body,token)
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.CUSTOMER.REGISTER,body,headers)
         return res
     },  

@@ -13,16 +13,13 @@ const ModalSubCategoria = () => {
     const { stateTokenAdmin } = useContext(TokenAdminContext)
 
     const { handleSubmit, handleChange, subcategoria,
-        form,setform,formInit } = UseSubCatAdmin(stateTokenAdmin)
+        form,setform,formInit,  getEdit,
+        deleteUser } = UseSubCatAdmin(stateTokenAdmin)
         
     let { nombre,
         url_imagen,
         categoria_id,
         estado } = form
-
-
-
-
 
     const columns = [
         {
@@ -31,8 +28,8 @@ const ModalSubCategoria = () => {
             maxWidth: '200px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
-                    <button className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-                    <button className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+                    <button onClick={() => { toggleModal();  getEdit(row._id)}}  className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+                    <button onClick={() => deleteUser(row._id)}   className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
                 </div>
             ),
 

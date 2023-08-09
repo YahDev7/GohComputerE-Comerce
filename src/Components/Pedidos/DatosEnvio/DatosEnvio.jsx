@@ -67,6 +67,7 @@ const DatosEnvio = () => {
     if (!tokcarr) return location.href = "#/login"
 
     const residpedido = await FetchsPedidos.save(tokcarr, stateToken, subtotal,formData,data[selectedItem-1].title);
+    console.log(residpedido)
      if (!residpedido.err) {
       localStorage.removeItem("tokencarr")
       return location.href = "#/confirmado/" + residpedido.data;
