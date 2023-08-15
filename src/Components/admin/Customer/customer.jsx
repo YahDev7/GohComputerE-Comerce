@@ -35,7 +35,7 @@ const Customer = () => {
     nombres,
     ap_paterno,
     ap_materno,
-    dni,
+    dni_ruc,
     email,
     password,
     departamento,
@@ -153,15 +153,15 @@ const Customer = () => {
                   </div>
 
                   <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni">
-                      dni
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">
+                      dni_ruc
                     </label>
                     <input
-                      value={dni}
+                      value={dni_ruc}
                       onChange={(e) => handleChange(e)}
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                      name="dni"
-                      id="dni"
+                      name="dni_ruc"
+                      id="dni_ruc"
                       type="text"
                       placeholder="URL del Fabricante"
                     />

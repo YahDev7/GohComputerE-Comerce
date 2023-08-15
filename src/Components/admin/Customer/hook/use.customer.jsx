@@ -11,7 +11,7 @@ let formInit = {
     provincia: '',
     distrito: '',
     direccion: '',
-    dni: '',
+    dni_ruc: '',
     email: '',
     password: '',
     telefono: '',

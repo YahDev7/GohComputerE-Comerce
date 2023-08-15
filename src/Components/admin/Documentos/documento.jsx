@@ -19,32 +19,38 @@ import ModalMovimiento from "../Movimientos/modal";
 
 const Documento = () => {
 
+  const [selectCustomer, setselectCustomer] = useState(null);
+  const [selectProduct, setselectProduct] = useState(null);
+
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
 
   const { documento,
     setdocumento,
     formInit,
+    reload,
     form,
     setform,
     getdocumento,
     handleChange,
-    handleSubmit } = UseDocumento(stateTokenAdmin)
+    handleSubmit, formCustomer, setformCustomer,
+    formProducto,
+    setformProducto, importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle ,setDetalleDoc } = UseDocumento(stateTokenAdmin, selectProduct)
 
 
-    const [StateModalCliente, setStateModalCliente] = useState(false);
+  const [StateModalCliente, setStateModalCliente] = useState(false);
 
-    const toggleModalcliente = () => {
-        if (StateModalCliente) return setStateModalCliente(false)
-        if (!StateModalCliente) return setStateModalCliente(true)
-      }
+  const toggleModalcliente = () => {
+    if (StateModalCliente) return setStateModalCliente(false)
+    if (!StateModalCliente) return setStateModalCliente(true)
+  }
 
-      const [StateModalProducto, setStateModalProducto] = useState(false);
+  const [StateModalProducto, setStateModalProducto] = useState(false);
 
-      const toggleModalProducto = () => {
-          if (StateModalProducto) return setStateModalProducto(false)
-          if (!StateModalProducto) return setStateModalProducto(true)
-        }
+  const toggleModalProducto = () => {
+    if (StateModalProducto) return setStateModalProducto(false)
+    if (!StateModalProducto) return setStateModalProducto(true)
+  }
 
 
   const {
@@ -72,7 +78,16 @@ const Documento = () => {
     tipo_compra_venta,
     detalle,
     dataCustomer,
-    metodo_pago } = form;
+    metodo_pago,customer_id } = form;
+
+  let {
+    nombres,
+    dni_ruc } = formCustomer
+
+  let {
+    nomcomp,
+    precio_venta,
+    stock } = formProducto
 
   const columns = [
     {
@@ -94,17 +109,16 @@ const Documento = () => {
     },
     {
       name: 'Nombre',
-      selector: row => row.nombre,
+      selector: row => row.fecha,
       sortable: true,
     },
     {
       name: 'Email',
-      selector: row => row.email,
+      selector: row => row.total_pagar,
       sortable: true,
     },
 
   ];
-
 
   const columnsDetalleDoc = [
     {
@@ -113,19 +127,24 @@ const Documento = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button type="button" /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+          <button type="button" onClick={() => removedetalle(row.idcomp)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Quitar</button>
         </div>
       ),
 
     },
     {
       name: 'ID',
-      selector: row => row._id,
+      selector: row => row.idcomp,
       sortable: true,
     },
     {
       name: 'Product',
-      selector: row => row.nombre,
+      selector: row => row.nomcomp,
+      sortable: true,
+    },
+    {
+      name: 'Precio unitario',
+      selector: row => row.precioUnitario,
       sortable: true,
     },
     {
@@ -140,7 +159,7 @@ const Documento = () => {
     },
     {
       name: 'Importe',
-      selector: row => row.precio,
+      selector: row => row.importe,
       sortable: true,
     },
 
@@ -168,48 +187,72 @@ const Documento = () => {
   ];
 
   const columnsProductos = [
-  
+
     {
-        name: 'ID',
-        selector: row => row.idcomp,
-        sortable: true,
+      name: 'ID',
+      selector: row => row.idcomp,
+      sortable: true,
     },
     {
-        name: 'Nombre',
-        selector: row => row.descomp,
-        sortable: true,
+      name: 'Nombre',
+      selector: row => row.descomp,
+      sortable: true,
     },
     {
-        name: 'Precio',
-        selector: row => row.descomp,
-        sortable: true,
+      name: 'Precio',
+      selector: row => row.descomp,
+      sortable: true,
     },
-    
-];
+
+  ];
 
 
   const handleChangeTableCustomer = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
     console.log('Selected Rows: ', selectedRows);
+    if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+    setselectCustomer(selectedRows[0])
   };
 
   const handleChangeTableProducto = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
     console.log('Selected Rows: ', selectedRows);
+    if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+    setselectProduct(selectedRows[0])
   };
 
 
+  const handleSelect = () => {
+    let { nombres, dni_ruc, _id } = selectCustomer
+    console.log(nombres, dni_ruc);
+
+    setformCustomer({ ...formCustomer, nombres, dni_ruc, _id });
+    toggleModalcliente()
+    // setToggleClearRows(!toggledClearRows);
+  }
+
+
+  const handleSelectProduct = () => {
+
+    console.log(selectProduct);
+    let { nomcomp, precio_venta, idcomp, stock } = selectProduct
+
+    setformProducto({ ...formProducto, nomcomp, precio_venta, stock, idcomp });
+
+    toggleModalProducto()
+    // setToggleClearRows(!toggledClearRows);
+  }
 
 
 
-/*   const {formInit,
-    stateMovimiento,
-    setstateMovimiento,
-    form,
-    setform,
-    getdocumento,
-    handleChange,
-    handleSubmit} =UseDocumento(stateTokenAdmin) */
+  /*   const {formInit,
+      stateMovimiento,
+      setstateMovimiento,
+      form,
+      setform,
+      getdocumento,
+      handleChange,
+      handleSubmit} =UseDocumento(stateTokenAdmin) */
 
 
 
@@ -251,7 +294,6 @@ const Documento = () => {
                         <option value="D">Ticked</option>
 
                       </select>
-
 
                     </div>
 
@@ -305,25 +347,26 @@ const Documento = () => {
                   </div>
 
                   <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
+                 {/*  <input value={customer_id} type="text" name="customer_id" id="customer_id" /> */}
 
                     <div class="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="razonSocial">DNI/RUC</label>
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">DNI/RUC</label>
                       <div class="grid grid-cols-5">
-                        <input type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="nombreCliente" id="nombreCliente" placeholder="" />
-                        <button onClick={()=>toggleModalcliente()} class="btn bg-blue-700 text-white col-start-5" type="button" data-bs-toggle="modal" data-bs-target="#modalListarPersonas" id="btn-searchCliente"><i class="fas fa-search"></i></button>
+                        <input value={dni_ruc} type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="dni_ruc" id="dni_ruc" placeholder="" />
+                        <button onClick={() => toggleModalcliente()} class="btn bg-blue-700 text-white col-start-5" type="button" data-bs-toggle="modal" data-bs-target="#modalListarPersonas" id="btn-searchCliente"><i class="fas fa-search"></i></button>
                       </div>
 
                     </div>
 
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="razonSocial">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="nombres">
                         Razon Social
                       </label>
                       <input
-               
+                        value={nombres}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        name="razonSocial"
-                        id="razonSocial"
+                        name="nombres"
+                        id="nombres"
                         type="text"
                         placeholder="Razon Social"
                       />
@@ -333,10 +376,10 @@ const Documento = () => {
 
                   <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
                     <div class="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="razonSocial">Producto</label>
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="producto">Producto</label>
                       <div class="grid grid-cols-5">
-                        <input type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="nombreCliente" id="nombreCliente" placeholder="" />
-                        <button onClick={()=>toggleModalProducto()} class="btn bg-blue-700 text-white col-start-5" type="button" data-bs-toggle="modal" data-bs-target="#modalListarPersonas" id="btn-searchCliente"><i class="fas fa-search"></i></button>
+                        <input value={nomcomp} type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="nomcomp" id="nomcomp" placeholder="" />
+                        <button onClick={() => toggleModalProducto()} class="btn bg-blue-700 text-white col-start-5" type="button" data-bs-toggle="modal" data-bs-target="#modalListarPersonas" id="btn-searchCliente"><i class="fas fa-search"></i></button>
                       </div>
                     </div>
                     <div className="w-full px-3">
@@ -344,12 +387,13 @@ const Documento = () => {
                         Precio
                       </label>
                       <input
-                    
+                        value={precio_venta}
+
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                        name="precio"
-                        id="precio"
+                        name="precio_venta"
+                        id="precio_venta"
                         type="text"
-                        placeholder="Razon Social"
+                        placeholder="precio de venta"
                       />
                     </div>
                     <div className="w-full px-3">
@@ -357,7 +401,8 @@ const Documento = () => {
                         cantidad
                       </label>
                       <input
-                 
+                        value={cantidad}
+                        onChange={(e) => handle(e)}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                         name="cantidad"
                         id="cantidad"
@@ -367,10 +412,11 @@ const Documento = () => {
                     </div>
                     <div className="w-full px-3">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="descuento">
-                        descuento
+                        descuento Unitario
                       </label>
                       <input
-                  
+                        value={descuento}
+                        onChange={(e) => handle(e)}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                         name="descuento"
                         id="descuento"
@@ -378,8 +424,6 @@ const Documento = () => {
                         placeholder="Razon Social"
                       />
                     </div>
-
-
                   </div>
 
                   <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
@@ -389,7 +433,7 @@ const Documento = () => {
                         importe
                       </label>
                       <input
-                      
+                        value={importe}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                         name="importe"
                         id="importe"
@@ -402,7 +446,7 @@ const Documento = () => {
                         stock
                       </label>
                       <input
-                 
+                        value={stock}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                         name="stock"
                         id="stock"
@@ -412,8 +456,8 @@ const Documento = () => {
                     </div>
 
                     <div className="grid md:grid-cols-4  gap-4 -mx-3 mb-6">
-                      <button type="button" className=" text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Agregar</button>
-                      <button type="button" className=" text-white bg-blue-700 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Limpiar</button>
+                      <button onClick={(e) => addDetalle(e)} type="button" className=" text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Agregar</button>
+                      <button  onClick={(e) =>setDetalleDoc([])  }   type="button" className=" text-white bg-blue-700 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Limpiar</button>
 
                     </div>
                   </div>
@@ -423,11 +467,11 @@ const Documento = () => {
                   <div>
                     <DataTable
                       columns={columnsDetalleDoc}
-                      data={[{ id: "1" }]}
+                      data={detalleDoc}
                       pagination
                       selectableRows
                       striped
-                  
+
                       expandableRows
                       expandableRowsHideExpander
                     />
@@ -493,8 +537,31 @@ const Documento = () => {
                         placeholder="Total a Pagar"
                       />
                     </div>
+                    <div className="w-full px-3">
+                      <div className="flex">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                          Metodo de pago
+                        </label>
+                        <span className="pl-2 ">*</span>
+                      </div>
+                      <select
+                         value={metodo_pago} 
+                        onChange={(e) => handleChange(e)}
+                        className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                        name="metodo_pago"
+                        id="metodo_pago"
+                      >
+                        <option value="">Seleccione</option>
+                        <option value="BCP">BCP</option>
+                        <option value="INTERBANK">INTERBANK</option>
+                        <option value="YAPE">YAPE</option>
+                        <option value="PLIN">PLIN</option>
+                        {/* Agrega más opciones aquí */}
+                      </select>
 
-                  
+
+                    </div>
+
 
                   </div>
 
@@ -526,55 +593,67 @@ const Documento = () => {
 
 
       {StateModalCliente &&
-       <Card>
-
-
-
+        <Card>
+          <Title>Documento</Title>
+          <button className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+            Nuevo
+          </button>
           <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-          <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+            <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
 
-            <DataTable
-              columns={columnsCustomer}
-              data={customer}
-              pagination
-              selectableRows
-              striped
-              expandableRows
-              expandableRowsHideExpander
-              onSelectedRowsChange={handleChangeTableCustomer}
-            />
+            <div className="w-10/12 ">
+              <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelect}>
+                Seleccionar
+              </button>
+              <DataTable
+                title="CLIENTES"
+                columns={columnsCustomer}
+                data={customer}
+                dense
+                pagination
+                selectableRows
+                striped
+                expandableRows
+                expandableRowsHideExpander
+                onSelectedRowsChange={handleChangeTableCustomer}
+              />
+            </div>
+
           </div>
 
-       </Card>
+        </Card>
 
       }
 
 
 
-{StateModalProducto &&
-       <Card>
-
-
+      {StateModalProducto &&
+        <Card>
 
           <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-          <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+            <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
 
-            <DataTable
-              columns={columnsProductos}
-              data={prodc}
-              pagination
-              selectableRows
-              striped
-              expandableRows
-              expandableRowsHideExpander
-               onSelectedRowsChange={handleChangeTableProducto} 
-            />
+            <div className="w-10/12 ">
+              <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelectProduct}>
+                Seleccionar
+              </button>
+              <DataTable
+                columns={columnsProductos}
+                data={prodc}
+                pagination
+                selectableRows
+                striped
+                expandableRows
+                expandableRowsHideExpander
+                onSelectedRowsChange={handleChangeTableProducto}
+              />
+            </div>
           </div>
 
-       </Card>
+        </Card>
 
       }
-{/* 
+      {/* 
 <ModalMovimiento toggleModal={toggleModal}></ModalMovimiento>
  */}
     </div>
