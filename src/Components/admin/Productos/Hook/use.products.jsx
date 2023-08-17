@@ -124,7 +124,6 @@ export const UseProdAdmin = () => {
     //ENVIAR EL TOKEN PARA LAS APIS
       let newform = { ...form, usuario_id, enterprise_id }
      let res = await Fetchs.save(newform,stateTokenAdmin)
-     console.log(res)
      if (res.statusCode) return alert(res.message.map((el) => el))
      if (res.status) return alert(res.message)
     
@@ -146,7 +145,6 @@ export const UseProdAdmin = () => {
 
   const getprod = async () => {
     let res = await Fetchs.get(stateTokenAdmin)
-    console.log(res)
     setProdc(res)
   }
 

@@ -24,7 +24,7 @@ export const ROUTES_BACK = {
     },
     DOCUMENTO:{
       GET:'/documento/enterprise',
-      GETID:(id)=>`/documento/enterprise${id}`,
+      GETID:(id)=>`/documento/enterprise/${id}`,
       POST:`/documento/enterprise`,
       POSTANULAR:`/documento/enterprise/anular`,
        },

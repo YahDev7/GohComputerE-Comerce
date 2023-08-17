@@ -35,7 +35,7 @@ let formInitProduct = {
     stock: ""
 }
 
-export const UseDocumento = (stateTokenAdmin, selectProduct) => {
+export const UseDocumento = (stateTokenAdmin) => {
 
     const [importe, setimporte] = useState(null);
     const [cantidad, setcantidad] = useState(0);
@@ -46,6 +46,27 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
     const [formProducto, setformProducto] = useState(formInitProduct)
     const [precioUnitario, setprecioUnitario] = useState(null)
     const [detalleDoc, setDetalleDoc] = useState([])
+    const [selectCustomer, setselectCustomer] = useState(null);
+    const [selectProduct, setselectProduct] = useState(null);
+
+    const [StateModalCliente, setStateModalCliente] = useState(false);
+    const toggleModalcliente = () => {
+        if (StateModalCliente) return setStateModalCliente(false)
+        if (!StateModalCliente) return setStateModalCliente(true)
+    }
+
+    const [StateModalProducto, setStateModalProducto] = useState(false);
+    const toggleModalProducto = () => {
+        if (StateModalProducto) return setStateModalProducto(false)
+        if (!StateModalProducto) return setStateModalProducto(true)
+    }
+
+    const [StateModalMovimiento, setStateModalMovimiento] = useState(false);
+    const toggleModalMovimiento = () => {
+        if (StateModalMovimiento) return setStateModalMovimiento(false)
+        if (!StateModalMovimiento) return setStateModalMovimiento(true)
+    }
+
 
 
     const getdocumento = async (token) => {
@@ -69,11 +90,9 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
         if (!cantidad) return alert("falta una wea")
         if (!importe) return alert("falta una wea")
         let res = detalleDoc.find(e => e.idcomp === idcomp)
-        console.log(detalleDoc, res)
 
         if (res) {
             let newcarr = detalleDoc.map(pro => pro.idcomp === idcomp ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
-            console.log(newcarr)
             setDetalleDoc(newcarr)
 
             setdescuento(0)
@@ -101,30 +120,37 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
     };
     const reload = async (e) => {
         return
-       /*  e.preventDefault();
-        let res = await DocumentoFetch.post(stateTokenAdmin, form) */
+        /*  e.preventDefault();
+         let res = await DocumentoFetch.post(stateTokenAdmin, form) */
     };
     const calcularextra = async (e) => {
-        console.log(cantidad,detalleDoc)
-        const sub_total = detalleDoc.reduce((acc, obj) => Number(acc) + Number(obj.precioUnitario)*obj.cantidad, 0);
+        const sub_total = detalleDoc.reduce((acc, obj) => Number(acc) + Number(obj.precioUnitario) * obj.cantidad, 0);
         const descuento_total = detalleDoc.reduce((acc, obj) => Number(acc) + Number(obj.descuento), 0);
 
         // let total_pagar = (sub_total).toFixed(2)
         let total_pagar = sub_total - descuento_total.toFixed(2)
         Number(total_pagar)
-        console.log(detalleDoc)
-       return setform({ ...form, sub_total, descuento_total, total_pagar })
+        return setform({ ...form, sub_total, descuento_total, total_pagar })
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let {_id}=formCustomer
-        if(!detalleDoc) return alert("falta detalle ")
-        let formtodo= {...form,detalle:detalleDoc,customer_id:_id}
+        let { _id } = formCustomer
+        if (!detalleDoc) return alert("falta detalle ")
+        let formtodo = { ...form, detalle: detalleDoc, customer_id: _id }
 
-        //console.log(formtodo)
         let res = await DocumentoFetch.post(stateTokenAdmin, formtodo)
-        console.log(res)
+        if (res.statusCode) return alert(res.message.map((el) => el))
+        if (res.status) return alert(res.message)
+        let resalert = await Swal.fire({
+            icon: 'success',
+            title: 'Guardado con éxito',
+        })
+        setform(formInit)
+        setformCustomer(formInitCustomer)
+        setformProducto(formInitProduct)
+        setDetalleDoc([])
+        return;
     };
 
     const handle = async (e) => {
@@ -140,10 +166,10 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
         setcantidad(Number(value))
         setprecioUnitario(Number(selectProduct.precio_venta))
     };
-    
+
     const removedetalle = async (id) => {
-       let res= detalleDoc.filter(e=>e.idcomp!==id)
-       setDetalleDoc(res)
+        let res = detalleDoc.filter(e => e.idcomp !== id)
+        setDetalleDoc(res)
     };
 
     const handledescuento = async (value) => {
@@ -156,6 +182,47 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
 
         setdescuento(Number(value))
     };
+
+
+    const handleChangeTableCustomer = ({ selectedRows }) => {
+        // You can set state or dispatch with something like Redux so we can use the retrieved data
+        if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+        setselectCustomer(selectedRows[0])
+    };
+
+    const handleChangeTableProducto = ({ selectedRows }) => {
+        // You can set state or dispatch with something like Redux so we can use the retrieved data
+        if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+        setselectProduct(selectedRows[0])
+    };
+
+
+    const handleSelect = () => {
+        let { nombres, dni_ruc, _id } = selectCustomer
+
+        setformCustomer({ ...formCustomer, nombres, dni_ruc, _id });
+        toggleModalcliente()
+        // setToggleClearRows(!toggledClearRows);
+    }
+
+
+    const handleSelectProduct = () => {
+
+        let { nomcomp, precio_venta, idcomp, stock } = selectProduct
+
+        setformProducto({ ...formProducto, nomcomp, precio_venta, stock, idcomp });
+
+        toggleModalProducto()
+        // setToggleClearRows(!toggledClearRows);
+    }
+
+   /*  const getdocumentoid = async(id) => {
+
+        let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
+        setform(res)
+    } */
+    
+
 
     useEffect(() => {
         calcularextra()
@@ -189,9 +256,19 @@ export const UseDocumento = (stateTokenAdmin, selectProduct) => {
         handle,
         descuento,
         cantidad,
-        addDetalle, detalleDoc,reload,calcularextra,
+        addDetalle, detalleDoc, reload, calcularextra,
         removedetalle,
-        setDetalleDoc
-
+        setDetalleDoc,
+        toggleModalcliente,
+        toggleModalProducto,
+        StateModalCliente,
+        StateModalProducto,
+        handleChangeTableCustomer,
+        handleChangeTableProducto,
+        handleSelect,
+        handleSelectProduct,
+        StateModalMovimiento,
+        toggleModalMovimiento,
+       /*  getdocumentoid */
     };
 }

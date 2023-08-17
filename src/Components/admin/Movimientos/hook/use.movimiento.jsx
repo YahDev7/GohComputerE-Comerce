@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { MovimientoFetch } from "../../../../api/movimiento.fetch";
+import { DocumentoFetch } from "../../../../api/documento.fetch";
 
 let formInit = {
     /*   documento_id: '',
@@ -18,14 +19,13 @@ let formInit = {
     estado: '',
     fileAdjunto: {},
 }
-export const UseDocumento = (stateTokenAdmin) => {
+export const UseMovimiento = (stateTokenAdmin) => {
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [form, setform] = useState(formInit)
 
 
     const getdocumento = async (token) => {
         let res = await MovimientoFetch.get(token)
-        console.log(res)
         setstateMovimiento(res)
     }
     const handleChange = (e) => {
@@ -33,12 +33,22 @@ export const UseDocumento = (stateTokenAdmin) => {
         setform({ ...form, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmitMov = async (e) => {
         e.preventDefault();
         let res = await MovimientoFetch.post(stateTokenAdmin, form)
         // Aquí puedes enviar los datos del formulario a tu API o hacer lo que necesites.
-        console.log(res);
     };
+
+
+
+    const getdocumentoid = async(id) => {
+
+        let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
+        let {_id,metodo_pago,total_pagar} = res
+        setform({...form,documento_id:_id,metodo_pago,monto_pagar:total_pagar})
+        console.log(res)
+        console.log(form)
+    } 
 
     useEffect(() => {
         getdocumento(stateTokenAdmin)
@@ -56,6 +66,7 @@ export const UseDocumento = (stateTokenAdmin) => {
         setform,
         getdocumento,
         handleChange,
-        handleSubmit
+        handleSubmitMov,
+        getdocumentoid
     };
 }
