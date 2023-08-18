@@ -8,7 +8,6 @@ const ModalMovimiento = ({toggleModalMovimiento}) => {
    const { stateTokenAdmin } = useContext(TokenAdminContext)
 
    const {formInit,
-
     form,
     setform,
     getdocumento,

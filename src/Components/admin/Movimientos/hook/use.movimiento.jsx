@@ -22,6 +22,7 @@ let formInit = {
 export const UseMovimiento = (stateTokenAdmin) => {
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [form, setform] = useState(formInit)
+    const [ftemproral, setftemproral] = useState({})
 
 
     const getdocumento = async (token) => {
@@ -45,14 +46,19 @@ export const UseMovimiento = (stateTokenAdmin) => {
 
         let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
         let {_id,metodo_pago,total_pagar} = res
-        setform({...form,documento_id:_id,metodo_pago,monto_pagar:total_pagar})
-        console.log(res)
-        console.log(form)
+        setftemproral({documento_id:_id,metodo_pago,monto_pagar:total_pagar})
     } 
 
     useEffect(() => {
+        console.log(ftemproral)
+        setform(ftemproral)
+
+    }, [ftemproral]);
+    
+    useEffect(() => {
         getdocumento(stateTokenAdmin)
     }, []);
+
     useEffect(() => {
         if (!stateTokenAdmin) return location.href = "/#/login/admin"
     }, [stateTokenAdmin]);

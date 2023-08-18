@@ -25,6 +25,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
   }
   const getEdit = async (id) => {
     let res = await SubCategoriaFetch.getOne(id, stateTokenAdmin)
+    console.log(res)
     let {__v,enterprise_id,usuario_id,...res2} = res
     setform(res2)
   }
@@ -54,12 +55,13 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
         'warning'
       ) 
 
-      return  Swal.fire(
+       Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
-
+      getsubcategoria(stateTokenAdmin)
+      return
     }
   }
 
@@ -100,12 +102,13 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
       icon: 'success',
       title: 'Guardado con éxito',
     })
+    getsubcategoria(stateTokenAdmin)
     
   }
 
   useEffect(() => {
     getsubcategoria(stateTokenAdmin)
-  }, []);
+  }, [subcategoria]);
 
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"

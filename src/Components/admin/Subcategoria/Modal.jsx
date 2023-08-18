@@ -5,7 +5,7 @@ import TokenAdminContext from "../../../context/tokenAdmin";
 import { useContext, useEffect, useState } from "react";
 import { SubCategoriaFetch } from "../../../api/subcategoria.fetch";
 import { Card } from "@tremor/react";
-
+import { UseCatAdmin } from "../Categoria/Hooks/use.categoria"
 const ModalSubCategoria = () => {
 
 
@@ -13,9 +13,10 @@ const ModalSubCategoria = () => {
     const { stateTokenAdmin } = useContext(TokenAdminContext)
 
     const { handleSubmit, handleChange, subcategoria,
-        form,setform,formInit,  getEdit,
+        form, setform, formInit, getEdit,
         deleteUser } = UseSubCatAdmin(stateTokenAdmin)
-        
+
+    const { categoria } = UseCatAdmin(stateTokenAdmin)
     let { nombre,
         url_imagen,
         categoria_id,
@@ -28,8 +29,8 @@ const ModalSubCategoria = () => {
             maxWidth: '200px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
-                    <button onClick={() => { toggleModal();  getEdit(row._id)}}  className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-                    <button onClick={() => deleteUser(row._id)}   className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+                    <button onClick={() => { toggleModal(); getEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+                    <button onClick={() => deleteUser(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
                 </div>
             ),
 
@@ -108,17 +109,20 @@ cardProd === true ?{ */}
                                         </div>
 
                                         <select
-                                            /*  value={categoria_id} */
+                                              value={categoria_id} 
                                             onChange={(e) => handleChange(e)}
                                             className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
                                             name="categoria_id"
                                             id="categoria_id"
                                         >
-                                            <option value="">Selecciona</option>
-                                            <option value="6463be1042ba9983bda86d9c">ID1</option>
-                                            <option value="6463be1042ba9983bda86d9c">ID2</option>
+                                            <option value="">Seleccione</option>
 
-                                            {/* Agrega más opciones aquí */}
+                                            {
+                                                categoria.map((el) =>
+                                                    <option value={el?._id}>{el?.nombre}</option>
+                                                )
+                                                /*   Showsubcategoria() */
+                                            }
                                         </select>
 
                                     </div>

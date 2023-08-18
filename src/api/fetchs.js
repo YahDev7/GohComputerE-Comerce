@@ -3,7 +3,9 @@ import {  BaseURLAPI2 } from "../config/Base_URL.js";
 import { method } from "./methods.js";
 
 export const Fetchs={
-     getpromo: async()=> {
+    
+  
+    getpromo: async()=> {
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_ALL_PROMO)
         return res
     }, 
@@ -33,6 +35,7 @@ export const Fetchs={
         return res;  
     },
     getOneGoh: async(id)=> {
+        console.log(id)
        // let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_BY_ID_PROD(id))
         return res;  

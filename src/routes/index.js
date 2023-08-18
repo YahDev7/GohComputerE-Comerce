@@ -26,7 +26,7 @@ export const ROUTES_BACK = {
       GET:'/documento/enterprise',
       GETID:(id)=>`/documento/enterprise/${id}`,
       POST:`/documento/enterprise`,
-      POSTANULAR:`/documento/enterprise/anular`,
+      POSTANULAR:(id)=>`/documento/enterprise/anular/${id}`,
        },
     USER:{
       GET:`/user/enterprise`,
@@ -98,8 +98,8 @@ export const ROUTES_BACK = {
     SAVEBILLETERAVIRTUAL: (id) =>`/image/upload/billeteravirtual/${id}`,
   },
   DOCUMENTO:{
-    GET:`/documento/getbyenterprise`,
-    GETID: (id) =>`/documento/getbyenterprise/${id}`,
+    GET:`/documento/web/enterprise`,
+    GETID: (id) =>`/documento/web/enterprise/${id}`,
 
   },
   MOVIMIENTO:{
@@ -126,7 +126,7 @@ export const ROUTES = {
     DETALLE_PEDIDO: "/detallepedido/:idpedido",
     LOGIN: "/login",
     LOGIN_ADMIN: "/login/admin",
-    REGISTER_ADMIN: "/register/admin",
+    /* REGISTER_ADMIN: "/register/admin", */
     REGISTER: "/register",
     CONFIRMADO: "/confirmado/:idpedido",
     DEPOSITO_PEDIDO: "/depositopedido/:idpedido",

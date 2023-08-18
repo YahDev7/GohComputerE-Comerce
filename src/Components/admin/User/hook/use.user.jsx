@@ -56,13 +56,16 @@ export const UseUser = (stateTokenAdmin) => {
           'warning'
         ) 
 
-        return  Swal.fire(
+          Swal.fire(
           'Eliminado!',
           'El registro fue eliminado con exito',
           'success'
         )
-  
+
+        getusers(stateTokenAdmin)
+        return
       }
+
     }
 
     const handleChange = (e) => {
@@ -95,6 +98,8 @@ export const UseUser = (stateTokenAdmin) => {
         icon: 'success'
       }) 
         setform(formInit)
+        getusers(stateTokenAdmin)
+
         return;
       }
 
@@ -120,7 +125,7 @@ export const UseUser = (stateTokenAdmin) => {
     };
     useEffect(() => {
         getusers(stateTokenAdmin)
-      }, []);
+      }, [users]);
       useEffect(() => {
         if (!stateTokenAdmin) return location.href = "/#/login/admin"
       }, [stateTokenAdmin]);

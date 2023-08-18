@@ -85,17 +85,17 @@ export const UseProdAdmin = () => {
 
     if (res2.isConfirmed) {
       let res = await Fetchs.delete(id, stateTokenAdmin)
-     /*  if(res.message) return  Swal.fire(
-        'Alerta!',
-        res.message,
-        'warning'
-      ) */
-      if(!res.err) return  Swal.fire(
+      /*  if(res.message) return  Swal.fire(
+         'Alerta!',
+         res.message,
+         'warning'
+       ) */
+      if (!res.err) return Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
-
+      getprod(stateTokenAdmin)
       return alert(res)
     }
   }
@@ -122,18 +122,32 @@ export const UseProdAdmin = () => {
     }
 
     //ENVIAR EL TOKEN PARA LAS APIS
-      let newform = { ...form, usuario_id, enterprise_id }
-     let res = await Fetchs.save(newform,stateTokenAdmin)
-     if (res.statusCode) return alert(res.message.map((el) => el))
-     if (res.status) return alert(res.message)
-    
+    let newform = { ...form, usuario_id, enterprise_id }
+    let res = await Fetchs.save(newform, stateTokenAdmin)
+    // if (res.statusCode) return alert(res.message.map((el) => el))   
+    if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
+      title: `${res.message}`,
+      icon: 'warning'
+    });
+
+
+
+    if (res.status) return MySwal.fire({
+      title: `${res.message}`,
+      icon: 'warning'
+    });
+
+
+
     if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
 
-    let resalert=  await Swal.fire({
+    let resalert = await Swal.fire({
       icon: 'success',
       title: 'Guardado con éxito',
     })
-     setform(formInit)
+    setform(formInit)
+    setuploadfiles(initfiles)
+    getprod(stateTokenAdmin)
     return;
   }
 
@@ -310,7 +324,7 @@ export const UseProdAdmin = () => {
 
   useEffect(() => {
     getprod()
-  }, []);
+  }, [prodc]);
   return {
     fabibra,
     deleteProd,

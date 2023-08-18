@@ -45,7 +45,6 @@ const ModalProduct = () => {
         setGanancia, prodc,
         handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal, handleEliminarEspecificacion, handleEspecificacionChange, SubmirForm, handleChange, getproductEdit, deleteProd } = UseProdAdmin()
 
-    console.log(form)
 
     const {
         codfabricante,
@@ -524,7 +523,7 @@ const ModalProduct = () => {
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="valor_dolar"
                                             id="valor_dolar"
-                                            type="text"
+                                            type="number"
                                             placeholder="Valor del Dólar"
                                         />
                                     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { DocumentoFetch } from "../../../../api/documento.fetch";
+const MySwal = withReactContent(Swal)
 
 let formInit = {
 
@@ -71,7 +72,48 @@ export const UseDocumento = (stateTokenAdmin) => {
 
     const getdocumento = async (token) => {
         let res = await DocumentoFetch.get(token)
+        console.log(res)
         setdocumento(res)
+    }
+
+    const anular = async (id) => {
+        console.log(id)
+
+        let res2 = await MySwal.fire({
+            title: '¿Estas seguro de anular este registro?',
+            text: "Se anulara de manera permanente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Anular'
+          })
+      
+          if (res2.isConfirmed) {
+            let res= await DocumentoFetch.postAnaular(stateTokenAdmin,id)
+            console.log(res)
+
+             if(res.status) return  Swal.fire(
+              'Alerta!',
+              res.message,
+              'warning'
+            ) 
+    
+            if(res.statusCode) return  Swal.fire(
+              'Alerta!',
+              res.message,
+              'warning'
+            ) 
+    
+            return  Swal.fire(
+              'Eliminado!',
+              'El registro fue eliminado con exito',
+              'success'
+            )
+      
+          }
+
+
     }
 
     const handleChange = (e) => {
@@ -269,6 +311,7 @@ export const UseDocumento = (stateTokenAdmin) => {
         handleSelectProduct,
         StateModalMovimiento,
         toggleModalMovimiento,
+        anular
        /*  getdocumentoid */
     };
 }

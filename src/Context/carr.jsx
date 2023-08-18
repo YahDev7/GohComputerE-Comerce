@@ -141,8 +141,8 @@ import { BaseURLAPI2 } from "../config/Base_URL";
       }
 
       const addcarr=async(id,cantidad)=>{
-
-        const res = await Fetchs.getOne(id);
+        const res = await Fetchs.getOneGoh(id);
+        console.log(res)
         if(res.message) return alert(res.message)
 
         let verifypro=itemsCarr.find(pro=>pro.id===res._id)

@@ -19,10 +19,10 @@ export const DocumentoFetch={
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.DOCUMENTO.POST,body,headers)
         return res
     },
-    postAnaular: async(token,body)=> {
+    postAnaular: async(token,id)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
      
-        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.DOCUMENTO.POSTANULAR,body,headers)
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.DOCUMENTO.POSTANULAR(id),headers)
         return res
     }
 

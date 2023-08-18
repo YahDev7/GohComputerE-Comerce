@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { FetchsPedidos } from "../../../../api/pedidos";
 import { uploadFilesFetch } from "../../../../api/fetchs";
+import withReactContent from "sweetalert2-react-content";
 
 export const useDeposito=(statePedido,setenviado,tokencustomer)=>{
 
-//  const [enviado, setenviado] = useState({ state: false, text: null });
+  const MySwal = withReactContent(Swal) 
+  //  const [enviado, setenviado] = useState({ state: false, text: null });
 const [uploadfile, setuploadfile] = useState(null);
 
  const handleImagenChange = (e) => {
@@ -15,6 +17,20 @@ const [uploadfile, setuploadfile] = useState(null);
 }; 
 
     const savedepositoBilletera = async (e) => {
+
+      if(!statePedido._id) return MySwal.fire({
+        title: <h2>Error</h2>,
+        icon: 'warning'
+      })
+
+      if(!e.target.fecha_deposito.value) return MySwal.fire({
+        title: <h2>Ingrese fecha de depostio</h2>,
+        icon: 'warning'
+      })
+      if(!uploadfile)return MySwal.fire({
+        title: <h2>Ingrese la foto del deposito</h2>,
+        icon: 'warning'
+      })
 
         let arrsavede = {
           "documento_id": statePedido._id,
@@ -54,6 +70,21 @@ const [uploadfile, setuploadfile] = useState(null);
       }
 
     const savedeposito = async (e) => {
+
+      if(!e.target.fecha_deposito.value) return MySwal.fire({
+        title: <h2>Ingrese fecha de depostio</h2>,
+        icon: 'warning'
+      })
+
+      if(!e.target.nro_operacion.value) return MySwal.fire({
+        title: <h2>Ingrese fecha de depostio</h2>,
+        icon: 'warning'
+      })
+
+      if(!e.target.monto_deposito.value) return MySwal.fire({
+        title: <h2>Ingrese fecha de depostio</h2>,
+        icon: 'warning'
+      })
 
         let arrsavede = {
           "documento_id": statePedido._id,

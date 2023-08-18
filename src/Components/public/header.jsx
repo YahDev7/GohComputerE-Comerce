@@ -24,9 +24,9 @@ const Header = () => {
 
     return (
         <>
-            <header id="Header" style={{ height: "150px", transition: "300ms all" }}>
+            <header id="Header" className="!bg-blue-950" style={{ height: "150px", transition: "300ms all" }}>
 
-                <div id="HMain">
+                <div id="HMain" >
                     <div className="container" style={{ width: "100%", textAlign: "center", paddingTop: "20px" }}>
                         <a className="navbar-brand me-5" href="#/gohcomputer"><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1683210226/GOHComputer/Public/Group_324_1_vdhts9.png" width="505px" className="logoGoh d-inline" alt="" /> </a>
                     </div>

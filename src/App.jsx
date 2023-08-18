@@ -51,7 +51,7 @@ function App() {
       <Route path={ROUTES.LOGIN} element={<LoginIndex />} />
       <Route path={ROUTES.REGISTER} element={<Register />} />
       <Route path={ROUTES.LOGIN_ADMIN} element={<IndexAdmin/>} />
-      <Route path={ROUTES.REGISTER_ADMIN} element={<Register />} />
+   {/*    <Route path={ROUTES.REGISTER_ADMIN} element={<Register />} /> */}
       <Route path={ROUTES.CONFIRMADO} element={<Confirmado />} />
       <Route path={ROUTES.DEPOSITO_PEDIDO} element={<DepositoPedido />} />
       <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />

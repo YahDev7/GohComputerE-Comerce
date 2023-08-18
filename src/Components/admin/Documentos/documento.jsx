@@ -39,6 +39,7 @@ const Documento = () => {
     handleSelectProduct,
     toggleModalMovimiento,
     StateModalMovimiento,
+    anular
   } = UseDocumento(stateTokenAdmin)
   
 
@@ -84,7 +85,7 @@ const Documento = () => {
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
           <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento()}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
-          <button type="button" /* onClick={() => deleteProd(row.idcomp)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
+          <button type="button"  onClick={() => anular(row._id)}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
         </div>
       ),
 
@@ -95,12 +96,12 @@ const Documento = () => {
       sortable: true,
     },
     {
-      name: 'Nombre',
+      name: 'Fecha',
       selector: row => row.fecha,
       sortable: true,
     },
     {
-      name: 'Email',
+      name: 'Total a Pagar',
       selector: row => row.total_pagar,
       sortable: true,
     },

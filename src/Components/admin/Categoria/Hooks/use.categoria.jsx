@@ -24,7 +24,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     setform(res2)
   }
 
-  const deleteCateogria = async (id) => {
+  const deleteCategoria = async (id) => {
       let res2 = await MySwal.fire({
         title: '¿Estas seguro de eliminar este registro?',
         text: "Se eliminara de manera permanente!",
@@ -50,12 +50,13 @@ export const UseCatAdmin = (stateTokenAdmin) => {
           'warning'
         ) 
 
-        return  Swal.fire(
+        Swal.fire(
           'Eliminado!',
           'El registro fue eliminado con exito',
           'success'
         )
-  
+        getcategoria(stateTokenAdmin)
+        return
       }
   }
 
@@ -99,12 +100,14 @@ export const UseCatAdmin = (stateTokenAdmin) => {
       title: 'Guardado con éxito',
     })
     setform(formInit)
+    getcategoria(stateTokenAdmin)
+
     return;
   }
 
   useEffect(() => {
     getcategoria(stateTokenAdmin)
-  }, []);
+  }, [categoria]);
 
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -118,7 +121,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     getcategoria,
     handleChange,
     handleSubmit,
-    deleteCateogria,
+    deleteCategoria,
     getEdit
   }
 }

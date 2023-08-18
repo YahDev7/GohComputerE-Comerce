@@ -61,6 +61,11 @@ const User = () => {
       selector: row => row.email,
       sortable: true,
     },
+    {
+      name: 'Estado',
+      selector: row => row.estado,
+      sortable: true,
+    },
 
   ];
 

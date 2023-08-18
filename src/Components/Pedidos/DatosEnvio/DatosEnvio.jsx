@@ -65,9 +65,17 @@ const DatosEnvio = () => {
   const confirmPedido = async () => {
     if (!stateToken) return location.href = "#/login"
     if (!tokcarr) return location.href = "#/login"
+    if (!selectedItem) return  MySwal.fire({
+      title: <h2>Seleccione un metodo de pago</h2>,
+      icon: 'warning'
+    })
 
     const residpedido = await FetchsPedidos.save(tokcarr, stateToken, subtotal,formData,data[selectedItem-1].title);
     console.log(residpedido)
+    if(residpedido.err) return MySwal.fire({
+      title: <h2>`{residpedido.data.map((el) => `Llene el campo ${el}, `)}`</h2>,
+      icon: 'warning'
+    })
      if (!residpedido.err) {
       localStorage.removeItem("tokencarr")
       return location.href = "#/confirmado/" + residpedido.data;
@@ -125,11 +133,11 @@ const DatosEnvio = () => {
               </div>
               <div className="">
                 <label htmlFor="dni" className="block mb-2 font-semibold">DNI:</label>
-                <input type="text" id="dni" name="dni" value={formData.dni} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded" />
+                <input type="number" id="dni" name="dni" value={formData.dni} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded" />
               </div>
               <div className="">
                 <label htmlFor="celular" className="block mb-2 font-semibold">Celular:</label>
-                <input type="text" id="celular" name="celular" value={formData.celular} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded" />
+                <input type="number" id="celular" name="celular" value={formData.celular} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded" />
               </div>
               <div className="">
                 <label htmlFor="correo" className="block mb-2 font-semibold">Correo:</label>

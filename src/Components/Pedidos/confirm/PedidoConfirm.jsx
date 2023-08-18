@@ -8,26 +8,26 @@ import Header from "../../public/header";
 import Confirm from "./Confirm";
 
 const Confirmado = () => {
-    return ( 
-       <>
-          <TokenProvider>
+   return (
+      <>
+         <TokenProvider>
 
-       <CarritoProvider>
-          <ProductProvider>
-          <SubCategoriaProvider>
-               <CategoriaProvider>
+            <CarritoProvider>
+               <ProductProvider>
+                  <SubCategoriaProvider>
+                     <CategoriaProvider>
 
-            <Header></Header>
-            <Confirm></Confirm>
-            <Footer></Footer>
-               </CategoriaProvider>
-               </SubCategoriaProvider>
-          </ProductProvider>
-       </CarritoProvider>
-       </TokenProvider>
+                        <Header></Header>
+                        <Confirm></Confirm>
+                        <Footer></Footer>
+                     </CategoriaProvider>
+                  </SubCategoriaProvider>
+               </ProductProvider>
+            </CarritoProvider>
+         </TokenProvider>
 
-       </>
-     );
+      </>
+   );
 }
- 
+
 export default Confirmado;

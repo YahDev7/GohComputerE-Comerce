@@ -29,7 +29,12 @@ const Login = () => {
    let res=await fetchLogin.login(form)
     console.log(res)
     if(res.statusCode) return MySwal.fire({
-        title: <h2>{res.message[0]}</h2>,
+        title: <h2>{res.message}</h2>,
+        icon: 'error'
+      }) 
+
+      if(res.status) return MySwal.fire({
+        title: <h2>{res.message}</h2>,
         icon: 'error'
       }) 
 
