@@ -74,6 +74,7 @@ export const UseUser = (stateTokenAdmin) => {
     };
     const getEdit = async (id) => {
       let res = await UserFetch.getOne(id, stateTokenAdmin)
+      console.log(res)
       let {__v,enterprise_id,...res2} = res
       setform(res2)
     }
@@ -125,7 +126,7 @@ export const UseUser = (stateTokenAdmin) => {
     };
     useEffect(() => {
         getusers(stateTokenAdmin)
-      }, [users]);
+      }, []);
       useEffect(() => {
         if (!stateTokenAdmin) return location.href = "/#/login/admin"
       }, [stateTokenAdmin]);

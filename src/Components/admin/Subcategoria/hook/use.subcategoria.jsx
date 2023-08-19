@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { FetchSubCat } from "../../../../api/fetchs";
+import { FetchSubCat, uploadFilesFetch } from "../../../../api/fetchs";
 import TokenAdminContext from "../../../../context/tokenAdmin";
 import { SubCategoriaFetch } from "../../../../api/subcategoria.fetch";
 import withReactContent from "sweetalert2-react-content";
@@ -12,11 +12,13 @@ let formInit = {
   estado: 'A'
 }
 
+let initfiles = null
 
 export const UseSubCatAdmin = (stateTokenAdmin) => {
   const MySwal = withReactContent(Swal) 
 
   const [subcategoria, setsubcategoria] = useState([]);
+  const [uploadfile, setuploadfile] = useState(initfiles);
   const [form, setform] = useState(formInit)
 
   const getsubcategoria = async (stateTokenAdmin) => {
@@ -70,6 +72,13 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     setform({ ...form, [name]: value });
   };
 
+  
+  const handleImagenChange = (e) => {
+
+    const { files } = e.target;
+    setuploadfile(files[0]) 
+  };
+
   const handleSubmit = async (e) => {
     console.log(form)
 
@@ -98,17 +107,22 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     if (res.statusCode) return alert(res.message.map((el) => el))
     if (res.status) return alert(res.message)
 
+    if (uploadfile){
+      let res3=await uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,res._id)
+    } 
+
     let resalert = await Swal.fire({
       icon: 'success',
       title: 'Guardado con éxito',
     })
     getsubcategoria(stateTokenAdmin)
     
+    
   }
 
   useEffect(() => {
     getsubcategoria(stateTokenAdmin)
-  }, [subcategoria]);
+  }, []);
 
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -122,7 +136,8 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     setform,
     handleChange,
     getEdit,
-    deleteUser
+    deleteUser,
+    handleImagenChange
   }
 }
 

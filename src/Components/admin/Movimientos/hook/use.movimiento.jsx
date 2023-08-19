@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { MovimientoFetch } from "../../../../api/movimiento.fetch";
 import { DocumentoFetch } from "../../../../api/documento.fetch";
+const MySwal = withReactContent(Swal)
 
 let formInit = {
     /*   documento_id: '',
@@ -21,7 +22,7 @@ let formInit = {
 }
 export const UseMovimiento = (stateTokenAdmin) => {
     const [stateMovimiento, setstateMovimiento] = useState([]);
-    const [form, setform] = useState(formInit)
+    const [formMov, setformMov] = useState(formInit)
     const [ftemproral, setftemproral] = useState({})
 
 
@@ -31,30 +32,54 @@ export const UseMovimiento = (stateTokenAdmin) => {
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setform({ ...form, [name]: value });
+        console.log(formMov)
+        setformMov({ ...formMov, [name]: value });
     };
 
     const handleSubmitMov = async (e) => {
         e.preventDefault();
-        let res = await MovimientoFetch.post(stateTokenAdmin, form)
-        // Aquí puedes enviar los datos del formulario a tu API o hacer lo que necesites.
+        console.log(formMov)
+        return
+        let res = await MovimientoFetch.post(stateTokenAdmin, formMov)
+        console.log(res)
+
+
+        if (res.statusCode) return await MySwal.fire({
+            title: <h2>{res.message}</h2>,
+            icon: 'error'
+        })
+        if (res.status) return await MySwal.fire({
+            title: <h2>{res.message}</h2>,
+            icon: 'error'
+        })
+
+        await MySwal.fire({
+            title: <h2>{res.message}</h2>,
+            icon: 'success'
+        })
+        setformMov(formInit)
+        return;
     };
 
 
 
-    const getdocumentoid = async(id) => {
+    const getdocumentoid = async (id) => {
 
-        let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
-        let {_id,metodo_pago,total_pagar} = res
-        setftemproral({documento_id:_id,metodo_pago,monto_pagar:total_pagar})
-    } 
+        let res = await DocumentoFetch.getOne(id, stateTokenAdmin)
+        let { _id, metodo_pago, total_pagar, tipo_compra_venta, tipo_documento, estado } = res
+        setformMov({
+          
+             documento_id: _id, metodo_pago, monto_pagar: total_pagar, tipo_compra_venta, tipo: tipo_documento, estado
+            
+            })
+    }
 
-    useEffect(() => {
-        console.log(ftemproral)
-        setform(ftemproral)
-
-    }, [ftemproral]);
+    /*     useEffect(() => {
+            console.log(ftemproral)
+            setform(ftemproral)
     
+        }, []); */
+
     useEffect(() => {
         getdocumento(stateTokenAdmin)
     }, []);
@@ -68,8 +93,8 @@ export const UseMovimiento = (stateTokenAdmin) => {
         formInit,
         stateMovimiento,
         setstateMovimiento,
-        form,
-        setform,
+        formMov,
+        setformMov,
         getdocumento,
         handleChange,
         handleSubmitMov,

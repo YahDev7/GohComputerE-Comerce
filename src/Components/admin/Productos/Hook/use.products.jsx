@@ -43,14 +43,16 @@ export const UseProdAdmin = () => {
     valor_dolar: 0,
     ventas: 0,
     especificaciones: [
-      { Despcripcion: "", Nombre: "" }
+      { Descripcion: "", Nombre: "" }
     ],
   }
 
-  let initfiles = [
+  let initfiles =null
+
+/*   let initfiles = [
     { Nombre: "", URL: "" }
   ]
-
+ */
   const [form, setform] = useState(formInit)
   const [uploadfiles, setuploadfiles] = useState(initfiles);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
@@ -115,7 +117,7 @@ export const UseProdAdmin = () => {
     if (form?._id) {
       const { _id, ...form2 } = form
       let res3 = await Fetchs.update(_id, form2, stateTokenAdmin)
-      if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
+      if (uploadfiles) uploadFilesFetch.save(uploadfiles, stateTokenAdmin,_id)
       alert(res3)
       setform(formInit)
       return;
@@ -137,9 +139,13 @@ export const UseProdAdmin = () => {
       icon: 'warning'
     });
 
-
-
-    if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
+    
+    if (uploadfiles){
+      
+      console.log(uploadfiles,stateTokenAdmin,res._id)
+      let res3=await uploadFilesFetch.save(uploadfiles, stateTokenAdmin,res._id)
+      console.log(res3)
+    } 
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -246,7 +252,7 @@ export const UseProdAdmin = () => {
         ...prevForm,
         imagenes: imagenesArray,
       })); */
-
+      console.log(imagenesArray)
     setuploadfiles(imagenesArray)
   };
 
@@ -324,7 +330,7 @@ export const UseProdAdmin = () => {
 
   useEffect(() => {
     getprod()
-  }, [prodc]);
+  }, []);
   return {
     fabibra,
     deleteProd,

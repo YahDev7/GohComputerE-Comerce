@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { CategoriaFetch } from "../../../../api/categoria.fetch";
+import { uploadFilesFetch } from "../../../../api/fetchs";
 
 const MySwal = withReactContent(Swal)
 let formInit = {
@@ -8,10 +9,13 @@ let formInit = {
   estado: 'A'
 }
 
+ let initfiles = null
+  
 export const UseCatAdmin = (stateTokenAdmin) => {
 
   const [categoria, setcategoria] = useState([]);
   const [form, setform] = useState(formInit)
+  const [uploadfile, setuploadfile] = useState(initfiles);
 
   const getcategoria = async (token) => {
     let res = await CategoriaFetch.get(token);
@@ -23,6 +27,12 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     let {__v,enterprise_id,usuario_id,...res2} = res
     setform(res2)
   }
+
+  const handleImagenChange = (e) => {
+
+    const { files } = e.target;
+    setuploadfile(files[0]) 
+  };
 
   const deleteCategoria = async (id) => {
       let res2 = await MySwal.fire({
@@ -92,8 +102,14 @@ export const UseCatAdmin = (stateTokenAdmin) => {
 
 
     let res = await CategoriaFetch.post(stateTokenAdmin, form)
+    console.log(res)
+
     if (res.statusCode) return alert(res.message.map((el) => el))
     if (res.status) return alert(res.message)
+    if (uploadfile){
+      let res3=await uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin,res._id)
+      console.log(res3)
+    } 
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -107,7 +123,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
 
   useEffect(() => {
     getcategoria(stateTokenAdmin)
-  }, [categoria]);
+  }, []);
 
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -122,6 +138,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     handleChange,
     handleSubmit,
     deleteCategoria,
-    getEdit
+    getEdit,
+    handleImagenChange
   }
 }

@@ -95,6 +95,8 @@ export const ROUTES_BACK = {
   },
   IMG:{
     SAVE: (id) =>`/image/upload/product/${id}`,
+    SAVECATEGORIA: (id) =>`/image/upload/categoria/${id}`,
+    SAVESUBCATEGORIA: (id) =>`/image/upload/subcategoria/${id}`,
     SAVEBILLETERAVIRTUAL: (id) =>`/image/upload/billeteravirtual/${id}`,
   },
   DOCUMENTO:{

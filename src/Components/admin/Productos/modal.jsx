@@ -363,7 +363,7 @@ const ModalProduct = () => {
                                                     placeholder="Nombre"
                                                 />
                                                 <input
-                                                    onChange={(e) => handleEspecificacionChange(index, 'Despcripcion', e.target.value)}
+                                                    onChange={(e) => handleEspecificacionChange(index, 'Descripcion', e.target.value)}
                                                     value={especificacion.Descripcion}
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                                     name="descripcion"

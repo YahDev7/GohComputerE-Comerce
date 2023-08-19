@@ -3,6 +3,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjNiN2MzN2Q2ZTAy
 export const method={
     
     get:async(url,headers={ })=>{
+
         const res = await fetch(url,{headers})
         const res2 =await res.json(); 
 
@@ -15,7 +16,6 @@ export const method={
             headers
           }
 
-          console.log(options)
         const res = await fetch(url,options)
         const res2 =await res.json();    
         return res2;

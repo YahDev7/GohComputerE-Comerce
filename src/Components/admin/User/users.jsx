@@ -20,6 +20,7 @@ const User = () => {
     deleteUser ,
     handleChange,
     handleSubmit}=UseUser(stateTokenAdmin)
+    console.log(users)
 
     let {/*  enterprise_id,
     userAdmin_id, */
@@ -33,6 +34,7 @@ const User = () => {
     telefono,
     fecha_creacion,
     estado } = form;
+
   const columns = [
     {
       name: 'Actions',

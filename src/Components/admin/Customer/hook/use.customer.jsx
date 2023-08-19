@@ -128,7 +128,7 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   useEffect(() => {
     getcustomer(stateTokenAdmin)
-  }, [customer]);
+  }, []);
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
   }, [stateTokenAdmin]);

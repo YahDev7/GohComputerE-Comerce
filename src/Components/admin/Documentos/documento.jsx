@@ -41,16 +41,18 @@ const Documento = () => {
     StateModalMovimiento,
     anular
   } = UseDocumento(stateTokenAdmin)
+
   
-
-  const {getdocumentoid}= UseMovimiento(stateTokenAdmin)
-
   const {
     customer,
   } = UseCustomer(stateTokenAdmin)
   const {
     prodc,
   } = UseProdAdmin(stateTokenAdmin)
+
+  const{getdocumentoid,formMov}=UseMovimiento(stateTokenAdmin)
+  console.log(formMov)
+
   let { /* user_id,
     customer_id,
     provider_id,
@@ -84,8 +86,8 @@ const Documento = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento()}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
-          <button type="button"  onClick={() => anular(row._id)}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
+          <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
+          <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
         </div>
       ),
 
@@ -193,10 +195,10 @@ const Documento = () => {
 
   return (
     <div className="w-100">
-{
-StateModalMovimiento&&
-<ModalMovimiento handleChange={handleChange} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
-}
+      {
+        StateModalMovimiento &&
+        <ModalMovimiento handleChange={handleChange} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
+      }
 
 
       <Card>

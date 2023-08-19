@@ -72,12 +72,10 @@ export const UseDocumento = (stateTokenAdmin) => {
 
     const getdocumento = async (token) => {
         let res = await DocumentoFetch.get(token)
-        console.log(res)
         setdocumento(res)
     }
 
     const anular = async (id) => {
-        console.log(id)
 
         let res2 = await MySwal.fire({
             title: '¿Estas seguro de anular este registro?',
@@ -91,7 +89,6 @@ export const UseDocumento = (stateTokenAdmin) => {
       
           if (res2.isConfirmed) {
             let res= await DocumentoFetch.postAnaular(stateTokenAdmin,id)
-            console.log(res)
 
              if(res.status) return  Swal.fire(
               'Alerta!',
