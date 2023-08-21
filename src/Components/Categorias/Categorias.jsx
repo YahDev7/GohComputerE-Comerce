@@ -8,20 +8,20 @@ import Header from "../public/header";
 import CompCat from "./CompCat";
 
 const Categorias = () => {
-   
+
 
     return (
         <>
-        <TokenProvider>
-        <CarritoProvider>
-            <CategoriaProvider>
+            <TokenProvider>
+                <CarritoProvider>
+                    <CategoriaProvider>
 
-            <Header></Header>
-            <CompCat></CompCat>
-            <Footer></Footer>
-            </CategoriaProvider>
-        </CarritoProvider>
-                </TokenProvider>
+                        <Header></Header>
+                        <CompCat></CompCat>
+                        <Footer></Footer>
+                    </CategoriaProvider>
+                </CarritoProvider>
+            </TokenProvider>
         </>
     );
 }

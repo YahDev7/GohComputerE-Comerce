@@ -35,7 +35,6 @@ export const Fetchs={
         return res;  
     },
     getOneGoh: async(id)=> {
-        console.log(id)
        // let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GET_BY_ID_PROD(id))
         return res;  
@@ -180,6 +179,21 @@ export const uploadFilesFetch={
         const res2 = await res.json();
         return res2
     },
+    saveProducto:async (file,token,id)=>{
+        const formData = new FormData();
+        formData.append('file', file); // Suponiendo que `files` es el archivo o archivos que deseas cargar
+
+        const options = {
+            method: "POST",
+            body: formData,
+            headers: {"Authorization": `Bearer ${token}` }
+        };
+
+
+        const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVE(id), options);
+        const res2 = await res.json();
+        return res2
+    },
     saveCategoria:async (file,token,id)=>{
         const formData = new FormData();
         formData.append('file', file); // Suponiendo que `files` es el archivo o archivos que deseas cargar
@@ -190,7 +204,6 @@ export const uploadFilesFetch={
             headers: {"Authorization": `Bearer ${token}` }
         };
 
-        console.log(options)
 
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVECATEGORIA(id), options);
         const res2 = await res.json();
@@ -207,10 +220,8 @@ export const uploadFilesFetch={
             headers: {"Authorization": `Bearer ${token}` }
         };
 
-        console.log(options)
 
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVESUBCATEGORIA(id), options);
-        console.log(res)
         const res2 = await res.json();
         return res2
     },
@@ -224,10 +235,8 @@ export const uploadFilesFetch={
             headers: {"Authorization": `Bearer ${token}` }
         };
 
-        console.log(options)
 
         const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVEBILLETERAVIRTUAL(idMovi), options);
-        console.log(res)
         const res2 = await res.json();
         return res2
     },

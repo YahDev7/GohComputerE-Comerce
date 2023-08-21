@@ -86,7 +86,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
       const { _id, ...form2 } = form
       let res3 = await SubCategoriaFetch.put(_id, form2, stateTokenAdmin)
       console.log(res3)
-     // if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
+      if (uploadfile) uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,_id)
       
     if (res3.statusCode) return alert(res3.message.map((el) => el))
     if (res3.status) return  await MySwal.fire({

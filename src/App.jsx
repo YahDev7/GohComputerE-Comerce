@@ -31,6 +31,7 @@ import IndexDatosEnvio from "./Components/Pedidos/DatosEnvio"
 import CustomerAdmin from "./Components/admin/Customer"
 import DocumentoAdmin from "./Components/admin/Documentos"
 import MovimientoAdmin from "./Components/admin/Movimientos"
+import PromocionesAdmin from "./Components/admin/Promociones/Index"
 
 function App() {
 
@@ -66,9 +67,9 @@ function App() {
       <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<MovimientoAdmin />} />
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} />
+      <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
       
       <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
-
 
       </Routes>
     </div>

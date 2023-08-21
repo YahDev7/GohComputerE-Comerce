@@ -15,6 +15,7 @@ import { BaseURLAPI2 } from "../config/Base_URL";
         const loadCategorias= async()=>{
           setloadercat(true)
           const res =await FetchCat.get()
+          console.log(res)
           setStateCategorias(res)
           setloadercat(false)
         }

@@ -23,7 +23,7 @@ const ModalCategoria = () => {
 
     let { nombre,
         estado } = form
-
+        console.log(categoria)
     const columns = [
         {
             name: 'Actions',
@@ -40,6 +40,16 @@ const ModalCategoria = () => {
         {
             name: 'ID',
             selector: row => row._id,
+            sortable: true,
+        },
+        {
+            name: 'IMG',
+            selector: row =>
+            (
+                <div >
+                    <img className="w-32" src={row.url_imagen} alt="" />
+                   </div>
+            ), 
             sortable: true,
         },
         {

@@ -1,71 +1,33 @@
 import { useContext, useEffect, useState } from "react";
 import { Fetchs, uploadFilesFetch } from "../../../../api/fetchs";
-import TokenAdminContext from "../../../../context/tokenAdmin";
 import withReactContent from "sweetalert2-react-content";
-import { ProductosFetch } from "../../../../api/productos";
+import { PromocionesFetch } from "../../../../api/Promociones";
+import TokenAdminContext from "../../../../context/tokenAdmin";
 const MySwal = withReactContent(Swal)
 
-export const UseProdAdmin = () => {
+export const UsePromocionesAdmin = () => {
   let formInit = {
-    codfabricante: '',
-    codigo: '',
-    descripcion: '',
-    enterprise_id: '',
-    usuario_id: '',
-    subcategoria_id: '',
-    estado: 'A',
-    /* fechafinpromo: '', */
-    garantia: '',
-    /*  igv: 0,
-     igvpromo: 0, */
-    /*   imagenes: [
-        { Nombre: "", URL: "" }
-      ], */
-    marca: '',
-    nombre: '',
-    palabra_clave: '',
-    precio_compra_dolar: 0,
-    precio_compra_dolar_igv: 0,
-    precio_compra_dolar_con_IGV: 0,
-    precio_compra_soles: 0,
-    /*   precio_promocompra_dolar: 0,
-      precio_promocompra_dolar_igv: 0,
-      precio_promocompra_dolar_con_igv: 0,
-      precio_promocompra_soles: 0, */
-    ganancia: 0,
-    /* ganancia_promo: 0,
-    precio_promoventa: 0, */
-    precio_venta: 0,
-    /*  promocion: '', */
-    stock: 0,
-    unidad: '',
-    url_fab: '',
-    url_pro: '',
-    valor_dolar: 0,
-    ventas: 0,
-    especificaciones: [
-      { Descripcion: "", Nombre: "" }
-    ],
+     producto_id: null,
+     fecha_fin: "",
+     precio_compra_dolar_promo: 0,
+     precio_compra_dolar_igv_promo: 0,
+     precio_compra_dolar_con_IGV_Promo: 0,
+     precio_compra_soles_promo: 0,
+     ganancia_promo: 0,
+     precio_venta_promo: 0,
+     estado:'A',
+     valor_dolar:0,
   }
 
-  let initfiles = null
-
-  /*   let initfiles = [
-      { Nombre: "", URL: "" }
-    ]
-   */
   const [form, setform] = useState(formInit)
-  const [uploadfiles, setuploadfiles] = useState(initfiles);
-  const { user, stateTokenAdmin } = useContext(TokenAdminContext)
-  let datauser = JSON.parse(user)
-  const { usuario_id, enterprise_id } = datauser
-
-  const getproductEdit = async (id) => {
-    let res = await Fetchs.getOne(id, stateTokenAdmin)
+  const { stateTokenAdmin } = useContext(TokenAdminContext)
+  
+  const getpromocionesEdit = async (id) => {
+    let res = await PromocionesFetch.getOne(id, stateTokenAdmin)
     setform(res)
   }
 
-  const deleteProd = async (id) => {
+  const deletePromociones = async (id) => {
 
     let res2 = await MySwal.fire({
       title: '¿Estas seguro de eliminar este registro?',
@@ -98,26 +60,23 @@ export const UseProdAdmin = () => {
         'El registro fue eliminado con exito',
         'success'
       )
-      getprod(stateTokenAdmin)
+      getpromociones(stateTokenAdmin)
       return alert(res)
     }
   }
 
-  const [showCard, setShowCard] = useState(true);
-  const [cardProd, setcardProd] = useState(true);
   const [StateModal, setStateModal] = useState(false);
 
-  const [prodc, setProdc] = useState([]);
+  const [promociones, setpromociones] = useState([]);
   const [fabibra, setFabibra] = useState("");
   const [ganancia, setGanancia] = useState("");
-  const [dolar, setDolar] = useState("");
 
 
   const SubmirForm = async (e) => {
 
     if (form._id) {
       const { __v, _id, imagenes, ...form2 } = form
-      let res3 = await ProductosFetch.put(_id, form2, stateTokenAdmin)
+      let res3 = await PromocionesFetch.put(_id, form2, stateTokenAdmin)
 
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
         title: `${res3.message}`,
@@ -128,9 +87,7 @@ export const UseProdAdmin = () => {
         title: `${res3.message}`,
         icon: 'warning'
       });
-      if (uploadfiles) {
-        let res4 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, _id)
-      }
+    
 
       await Swal.fire({
         icon: 'success',
@@ -142,7 +99,7 @@ export const UseProdAdmin = () => {
 
     //ENVIAR EL TOKEN PARA LAS APIS
     let newform = { ...form, usuario_id, enterprise_id }
-    let res = await ProductosFetch.post(newform, stateTokenAdmin)
+    let res = await PromocionesFetch.post(newform, stateTokenAdmin)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
       title: `${res.message}`,
@@ -155,11 +112,7 @@ export const UseProdAdmin = () => {
     });
 
 
-    if (uploadfiles) {
-
-      let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
-      console.log(res3)
-    }
+  
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -167,7 +120,7 @@ export const UseProdAdmin = () => {
     })
     setform(formInit)
     setuploadfiles(initfiles)
-    getprod(stateTokenAdmin)
+    getpromociones(stateTokenAdmin)
     return;
   }
 
@@ -177,9 +130,9 @@ export const UseProdAdmin = () => {
     setform(formInit)
   }
 
-  const getprod = async () => {
-    let res = await ProductosFetch.get(stateTokenAdmin)
-    setProdc(res)
+  const getpromociones = async () => {
+    let res = await PromocionesFetch.get(stateTokenAdmin)
+    setpromociones(res)
   }
 
   const handleChange = (e) => {
@@ -192,7 +145,7 @@ export const UseProdAdmin = () => {
 
     const { name, value } = e.target;
 
-    if (name === 'precio_compra_dolar') return calculosTotales(value);
+    if (name === 'precio_compra_dolar_promo') return calculosTotales(value);
     if (name === 'valor_dolar') return calcularValorTotalSoles_singanacia(value);
 
     let newform = {
@@ -216,60 +169,13 @@ export const UseProdAdmin = () => {
 
     return setform({
       ...form,
-      precio_compra_dolar_con_IGV: res
+      precio_compra_dolar_con_IGV_Promo: res
     });
     //}
     //return 0;
   };
 
 
-  const handleAgregarEspecificacion = () => {
-    setform({
-      ...form,
-      especificaciones: [
-        ...form.especificaciones,
-        { Despcripcion: '', Nombre: '' },
-      ],
-    });
-  };
-
-  const handleEliminarEspecificacion = (index) => {
-    setform((prevForm) => {
-      const newEspecificaciones = [...prevForm.especificaciones];
-      newEspecificaciones.splice(index, 1);
-      return {
-        ...prevForm,
-        especificaciones: newEspecificaciones,
-      };
-    });
-  };
-
-  const handleEspecificacionChange = (index, field, value) => {
-    const newEspecificaciones = [...form.especificaciones];
-    newEspecificaciones[index] = {
-      ...newEspecificaciones[index],
-      [field]: value,
-    };
-    setform({
-      ...form,
-      especificaciones: newEspecificaciones,
-    }
-    );
-  };
-
-  const handleImagenChange = (e) => {
-
-    const { files } = e.target;
-    //const imagenesArray = Array.from(files).map((file) => file);
-    // const imagenesArray = Array.from(files).map((file) => URL.createObjectURL(file));
-    /*   setform((prevForm) => ({
-        ...prevForm,
-        imagenes: imagenesArray,
-      })); */
-    //    console.log(imagenesArray)
-    // setuploadfiles(imagenesArray)
-    setuploadfiles(files[0])
-  };
 
   const calculosTotales = (value) => {
     const valorIGV = parseFloat(value) * 0.18;
@@ -289,9 +195,9 @@ export const UseProdAdmin = () => {
 
     return setform({
       ...form,
-      precio_compra_dolar: value,
-      precio_compra_dolar_igv: res,
-      precio_compra_dolar_con_IGV: res2,
+      precio_compra_dolar_promo: value,
+      precio_compra_dolar_igv_promo: res,
+      precio_compra_dolar_con_IGV_Promo: res2,
       // precio_compra_soles:res3
     });
 
@@ -306,7 +212,7 @@ export const UseProdAdmin = () => {
     res = Number(res)
     return setform({
       ...form,
-      precio_compra_dolar_igv: res
+      precio_compra_dolar_igv_promo: res
     });
     // }
     // return 0;
@@ -325,7 +231,7 @@ export const UseProdAdmin = () => {
   const calcularValorTotalSoles_singanacia = (value) => {
     // if (dolar) {
 
-    const valorTotalSoles = form.precio_compra_dolar_con_IGV * parseFloat(value);
+    const valorTotalSoles = form.precio_compra_dolar_con_IGV_Promo * parseFloat(value);
     let res = isNaN(valorTotalSoles) ? 0 : valorTotalSoles.toFixed(2);
     res = Number(res)
 
@@ -336,31 +242,29 @@ export const UseProdAdmin = () => {
     return setform({
       ...form,
       valor_dolar: value,
-      precio_compra_soles: res,
-      precio_venta: res2
+      precio_compra_soles_promo: res,
+      precio_venta_promo: res2
     });
     //}
     //return 0;
   };
 
   useEffect(() => {
-    getprod()
+    getpromociones()
   }, []);
   return {
     fabibra,
-    deleteProd,
+    deletePromociones,
     formInit,
-    getproductEdit,
-    handleImagenChange,
+    getpromocionesEdit,
     calcularIGV,
     setFabibra,
     ganancia,
     setGanancia,
-    dolar,
-    setDolar,
     calcularValorIncluyendoIGV,
     calcularValorTotalSoles,
     /* setformEdit, */
-    calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion, handleEliminarEspecificacion, handleEspecificacionChange
-  }
+    calcularValorTotalSoles_singanacia, StateModal, toggleModal,
+      promociones,  handleChange, SubmirForm, form, setform, 
+      }
 }

@@ -9,37 +9,7 @@ const ModalProduct = () => {
 
     const { stateTokenAdmin } = useContext(TokenAdminContext)
     let { subcategoria } = UseSubCatAdmin(stateTokenAdmin)
-
-    const columns = [
-        {
-            name: 'Actions',
-            sortable: true,
-            maxWidth: '200px',
-            cell: row => (
-                <div className="flex max-md:flex-col pt-2">
-                    <button onClick={() => { toggleModal(); getproductEdit(row.idcomp) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
-                    <button onClick={() => deleteProd(row.idcomp)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
-                </div>
-            ),
-
-        },
-        {
-            name: 'ID',
-            selector: row => row.idcomp,
-            sortable: true,
-        },
-        {
-            name: 'Nombre',
-            selector: row => row.descomp,
-            sortable: true,
-        },
-        {
-            name: 'Precio',
-            selector: row => row.descomp,
-            sortable: true,
-        },
-
-    ];
+ 
     const {
         handleImagenChange,
         setGanancia, prodc,
@@ -71,7 +41,54 @@ const ModalProduct = () => {
         ventas,
         especificaciones,
     } = form
+    console.log(prodc)
+    const columns = [
+        {
+            name: 'Actions',
+            sortable: true,
+            maxWidth: '200px',
+            cell: row => (
+                <div className="flex max-md:flex-col pt-2">
+                    <button onClick={() => { toggleModal(); getproductEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Editar</button>
+                    <button onClick={() => deleteProd(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Eliminar</button>
+                </div>
+            ),
 
+        },
+        {
+            name: 'ID',
+            selector: row => row._id,
+            sortable: true,
+        },
+        {
+            name: 'NOMBRE',
+            selector: row => row.nombre,
+            sortable: true,
+        },
+        {
+            name: 'IMG',
+            selector: row =>   (
+                <div >
+                    <img className="w-32" src={row?.imagenes[0]?.URL} alt="" />
+                   </div>
+            ), 
+            sortable: true,
+        }, 
+        {
+            name: 'Nombre',
+            selector: row => row.descripcion,
+            sortable: true,
+        },
+        {
+            name: 'Precio',
+            selector: row => row.precio_venta,
+            sortable: true,
+        },
+      
+
+      
+
+    ];
     return (
 
         <>
@@ -351,11 +368,11 @@ const ModalProduct = () => {
                                             </label>
                                             <span className="pl-2 ">*</span>
                                         </div>
-                                        {especificaciones.map((especificacion, index) =>
+                                        {especificaciones?.map((especificacion, index) =>
                                             <div className="grid grid-cols-3 gap-4 pb-2 ">
                                                 <input
                                                     onChange={(e) => handleEspecificacionChange(index, 'Nombre', e.target.value)}
-                                                    value={especificacion.Nombre}
+                                                    value={especificacion?.Nombre}
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                                     name="nombre"
                                                     id="nombre"
@@ -364,7 +381,7 @@ const ModalProduct = () => {
                                                 />
                                                 <input
                                                     onChange={(e) => handleEspecificacionChange(index, 'Descripcion', e.target.value)}
-                                                    value={especificacion.Descripcion}
+                                                    value={especificacion?.Descripcion}
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                                     name="descripcion"
                                                     id="descripcion"

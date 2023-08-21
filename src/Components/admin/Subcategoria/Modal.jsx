@@ -21,7 +21,6 @@ const ModalSubCategoria = () => {
         url_imagen,
         categoria_id,
         estado } = form
-
     const columns = [
         {
             name: 'Actions',
@@ -40,12 +39,21 @@ const ModalSubCategoria = () => {
             selector: row => row._id,
             sortable: true,
         },
+       
         {
+            name: 'IMG',
+            selector: row =>  (
+                <div >
+                    <img className="w-32" src={row.url_imagen} alt="" />
+                   </div>
+            ), 
+            sortable: true,
+        }, {
             name: 'Nombre',
             selector: row => row.nombre,
             sortable: true,
-        }
-
+        },
+       
     ];
 
 

@@ -12,6 +12,7 @@ const AdminSidebar = () => {
         { title: "Servicios", src: "Chart_fill" },
         { title: "Users", src: "User", gap: true },
         { title: "Customers", src: "User" },
+        { title: "Promociones", src: "User" },
         { title: "Providers", src: "User" },
         { title: "Productos", src: "User" },
         { title: "Categoria", src: "User" },
