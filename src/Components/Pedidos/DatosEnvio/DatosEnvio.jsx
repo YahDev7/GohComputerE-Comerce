@@ -71,7 +71,6 @@ const DatosEnvio = () => {
     })
 
     const residpedido = await FetchsPedidos.save(tokcarr, stateToken, subtotal,formData,data[selectedItem-1].title);
-    console.log(residpedido)
     if(residpedido.err) return MySwal.fire({
       title: <h2>`{residpedido.data.map((el) => `Llene el campo ${el}, `)}`</h2>,
       icon: 'warning'
