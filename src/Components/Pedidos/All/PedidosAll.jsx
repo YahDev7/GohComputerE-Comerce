@@ -6,7 +6,6 @@ import TokenContext from "../../../context/token";
 
 const AllPedidos = () => {
     const [pedidosAll, setPedidosAll] = useState([]);
-    console.log(pedidosAll)
     //if(!tokensession) return location.href='/#/gohcomputer'
     const { stateToken, setStateToken } = useContext(TokenContext)
     if (!stateToken) return location.href = "#/gohcomputer"

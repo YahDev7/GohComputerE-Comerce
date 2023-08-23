@@ -20,7 +20,6 @@ const User = () => {
     deleteUser ,
     handleChange,
     handleSubmit}=UseUser(stateTokenAdmin)
-    console.log(users)
 
     let {/*  enterprise_id,
     userAdmin_id, */

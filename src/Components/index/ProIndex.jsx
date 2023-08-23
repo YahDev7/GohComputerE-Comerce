@@ -7,15 +7,16 @@ import CarritoContext from "../../context/carrito";
 import ProductContext from "../../context/products";
 import CategoriaContext from "../../context/categorias";
 import LoaderContext from "../../context/loader";
+import CardProducts from "../productos/CardProducts";
 
 const ProIndex = () => {
     const {addcarr} =useContext(CarritoContext)
     const {stateProducts,viewpro,loaderprod} =useContext(ProductContext)
-    const {stateCategorias,loadercat} =useContext(CategoriaContext)
+//    const {stateCategorias,loadercat} =useContext(CategoriaContext)
     const {loader} =useContext(LoaderContext)
 
 
-    const {handleCatActive,idsubcat, btnactive,settings,listcategorias,listarProd}= UseCats(addcarr,viewpro,stateProducts,stateCategorias)
+//    const {handleCatActive,idsubcat, btnactive,settings,listcategorias}= UseCats(addcarr,viewpro,stateProducts,stateCategorias)
     
 
     return (  
@@ -38,7 +39,9 @@ const ProIndex = () => {
               <a href="#/Gohcomputer/productos/allPromo" className="vermas" >Ver más</a>     
                 <section className="prodAll" id="ProAll">   
                 {
-                listarProd()
+                  stateProducts.map(el=>
+                    <CardProducts  key={el.idcomp} viewpro={viewpro} addcarr={addcarr} laptops={el}  ></CardProducts>
+                    )
                     
                 }
                 </section>

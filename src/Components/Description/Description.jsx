@@ -7,25 +7,25 @@ import { CategoriaProvider } from "../../context/categorias";
 import { TokenProvider } from "../../context/token";
 
 const Description = () => {
-   
-    return ( 
+
+    return (
         <>
-        <TokenProvider>
+            <TokenProvider>
 
-        <CarritoProvider>
-            <ProductProvider>
+                <CarritoProvider>
+                    <ProductProvider>
 
-            <CategoriaProvider>
+                        <CategoriaProvider>
 
-            <Header></Header>
-            <CompDescription></CompDescription>
-            <Footer></Footer>
-            </CategoriaProvider>
-            </ProductProvider>
-        </CarritoProvider>
-        </TokenProvider>
+                            <Header></Header>
+                            <CompDescription></CompDescription>
+                            <Footer></Footer>
+                        </CategoriaProvider>
+                    </ProductProvider>
+                </CarritoProvider>
+            </TokenProvider>
         </>
-     );
+    );
 }
- 
+
 export default Description;

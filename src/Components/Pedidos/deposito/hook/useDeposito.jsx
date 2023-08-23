@@ -44,13 +44,11 @@ const [uploadfile, setuploadfile] = useState(null);
         }
      
         let resdepopedi = await FetchsPedidos.depositopedido(arrsavede);
-        console.log(resdepopedi)
         if (resdepopedi.err) return alert(resdepopedi.message)
         setenviado({ state: true, text: resdepopedi.message, data: resdepopedi.data })
 
       let res2= await uploadFilesFetch.saveBilleteraVirtual(uploadfile,tokencustomer, resdepopedi.data );
 
-       console.log(res2)
         if(!res2) return alert("no se consigui subir el archivo")
 
         /*    for(let ind of e.target){
@@ -101,7 +99,6 @@ const [uploadfile, setuploadfile] = useState(null);
         }
     
         let resdepopedi = await FetchsPedidos.depositopedido(arrsavede);
-        console.log(resdepopedi)
         if (resdepopedi.err) return alert(resdepopedi.message)
     
         setenviado({ state: true, text: resdepopedi.message, data: resdepopedi.data })

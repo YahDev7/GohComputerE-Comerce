@@ -1,18 +1,30 @@
 
 import { UseDesc } from "./Hooks/UseDesc";
 import { useParams } from "react-router-dom"
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loader from "../public/Loader";
 import CarritoContext from "../../context/carrito";
 import ProductContext from "../../context/products";
-import TokenContext from "../../context/token";
+import { PromocionesFetch } from "../../api/Promociones";
+import { Fetchs } from "../../api/fetchs";
+
+let initalProd = {
+    id: "",
+    nombre: "",
+    preciodolares: null,
+    preciosoles: null,
+    link: "",
+    categoria_id: null,
+    subcategoria_id: null,
+    imagenes: []
+}
 
 const CompDescription = () => {
     const { id } = useParams()
-    const { addcarr } = useContext(CarritoContext)
     const {  loaderprod, setloaderprod } = useContext(ProductContext)
+   const { stateonepro, setcantProd, cantProd } = UseDesc(id, setloaderprod)
+    const { addcarr } = useContext(CarritoContext)
 
-    const { stateonepro, setcantProd, cantProd } = UseDesc(id, setloaderprod)
 
     let metodosPago=[
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/plin-logo-967A4AF583-seeklogo.com_gb3evx.png",
@@ -62,8 +74,12 @@ const CompDescription = () => {
                         <div className="row imgAndDescri">
                             <div className="imgDescripSlider  col-lg-7 col-12 col-md-7 " >
                                 <div className="boxDescrip">
-                                    <img src={stateonepro?.imagenes[0]?.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
+                                    {
+                                        stateonepro?.imagenes.length>0&& 
+                                    <img src={stateonepro?.imagenes[0]?.URL||stateonepro?.imagenes[0][0]?.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
 
+                                    }
+ 
                                     {/*  <img src={stateonepro.url_imagencom} className="imgProDescrip" alt="" /> */}
                                 </div>
                             </div>

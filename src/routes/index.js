@@ -48,7 +48,11 @@ export const ROUTES_BACK = {
       GETBYID: (id) => `/promociones/enterprise/${id}`,
       PUT: (id) => `/promociones/enterprise/${id}`,
       DELETE: (id) => `/promociones/enterprise/${id}`,
-    },
+      
+      GETWEB: `/promociones/webpromo`,
+      GETBYIDPROMO: (id) => `/promociones/promo/${id}`,
+      GET_BY_SUBCATPROMO: (id) => `/promociones/enterprise/getBySubcat/${id}`,
+  },
     PRODUCTOS: {
       GET: `/products/enterprise`,
       POST: `/products/enterprise`,
@@ -65,7 +69,7 @@ export const ROUTES_BACK = {
     }
   },
   PRODUCTOS: {
-    GET_ALL_PROMO: `/products/gohcomputer/allpromo`,
+    GET_ALL_PROMO: `/promociones/gohcomputer/allpromo`,
     GET_MAIN: `/products/gohcomputer/main`,
     GET_DESTACADOS: `/products/gohcomputer/destacados`,
     GET_NEWS: `/products/gohcomputer/news`,

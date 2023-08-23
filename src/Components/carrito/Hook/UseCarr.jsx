@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../api/pedidos";
 import ItemsCarr from "../itemsCarr";
 
-export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>{
+export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession,CantidadTotal)=>{
    
     const [idsprod, setidsprod] = useState(null);
 
@@ -43,6 +43,7 @@ export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession)=>
     }
     
     useEffect(() => {
+        CantidadTotal()
         getidsprod()
        
     }, [itemsCarr]);

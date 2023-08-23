@@ -4,16 +4,18 @@ import DataTable from "react-data-table-component";
 import { useContext } from "react";
 import TokenAdminContext from "../../../context/tokenAdmin";
 import { UsePromocionesAdmin } from "./Hook/use.promociones";
+import { UseProdAdmin } from "../Productos/Hook/use.products";
 
 const ModalPromociones = () => {
 
     const { stateTokenAdmin } = useContext(TokenAdminContext)
-    let { subcategoria } = UseSubCatAdmin(stateTokenAdmin)
 
+    const {prodc} =UseProdAdmin()
     const {
-        handleImagenChange,setGanancia,
-        ganancia_promo, promociones,
-        handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal, handleEliminarEspecificacion, handleEspecificacionChange, SubmirForm, handleChange, getpromocionesEdit, deletePromociones } = UsePromocionesAdmin()
+        setGanancia,
+        ganancia, promociones,
+         setform, StateModal, form, formInit, toggleModal,   SubmirForm, handleChange,
+          getpromocionesEdit, deletePromociones } = UsePromocionesAdmin()
 
 
     const {
@@ -27,7 +29,7 @@ const ModalPromociones = () => {
         estado,
         valor_dolar
     } = form
-    console.log(promociones)
+
     const columns = [
         {
             name: 'Actions',
@@ -47,27 +49,19 @@ const ModalPromociones = () => {
             sortable: true,
         },
         {
-            name: 'NOMBRE',
-            selector: row => row.nombre,
+            name: 'Precio Venta',
+            selector: row => row.precio_venta_promo,
+            sortable: true,
+        },
+       
+        {
+            name: 'Valor dolar',
+            selector: row => row.valor_dolar,
             sortable: true,
         },
         {
-            name: 'IMG',
-            selector: row => (
-                <div >
-                    <img className="w-32" src={row?.imagenes[0]?.URL} alt="" />
-                </div>
-            ),
-            sortable: true,
-        },
-        {
-            name: 'Nombre',
-            selector: row => row.descripcion,
-            sortable: true,
-        },
-        {
-            name: 'Precio',
-            selector: row => row.precio_venta,
+            name: 'Fecha fin',
+            selector: row => row.fecha_fin,
             sortable: true,
         },
 
@@ -116,12 +110,12 @@ const ModalPromociones = () => {
                                             id="producto_id"
                                         >
                                             <option value="" >Seleccione</option>
-                                            {/* 
+                                           
                                             {
-                                                subcategoria.map((el) =>
+                                                prodc.map((el) =>
                                                     <option value={el?._id}>{el?.nombre}</option>
                                                 )
-                                            } */}
+                                            } 
 
                                         </select>
                                     </div>
@@ -219,7 +213,7 @@ const ModalPromociones = () => {
                                             <span className="pl-2 ">*</span>
                                         </div>
                                         <input
-                                            value={ganancia_promo}
+                                            value={ganancia}
                                             onChange={(e) => { handleChange(e); setGanancia(e.target.value) }}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="ganancia_promo"
@@ -318,7 +312,7 @@ const ModalPromociones = () => {
             <div>
                 <DataTable
                     columns={columns}
-                    data={promociones && []}
+                    data={promociones??[]}
                     pagination
                     selectableRows
                     striped

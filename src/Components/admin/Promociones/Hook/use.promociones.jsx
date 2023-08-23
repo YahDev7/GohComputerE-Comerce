@@ -25,6 +25,7 @@ export const UsePromocionesAdmin = () => {
   const getpromocionesEdit = async (id) => {
     let res = await PromocionesFetch.getOne(id, stateTokenAdmin)
     setform(res)
+    setGanancia(res.ganancia_promo)
   }
 
   const deletePromociones = async (id) => {
@@ -73,9 +74,8 @@ export const UsePromocionesAdmin = () => {
 
 
   const SubmirForm = async (e) => {
-
     if (form._id) {
-      const { __v, _id, imagenes, ...form2 } = form
+      const { __v, _id,enterprise_id, ...form2 } = form
       let res3 = await PromocionesFetch.put(_id, form2, stateTokenAdmin)
 
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
@@ -98,7 +98,7 @@ export const UsePromocionesAdmin = () => {
     }
 
     //ENVIAR EL TOKEN PARA LAS APIS
-    let newform = { ...form, usuario_id, enterprise_id }
+    let newform = { ...form }
     let res = await PromocionesFetch.post(newform, stateTokenAdmin)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
@@ -119,7 +119,6 @@ export const UsePromocionesAdmin = () => {
       title: 'Guardado con éxito',
     })
     setform(formInit)
-    setuploadfiles(initfiles)
     getpromociones(stateTokenAdmin)
     return;
   }

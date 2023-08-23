@@ -5,11 +5,11 @@ import TokenContext from "../../context/token";
 
 const CompCarr = () => {
 
-    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, tokcarr } = useContext(CarritoContext)
+    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, CantidadTotal,CatitadTo } = useContext(CarritoContext)
     const { stateToken } = useContext(TokenContext)
 
 
-    const { productCarr, confirmPedido, idsprod } = UseCarr(itemsCarr, pluscarr, minuscarr, btnremovepro, stateToken)
+    const { productCarr, confirmPedido, idsprod } = UseCarr(itemsCarr, pluscarr, minuscarr, btnremovepro, stateToken,CantidadTotal)
     return (
         <div className="container pt-5">
             {productCarr().err ?
@@ -36,7 +36,7 @@ const CompCarr = () => {
 
                         <div className="TPagar  mt-4 col-12 col-lg-4 text-center" >
                             <div>
-                                <div>Hay 0 articulos</div>
+                                <div>Hay {CatitadTo} articulos</div>
                             </div>
                             <div className="row">
                                 <label className="col-6 text-start" >Sub total</label>

@@ -46,7 +46,6 @@ export const UseCatAdmin = (stateTokenAdmin) => {
       })
   
       if (res2.isConfirmed) {
-        console.log(stateTokenAdmin)
         let res = await CategoriaFetch.delete(id, stateTokenAdmin)
          if(res.status) return  Swal.fire(
           'Alerta!',
@@ -101,13 +100,11 @@ export const UseCatAdmin = (stateTokenAdmin) => {
 
 
     let res = await CategoriaFetch.post(stateTokenAdmin, form)
-    console.log(res)
 
     if (res.statusCode) return alert(res.message.map((el) => el))
     if (res.status) return alert(res.message)
     if (uploadfile){
       let res3=await uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin,res._id)
-      console.log(res3)
     } 
 
     let resalert = await Swal.fire({

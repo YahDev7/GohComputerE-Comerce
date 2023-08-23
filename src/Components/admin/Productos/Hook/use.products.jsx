@@ -158,7 +158,6 @@ export const UseProdAdmin = () => {
     if (uploadfiles) {
 
       let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
-      console.log(res3)
     }
 
     let resalert = await Swal.fire({

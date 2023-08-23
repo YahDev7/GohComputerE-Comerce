@@ -49,7 +49,7 @@ export const UseCats=(addcarr,viewpro,stateProducts,stateCategorias)=>{
         setBtnactive(e.target.value)
         setidsubcat(e.target.value)
     }
-    const listcategorias=()=>{
+/*     const listcategorias=()=>{
       let box=[];
       for (let i = 0; i < stateCategorias.length; i++) {
        
@@ -58,7 +58,7 @@ export const UseCats=(addcarr,viewpro,stateProducts,stateCategorias)=>{
         )
       }
       return box 
-  }
+  } */
   const listarProd = () => {
       let cat_id=btnactive;
       let box=[];
@@ -85,6 +85,6 @@ export const UseCats=(addcarr,viewpro,stateProducts,stateCategorias)=>{
       if(box.length===0) return <h2>No hay productos que mostrar</h2>
       return box
   }
-    return {idsubcat,handleCatActive,btnactive,stateProducts,viewpro,settings,listcategorias,listarProd}
+    return {idsubcat,handleCatActive,btnactive,stateProducts,viewpro,settings,/* listcategorias, */listarProd}
 
 }

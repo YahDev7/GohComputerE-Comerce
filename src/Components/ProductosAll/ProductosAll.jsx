@@ -7,23 +7,23 @@ import Header from "../public/header";
 import CompProAll from "./CompProAll";
 
 const ProductosAll = () => {
-    
+
     return (
         <>
-        <TokenProvider>
+            <TokenProvider>
 
-        <CarritoProvider>
-            <ProductProvider>
-            <CategoriaProvider>
-                
-            <Header></Header>
-           <CompProAll></CompProAll>
-            <Footer></Footer>
-            </CategoriaProvider>
-            </ProductProvider>
-        </CarritoProvider>
-        </TokenProvider>
-        
+                <CarritoProvider>
+                    <ProductProvider>
+                        <CategoriaProvider>
+
+                            <Header></Header>
+                            <CompProAll></CompProAll>
+                            <Footer></Footer>
+                        </CategoriaProvider>
+                    </ProductProvider>
+                </CarritoProvider>
+            </TokenProvider>
+
         </>);
 }
 

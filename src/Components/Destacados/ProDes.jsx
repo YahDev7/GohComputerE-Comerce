@@ -8,7 +8,7 @@ import Loader from "../public/Loader";
 
 const ProDes = ({nuevos}) => {
 
-    const {addcarr,stateDolar,viewpro,loader} =useContext(CarritoContext)
+    const {addcarr,stateDolar,loader} =useContext(CarritoContext)
     //hacer independiente y en un contex los productos cat y subcats
     const {settings,prodestacados,prodNuevos} = UseProDest(stateDolar,viewpro,addcarr);  
     if(nuevos){

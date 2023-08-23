@@ -32,13 +32,11 @@ export const UseMovimiento = (stateTokenAdmin) => {
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(formMov)
         setformMov({ ...formMov, [name]: value });
     };
 
     const handleSubmitMov = async (e) => {
         e.preventDefault();
-        console.log(formMov)
         return
         let res = await MovimientoFetch.post(stateTokenAdmin, formMov)
         console.log(res)

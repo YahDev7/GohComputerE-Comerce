@@ -41,7 +41,6 @@ const ModalProduct = () => {
         ventas,
         especificaciones,
     } = form
-    console.log(prodc)
     const columns = [
         {
             name: 'Actions',

@@ -15,13 +15,11 @@ export const UserFetch={
     },
     post: async(token,body)=> {
         let headers={ Authorization: `Bearer ${token}`,"Content-Type": "application/json"}
-        console.log(body,token)
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.USER.REGISTER,body,headers)
         return res
     },  
     postByEnterprise: async(token,body)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
-        console.log(body,token)
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.USER.POST,body,headers)
         return res
     }, 

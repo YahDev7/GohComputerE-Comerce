@@ -51,7 +51,6 @@ const Documento = () => {
   } = UseProdAdmin(stateTokenAdmin)
 
   const{getdocumentoid,formMov}=UseMovimiento(stateTokenAdmin)
-  console.log(formMov)
 
   let { /* user_id,
     customer_id,

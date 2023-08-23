@@ -27,7 +27,6 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
   }
   const getEdit = async (id) => {
     let res = await SubCategoriaFetch.getOne(id, stateTokenAdmin)
-    console.log(res)
     let {__v,enterprise_id,usuario_id,...res2} = res
     setform(res2)
   }
@@ -80,12 +79,10 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(form)
 
     if (form?._id) {
       const { _id, ...form2 } = form
       let res3 = await SubCategoriaFetch.put(_id, form2, stateTokenAdmin)
-      console.log(res3)
       if (uploadfile) uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,_id)
       
     if (res3.statusCode) return alert(res3.message.map((el) => el))

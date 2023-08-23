@@ -22,7 +22,6 @@ const Register = () => {
     }
 
     const send = async (e) => {
-        console.log(form)
        let res = await fetchLogin.register(form)
         if(res.statusCode) return MySwal.fire({
             title: <h2>{res.message[0]}</h2>,

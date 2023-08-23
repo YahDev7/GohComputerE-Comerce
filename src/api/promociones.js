@@ -8,9 +8,19 @@ export const PromocionesFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.GET,headers)
         return res
     }, 
+    getWeb: async(token)=> {
+      //  let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.GETWEB/* ,headers */)
+        return res
+    }, 
     getOne: async(id,token)=> {
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.GETBYID(id),headers)
+        return res
+    },
+    getOneWeb: async(id)=> {
+        //let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.GETBYIDPROMO(id)/* ,headers */)
         return res
     },
     post: async(body,token)=> {

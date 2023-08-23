@@ -43,7 +43,6 @@ export const UseUser = (stateTokenAdmin) => {
   
       if (res2.isConfirmed) {
         let res = await UserFetch.delete(id, stateTokenAdmin)
-        console.log(res)
          if(res.status) return  Swal.fire(
           'Alerta!',
           res.message,
@@ -74,7 +73,6 @@ export const UseUser = (stateTokenAdmin) => {
     };
     const getEdit = async (id) => {
       let res = await UserFetch.getOne(id, stateTokenAdmin)
-      console.log(res)
       let {__v,enterprise_id,...res2} = res
       setform(res2)
     }
@@ -85,7 +83,6 @@ export const UseUser = (stateTokenAdmin) => {
       if (form?._id) {
         const { _id, ...form2 } = form
         let res3 = await UserFetch.put(_id, form2, stateTokenAdmin)
-        console.log(res3)
        // if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
         
       if (res3.statusCode) return alert(res3.message.map((el) => el))
@@ -107,7 +104,6 @@ export const UseUser = (stateTokenAdmin) => {
       
   
       let res = await UserFetch.postByEnterprise(stateTokenAdmin, form)
-      console.log(res)
 
       if (res.statusCode) return alert(res.message.map((el) => el))
       if (res.status) return  await MySwal.fire({

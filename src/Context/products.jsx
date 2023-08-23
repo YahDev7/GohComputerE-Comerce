@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { Fetchs } from "../api/fetchs";
+import { PromocionesFetch } from "../api/Promociones";
 
 
 const ProductContext = createContext()
@@ -11,7 +12,7 @@ const ProductProvider = ({ children }) => {
 
     const loadProducts = async () => {
         setloaderprod(true)
-        const res = await Fetchs.getpromo()
+        const res = await PromocionesFetch.getWeb()
         setStateProducts(res)
         setloaderprod(false)
     }

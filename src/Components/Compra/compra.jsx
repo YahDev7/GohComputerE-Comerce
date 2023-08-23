@@ -31,7 +31,7 @@ const Compra = () => {
     setMetodoSeleccionado(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     if (itemsCarr.length === 0) return MySwal.fire({
@@ -46,14 +46,15 @@ const Compra = () => {
         });
       }
     }
-    FetchCompra.sendCorreo({ itemsCarr, formData }, stateToken)
-    setItemsCarr([]) //falta
+    let rescorreo= FetchCompra.sendCorreo({ itemsCarr, formData }, stateToken)
+   // setItemsCarr([]) //falta
+    localStorage.removeItem("tokencarr")
     setFormData(initfomr);
     MySwal.fire({
       title: <h2>Se envio con exito el pedido</h2>,
       icon: 'success'
     })
-    return location.href = "/#/confrimado_correo"
+    return location.href = "/#/carrito"
 
   };
 
