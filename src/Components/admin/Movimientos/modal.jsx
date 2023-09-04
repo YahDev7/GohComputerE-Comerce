@@ -4,15 +4,12 @@ import { useContext } from "react";
 import { UseToggle } from "../hook/use.toggle";
 import { UseMovimiento } from "./hook/use.movimiento";
 
-const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
+const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento, formMov,setformMov }) => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
 
   const { formInit,
-
-    setformMov,
     getdocumento,
-    handleChange,
-    handleSubmitMov } = UseMovimiento(stateTokenAdmin)
+    } = UseMovimiento(stateTokenAdmin)
 
   //const {handleSubmitMov}= UseMovimiento(stateTokenAdmin)
   let { documento_id,
@@ -52,7 +49,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
 
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={documento_id}
                   name="documento_id"
                   id="documento_id"
@@ -69,7 +66,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={fecha}
                   name="fecha"
                   id="fecha"
@@ -82,7 +79,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 {/*  <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={tipo}
                   name="tipo"
                   id="tipo"
@@ -98,7 +95,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 {/*   <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={metodo_pago}
                   name="metodo_pago"
                   id="metodo_pago"
@@ -114,7 +111,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={nro_operacion}
                   name="nro_operacion"
                   id="nro_operacion"
@@ -128,7 +125,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={monto_deposito}
                   name="monto_deposito"
                   id="monto_deposito"
@@ -141,7 +138,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 {/*  <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={monto_pagar}
                   name="monto_pagar"
                   id="monto_pagar"
@@ -157,7 +154,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={vuelto}
                   name="vuelto"
                   id="vuelto"
@@ -170,7 +167,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={observacion}
                   name="observacion"
                   id="observacion"
@@ -184,7 +181,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 {/*  <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={tipo_compra_venta}
                   name="tipo_compra_venta"
                   id="tipo_compra_venta"
@@ -201,7 +198,7 @@ const ModalMovimiento = ({ toggleModalMovimiento, formMov }) => {
                 {/*  <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
-                  onChange={handleChange}
+                  onChange={handleChangeMov}
                   value={estado}
                   name="estado"
                   id="estado"

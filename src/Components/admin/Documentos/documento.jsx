@@ -42,15 +42,15 @@ const Documento = () => {
     anular
   } = UseDocumento(stateTokenAdmin)
 
-  
+
   const {
     customer,
   } = UseCustomer(stateTokenAdmin)
   const {
     prodc,
   } = UseProdAdmin(stateTokenAdmin)
-
-  const{getdocumentoid,formMov}=UseMovimiento(stateTokenAdmin)
+  console.log(customer)
+  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov } = UseMovimiento(stateTokenAdmin)
 
   let { /* user_id,
     customer_id,
@@ -74,21 +74,27 @@ const Documento = () => {
     nombres,
     dni_ruc } = formCustomer
   let {
-    nomcomp,
+    nombre,
     precio_venta,
     stock } = formProducto
 
+    console.log(documento)
   const columns = [
     {
       name: 'Actions',
       sortable: true,
       maxWidth: '200px',
-      cell: row => (
-        <div className="flex max-md:flex-col pt-2">
-          <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
-          <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
-        </div>
-      ),
+      cell: row => (<div >
+        {row.estado === "CANCELADO" ? <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Cancelado</span>
+:row.estado === "ANULADO" ? <span class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">Anulado</span>
+          : <div className="flex max-md:flex-col pt-2">
+            <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
+            <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
+
+          </div>
+        }
+      </div>
+      )
 
     },
     {
@@ -102,8 +108,29 @@ const Documento = () => {
       sortable: true,
     },
     {
-      name: 'Total a Pagar',
-      selector: row => row.total_pagar,
+      name: 'Sub Total',
+      selector: row => row.sub_total,
+      sortable: true,
+    },
+    {
+      name: 'Descuento T',
+      selector: row => row.descuento_total,
+      sortable: true,
+    },
+    {
+      name: 'IGV',
+      selector: row => row.igv,
+      sortable: true,
+    },
+    {
+      name: 'Total',
+      selector: row =>  <span class={`inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20`}>{row.total_pagar}</span>,
+
+      sortable: true,
+    },
+    {
+      name: 'Tipo',
+      selector: row =>  <span class={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-600/20`}>{row.tipo_compra_venta}</span>,
       sortable: true,
     },
 
@@ -116,19 +143,19 @@ const Documento = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button type="button" onClick={() => removedetalle(row.idcomp)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Quitar</button>
+          <button type="button" onClick={() => removedetalle(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Quitar</button>
         </div>
       ),
 
     },
     {
       name: 'ID',
-      selector: row => row.idcomp,
+      selector: row => row._id,
       sortable: true,
     },
     {
       name: 'Product',
-      selector: row => row.nomcomp,
+      selector: row => row.nombre,
       sortable: true,
     },
     {
@@ -166,6 +193,11 @@ const Documento = () => {
       sortable: true,
     },
     {
+      name: 'DNI/RUC',
+      selector: row => row.dni_ruc,
+      sortable: true,
+    },
+    {
       name: 'Email',
       selector: row => row.email,
       sortable: true,
@@ -176,19 +208,30 @@ const Documento = () => {
 
     {
       name: 'ID',
-      selector: row => row.idcomp,
+      selector: row => row._id,
       sortable: true,
     },
+    
+    {
+      name: 'IMG',
+      selector: row =>   (
+          <div >
+              <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
+             </div>
+      ), 
+      sortable: true,
+  }, 
     {
       name: 'Nombre',
-      selector: row => row.descomp,
+      selector: row => row.nombre,
       sortable: true,
     },
     {
       name: 'Precio',
-      selector: row => row.descomp,
+      selector: row => row.precio_venta,
       sortable: true,
     },
+
 
   ];
 
@@ -196,7 +239,7 @@ const Documento = () => {
     <div className="w-100">
       {
         StateModalMovimiento &&
-        <ModalMovimiento handleChange={handleChange} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
+        <ModalMovimiento /* handleChange={handleChange}  */ setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
       }
 
 
@@ -319,7 +362,7 @@ const Documento = () => {
                     <div className="w-full px-3">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="producto">Producto</label>
                       <div className="grid grid-cols-5">
-                        <input value={nomcomp} type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="nomcomp" id="nomcomp" placeholder="" />
+                        <input value={nombre} type="text" className="col-start-1 col-end-5 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="nombre" id="nombre" placeholder="" />
                         <button onClick={() => toggleModalProducto()} className="btn bg-blue-700 text-white col-start-5" type="button" data-bs-toggle="modal" data-bs-target="#modalListarPersonas" id="btn-searchCliente"><i className="fas fa-search"></i></button>
                       </div>
                     </div>

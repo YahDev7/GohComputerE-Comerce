@@ -17,7 +17,6 @@ export const UseLogin = () => {
     const [form, setform] = useState(frmlogin);
     const {stateTokenAdmin,user,setuser} =useContext(TokenAdminContext)
 
-    if(stateTokenAdmin)return location.href="/#/dashadmin/gohcomputer/Servicios"
   
   
     const handleChange = (e) => {
@@ -46,9 +45,9 @@ export const UseLogin = () => {
         })        
 
        // document.cookie=`token=${res.token}`
-       localStorage.setItem("tokenadmin",res.token)
-       localStorage.setItem("user",JSON.stringify(res.user))
-        location.href="/#/dashadmin/gohcomputer/Servicios";   
+      localStorage.setItem("tokenadmin",res.token)
+      localStorage.setItem("user",JSON.stringify(res.user))
+      location.href="/#/dashadmin/gohcomputer/Servicios";   
     }
     return {
         handleChange,

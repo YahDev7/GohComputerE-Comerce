@@ -8,6 +8,11 @@ export const ProductosFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GET,headers)
         return res
     }, 
+    getPromoWebBySubcat: async(id)=> {
+     //   let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GETWEBPROMO(id)/* ,headers */)
+        return res
+    }, 
     post: async(body,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
      

@@ -13,6 +13,12 @@ export const UserFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.USER.GETID(id),headers)
         return res
     },
+
+    getDataUserToken: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.USER.GETDATATOKEN,headers)
+        return res
+    },
     post: async(token,body)=> {
         let headers={ Authorization: `Bearer ${token}`,"Content-Type": "application/json"}
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.USER.REGISTER,body,headers)

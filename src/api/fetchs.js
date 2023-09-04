@@ -257,6 +257,33 @@ export const FetchMov={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.UNIDAD.SUMACOMPRAS,headers)
     return res
     },
+  
+    getTotalDia :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETVENTASDIA,headers)
+    return res
+    }, 
+    getTotalMes :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETVENTASMES ,headers)
+    return res
+    }, 
+
+    getTotalDiaCompra :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETCOMPRADIA,headers)
+    return res
+    }, 
+    getTotalMesCompra :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETCOMPRAMES ,headers)
+    return res
+    },
+    getIngresosMensuales :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETINGRESOSMENSUALES ,headers)
+    return res
+    }, 
     getById :async(id,token)=> {
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.MOVIMIENTO.GETID(id),headers)

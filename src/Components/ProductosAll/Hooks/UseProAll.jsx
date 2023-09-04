@@ -2,13 +2,16 @@
 import { useEffect, useState } from "react";
 import { Fetchs } from "../../../api/fetchs"
 import CardProducts from "../../productos/CardProducts";
+import { ProductosFetch } from "../../../api/productos";
 
-export const UseProAll=(id,addcarr,viewpro)=>{
+export const UseProAll=(id)=>{
     
     const [proAll, setProAll] = useState([]);
 
     const loadProdAll= async(id)=>{
-        const res = await Fetchs.getAllBysubcat(id)
+//        const res = await Fetchs.getAllBysubcat(id)
+       const res = await ProductosFetch.getPromoWebBySubcat(id)
+  
         if(res.err) return setProAll([])
         return setProAll(res)
     }
@@ -16,7 +19,7 @@ export const UseProAll=(id,addcarr,viewpro)=>{
             loadProdAll(id);
     }, [id]);
 
-    const ProdBysubcat = () => {
+   /*  const ProdBysubcat = () => {
         let box = [];
 
         if(proAll.message) return <h2>{proAll.message}</h2>
@@ -28,8 +31,8 @@ export const UseProAll=(id,addcarr,viewpro)=>{
         }
         return box
     }
-
-    return {proAll,ProdBysubcat}
+ */
+    return {proAll/* ,ProdBysubcat */}
 
 }
 

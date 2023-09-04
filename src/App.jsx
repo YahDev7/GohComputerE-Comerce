@@ -70,6 +70,7 @@ function App() {
       <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
       
       <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
+      <Route path='*' element={<p>NO EXISTE ESTE ENLACE</p>} />
 
       </Routes>
     </div>

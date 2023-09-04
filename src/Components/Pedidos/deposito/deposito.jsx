@@ -6,6 +6,7 @@ import Plin from "../MetodoPago/Plin";
 import Interbank from "../MetodoPago/INTERBANK";
 import Yape from "../MetodoPago/Yape";
 import Bcp from "../MetodoPago/BCP";
+import Loader from "../../public/Loader";
 
 
 const Deposito = () => {
@@ -18,11 +19,14 @@ const Deposito = () => {
   const { stateToken, setStateToken } = useContext(TokenContext)
   const [metodoPago, setMetodoPago] = useState(null);
   let { idpedido } = useParams();
+  const [loader, setloader] = useState(false);
 
   const totalpagar = async () => {
+    setloader(true)
     let res = await FetchsPedidos.getDetallepedido(idpedido, stateToken);
     setMetodoPago(res.metodo_pago)
     setstatePedido(res)
+    setloader(false)
   }
 
   /*   const confirmDeposito = async () => {
@@ -39,6 +43,9 @@ const Deposito = () => {
 
   return (
     <>
+
+{loader && <Loader></Loader>}
+
  {statePedido?.estado === "PENDIENTE" &&
         <div>
           <div>

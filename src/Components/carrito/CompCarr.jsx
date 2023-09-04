@@ -2,16 +2,22 @@ import { useContext } from "react";
 import { UseCarr } from "./Hook/UseCarr";
 import CarritoContext from "../../context/carrito";
 import TokenContext from "../../context/token";
+import Loader from "../public/Loader";
 
 const CompCarr = () => {
 
-    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, CantidadTotal,CatitadTo } = useContext(CarritoContext)
+    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, CantidadTotal,CatitadTo,loaderCarrito } = useContext(CarritoContext)
     const { stateToken } = useContext(TokenContext)
 
 
     const { productCarr, confirmPedido, idsprod } = UseCarr(itemsCarr, pluscarr, minuscarr, btnremovepro, stateToken,CantidadTotal)
     return (
+
+        
         <div className="container pt-5">
+
+{loaderCarrito && <Loader></Loader>}
+
             {productCarr().err ?
                 <>
                     <h2 className="mb-5 text-3xl font-bold">No tiene  porductos en el carrito</h2>

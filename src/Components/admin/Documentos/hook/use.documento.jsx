@@ -31,7 +31,7 @@ let formInitCustomer = {
 
 let formInitProduct = {
     _id: null,
-    nomcomp: '',
+    nombre: '',
     precio_venta: '',
     stock: ""
 }
@@ -123,15 +123,15 @@ export const UseDocumento = (stateTokenAdmin) => {
     }; */
 
     const addDetalle = async (e) => {
-        const { idcomp, nomcomp } = formProducto
-        if (!idcomp) return alert("falta una wea")
-        if (!nomcomp) return alert("falta una wea")
+        const { _id, nombre } = formProducto
+        if (!_id) return alert("falta una wea")
+        if (!nombre) return alert("falta una wea")
         if (!cantidad) return alert("falta una wea")
         if (!importe) return alert("falta una wea")
-        let res = detalleDoc.find(e => e.idcomp === idcomp)
+        let res = detalleDoc.find(e => e._id === _id)
 
         if (res) {
-            let newcarr = detalleDoc.map(pro => pro.idcomp === idcomp ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
+            let newcarr = detalleDoc.map(pro => pro._id === _id ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
             setDetalleDoc(newcarr)
 
             setdescuento(0)
@@ -144,7 +144,7 @@ export const UseDocumento = (stateTokenAdmin) => {
         }
 
 
-        setDetalleDoc([...detalleDoc, { idcomp, nomcomp, cantidad, descuento, importe, precioUnitario }])
+        setDetalleDoc([...detalleDoc, { _id, nombre, cantidad, descuento, importe, precioUnitario }])
 
         // const sumAges = detalleDoc.map(obj => obj.importe).reduce((a, b) => a + b);
 
@@ -207,7 +207,7 @@ export const UseDocumento = (stateTokenAdmin) => {
     };
 
     const removedetalle = async (id) => {
-        let res = detalleDoc.filter(e => e.idcomp !== id)
+        let res = detalleDoc.filter(e => e._id !== id)
         setDetalleDoc(res)
     };
 
@@ -247,9 +247,9 @@ export const UseDocumento = (stateTokenAdmin) => {
 
     const handleSelectProduct = () => {
 
-        let { nomcomp, precio_venta, idcomp, stock } = selectProduct
+        let { nombre, precio_venta, _id, stock } = selectProduct
 
-        setformProducto({ ...formProducto, nomcomp, precio_venta, stock, idcomp });
+        setformProducto({ ...formProducto, nombre, precio_venta, stock, _id });
 
         toggleModalProducto()
         // setToggleClearRows(!toggledClearRows);

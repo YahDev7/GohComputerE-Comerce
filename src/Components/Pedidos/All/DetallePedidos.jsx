@@ -3,24 +3,28 @@ import { useParams } from "react-router-dom";
 import { FetchsPedidos } from "../../../api/pedidos";
 import TokenContext from "../../../context/token";
 import CompDetallePedido from "../../Detallepedido/DetallePedido";
+import Loader from "../../public/Loader";
 
 const DetallePedido = () => {
    /*     const {itemsCarr} =useContext(CarritoContext);
  */    let { idpedido } = useParams();
     /*     const [inconfirm, setinconfirm] = useState(true);
-     */
+    */
     const { stateToken, setStateToken } = useContext(TokenContext)
     if(!stateToken) return location.href="#/gohcomputer"
 
     const [propedido, setpropedido] = useState(null);
     const getallpropedido = async () => {
+        setloader(true)
         let respedidos = await FetchsPedidos.getDetallepedido(idpedido, stateToken);
         setpropedido(respedidos)
+        setloader(false)
     }
     /*  useEffect(() => {
         //setinconfirm(true)
     }, [inconfirm]);  */
 
+    const [loader, setloader] = useState(false);
     useEffect(() => {
         getallpropedido()
     }, []);
@@ -37,12 +41,14 @@ const DetallePedido = () => {
             <div className="containerPedido pb-5">
                 <h2 >Pedido {idpedido}</h2>
 
+                {loader && <Loader></Loader>}
+
                 <div className="pt-4 col-5">
                     <h3 className="text-blue-800 font-semibold">Direccion de envio</h3>
-                    <p className="mb-1"><strong>Departamento:</strong> {propedido?.departamento}</p>
-                    <p className="mb-1"><strong>Provincia</strong> {propedido?.provincia}</p>
-                    <p className="mb-1"><strong>Distrito:</strong> {propedido?.distrito} </p>
-                    <p className="mb-1"><strong>Direccion</strong> {propedido?.direccion}</p>
+                    <p className="mb-1"><strong>Departamento:</strong> {propedido?.dataCustomer[0]?.departamento}</p>
+                    <p className="mb-1"><strong>Provincia</strong> {propedido?.dataCustomer[0]?.provincia}</p>
+                    <p className="mb-1"><strong>Distrito:</strong> {propedido?.dataCustomer[0]?.distrito} </p>
+                    <p className="mb-1"><strong>Direccion</strong> {propedido?.dataCustomer[0]?.direccion}</p>
                 </div>
                 <div className="pt-4 col-5">
                     <h3 className="text-blue-800 font-semibold">Detalle del pedido</h3>
@@ -54,7 +60,7 @@ const DetallePedido = () => {
 
 
                 {
-                    propedido?.estado !== "PENDIENTE" ? <h3 style={{ paddingTop: "20px", fontWeight: "bold" }}>{propedido?.estado}...</h3> :
+                    propedido?.estado !== "PENDIENTE" ? <h3 style={{ paddingTop: "20px", fontWeight: "bold" }}className="text-black">{propedido?.estado}...</h3> :
                         <button className="btn  mt-3 mb-3 !bg-blue-800" onClick={() => depositopedido()}>Pagar Pedido</button>
                 }
 

@@ -68,7 +68,7 @@ const Movimientos = () => {
     },
     {
       name: 'Estado',
-      selector: row => row.estado,
+      selector: row => <span class={`inline-flex items-center rounded-md bg-${row.estado==="PENDIENTE"?"yellow":"green"}-50 px-2 py-1 text-xs font-medium text-${row.estado==="PENDIENTE"?"yellow":"green"}-700 ring-1 ring-inset ring-${row.estado==="PENDIENTE"?"yellow":"green"}-600/20`}>{row.estado}</span>,
       sortable: true,
     },
     {
@@ -78,7 +78,7 @@ const Movimientos = () => {
     },
     {
       name: 'Metodo Pago',
-      selector: row => row.metodo_pago,
+      selector: row =><span class={`inline-flex items-center rounded-md bg-${row.metodo_pago==="deposito"?"red":row.metodo_pago==="YAPE"?"purple":"green"}-50 px-2 py-1 text-xs font-medium text-${row.metodo_pago==="deposito"?"red":row.metodo_pago==="YAPE"?"purple":"green"}-700 ring-1 ring-inset ring-${row.metodo_pago==="COMPRA"?"red":row.metodo_pago==="YAPE"?"purple":"green"}-600/20`}>{row.metodo_pago}</span>,
       sortable: true,
     },
     {
@@ -98,7 +98,7 @@ const Movimientos = () => {
     },
     {
       name: 'TipoMov',
-      selector: row => row.tipo_compra_venta,
+      selector: row =>  <span class={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-600/20`}>{row.tipo_compra_venta}</span>,
       sortable: true,
     },
 

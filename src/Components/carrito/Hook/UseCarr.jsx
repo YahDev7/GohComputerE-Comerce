@@ -11,7 +11,6 @@ export const UseCarr=(itemsCarr, pluscarr,minuscarr,btnremovepro,tokensession,Ca
         if(!tokcarr) return location.href="#/login"
         
         const residpedido=await FetchsPedidos.save(tokcarr,tokensession,subtotal);
-        console.log(residpedido)
         if(!residpedido.err){
             localStorage.removeItem("tokencarr")
             return location.href="#/confirmado/"+residpedido.data;    

@@ -4,11 +4,12 @@ import { UseProAll } from "./Hooks/UseProAll";
 import Loader from "../public/Loader";
 import ProductContext from "../../context/products";
 import CarritoContext from "../../context/carrito";
+import CardProducts from "../productos/CardProducts";
 const CompProAll = () => {
     const {id}=useParams()
     const { addcarr}=useContext(CarritoContext)
     const {viewpro,loaderprod}=useContext(ProductContext)
-    const {proAll,ProdBysubcat}=  UseProAll(id,addcarr,viewpro)
+    const {proAll,ProdBysubcat}=  UseProAll(id)
     
     return ( 
         <div className="pt-0 pt-sm-4">
@@ -92,7 +93,13 @@ const CompProAll = () => {
 
                     <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">
 
-                        {ProdBysubcat()}
+                        {proAll.length>=1?
+                            proAll.map(el=>
+                                <CardProducts viewpro={viewpro} key={el.idcomp} addcarr={addcarr} laptops={el}></CardProducts>)
+                :
+                <p>{proAll.response}</p>
+
+                        }
 
                     </div>
 

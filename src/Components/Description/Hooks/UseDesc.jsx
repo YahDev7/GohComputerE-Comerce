@@ -34,7 +34,6 @@ export const UseDesc = (id, setloader) => {
         const res = await Fetchs.getOneGoh(id)
         setStateonepro(res)
         /*  const resespe= await Fetchs.getOneGoh(id)
-         console.log(res)
          setPorespec(resespe) */
 
         setloader(false)

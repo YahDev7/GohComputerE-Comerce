@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { UseLogin } from "./Hook/UseLogin";
+import TokenAdminContext from "../../../context/tokenAdmin";
 
 const Login = () => {
 
     const {handleChange,send} = UseLogin()
+    const{stateTokenAdmin, user}=useContext(TokenAdminContext)
+
+    if(stateTokenAdmin) return location.href="/#/dashadmin/gohcomputer/Servicios"
+
+    
 
   return (
     <>
@@ -30,8 +37,8 @@ const Login = () => {
             </div>
             <div className='w-full flex flex-col my-4'>
               <button className='w-full text-white my-2 font-semibold bg-[#0d1a44] rounded-md p-4 text-center flex items-center justify-center'>Log in</button>
-              <a href="/#/Register/admin" className='w-full text-[#0d1a44] my-2 font-semibold bg-white border-2  focus:bg rounded-md p-4 text-center flex items-center justify-center'>Register</a>
-
+             {/*  <a href="/#/Register/admin" className='w-full text-[#0d1a44] my-2 font-semibold bg-white border-2  focus:bg rounded-md p-4 text-center flex items-center justify-center'>Register</a>
+ */}
             </div>
           </form>
         </div>

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-
+import { UserFetch } from "../api/users.fetch";
+import { useNavigate } from "react-router-dom";
 const TokenAdminContext = createContext()
 
 const TokenAdminProvider = ({ children }) => {
@@ -11,20 +12,33 @@ const TokenAdminProvider = ({ children }) => {
   const [user, setuser] = useState(infoUser === null ? null : infoUser);
 
   //OBTENER EL USER A TRAVEZ DEL TOKEN
-  let getUser=async ()=>{
+  let navigate = useNavigate()
+  let getUser = async () => {
+    if(!stateTokenAdmin) return
+   
+    let res = await UserFetch.getDataUserToken(stateTokenAdmin)
+    if (res.status === 404){
+      localStorage.removeItem("tokenadmin")
+      localStorage.removeItem("user")
 
-    useEffect(() => {
-      if(!stateTokenAdmin) return location.href="/#/login/admin"
-    }, [stateTokenAdmin]);
+      setStateTokenAdmin(null)
+    }
+
+   
   }
+  //if (!user) return location.href = "/#/login/admin"
 
-  
+  useEffect(() => {
+    getUser()
+  }, []);
+
 
   const data = {
     stateTokenAdmin,
     setStateTokenAdmin,
     user,
-    setuser
+    setuser,
+    getUser
   }
 
   return (

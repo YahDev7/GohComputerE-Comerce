@@ -18,6 +18,11 @@ export const ROUTES_BACK = {
     },
     MOVIMIENTO: {
       GET: '/movimiento-m/enterprise',
+      GETVENTASDIA: '/movimiento-m/ventas/totaldia',
+      GETVENTASMES: '/movimiento-m/ventas/totalmes',
+      GETCOMPRADIA: '/movimiento-m/compras/totaldia',
+      GETCOMPRAMES: '/movimiento-m/compras/totalmes',
+      GETINGRESOSMENSUALES: '/movimiento-m/enterprise/ingresosMensuales',
       GETID: (id) => `/movimiento-m/enterprise${id}`,
       POST: `/movimiento-m/enterprise`,
 
@@ -59,6 +64,9 @@ export const ROUTES_BACK = {
       GETBYID: (id) => `/products/enterprise/${id}`,
       PUT: (id) => `/products/enterprise/${id}`,
       DELETE: (id) => `/products/enterprise/${id}`,
+
+
+
     },
     UNIDAD: {
       SUMAVENTAS: `/movimiento-m/ventas/total`,
@@ -69,6 +77,7 @@ export const ROUTES_BACK = {
     }
   },
   PRODUCTOS: {
+    GETWEBPROMO:(id)=>`/products/enterprise/getBySubcat/${id}`,
     GET_ALL_PROMO: `/promociones/gohcomputer/allpromo`,
     GET_MAIN: `/products/gohcomputer/main`,
     GET_DESTACADOS: `/products/gohcomputer/destacados`,
@@ -94,10 +103,12 @@ export const ROUTES_BACK = {
   CUSTOMER: {
     LOGIN: `/customer/gohcomputer/login`,
     REGISTER: `/customer/gohcomputer/register`,
+    GETDATATOKEN: `/customer/web/getdatauser`,
   },
   USER: {
     LOGIN: `/user/login`,
     REGISTER: `/user/register`,
+    GETDATATOKEN: `/user/web/getdatauser`,
   },
   CARRITO: {
     SAVE: `/carrito/gohcomputer`,

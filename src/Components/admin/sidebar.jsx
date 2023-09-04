@@ -1,30 +1,33 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 
 const AdminSidebar = () => {
 
     const [open, setOpen] = useState(false);
+    const query = useLocation();
+    let initCat=query.pathname.split("/")[3];
+    const [cat, setcat] = useState(initCat);
     
     const Menus = [
-        { title: "Unidades", src: "Chart_fill" },
-        { title: "Servicios", src: "Chart_fill" },
-        { title: "Users", src: "User", gap: true },
-        { title: "Customers", src: "User" },
-        { title: "Promociones", src: "User" },
-        { title: "Providers", src: "User" },
-        { title: "Productos", src: "User" },
-        { title: "Categoria", src: "User" },
-        { title: "Subcategoria", src: "User" },
-        { title: "Documentos", src: "User" },
-        { title: "Movimientos", src: "User" },
-        { title: "Caja", src: "User" },
-        { title: "Fechas ", src: "Calendar" },
-        { title: "Search", src: "Search" },
+        { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798923/Dashboard/dos-bases-de-datos_1_heeouf.png" },
+        { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798923/Dashboard/dos-bases-de-datos_1_heeouf.png" },
+        { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/persona_d3dpgb.png", gap: true },
+        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/persona_d3dpgb.png" },
+        { title: "Promociones", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png" },
+        //{ title: "Providers", src: "User" },
+        { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
+        { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
+        { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
+        { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png" },
+        { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png",icon:"https://www.flaticon.es/iconos-gratis/base-de-datos"},
+       // { title: "Caja", src: "User" },
+        //{ title: "Fechas ", src: "Calendar" },
+        //{ title: "Search", src: "Search" },
         /* { title: "Analytics", src: "Chart" },
         { title: "Files ", src: "Folder", gap: true }, */
-        { title: "Setting", src: "Setting" },
+       // { title: "Setting", src: "Setting" },
     ];
     return (
             <div className="">
@@ -49,8 +52,9 @@ const AdminSidebar = () => {
                         {Menus.map((Menu, index) => (
                             <li key={index}
                                 className={``}>
-                                <a href={`/#/dashadmin/gohcomputer/${Menu.title}`} title={Menu.title} className={` flex rounded-md p-2 cursor-pointer  hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"} `}>
-                                    <img src={`./src/components/admin/assets/${Menu.src}.png`}  />
+                                <a href={`/#/dashadmin/gohcomputer/${Menu.title}`} title={Menu.title} className={` flex rounded-md p-2 cursor-pointer  hover:bg-light-white hover:text-white text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"} ${Menu.title === cat && "bg-light-white"} `}>
+                            <img src={`${Menu.src}`}  width="20px"/> 
+                                  
                                     <span className={`${!open && "hidden"} origin-left duration-200`}>
                                         {Menu.title}
                                     </span>

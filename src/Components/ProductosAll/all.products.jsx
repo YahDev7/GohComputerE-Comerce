@@ -34,8 +34,9 @@ const AllPro = () => {
 
                     <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">
 
-                       {stateProductsPromo.map(el=>
+                       {stateProductsPromo.length>=0? stateProductsPromo.map(el=>
                           <CardProducts laptops={el} addcarr={addcarr} viewpro={viewpro}></CardProducts>
+                         
                           /*  <div className="boxProAll">
                            <div className="contentimg">
            
@@ -58,7 +59,8 @@ const AllPro = () => {
                                <p className="Oferta d-none"> $20</p>
                            </div>
                        </div> */
-                        )} 
+                        )
+                        : <p>{stateProductsPromo.response}</p> } 
 
                     </div>
 

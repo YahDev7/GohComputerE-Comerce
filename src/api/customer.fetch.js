@@ -13,6 +13,11 @@ export const CustomerFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GETID(id),headers)
         return res
     },
+    getDataUserToken: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.CUSTOMER.GETDATATOKEN,headers)
+        return res
+    },
      post: async(token,body)=> {
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.CUSTOMER.REGISTER,body,headers)

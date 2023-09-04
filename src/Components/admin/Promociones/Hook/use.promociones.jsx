@@ -50,7 +50,7 @@ export const UsePromocionesAdmin = () => {
           }) */
 
     if (res2.isConfirmed) {
-      let res = await Fetchs.delete(id, stateTokenAdmin)
+      let res = await PromocionesFetch.delete(id, stateTokenAdmin)
       /*  if(res.message) return  Swal.fire(
          'Alerta!',
          res.message,

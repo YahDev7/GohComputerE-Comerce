@@ -11,6 +11,9 @@ const CarritoProvider = ({ children }) => {
 
     let tokencarr = localStorage.getItem("tokencarr")
   
+    const [loaderCarrito, setloaderCarrito] = useState(false);
+
+
     const [itemsCarr, setItemsCarr] = useState(initalcarr);
     const [CatitadTo, setCatitadTo] = useState(initalcarr);
     const [subtotal, setsubtotal] = useState(0);
@@ -28,6 +31,7 @@ const CarritoProvider = ({ children }) => {
         setTokcarr(res1.tokencarr);
     }
     const itemscarrtoken = async (tok) => {
+        setloaderCarrito(true)
         const res3 = await FetchCarrito.get(tok)
         if (res3.statusCode) {
             localStorage.removeItem("tokencarr")
@@ -39,6 +43,8 @@ const CarritoProvider = ({ children }) => {
         if (prodarr.length > 0) totalpagar = prodarr.reduce((a, b) => a + b);
         setsubtotal(totalpagar.toFixed(2))
         setItemsCarr(res3)
+        setloaderCarrito(false)
+
     }
 
     const addcarr = async (id, cantidad) => {
@@ -109,7 +115,8 @@ const CarritoProvider = ({ children }) => {
         btnremovepro,
         tokcarr,
         CantidadTotal,
-        CatitadTo
+        CatitadTo,
+        loaderCarrito
     }
 
     return (

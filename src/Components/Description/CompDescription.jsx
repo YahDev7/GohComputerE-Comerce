@@ -25,7 +25,6 @@ const CompDescription = () => {
    const { stateonepro, setcantProd, cantProd } = UseDesc(id, setloaderprod)
     const { addcarr } = useContext(CarritoContext)
 
-
     let metodosPago=[
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/plin-logo-967A4AF583-seeklogo.com_gb3evx.png",
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/yape-logo-3E473EE7E5-seeklogo.com_ypnk28.png",

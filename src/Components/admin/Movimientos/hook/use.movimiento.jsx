@@ -23,23 +23,22 @@ let formInit = {
 export const UseMovimiento = (stateTokenAdmin) => {
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [formMov, setformMov] = useState(formInit)
-    const [ftemproral, setftemproral] = useState({})
+    const [ftemproral, setftemproral] = useState(formInit)
 
 
     const getdocumento = async (token) => {
         let res = await MovimientoFetch.get(token)
         setstateMovimiento(res)
     }
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChangeMov = (e) => {
+        const { name, value } = e.target
         setformMov({ ...formMov, [name]: value });
     };
 
     const handleSubmitMov = async (e) => {
         e.preventDefault();
-        return
+      
         let res = await MovimientoFetch.post(stateTokenAdmin, formMov)
-        console.log(res)
 
 
         if (res.statusCode) return await MySwal.fire({
@@ -66,21 +65,18 @@ export const UseMovimiento = (stateTokenAdmin) => {
         let res = await DocumentoFetch.getOne(id, stateTokenAdmin)
         let { _id, metodo_pago, total_pagar, tipo_compra_venta, tipo_documento, estado } = res
         setformMov({
-          
              documento_id: _id, metodo_pago, monto_pagar: total_pagar, tipo_compra_venta, tipo: tipo_documento, estado
-            
             })
+            
     }
 
-    /*     useEffect(() => {
-            console.log(ftemproral)
-            setform(ftemproral)
-    
-        }, []); */
+ 
 
     useEffect(() => {
         getdocumento(stateTokenAdmin)
     }, []);
+
+
 
     useEffect(() => {
         if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -94,7 +90,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         formMov,
         setformMov,
         getdocumento,
-        handleChange,
+        handleChangeMov,
         handleSubmitMov,
         getdocumentoid
     };

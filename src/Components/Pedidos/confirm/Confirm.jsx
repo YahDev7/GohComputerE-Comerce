@@ -19,7 +19,6 @@ const Confirm = () => {
     if(!stateToken) return location.href="#/gohcomputer"
     const getallpropedido=async()=>{
        let respedidos= await FetchsPedidos.getDetallepedido(idpedido,stateToken);    
-      console.log(respedidos)
        setpropedido(respedidos)
     }
     /*  useEffect(() => {

@@ -57,6 +57,7 @@ export const UseProdAdmin = () => {
   const [form, setform] = useState(formInit)
   const [uploadfiles, setuploadfiles] = useState(initfiles);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
+//  if(!user) return location.href="/#/login/admin"
   let datauser = JSON.parse(user)
   const { usuario_id, enterprise_id } = datauser
 
@@ -265,7 +266,6 @@ export const UseProdAdmin = () => {
         ...prevForm,
         imagenes: imagenesArray,
       })); */
-    //    console.log(imagenesArray)
     // setuploadfiles(imagenesArray)
     setuploadfiles(files[0])
   };
@@ -345,6 +345,10 @@ export const UseProdAdmin = () => {
   useEffect(() => {
     getprod()
   }, []);
+  useEffect(() => {
+    if (!stateTokenAdmin) return location.href = "/#/login/admin"
+}, [stateTokenAdmin]);
+ 
   return {
     fabibra,
     deleteProd,
