@@ -11,17 +11,17 @@ const AdminSidebar = () => {
     const [cat, setcat] = useState(initCat);
     
     const Menus = [
-        { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798923/Dashboard/dos-bases-de-datos_1_heeouf.png" },
-        { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798923/Dashboard/dos-bases-de-datos_1_heeouf.png" },
-        { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/persona_d3dpgb.png", gap: true },
-        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/persona_d3dpgb.png" },
-        { title: "Promociones", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png" },
+        { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg" },
+        { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg" },
+        { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/usuario_1_xedpvr.svg", gap: true },
+        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/grupo_1_rnbcez.svg" },
+        { title: "Promociones", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/promocion_1_duczxv.svg" },
         //{ title: "Providers", src: "User" },
-        { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
-        { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
-        { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/base-de-datos_hcetne.png" },
-        { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png" },
-        { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1693798922/Dashboard/carpeta-con-papeles-dentro_r7mczg.png",icon:"https://www.flaticon.es/iconos-gratis/base-de-datos"},
+        { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/caja_1_ycmuvg.svg" },
+        { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg" },
+        { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg" },
+        { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg" },
+        { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/flujo-de-fondos_1_qoetj8.svg",icon:"https://www.flaticon.es/iconos-gratis/base-de-datos"},
        // { title: "Caja", src: "User" },
         //{ title: "Fechas ", src: "Calendar" },
         //{ title: "Search", src: "Search" },
@@ -33,10 +33,11 @@ const AdminSidebar = () => {
             <div className="">
                 <div className={` ${open ? "w-72" : "w-24"} bg-dark-purple h-100 p-4  pt-8 relative duration-300`}>
                     <img
-                        src="./src/components/admin/assets/control.png"
+                        src="https://res.cloudinary.com/dq3fragzr/image/upload/v1694103340/Dashboard/pagar_1_czgvis.svg"
                         className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
                         border-2 rounded-full  ${!open && "rotate-180"}`}
                         onClick={() => setOpen(!open)}/>
+
                     <div className="flex gap-x-4 items-center">
                         <img
                             src="https://res.cloudinary.com/dq3fragzr/image/upload/v1683650831/GOHComputer/Public/icoon_zyvcbp.png"

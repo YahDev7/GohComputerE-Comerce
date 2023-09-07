@@ -4,8 +4,11 @@ import { UseSubCatAdmin } from "../Subcategoria/hook/use.subcategoria";
 import DataTable from "react-data-table-component";
 import { useContext } from "react";
 import TokenAdminContext from "../../../context/tokenAdmin";
+import { UseIcons } from "../hook/icons";
+import Loader from "../../public/Loader";
 
 const ModalProduct = () => {
+    const {iconEdit, iconDelete,iconsave}=UseIcons()
 
     const { stateTokenAdmin } = useContext(TokenAdminContext)
     let { subcategoria } = UseSubCatAdmin(stateTokenAdmin)
@@ -13,7 +16,10 @@ const ModalProduct = () => {
     const {
         handleImagenChange,
         setGanancia, prodc,
-        handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal, handleEliminarEspecificacion, handleEspecificacionChange, SubmirForm, handleChange, getproductEdit, deleteProd } = UseProdAdmin()
+        handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal, 
+        handleEliminarEspecificacion,
+         handleEspecificacionChange, 
+         SubmirForm, handleChange, getproductEdit, deleteProd,loaderProd } = UseProdAdmin()
 
 
     const {
@@ -48,8 +54,8 @@ const ModalProduct = () => {
             maxWidth: '200px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
-                    <button onClick={() => { toggleModal(); getproductEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/simbolo-de-contorno-diagonal-de-lapiz-en-una-linea_wdtof6.png" width="15px" alt="" /></button>
-                    <button onClick={() => deleteProd(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798921/Dashboard/contenedor-de-basura_vhdvkz.png" width="15px" alt="" /></button>
+                    <button onClick={() => { toggleModal(); getproductEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
+                    <button onClick={() => deleteProd(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
                 </div>
             ),
 
@@ -97,6 +103,7 @@ const ModalProduct = () => {
     return (
 
         <>
+        {loaderProd&& <Loader></Loader>}
             <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                 New
             </button>

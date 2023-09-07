@@ -38,6 +38,8 @@ let formInitProduct = {
 
 export const UseDocumento = (stateTokenAdmin) => {
 
+    const [loaderDoc, setloaderDoc] = useState(false);
+
     const [importe, setimporte] = useState(null);
     const [cantidad, setcantidad] = useState(0);
     const [descuento, setdescuento] = useState(0);
@@ -64,15 +66,20 @@ export const UseDocumento = (stateTokenAdmin) => {
 
     const [StateModalMovimiento, setStateModalMovimiento] = useState(false);
     const toggleModalMovimiento = () => {
+       // setloaderDoc(true)
         if (StateModalMovimiento) return setStateModalMovimiento(false)
         if (!StateModalMovimiento) return setStateModalMovimiento(true)
+       
     }
 
 
 
     const getdocumento = async (token) => {
+        setloaderDoc(true)
         let res = await DocumentoFetch.get(token)
         setdocumento(res)
+        setloaderDoc(false)
+
     }
 
     const anular = async (id) => {
@@ -85,30 +92,34 @@ export const UseDocumento = (stateTokenAdmin) => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, Anular'
-          })
-      
-          if (res2.isConfirmed) {
-            let res= await DocumentoFetch.postAnaular(stateTokenAdmin,id)
+        })
 
-             if(res.status) return  Swal.fire(
-              'Alerta!',
-              res.message,
-              'warning'
-            ) 
-    
-            if(res.statusCode) return  Swal.fire(
-              'Alerta!',
-              res.message,
-              'warning'
-            ) 
-    
-            return  Swal.fire(
-              'Eliminado!',
-              'El registro fue eliminado con exito',
-              'success'
+        if (res2.isConfirmed) {
+            setloaderDoc(true)
+
+            let res = await DocumentoFetch.postAnaular(stateTokenAdmin, id)
+
+            if (res.status) return Swal.fire(
+                'Alerta!',
+                res.message,
+                'warning'
             )
-      
-          }
+
+            if (res.statusCode) return Swal.fire(
+                'Alerta!',
+                res.message,
+                'warning'
+            )
+
+            setloaderDoc(false)
+
+            Swal.fire(
+                'Eliminado!',
+                'El registro fue eliminado con exito',
+                'success'
+            )
+            getdocumento(stateTokenAdmin)
+        }
 
 
     }
@@ -131,7 +142,11 @@ export const UseDocumento = (stateTokenAdmin) => {
         let res = detalleDoc.find(e => e._id === _id)
 
         if (res) {
+            setloaderDoc(true)
+
             let newcarr = detalleDoc.map(pro => pro._id === _id ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
+            setloaderDoc(false)
+            
             setDetalleDoc(newcarr)
 
             setdescuento(0)
@@ -173,6 +188,8 @@ export const UseDocumento = (stateTokenAdmin) => {
     };
 
     const handleSubmit = async (e) => {
+            setloaderDoc(true)
+
         e.preventDefault();
         let { _id } = formCustomer
         if (!detalleDoc) return alert("falta detalle ")
@@ -181,6 +198,8 @@ export const UseDocumento = (stateTokenAdmin) => {
         let res = await DocumentoFetch.post(stateTokenAdmin, formtodo)
         if (res.statusCode) return alert(res.message.map((el) => el))
         if (res.status) return alert(res.message)
+        setloaderDoc(false)
+
         let resalert = await Swal.fire({
             icon: 'success',
             title: 'Guardado con éxito',
@@ -255,12 +274,12 @@ export const UseDocumento = (stateTokenAdmin) => {
         // setToggleClearRows(!toggledClearRows);
     }
 
-   /*  const getdocumentoid = async(id) => {
+    /*  const getdocumentoid = async(id) => {
+ 
+         let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
+         setform(res)
+     } */
 
-        let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
-        setform(res)
-    } */
-    
 
 
     useEffect(() => {
@@ -308,7 +327,8 @@ export const UseDocumento = (stateTokenAdmin) => {
         handleSelectProduct,
         StateModalMovimiento,
         toggleModalMovimiento,
-        anular
-       /*  getdocumentoid */
+        anular,
+        loaderDoc
+        /*  getdocumentoid */
     };
 }

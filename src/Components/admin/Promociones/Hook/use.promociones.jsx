@@ -6,26 +6,30 @@ import TokenAdminContext from "../../../../context/tokenAdmin";
 const MySwal = withReactContent(Swal)
 
 export const UsePromocionesAdmin = () => {
+  const [loaderPromo, setloaderPromo] = useState(false);
+
   let formInit = {
-     producto_id: null,
-     fecha_fin: "",
-     precio_compra_dolar_promo: 0,
-     precio_compra_dolar_igv_promo: 0,
-     precio_compra_dolar_con_IGV_Promo: 0,
-     precio_compra_soles_promo: 0,
-     ganancia_promo: 0,
-     precio_venta_promo: 0,
-     estado:'A',
-     valor_dolar:0,
+    producto_id: null,
+    fecha_fin: "",
+    precio_compra_dolar_promo: 0,
+    precio_compra_dolar_igv_promo: 0,
+    precio_compra_dolar_con_IGV_Promo: 0,
+    precio_compra_soles_promo: 0,
+    ganancia_promo: 0,
+    precio_venta_promo: 0,
+    estado: 'A',
+    valor_dolar: 0,
   }
 
   const [form, setform] = useState(formInit)
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  
+
   const getpromocionesEdit = async (id) => {
+    setloaderPromo(true)
     let res = await PromocionesFetch.getOne(id, stateTokenAdmin)
     setform(res)
     setGanancia(res.ganancia_promo)
+    setloaderPromo(false)
   }
 
   const deletePromociones = async (id) => {
@@ -50,6 +54,8 @@ export const UsePromocionesAdmin = () => {
           }) */
 
     if (res2.isConfirmed) {
+      setloaderPromo(true)
+
       let res = await PromocionesFetch.delete(id, stateTokenAdmin)
       /*  if(res.message) return  Swal.fire(
          'Alerta!',
@@ -62,6 +68,8 @@ export const UsePromocionesAdmin = () => {
         'success'
       )
       getpromociones(stateTokenAdmin)
+      setloaderPromo(false)
+
       return alert(res)
     }
   }
@@ -74,8 +82,10 @@ export const UsePromocionesAdmin = () => {
 
 
   const SubmirForm = async (e) => {
+    setloaderPromo(true)
+
     if (form._id) {
-      const { __v, _id,enterprise_id, ...form2 } = form
+      const { __v, _id, enterprise_id, ...form2 } = form
       let res3 = await PromocionesFetch.put(_id, form2, stateTokenAdmin)
 
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
@@ -87,13 +97,15 @@ export const UsePromocionesAdmin = () => {
         title: `${res3.message}`,
         icon: 'warning'
       });
-    
+
+      setloaderPromo(false)
 
       await Swal.fire({
         icon: 'success',
         title: 'Actualizado con éxito',
       })
       setform(formInit)
+
       return;
     }
 
@@ -112,7 +124,8 @@ export const UsePromocionesAdmin = () => {
     });
 
 
-  
+
+    setloaderPromo(false)
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -130,8 +143,10 @@ export const UsePromocionesAdmin = () => {
   }
 
   const getpromociones = async () => {
+    setloaderPromo(true)
     let res = await PromocionesFetch.get(stateTokenAdmin)
     setpromociones(res)
+    setloaderPromo(false)
   }
 
   const handleChange = (e) => {
@@ -264,6 +279,6 @@ export const UsePromocionesAdmin = () => {
     calcularValorTotalSoles,
     /* setformEdit, */
     calcularValorTotalSoles_singanacia, StateModal, toggleModal,
-      promociones,  handleChange, SubmirForm, form, setform, 
-      }
+    promociones, handleChange, SubmirForm, form, setform,loaderPromo
+  }
 }

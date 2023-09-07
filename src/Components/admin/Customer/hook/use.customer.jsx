@@ -21,13 +21,18 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   const MySwal = withReactContent(Swal)
 
+  const [loaderCustomer, setloaderCustomer] = useState(false);
+  
   const [customer, setcustomer] = useState([]);
   const [form, setform] = useState(formInit)
 
   const getEdit = async (id) => {
+    setloaderCustomer(true)
     let res = await CustomerFetch.getOne(id, stateTokenAdmin)
     let { __v, enterprise_id, password, ...res2 } = res
     setform(res2)
+    setloaderCustomer(false)
+
   }
 
   const deletecustomer = async (id) => {
@@ -43,6 +48,8 @@ export const UseCustomer = (stateTokenAdmin) => {
     })
 
     if (res2.isConfirmed) {
+    setloaderCustomer(true)
+
       let res = await CustomerFetch.delete(id, stateTokenAdmin)
       if (res.status) return Swal.fire(
         'Alerta!',
@@ -55,6 +62,7 @@ export const UseCustomer = (stateTokenAdmin) => {
         res.message,
         'warning'
       )
+      setloaderCustomer(false)
 
       Swal.fire(
         'Eliminado!',
@@ -62,14 +70,19 @@ export const UseCustomer = (stateTokenAdmin) => {
         'success'
       )
       getcustomer(stateTokenAdmin)
+
       return
     }
   }
 
 
   const getcustomer = async (token) => {
+    setloaderCustomer(true)
+
     let res = await CustomerFetch.get(token);
     setcustomer(res)
+    setloaderCustomer(false)
+
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,6 +91,8 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setloaderCustomer(true)
 
     if (form?._id) {
       const { _id, ...form2 } = form
@@ -89,6 +104,7 @@ export const UseCustomer = (stateTokenAdmin) => {
         title: <h2>{res3.message}</h2>,
         icon: 'error'
       })
+      setloaderCustomer(false)
 
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,
@@ -112,6 +128,7 @@ export const UseCustomer = (stateTokenAdmin) => {
       title: <h2>{res.statusCode}</h2>,
       icon: 'error'
     })
+    setloaderCustomer(false)
 
     MySwal.fire({
       title: <h2>{res.message}</h2>,
@@ -119,6 +136,7 @@ export const UseCustomer = (stateTokenAdmin) => {
     })
 
     setform(formInit)
+
     return
   };
 
@@ -138,7 +156,8 @@ export const UseCustomer = (stateTokenAdmin) => {
     handleChange,
     handleSubmit,
     getEdit,
-    deletecustomer
+    deletecustomer,
+    loaderCustomer
 
   };
 }

@@ -11,13 +11,16 @@ import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
 import { CustomerFetch } from "../../../api/customer.fetch";
 import { UseCustomer } from "./hook/use.customer";
+import { UseIcons } from "../hook/icons";
+import Loader from "../../public/Loader";
 
 
 
 const Customer = () => {
+  const {iconEdit, iconDelete,iconsave}=UseIcons()
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  const { StateModal, setStateModal, toggleModal } = UseToggle()
+  const { StateModal, setStateModal, togglfeModal } = UseToggle()
 
   const {
     customer,
@@ -27,10 +30,12 @@ const Customer = () => {
     handleChange,
     handleSubmit,
     getEdit,
-    deletecustomer
+    deletecustomer,
+    loaderCustomer
 
   }=UseCustomer(stateTokenAdmin)
 
+  console.log(loaderCustomer)
   let { 
     nombres,
     ap_paterno,
@@ -54,8 +59,8 @@ const Customer = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal();  getEdit(row._id)   }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/simbolo-de-contorno-diagonal-de-lapiz-en-una-linea_wdtof6.png" width="15px" alt="" /></button>
-          <button  onClick={() => deletecustomer(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798921/Dashboard/contenedor-de-basura_vhdvkz.png" width="15px" alt="" /></button>
+          <button onClick={() => { toggleModal();  getEdit(row._id)   }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
+          <button  onClick={() => deletecustomer(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
         </div>
       ),
 
@@ -81,8 +86,13 @@ const Customer = () => {
 
 
   return (
+
+
+    
     <Card>
-      <Title>Uusarios</Title>
+{loaderCustomer && <Loader/>}
+
+      <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Customers</h2>
       <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
         Nuevo
       </button>

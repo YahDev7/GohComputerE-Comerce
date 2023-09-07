@@ -13,8 +13,12 @@ import { UseCustomer } from "../Customer/hook/use.customer";
 import { UseProdAdmin } from "../Productos/Hook/use.products";
 import ModalMovimiento from "../Movimientos/modal";
 import { UseMovimiento } from "../Movimientos/hook/use.movimiento";
+import { UseIcons } from "../hook/icons";
+import Loader from "../../public/Loader";
 
 const Documento = () => {
+  const {iconEdit, iconDelete,iconsave,iconpagar,
+    iconAnular}=UseIcons()
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
@@ -39,7 +43,8 @@ const Documento = () => {
     handleSelectProduct,
     toggleModalMovimiento,
     StateModalMovimiento,
-    anular
+    anular,
+    loaderDoc
   } = UseDocumento(stateTokenAdmin)
 
 
@@ -49,8 +54,8 @@ const Documento = () => {
   const {
     prodc,
   } = UseProdAdmin(stateTokenAdmin)
-  console.log(customer)
-  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov } = UseMovimiento(stateTokenAdmin)
+
+  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov,loaderMov } = UseMovimiento(stateTokenAdmin)
 
   let { /* user_id,
     customer_id,
@@ -78,7 +83,6 @@ const Documento = () => {
     precio_venta,
     stock } = formProducto
 
-    console.log(documento)
   const columns = [
     {
       name: 'Actions',
@@ -88,8 +92,8 @@ const Documento = () => {
         {row.estado === "CANCELADO" ? <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Cancelado</span>
 :row.estado === "ANULADO" ? <span class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">Anulado</span>
           : <div className="flex max-md:flex-col pt-2">
-            <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Pagar</button>
-            <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center ">Anular</button>
+            <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconpagar} width="18px" alt="" /></button>
+            <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-red-900 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconAnular} width="18px" alt="" /></button>
 
           </div>
         }
@@ -237,6 +241,8 @@ const Documento = () => {
 
   return (
     <div className="w-100">
+{loaderDoc && <Loader/>}
+{loaderMov && <Loader/>}
       {
         StateModalMovimiento &&
         <ModalMovimiento /* handleChange={handleChange}  */ setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
@@ -244,7 +250,8 @@ const Documento = () => {
 
 
       <Card>
-        <Title>Documento</Title>
+      <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Documentos</h2>
+       
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           Nuevo
         </button>

@@ -21,24 +21,39 @@ let formInit = {
     fileAdjunto: {},
 }
 export const UseMovimiento = (stateTokenAdmin) => {
+    const [loaderMov, setloaderMov] = useState(false);
+
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [formMov, setformMov] = useState(formInit)
     const [ftemproral, setftemproral] = useState(formInit)
 
 
     const getdocumento = async (token) => {
+        setloaderMov(true)
         let res = await MovimientoFetch.get(token)
         setstateMovimiento(res)
+        setloaderMov(false)
     }
     const handleChangeMov = (e) => {
         const { name, value } = e.target
+        if (name === "monto_deposito") return vuelto(value)
         setformMov({ ...formMov, [name]: value });
     };
 
     const handleSubmitMov = async (e) => {
         e.preventDefault();
-      
-        let res = await MovimientoFetch.post(stateTokenAdmin, formMov)
+        setloaderMov(true)
+        if (formMov.vuelto < 0) {
+            setloaderMov(false)
+
+            await MySwal.fire({
+                title: <h2>Falta el resto</h2>,
+                icon: 'warning'
+            })
+            return
+        }
+        let res = await MovimientoFetch.post(stateTokenAdmin, {...formMov,vuelto:Number(formMov.vuelto),monto_deposito:Number(formMov.monto_deposito)})
+        setloaderMov(false)
 
 
         if (res.statusCode) return await MySwal.fire({
@@ -55,22 +70,31 @@ export const UseMovimiento = (stateTokenAdmin) => {
             icon: 'success'
         })
         setformMov(formInit)
+
         return;
     };
 
 
 
     const getdocumentoid = async (id) => {
+        setloaderMov(true)
 
         let res = await DocumentoFetch.getOne(id, stateTokenAdmin)
         let { _id, metodo_pago, total_pagar, tipo_compra_venta, tipo_documento, estado } = res
         setformMov({
-             documento_id: _id, metodo_pago, monto_pagar: total_pagar, tipo_compra_venta, tipo: tipo_documento, estado
-            })
-            
+            documento_id: _id, metodo_pago, monto_pagar: total_pagar, tipo_compra_venta, tipo: tipo_documento, estado
+        })
+        setloaderMov(false)
     }
 
- 
+
+    const vuelto = async (value) => {
+        let valueNumber = Number(value).toFixed(2)
+        let newvuelto = Number(valueNumber - Number(formMov.monto_pagar).toFixed(2)).toFixed(2)
+
+        setformMov({ ...formMov,monto_deposito:valueNumber, vuelto: newvuelto })
+
+    }
 
     useEffect(() => {
         getdocumento(stateTokenAdmin)
@@ -92,6 +116,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         getdocumento,
         handleChangeMov,
         handleSubmitMov,
-        getdocumentoid
+        getdocumentoid,
+        loaderMov
     };
 }

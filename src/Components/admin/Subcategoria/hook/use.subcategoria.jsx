@@ -16,19 +16,27 @@ let initfiles = null
 
 export const UseSubCatAdmin = (stateTokenAdmin) => {
   const MySwal = withReactContent(Swal) 
+  const [loaderSubCat, setloaderSubCat] = useState(false);
 
   const [subcategoria, setsubcategoria] = useState([]);
   const [uploadfile, setuploadfile] = useState(initfiles);
   const [form, setform] = useState(formInit)
 
   const getsubcategoria = async (stateTokenAdmin) => {
+    setloaderSubCat(true)
     let res = await SubCategoriaFetch.get(stateTokenAdmin);
     setsubcategoria(res)
+    setloaderSubCat(false)
+
   }
   const getEdit = async (id) => {
+    setloaderSubCat(true)
+
     let res = await SubCategoriaFetch.getOne(id, stateTokenAdmin)
     let {__v,enterprise_id,usuario_id,...res2} = res
     setform(res2)
+    setloaderSubCat(false)
+
   }
   const deleteUser = async (id) => {
 
@@ -43,6 +51,8 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     })
 
     if (res2.isConfirmed) {
+    setloaderSubCat(true)
+
       let res = await SubCategoriaFetch.delete(id, stateTokenAdmin)
        if(res.status) return Swal.fire(
         'Alerta!',
@@ -62,6 +72,8 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
         'success'
       )
       getsubcategoria(stateTokenAdmin)
+    setloaderSubCat(false)
+
       return
     }
   }
@@ -79,6 +91,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
   };
 
   const handleSubmit = async (e) => {
+    setloaderSubCat(true)
 
     if (form?._id) {
       const { _id, ...form2 } = form
@@ -90,6 +103,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
       title: <h2>{res3.message}</h2>,
       icon: 'error'
     })  
+    setloaderSubCat(false)
 
     await MySwal.fire({
       title: <h2>{res3.message}</h2>,
@@ -107,6 +121,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     if (uploadfile){
       let res3=await uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,res._id)
     } 
+    setloaderSubCat(false)
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -134,7 +149,8 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     handleChange,
     getEdit,
     deleteUser,
-    handleImagenChange
+    handleImagenChange,
+    loaderSubCat
   }
 }
 

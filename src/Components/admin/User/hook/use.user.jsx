@@ -19,14 +19,18 @@ let formInit = {
 export const UseUser = (stateTokenAdmin) => {
 
     const MySwal = withReactContent(Swal) 
+    
+  const [loaderUsers, setloaderUsers] = useState(false);
 
     const [users, setusers] = useState([]);
     const [form, setform] = useState(formInit)
   
   
     const getusers = async (token) => {
+      setloaderUsers(true)
       let res = await UserFetch.get(token)
       setusers(res)
+      setloaderUsers(false)
     }
 
     const deleteUser = async (id) => {
@@ -42,6 +46,8 @@ export const UseUser = (stateTokenAdmin) => {
       })
   
       if (res2.isConfirmed) {
+      setloaderUsers(true)
+
         let res = await UserFetch.delete(id, stateTokenAdmin)
          if(res.status) return  Swal.fire(
           'Alerta!',
@@ -54,6 +60,7 @@ export const UseUser = (stateTokenAdmin) => {
           res.message,
           'warning'
         ) 
+        setloaderUsers(false)
 
           Swal.fire(
           'Eliminado!',
@@ -62,6 +69,7 @@ export const UseUser = (stateTokenAdmin) => {
         )
 
         getusers(stateTokenAdmin)
+
         return
       }
 
@@ -72,13 +80,18 @@ export const UseUser = (stateTokenAdmin) => {
       setform({ ...form, [name]: value });
     };
     const getEdit = async (id) => {
+      setloaderUsers(true)
+
       let res = await UserFetch.getOne(id, stateTokenAdmin)
       let {__v,enterprise_id,...res2} = res
       setform(res2)
+      setloaderUsers(false)
+
     }
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setloaderUsers(true)
 
       if (form?._id) {
         const { _id, ...form2 } = form
@@ -90,6 +103,7 @@ export const UseUser = (stateTokenAdmin) => {
         title: <h2>{res3.message}</h2>,
         icon: 'error'
       })  
+      setloaderUsers(false)
 
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,
@@ -110,6 +124,7 @@ export const UseUser = (stateTokenAdmin) => {
         title: <h2>{res.message}</h2>,
         icon: 'error'
       })  
+      setloaderUsers(false)
 
       await MySwal.fire({
         title: <h2>{res.message}</h2>,
@@ -136,6 +151,7 @@ export const UseUser = (stateTokenAdmin) => {
     handleSubmit,
     formInit,
     getEdit,
-    deleteUser
+    deleteUser,
+    loaderUsers
   };
 }

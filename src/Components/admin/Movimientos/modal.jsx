@@ -110,7 +110,7 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="nro_operacion">Nro de Operación</label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                  placeholder="s"
+                  placeholder="Ingresa el número de operacion"
                   onChange={handleChangeMov}
                   value={nro_operacion}
                   name="nro_operacion"
@@ -151,7 +151,9 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
 
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="vuelto">Vuelto</label>
-                <input
+                <p id="vuelto" className=" pt-3">{vuelto||0}</p>
+
+              {/*   <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
                   onChange={handleChangeMov}
@@ -159,14 +161,14 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
                   name="vuelto"
                   id="vuelto"
                   type="number"
-                />
+                /> */}
               </div>
 
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="observacion">Observación</label>
                 <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                  placeholder="s"
+                  placeholder="Ingresa la Observacion"
                   onChange={handleChangeMov}
                   value={observacion}
                   name="observacion"

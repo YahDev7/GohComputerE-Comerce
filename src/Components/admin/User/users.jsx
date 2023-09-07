@@ -8,9 +8,13 @@ import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
 import { UseUser } from "./hook/use.user";
 import TokenAdminContext from "../../../context/tokenAdmin";
+import { UseIcons } from "../hook/icons";
+import Loader from "../../public/Loader";
 
 
 const User = () => {
+  const {iconEdit, iconDelete,iconsave}=UseIcons()
+
   const { StateModal,toggleModal } = UseToggle()
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const {  users,
@@ -19,7 +23,8 @@ const User = () => {
     setform,
     deleteUser ,
     handleChange,
-    handleSubmit}=UseUser(stateTokenAdmin)
+    handleSubmit,
+    loaderUsers}=UseUser(stateTokenAdmin)
 
     let {/*  enterprise_id,
     userAdmin_id, */
@@ -41,8 +46,8 @@ const User = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal();  getEdit(row._id)}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798920/Dashboard/simbolo-de-contorno-diagonal-de-lapiz-en-una-linea_wdtof6.png" width="15px" alt="" /></button>
-          <button  onClick={() => deleteUser(row._id)}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1693798921/Dashboard/contenedor-de-basura_vhdvkz.png" width="15px" alt="" /></button>
+          <button onClick={() => { toggleModal();  getEdit(row._id)}} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
+          <button  onClick={() => deleteUser(row._id)}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
         </div>
       ),
 
@@ -74,7 +79,10 @@ const User = () => {
 
   return (
     <Card>
-      <Title>Uusarios</Title>
+{loaderUsers && <Loader/>}
+
+          <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Users</h2>
+
       <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
         Nuevo
       </button>

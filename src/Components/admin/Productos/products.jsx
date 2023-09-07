@@ -17,7 +17,8 @@ const Productos = () => {
   }, [stateTokenAdmin]); 
     return (
         <Card>
-            <Title className="!text-4x1">Productos</Title>
+          <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Productos</h2>
+
             <ModalProduct stateTokenAdmin={stateTokenAdmin}></ModalProduct>
                   
         </Card>

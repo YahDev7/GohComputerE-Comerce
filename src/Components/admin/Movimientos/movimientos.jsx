@@ -11,6 +11,7 @@ import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
 import { MovimientoFetch } from "../../../api/movimiento.fetch";
 import { UseMovimiento } from "./hook/use.movimiento";
+import Loader from "../../public/Loader";
 /*  import { UseMovimiento } from "./hook/use.movimiento";  */
 
 
@@ -26,7 +27,7 @@ const Movimientos = () => {
     setformMov,
     getdocumento,
     handleChange,
-    handleSubmitMov} =UseMovimiento(stateTokenAdmin) 
+    handleSubmitMov,loaderMov} =UseMovimiento(stateTokenAdmin) 
 
 
 
@@ -108,7 +109,10 @@ const Movimientos = () => {
 
   return (
     <Card>
-      <Title>Documento</Title>
+{loaderMov && <Loader/>}
+
+      <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Movimientos</h2>
+
       <button onClick={() => {  setformMov(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
         Nuevo
       </button>
@@ -350,6 +354,8 @@ const Movimientos = () => {
         </div>
       }
 
+      
+
       <DataTable
         columns={columns}
         data={stateMovimiento}
@@ -359,6 +365,7 @@ const Movimientos = () => {
         expandOnRowClicked
         expandableRows
         expandableRowsHideExpander
+        expandOnRowDoubleClicked
       />
 
       {/*  <Table className="mt-5">

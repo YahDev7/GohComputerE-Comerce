@@ -54,6 +54,8 @@ export const UseProdAdmin = () => {
       { Nombre: "", URL: "" }
     ]
    */
+    const [loaderProd, setloaderProd] = useState(false);
+
   const [form, setform] = useState(formInit)
   const [uploadfiles, setuploadfiles] = useState(initfiles);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
@@ -62,8 +64,10 @@ export const UseProdAdmin = () => {
   const { usuario_id, enterprise_id } = datauser
 
   const getproductEdit = async (id) => {
+    setloaderProd(true)
     let res = await Fetchs.getOne(id, stateTokenAdmin)
     setform(res)
+    setloaderProd(false)
   }
 
   const deleteProd = async (id) => {
@@ -88,19 +92,22 @@ export const UseProdAdmin = () => {
           }) */
 
     if (res2.isConfirmed) {
+      setloaderProd(true)
       let res = await Fetchs.delete(id, stateTokenAdmin)
       /*  if(res.message) return  Swal.fire(
          'Alerta!',
          res.message,
          'warning'
        ) */
+      setloaderProd(false)
+
       if (!res.err) return Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
       getprod(stateTokenAdmin)
-      return alert(res)
+      return 
     }
   }
 
@@ -115,6 +122,7 @@ export const UseProdAdmin = () => {
 
 
   const SubmirForm = async (e) => {
+    setloaderProd(true)
 
     if (form._id) {
       const { __v, _id, imagenes, ...form2 } = form
@@ -132,6 +140,7 @@ export const UseProdAdmin = () => {
       if (uploadfiles) {
         let res4 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, _id)
       }
+      setloaderProd(false)
 
       await Swal.fire({
         icon: 'success',
@@ -160,6 +169,7 @@ export const UseProdAdmin = () => {
 
       let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
     }
+    setloaderProd(false)
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -178,8 +188,10 @@ export const UseProdAdmin = () => {
   }
 
   const getprod = async () => {
+    setloaderProd(true)
     let res = await ProductosFetch.get(stateTokenAdmin)
     setProdc(res)
+    setloaderProd(false)
   }
 
   const handleChange = (e) => {
@@ -365,5 +377,6 @@ export const UseProdAdmin = () => {
     calcularValorTotalSoles,
     /* setformEdit, */
     calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion, handleEliminarEspecificacion, handleEspecificacionChange
+    ,loaderProd
   }
 }
