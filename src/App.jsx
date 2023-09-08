@@ -70,7 +70,8 @@ function App() {
       <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
       
       <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
-      <Route path='*' element={<p>NO EXISTE ESTE ENLACE</p>} />
+      <Route path='*'   element={ <> <Navigate to="/gohcomputer" /> </> } />
+      <Route path='/dashadmin/*'   element={ <> <Navigate to="/dashadmin/gohcomputer/Servicios" /> </> } />
 
       </Routes>
     </div>
