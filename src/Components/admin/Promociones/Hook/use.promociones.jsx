@@ -54,9 +54,9 @@ export const UsePromocionesAdmin = () => {
           }) */
 
     if (res2.isConfirmed) {
-      setloaderPromo(true)
 
       let res = await PromocionesFetch.delete(id, stateTokenAdmin)
+      setloaderPromo(false)
       /*  if(res.message) return  Swal.fire(
          'Alerta!',
          res.message,
@@ -68,7 +68,6 @@ export const UsePromocionesAdmin = () => {
         'success'
       )
       getpromociones(stateTokenAdmin)
-      setloaderPromo(false)
 
       return alert(res)
     }
@@ -88,6 +87,7 @@ export const UsePromocionesAdmin = () => {
       const { __v, _id, enterprise_id, ...form2 } = form
       let res3 = await PromocionesFetch.put(_id, form2, stateTokenAdmin)
 
+      setloaderPromo(false)
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
         title: `${res3.message}`,
         icon: 'warning'
@@ -98,7 +98,6 @@ export const UsePromocionesAdmin = () => {
         icon: 'warning'
       });
 
-      setloaderPromo(false)
 
       await Swal.fire({
         icon: 'success',
@@ -112,6 +111,8 @@ export const UsePromocionesAdmin = () => {
     //ENVIAR EL TOKEN PARA LAS APIS
     let newform = { ...form }
     let res = await PromocionesFetch.post(newform, stateTokenAdmin)
+    console.log(res)
+    setloaderPromo(false)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
       title: `${res.message}`,
@@ -123,9 +124,6 @@ export const UsePromocionesAdmin = () => {
       icon: 'warning'
     });
 
-
-
-    setloaderPromo(false)
 
     let resalert = await Swal.fire({
       icon: 'success',
@@ -279,6 +277,6 @@ export const UsePromocionesAdmin = () => {
     calcularValorTotalSoles,
     /* setformEdit, */
     calcularValorTotalSoles_singanacia, StateModal, toggleModal,
-    promociones, handleChange, SubmirForm, form, setform,loaderPromo
+    promociones, handleChange, SubmirForm, form, setform, loaderPromo
   }
 }

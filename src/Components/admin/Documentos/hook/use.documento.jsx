@@ -39,6 +39,7 @@ let formInitProduct = {
 export const UseDocumento = (stateTokenAdmin) => {
 
     const [loaderDoc, setloaderDoc] = useState(false);
+    const [detalleTable, setdetalleTable] = useState([])
 
     const [importe, setimporte] = useState(null);
     const [cantidad, setcantidad] = useState(0);
@@ -64,15 +65,29 @@ export const UseDocumento = (stateTokenAdmin) => {
         if (!StateModalProducto) return setStateModalProducto(true)
     }
 
-    const [StateModalMovimiento, setStateModalMovimiento] = useState(false);
-    const toggleModalMovimiento = () => {
-       // setloaderDoc(true)
-        if (StateModalMovimiento) return setStateModalMovimiento(false)
-        if (!StateModalMovimiento) return setStateModalMovimiento(true)
-       
+    
+    const [StateModalDetalleDoc, setStateModalDetalleDoc] = useState(false);
+    const toggleModalDetalleDoc = () => {
+        if (StateModalDetalleDoc) return setStateModalDetalleDoc(false); 
+        if (!StateModalDetalleDoc) return setStateModalDetalleDoc(true)
     }
 
+    const [StateModalMovimiento, setStateModalMovimiento] = useState(false);
+    const toggleModalMovimiento = () => {
+        // setloaderDoc(true)
+        if (StateModalMovimiento) return setStateModalMovimiento(false)
+        if (!StateModalMovimiento) return setStateModalMovimiento(true)
 
+    }
+
+    const getDetalleDoc = async (id) => {
+        setloaderDoc(true)
+
+        let res= await DocumentoFetch.getOne(id,stateTokenAdmin)
+        setdetalleTable(res.detalle[0]||res.detalle)
+        setloaderDoc(false)
+
+    }
 
     const getdocumento = async (token) => {
         setloaderDoc(true)
@@ -135,10 +150,22 @@ export const UseDocumento = (stateTokenAdmin) => {
 
     const addDetalle = async (e) => {
         const { _id, nombre } = formProducto
-        if (!_id) return alert("falta una wea")
-        if (!nombre) return alert("falta una wea")
-        if (!cantidad) return alert("falta una wea")
-        if (!importe) return alert("falta una wea")
+        if (!_id)   return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un prod',
+        }) 
+        if (!nombre) return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un prod',
+        })
+        if (!cantidad) return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un prod',
+        })
+        if (!importe) return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un prod',
+        })
         let res = detalleDoc.find(e => e._id === _id)
 
         if (res) {
@@ -146,7 +173,7 @@ export const UseDocumento = (stateTokenAdmin) => {
 
             let newcarr = detalleDoc.map(pro => pro._id === _id ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
             setloaderDoc(false)
-            
+
             setDetalleDoc(newcarr)
 
             setdescuento(0)
@@ -188,22 +215,33 @@ export const UseDocumento = (stateTokenAdmin) => {
     };
 
     const handleSubmit = async (e) => {
-            setloaderDoc(true)
+        setloaderDoc(true)
 
         e.preventDefault();
         let { _id } = formCustomer
-        if (!detalleDoc) return alert("falta detalle ")
+        if (!detalleDoc) return  await Swal.fire({
+            icon: 'success',
+            title: 'Falta Detalle Productos',
+        })
         let formtodo = { ...form, detalle: detalleDoc, customer_id: _id }
 
         let res = await DocumentoFetch.post(stateTokenAdmin, formtodo)
-        if (res.statusCode) return alert(res.message.map((el) => el))
-        if (res.status) return alert(res.message)
         setloaderDoc(false)
+
+        if (res.statusCode) return await Swal.fire({
+            icon: 'warning',
+            title: `${res.message}`,
+        })
+        if (res.status) return await Swal.fire({
+            icon: 'warning',
+            title: `${res.message}`,
+        })
 
         let resalert = await Swal.fire({
             icon: 'success',
             title: 'Guardado con éxito',
         })
+
         setform(formInit)
         setformCustomer(formInitCustomer)
         setformProducto(formInitProduct)
@@ -242,15 +280,21 @@ export const UseDocumento = (stateTokenAdmin) => {
     };
 
 
-    const handleChangeTableCustomer = ({ selectedRows }) => {
+    const handleChangeTableCustomer = async({ selectedRows }) => {
         // You can set state or dispatch with something like Redux so we can use the retrieved data
-        if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+        if (selectedRows.length > 1) return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un cliente',
+        }) 
         setselectCustomer(selectedRows[0])
     };
 
-    const handleChangeTableProducto = ({ selectedRows }) => {
+    const handleChangeTableProducto =async ({ selectedRows }) => {
         // You can set state or dispatch with something like Redux so we can use the retrieved data
-        if (selectedRows.length > 1) return alert("Solo selecciona un cliente");
+        if (selectedRows.length > 1)  return  await Swal.fire({
+            icon: 'success',
+            title: 'Seleccione un producto',
+        }) 
         setselectProduct(selectedRows[0])
     };
 
@@ -263,6 +307,7 @@ export const UseDocumento = (stateTokenAdmin) => {
         // setToggleClearRows(!toggledClearRows);
     }
 
+  
 
     const handleSelectProduct = () => {
 
@@ -328,7 +373,8 @@ export const UseDocumento = (stateTokenAdmin) => {
         StateModalMovimiento,
         toggleModalMovimiento,
         anular,
-        loaderDoc
+        loaderDoc,getDetalleDoc,StateModalDetalleDoc,toggleModalDetalleDoc,
+        detalleTable,setdetalleTable
         /*  getdocumentoid */
     };
 }

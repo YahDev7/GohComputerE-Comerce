@@ -17,10 +17,10 @@ import Loader from "../../public/Loader";
 
 
 const Customer = () => {
-  const {iconEdit, iconDelete,iconsave}=UseIcons()
+  const { iconEdit, iconDelete, iconsave,iconNew } = UseIcons()
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  const { StateModal, setStateModal, togglfeModal } = UseToggle()
+  const { StateModal, setStateModal, toggleModal } = UseToggle()
 
   const {
     customer,
@@ -33,10 +33,10 @@ const Customer = () => {
     deletecustomer,
     loaderCustomer
 
-  }=UseCustomer(stateTokenAdmin)
+  } = UseCustomer(stateTokenAdmin)
 
   console.log(loaderCustomer)
-  let { 
+  let {
     nombres,
     ap_paterno,
     ap_materno,
@@ -50,7 +50,7 @@ const Customer = () => {
     telefono,
     estado } = form;
 
- 
+
 
   const columns = [
     {
@@ -59,8 +59,8 @@ const Customer = () => {
       maxWidth: '200px',
       cell: row => (
         <div className="flex max-md:flex-col pt-2">
-          <button onClick={() => { toggleModal();  getEdit(row._id)   }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
-          <button  onClick={() => deletecustomer(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
+          <button onClick={() => { toggleModal(); getEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
+          <button onClick={() => deletecustomer(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
         </div>
       ),
 
@@ -87,14 +87,18 @@ const Customer = () => {
 
   return (
 
-
-    
+    <div className="w-100 max-md:!w-[80%]">
     <Card>
-{loaderCustomer && <Loader/>}
+      {loaderCustomer && <Loader />}
 
       <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Customers</h2>
       <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-        Nuevo
+        <div className="flex">
+
+          <p className="pr-2">Nuevo</p>
+          <img src={iconNew} width="20px" alt="" />
+
+        </div>
       </button>
       {StateModal &&
 
@@ -128,9 +132,13 @@ const Customer = () => {
                     />
                   </div>
                   <div className="w-full px-3 mb-6 md:mb-0">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
-                      ap_paterno
-                    </label>
+                    <div className="flex">
+
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
+                        ap_paterno
+                      </label>
+                      <span className="pl-2 text-red-700">*</span>
+                    </div>
                     <input
                       value={ap_paterno}
                       className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -148,7 +156,7 @@ const Customer = () => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_materno">
                         ap_materno
                       </label>
-                      <span className="pl-2 ">*</span>
+                      <span className="pl-2 text-red-700">*</span>
                     </div>
                     <input
                       onChange={(e) => handleChange(e)}
@@ -163,9 +171,12 @@ const Customer = () => {
                   </div>
 
                   <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">
-                      dni_ruc
-                    </label>
+                    <div className="flex">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">
+                        dni_ruc
+                      </label>
+                      <span className="pl-2 text-red-700">*</span>
+                    </div>
                     <input
                       value={dni_ruc}
                       onChange={(e) => handleChange(e)}
@@ -201,9 +212,13 @@ const Customer = () => {
                 </div>
                 <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
                   <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
-                      email
-                    </label>
+                    <div className="flex">
+
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
+                        email
+                      </label>
+                      <span className="pl-2 text-red-700">*</span>
+                    </div>
                     <input
                       value={email}
                       onChange={(e) => handleChange(e)}
@@ -237,7 +252,7 @@ const Customer = () => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
                         departamento
                       </label>
-                      <span className="pl-2 ">*</span>
+
                     </div>
                     <input
                       onChange={(e) => handleChange(e)}
@@ -255,7 +270,6 @@ const Customer = () => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
                         provincia
                       </label>
-                      <span className="pl-2 ">*</span>
                     </div>
                     <input
                       onChange={(e) => handleChange(e)}
@@ -272,7 +286,6 @@ const Customer = () => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
                         distrito
                       </label>
-                      <span className="pl-2 ">*</span>
                     </div>
                     <input
                       onChange={(e) => handleChange(e)}
@@ -323,7 +336,6 @@ const Customer = () => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
                         direccion
                       </label>
-                      <span className="pl-2 ">*</span>
                     </div>
                     <input
                       onChange={(e) => handleChange(e)}
@@ -357,7 +369,7 @@ const Customer = () => {
                     </select>
 
                   </div>
-             
+
 
                 </div>
 
@@ -408,7 +420,7 @@ const Customer = () => {
         </TableBody>
       </Table> */}
     </Card>
-
+    </div>
 
   );
 }

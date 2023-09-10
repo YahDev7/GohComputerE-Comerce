@@ -18,7 +18,7 @@ const Promociones = () => {
     <Card>
       <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Promociones</h2>
 
-      <ModalPromociones stateTokenAdmin={stateTokenAdmin}></ModalPromociones>
+      {/* <ModalPromociones stateTokenAdmin={stateTokenAdmin}></ModalPromociones> */}
 
     </Card>
   );

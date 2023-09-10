@@ -1,6 +1,7 @@
 import AdminSidebar from "../sidebar";
 import { TokenAdminProvider } from "../../../context/tokenAdmin";
 import Promociones from "./Promociones";
+import ModalPromociones from "./Modal";
 
 const PromocionesAdmin = () => {
   return (
@@ -8,7 +9,9 @@ const PromocionesAdmin = () => {
       
     <div className="flex">
       <AdminSidebar></AdminSidebar>
-      <Promociones></Promociones>
+      <ModalPromociones ></ModalPromociones>
+
+     {/*  <Promociones></Promociones> */}
     </div>
     </TokenAdminProvider>
   );

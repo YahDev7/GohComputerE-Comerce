@@ -17,8 +17,8 @@ import { UseIcons } from "../hook/icons";
 import Loader from "../../public/Loader";
 
 const Documento = () => {
-  const {iconEdit, iconDelete,iconsave,iconpagar,
-    iconAnular}=UseIcons()
+  const { iconpagar,
+    iconAnular, iconNew } = UseIcons()
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
@@ -44,9 +44,8 @@ const Documento = () => {
     toggleModalMovimiento,
     StateModalMovimiento,
     anular,
-    loaderDoc
+    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, setdetalleTable
   } = UseDocumento(stateTokenAdmin)
-
 
   const {
     customer,
@@ -55,7 +54,7 @@ const Documento = () => {
     prodc,
   } = UseProdAdmin(stateTokenAdmin)
 
-  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov,loaderMov } = UseMovimiento(stateTokenAdmin)
+  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
 
   let { /* user_id,
     customer_id,
@@ -87,20 +86,29 @@ const Documento = () => {
     {
       name: 'Actions',
       sortable: true,
-      maxWidth: '200px',
-      cell: row => (<div >
-        {row.estado === "CANCELADO" ? <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Cancelado</span>
-:row.estado === "ANULADO" ? <span class="inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">Anulado</span>
-          : <div className="flex max-md:flex-col pt-2">
-            <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconpagar} width="18px" alt="" /></button>
-            <button type="button" onClick={() => anular(row._id)} className="block mb-3 text-white bg-red-900 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconAnular} width="18px" alt="" /></button>
+      maxWidth: '150px',
+      cell: row => (<div /* className="flex max-md:flex-col pt-2" */>
+        {row.estado === "CANCELADO" ? <span className="inline-flex h-6 mt-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Cancelado</span>
+          : row.estado === "ANULADO" ? <span className="inline-flex h-6 mt-3 items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">Anulado</span>
+            : <div className="flex max-md:flex-col pt-2">
+              <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconpagar} width="18px" alt="" /></button>
+              <button type="button" onClick={() => anular(row._id)} className="block mb-3 mt-3  text-white bg-red-900 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconAnular} width="18px" alt="" /></button>
 
-          </div>
+            </div>
         }
+
       </div>
       )
 
     },
+    {
+      name: 'Detalle',
+      maxWidth: '100px',
+      selector: row => <button onClick={() => { getDetalleDoc(row._id); toggleModalDetalleDoc() }} className="block mb-3 mt-3  text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src="https://res.cloudinary.com/dq3fragzr/image/upload/v1694272035/Dashboard/ver-detalles_w2r9pg.svg" width="15px" alt="" /></button>,
+      sortable: true,
+
+    },
+
     {
       name: 'ID',
       selector: row => row._id,
@@ -110,6 +118,9 @@ const Documento = () => {
       name: 'Fecha',
       selector: row => row.fecha,
       sortable: true,
+      format: (row) => {
+        return new Date(row.fecha).toLocaleDateString();
+      }
     },
     {
       name: 'Sub Total',
@@ -128,13 +139,13 @@ const Documento = () => {
     },
     {
       name: 'Total',
-      selector: row =>  <span class={`inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20`}>{row.total_pagar}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20`}>{row.total_pagar}</span>,
 
       sortable: true,
     },
     {
       name: 'Tipo',
-      selector: row =>  <span class={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta==="COMPRA"?"yellow":"green"}-600/20`}>{row.tipo_compra_venta}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-600/20`}>{row.tipo_compra_venta}</span>,
       sortable: true,
     },
 
@@ -215,16 +226,16 @@ const Documento = () => {
       selector: row => row._id,
       sortable: true,
     },
-    
+
     {
       name: 'IMG',
-      selector: row =>   (
-          <div >
-              <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
-             </div>
-      ), 
+      selector: row => (
+        <div >
+          <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
+        </div>
+      ),
       sortable: true,
-  }, 
+    },
     {
       name: 'Nombre',
       selector: row => row.nombre,
@@ -239,10 +250,51 @@ const Documento = () => {
 
   ];
 
+  const columnsDetalleDocListar = [
+
+    {
+      name: 'ID',
+      selector: row => row._id,
+      sortable: true,
+    },
+    {
+      name: 'Nombre',
+      selector: row => row.nombre,
+      sortable: true,
+    },
+
+    {
+      name: 'IMG',
+      selector: row => (
+        <div >
+          <img className="w-20" src={row.imagenes ? row?.imagenes[0]?.URL : row.img ? row.img : ""} alt="" />
+        </div>
+      ),
+      sortable: true,
+    },
+    {
+      name: 'cantidad',
+      selector: row => row.cantidad || row.unidad,
+      sortable: true,
+    },
+    {
+      name: 'Descuento',
+      selector: row => row.descuento,
+      sortable: true,
+    },
+    {
+      name: 'Importe',
+      selector: row => row.importe || row.precio,
+      sortable: true,
+    },
+
+
+  ];
+
   return (
-    <div className="w-100">
-{loaderDoc && <Loader/>}
-{loaderMov && <Loader/>}
+    <div className="w-100 max-md:!w-[80%]">
+      {loaderDoc && <Loader />}
+      {loaderMov && <Loader />}
       {
         StateModalMovimiento &&
         <ModalMovimiento /* handleChange={handleChange}  */ setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
@@ -250,16 +302,21 @@ const Documento = () => {
 
 
       <Card>
-      <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Documentos</h2>
-       
+        <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Documentos</h2>
+
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-          Nuevo
+          <div className="flex">
+
+            <p className="pr-2">Nuevo</p>
+            <img src={iconNew} width="20px" alt="" />
+
+          </div>
         </button>
         {StateModal &&
 
-          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50 top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100% - 1rem)]max-h-full">
+          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50 top-0 left-0 right-0 z-50  w-full  p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(100% - 1rem)]max-h-full">
             <input type="hidden" name="_id" id="_id" />
-            <div className="relative bg-white rounded-lg p-2 w-[80%]">
+            <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96">
               <button onClick={() => { setform(formInit); toggleModal() }} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
               <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
 
@@ -446,9 +503,9 @@ const Documento = () => {
                       />
                     </div>
 
-                    <div className="grid md:grid-cols-4  gap-4 -mx-3 mb-6">
-                      <button onClick={(e) => addDetalle(e)} type="button" className=" text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Agregar</button>
-                      <button onClick={(e) => setDetalleDoc([])} type="button" className=" text-white bg-blue-700 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" >Limpiar</button>
+                    <div className="grid grid-cols-2 gap-4 mt-4 h-14  mb-6 ">
+                      <button onClick={(e) => addDetalle(e)} type="button" className=" text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center h-12" >Agregar</button>
+                      <button onClick={(e) => setDetalleDoc([])} type="button" className=" text-white bg-blue-700 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center h-12" >Limpiar</button>
 
                     </div>
                   </div>
@@ -462,7 +519,31 @@ const Documento = () => {
                       pagination
                       selectableRows
                       striped
-
+                      customStyles={{
+                        table:{
+                          style: {
+                            
+                         /*    width:"702px",
+                            
+                            maxWidth: '1002px' // override the row height */
+                          },
+                        },
+                       /*  rows: {
+                          style: {
+                            
+                            width:"202px",
+                            maxWidth: '100%' // override the row height
+                          },
+                        },
+                        headRow:{
+                          style: {
+                            width:"202px",
+                            maxWidth: '100%' // override the row height
+                            
+                          },
+                        } */
+                      
+                      }}
                       expandableRows
                       expandableRowsHideExpander
                     />
@@ -568,6 +649,7 @@ const Documento = () => {
           </div>
         }
 
+        
         <DataTable
           columns={columns}
           data={documento}
@@ -588,15 +670,18 @@ const Documento = () => {
           <button className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
             Nuevo
           </button>
-          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-            <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
+           {/*  <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
 
-            <div className="w-10/12 ">
+            <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96 ">
+            <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Clientes</p>
+
               <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelect}>
                 Seleccionar
+            <button onClick={() => { toggleModalcliente() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               </button>
               <DataTable
-                title="CLIENTES"
+                //title="CLIENTES"
                 columns={columnsCustomer}
                 data={customer}
                 dense
@@ -606,6 +691,24 @@ const Documento = () => {
                 expandableRows
                 expandableRowsHideExpander
                 onSelectedRowsChange={handleChangeTableCustomer}
+                customStyles={{
+                  
+                  table:{
+                    style: {
+                      width:"100%",
+                     // maxWidth:"80%"
+                     // margin:"0 auto"
+                    },
+                  },
+                  pagination:{
+                    style: {
+                      width:"100%",
+                      //margin:"0 auto"
+                    },
+                  },
+                 
+                
+                }}
               />
             </div>
 
@@ -616,13 +719,16 @@ const Documento = () => {
       {StateModalProducto &&
         <Card>
 
-          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-            <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
+           {/*  <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
 
-            <div className="w-10/12 ">
+            <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96 ">
+            <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Productos</p>
+
               <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelectProduct}>
                 Seleccionar
               </button>
+            <button onClick={() => { toggleModalProducto() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               <DataTable
                 columns={columnsProductos}
                 data={prodc}
@@ -632,6 +738,23 @@ const Documento = () => {
                 expandableRows
                 expandableRowsHideExpander
                 onSelectedRowsChange={handleChangeTableProducto}
+                customStyles={{
+                  table:{
+                    style: {
+                      width:"100%",
+                     // maxWidth:"80%"
+                     // margin:"0 auto"
+                    },
+                  },
+                  pagination:{
+                    style: {
+                      width:"100%",
+                      //margin:"0 auto"
+                    },
+                  },
+                 
+                
+                }}
               />
             </div>
           </div>
@@ -639,6 +762,31 @@ const Documento = () => {
         </Card>
       }
 
+      {StateModalDetalleDoc &&
+        <Card>
+
+          <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
+
+            <div className="w-10/12 position-relative">
+              <button onClick={() => { toggleModalDetalleDoc() }} className=" -top-10 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+              {/* <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelectProduct}>
+                Seleccionar
+              </button> */}
+              <DataTable
+                columns={columnsDetalleDocListar}
+                data={[detalleTable]}
+                pagination
+                selectableRows
+                striped
+                expandableRows
+                expandableRowsHideExpander
+              /*    onSelectedRowsChange={handleChangeTableProducto} */
+              />
+            </div>
+          </div>
+
+        </Card>
+      }
     </div>
 
   );

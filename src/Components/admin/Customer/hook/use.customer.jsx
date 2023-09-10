@@ -98,13 +98,17 @@ export const UseCustomer = (stateTokenAdmin) => {
       const { _id, ...form2 } = form
       let res3 = await CustomerFetch.put(_id, form2, stateTokenAdmin)
       // if (uploadfiles[0].URL !== "") uploadFilesFetch.save(uploadfiles, stateTokenAdmin)
+      setloaderCustomer(false)
 
-      if (res3.statusCode) return alert(res3.message.map((el) => el))
-      if (res3.status) return await MySwal.fire({
+      if (res3.statusCode===404) return MySwal.fire({
+        title: <h2>{res3.message}</h2>,
+        icon: 'success'
+      })
+      // alert(res3.message.map((el) => el))
+      if (res3.status===404) return await MySwal.fire({
         title: <h2>{res3.message}</h2>,
         icon: 'error'
       })
-      setloaderCustomer(false)
 
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,
@@ -118,17 +122,19 @@ export const UseCustomer = (stateTokenAdmin) => {
 
 
     let res = await CustomerFetch.postByEnterprise(stateTokenAdmin, form)
+    setloaderCustomer(false)
+
+    if (res.statusCode) return MySwal.fire({
+      title: <h2>{res.message}</h2>,
+      icon: 'error'
+    })
 
     if (res.status) return await MySwal.fire({
       title: <h2>{res.message}</h2>,
       icon: 'error'
     })
 
-    if (res.statusCode) return MySwal.fire({
-      title: <h2>{res.statusCode}</h2>,
-      icon: 'error'
-    })
-    setloaderCustomer(false)
+  
 
     MySwal.fire({
       title: <h2>{res.message}</h2>,

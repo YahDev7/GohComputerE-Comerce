@@ -33,7 +33,7 @@ const AdminSidebar = () => {
             <div className="">
                 <div className={` ${open ? "w-72" : "w-24"} bg-dark-purple h-100 p-4  pt-8 relative duration-300`}>
                     <img
-                        src="https://res.cloudinary.com/dq3fragzr/image/upload/v1694103340/Dashboard/pagar_1_czgvis.svg"
+                        src="https://res.cloudinary.com/dq3fragzr/image/upload/v1694272036/Dashboard/proximo_bos1cu.svg"
                         className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
                         border-2 rounded-full  ${!open && "rotate-180"}`}
                         onClick={() => setOpen(!open)}/>

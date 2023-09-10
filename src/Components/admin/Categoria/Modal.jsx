@@ -10,7 +10,7 @@ import Loader from "../../public/Loader";
 
 const ModalCategoria = () => {
     const { stateTokenAdmin } = useContext(TokenAdminContext)
-    const {iconEdit, iconDelete,iconsave}=UseIcons()
+    const { iconEdit, iconDelete, iconsave, iconNew } = UseIcons()
     const { categoria,
         formInit,
         form,
@@ -18,7 +18,7 @@ const ModalCategoria = () => {
         deleteCategoria,
         getEdit,
         handleChange,
-        handleSubmit,handleImagenChange,loaderCat } = UseCatAdmin(stateTokenAdmin)
+        handleSubmit, handleImagenChange, loaderCat } = UseCatAdmin(stateTokenAdmin)
     //  const [uploadfiles, setuploadfiles] = useState(initfiles);
 
     const { StateModal, toggleModal } = UseToggle()
@@ -32,8 +32,8 @@ const ModalCategoria = () => {
             maxWidth: '200px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
-                    <button  onClick={() => { toggleModal();  getEdit(row._id)}}  className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
-                    <button  onClick={() => {  deleteCategoria(row._id)}}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
+                    <button onClick={() => { toggleModal(); getEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
+                    <button onClick={() => { deleteCategoria(row._id) }} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
                 </div>
             ),
 
@@ -49,8 +49,8 @@ const ModalCategoria = () => {
             (
                 <div >
                     <img className="w-24" src={row.url_imagen} alt="" />
-                   </div>
-            ), 
+                </div>
+            ),
             sortable: true,
         },
         {
@@ -64,11 +64,21 @@ const ModalCategoria = () => {
 
     return (
 
-        <>
-        {loaderCat&& <Loader/>}
+        <div className="w-100 max-md:!w-[80%]">
+            {loaderCat && <Loader />}
+            <Card>
 
-            <button onClick={() => toggleModal()} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-                New
+            
+            <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Categorias</h2>
+
+            <button onClick={() => toggleModal()} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center " type="button">
+               
+                <div className="flex">
+
+                    <p className="pr-2">Nuevo</p>
+                    <img src={iconNew} width="20px" alt="" />
+
+                </div>
             </button>
             {StateModal &&
 
@@ -109,7 +119,7 @@ cardProd === true ?{ */}
                                             </label>
                                             <span className="pl-2 ">*</span>
                                         </div>
-                                        <input type="file"  onChange={(e) => handleImagenChange(e)}  name="file" className=" relative col-start-1 col-end-4 m-0 block w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
+                                        <input type="file" onChange={(e) => handleImagenChange(e)} name="file" className=" relative col-start-1 col-end-4 m-0 block w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
 
                                     </div>
 
@@ -194,7 +204,8 @@ cardProd === true ?{ */}
                     expandableRowsHideExpander
                 />
             </div>
-        </>
+        </Card>
+        </div>
 
     );
 }

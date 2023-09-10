@@ -12,13 +12,13 @@ import { UseLoader } from "../hook/loader";
 const ModalPromociones = () => {
 
     const { stateTokenAdmin } = useContext(TokenAdminContext)
-    const {iconEdit, iconDelete,iconsave}=UseIcons()
-    const {prodc} =UseProdAdmin()
+    const { iconEdit, iconDelete, iconNew } = UseIcons()
+    const { prodc } = UseProdAdmin()
     const {
         setGanancia,
         ganancia, promociones,
-         setform, StateModal, form, formInit, toggleModal,   SubmirForm, handleChange,
-          getpromocionesEdit, deletePromociones,loaderPromo } = UsePromocionesAdmin()
+        setform, StateModal, form, formInit, toggleModal, SubmirForm, handleChange,
+        getpromocionesEdit, deletePromociones, loaderPromo } = UsePromocionesAdmin()
 
     const {
         producto_id,
@@ -35,11 +35,11 @@ const ModalPromociones = () => {
         {
             name: 'Actions',
             sortable: true,
-            maxWidth: '200px',
+            maxWidth: '150px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
                     <button onClick={() => { toggleModal(); getpromocionesEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
-                    <button onClick={() => deletePromociones(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete}  width="15px" alt="" /></button>
+                    <button onClick={() => deletePromociones(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
                 </div>
             ),
 
@@ -56,13 +56,13 @@ const ModalPromociones = () => {
         },
         {
             name: 'IMG',
-            selector: row =>   (
+            selector: row => (
                 <div >
                     <img className="w-20" src={row?.imagenes[0][0]?.URL} alt="" />
-                   </div>
-            ), 
+                </div>
+            ),
             sortable: true,
-        }, 
+        },
         {
             name: 'Valor dolar',
             selector: row => row.valor_dolar,
@@ -80,10 +80,16 @@ const ModalPromociones = () => {
     ];
     return (
 
-        <>
-        {loaderPromo && <Loader/>}
+    <div className="w-100 max-md:!w-[80%]">
+        <Card>
+        {loaderPromo && <Loader />}
             <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-                New
+                <div className="flex">
+
+                    <p className="pr-2">Nuevo</p>
+                    <img src={iconNew} width="20px" alt="" />
+
+                </div>
             </button>
             {StateModal &&
 
@@ -120,12 +126,12 @@ const ModalPromociones = () => {
                                             id="producto_id"
                                         >
                                             <option value="" >Seleccione</option>
-                                           
+
                                             {
                                                 prodc.map((el) =>
                                                     <option value={el?._id}>{el?.nombre}</option>
                                                 )
-                                            } 
+                                            }
 
                                         </select>
                                     </div>
@@ -273,7 +279,7 @@ const ModalPromociones = () => {
                                 <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
                                     <div className="w-full px-3">
                                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="fefecha_fincha">
-                                        fecha_fin
+                                            fecha_fin
                                         </label>
                                         <input
                                             onChange={(e) => handleChange(e)}
@@ -281,7 +287,7 @@ const ModalPromociones = () => {
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                             name="fecha_fin"
                                             id="fecha_fin"
-                                            type="date" 
+                                            type="date"
                                             placeholder="Fecha"
                                         />
                                     </div>
@@ -303,7 +309,7 @@ const ModalPromociones = () => {
                                         />
                                     </div>
                                 </div>
-                              
+
 
 
 
@@ -322,7 +328,7 @@ const ModalPromociones = () => {
             <div>
                 <DataTable
                     columns={columns}
-                    data={promociones??[]}
+                    data={promociones ?? []}
                     pagination
                     selectableRows
                     striped
@@ -331,7 +337,10 @@ const ModalPromociones = () => {
                     expandableRowsHideExpander
                 />
             </div>
-        </>
+        </Card>
+          
+
+        </div>
 
     );
 }

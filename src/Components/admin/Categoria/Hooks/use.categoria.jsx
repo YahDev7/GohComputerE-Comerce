@@ -93,6 +93,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     if (form?._id) {
       const { _id, ...form2 } = form
       let res3 = await CategoriaFetch.put(_id, form2, stateTokenAdmin)
+      setloaderCat(false)
       if (uploadfile) uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin, _id)
 
       if (res3.statusCode) return await MySwal.fire({
@@ -103,7 +104,6 @@ export const UseCatAdmin = (stateTokenAdmin) => {
         title: <h2>{res3.message}</h2>,
         icon: 'error'
       })
-      setloaderCat(false)
 
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,

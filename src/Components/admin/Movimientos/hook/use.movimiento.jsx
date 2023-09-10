@@ -26,6 +26,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [formMov, setformMov] = useState(formInit)
     const [ftemproral, setftemproral] = useState(formInit)
+    const [detalle, setdetalle] = useState(formInit)
 
 
     const getdocumento = async (token) => {
@@ -95,6 +96,14 @@ export const UseMovimiento = (stateTokenAdmin) => {
         setformMov({ ...formMov,monto_deposito:valueNumber, vuelto: newvuelto })
 
     }
+    const getDetalle = async (id) => {
+        setloaderMov(true)
+
+        let res= await MovimientoFetch.getOne(id,stateTokenAdmin)
+        console.log(res)
+        setdetalle(res)
+        setloaderMov(false)
+    }
 
     useEffect(() => {
         getdocumento(stateTokenAdmin)
@@ -117,6 +126,6 @@ export const UseMovimiento = (stateTokenAdmin) => {
         handleChangeMov,
         handleSubmitMov,
         getdocumentoid,
-        loaderMov
+        loaderMov,getDetalle
     };
 }

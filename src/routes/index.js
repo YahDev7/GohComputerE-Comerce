@@ -23,7 +23,7 @@ export const ROUTES_BACK = {
       GETCOMPRADIA: '/movimiento-m/compras/totaldia',
       GETCOMPRAMES: '/movimiento-m/compras/totalmes',
       GETINGRESOSMENSUALES: '/movimiento-m/enterprise/ingresosMensuales',
-      GETID: (id) => `/movimiento-m/enterprise${id}`,
+      GETID: (id) => `/movimiento-m/enterprise/${id}`,
       POST: `/movimiento-m/enterprise`,
 
     },

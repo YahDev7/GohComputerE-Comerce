@@ -1,5 +1,6 @@
 import { TokenAdminProvider } from "../../../context/tokenAdmin";
 import AdminSidebar from "../sidebar";
+import ModalSubCategoria from "./Modal";
 import Subcategoria from "./Subcategoria";
 
 const SubCategoriaAdmin = () => {
@@ -7,7 +8,8 @@ const SubCategoriaAdmin = () => {
     <TokenAdminProvider>
     <div className="flex">
       <AdminSidebar></AdminSidebar>
-      <Subcategoria/>
+      <ModalSubCategoria></ModalSubCategoria>
+     {/*  <Subcategoria/> */}
     </div>
     </TokenAdminProvider>
   );

@@ -127,7 +127,8 @@ export const UseProdAdmin = () => {
     if (form._id) {
       const { __v, _id, imagenes, ...form2 } = form
       let res3 = await ProductosFetch.put(_id, form2, stateTokenAdmin)
-
+      
+      setloaderProd(false)
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
         title: `${res3.message}`,
         icon: 'warning'
@@ -140,7 +141,6 @@ export const UseProdAdmin = () => {
       if (uploadfiles) {
         let res4 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, _id)
       }
-      setloaderProd(false)
 
       await Swal.fire({
         icon: 'success',
@@ -154,6 +154,7 @@ export const UseProdAdmin = () => {
     let newform = { ...form, usuario_id, enterprise_id }
     let res = await ProductosFetch.post(newform, stateTokenAdmin)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
+    setloaderProd(false)
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
       title: `${res.message}`,
       icon: 'warning'
@@ -169,7 +170,6 @@ export const UseProdAdmin = () => {
 
       let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
     }
-    setloaderProd(false)
 
     let resalert = await Swal.fire({
       icon: 'success',

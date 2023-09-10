@@ -10,14 +10,14 @@ import { UseIcons } from "../hook/icons";
 import Loader from "../../public/Loader";
 const ModalSubCategoria = () => {
 
-    const {iconEdit, iconDelete,iconsave}=UseIcons()
+    const { iconEdit, iconDelete, iconNew } = UseIcons()
 
     const { StateModal, setStateModal, toggleModal } = UseToggle()
     const { stateTokenAdmin } = useContext(TokenAdminContext)
 
     const { handleSubmit, handleChange, subcategoria,
         form, setform, formInit, getEdit,
-        deleteUser,handleImagenChange,loaderSubCat } = UseSubCatAdmin(stateTokenAdmin)
+        deleteUser, handleImagenChange, loaderSubCat } = UseSubCatAdmin(stateTokenAdmin)
 
     const { categoria } = UseCatAdmin(stateTokenAdmin)
     let { nombre,
@@ -42,16 +42,16 @@ const ModalSubCategoria = () => {
             selector: row => row._id,
             sortable: true,
         },
-       
+
         {
             name: 'IMG',
-            selector: row =>  (
+            selector: row => (
                 <div >
                     <img className="w-24" src={row.url_imagen} alt="" />
-                   </div>
-            ), 
+                </div>
+            ),
             sortable: true,
-        }, 
+        },
         {
             name: 'Nombre',
             selector: row => row.nombre,
@@ -62,11 +62,18 @@ const ModalSubCategoria = () => {
 
     return (
 
-        <>
-{loaderSubCat && <Loader/>}
+        <div className="w-100 max-md:!w-[80%]">
+      <Card>
+
+            {loaderSubCat && <Loader />}
 
             <button onClick={() => toggleModal()} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-                New
+                <div className="flex">
+
+                    <p className="pr-2">Nuevo</p>
+                    <img src={iconNew} width="20px" alt="" />
+
+                </div>
             </button>
             {StateModal &&
 
@@ -107,7 +114,7 @@ cardProd === true ?{ */}
                                             </label>
                                             <span className="pl-2 ">*</span>
                                         </div>
-                                        <input type="file" onChange={(e) => handleImagenChange(e)}  name="file" className=" relative col-start-1 col-end-4 m-0 block w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
+                                        <input type="file" onChange={(e) => handleImagenChange(e)} name="file" className=" relative col-start-1 col-end-4 m-0 block w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
 
                                     </div>
 
@@ -122,7 +129,7 @@ cardProd === true ?{ */}
                                         </div>
 
                                         <select
-                                              value={categoria_id} 
+                                            value={categoria_id}
                                             onChange={(e) => handleChange(e)}
                                             className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
                                             name="categoria_id"
@@ -172,7 +179,7 @@ cardProd === true ?{ */}
             }
             <div>
                 <DataTable
-                dense
+                    dense
                     columns={columns}
                     data={subcategoria}
                     pagination
@@ -183,7 +190,10 @@ cardProd === true ?{ */}
                     expandableRowsHideExpander
                 />
             </div>
-        </>
+      </Card>
+
+            </div>
+
 
     );
 }

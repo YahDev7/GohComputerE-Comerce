@@ -36,7 +36,7 @@ const CompProAll = () => {
 
                 <div className="text-center pt-3">
 
-                     <div className="row divfilter ">
+          {/*            <div className="row divfilter ">
                         <div className="col row">
                             <label htmlFor="" className=" col">ordenar por:</label>
                             <select className="form-select col" id="selectOrder" aria-label="Default select example">
@@ -67,7 +67,7 @@ const CompProAll = () => {
                                 <option value="all">Todos</option>
                             </select>
                         </div>
-                    </div>
+                    </div> */}
 
               {/*       <div className="mt-4">
                         <nav aria-label="Page navigation example">
