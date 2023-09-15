@@ -32,6 +32,12 @@ const TokenAdminProvider = ({ children }) => {
     getUser()
   }, []);
 
+  /* useEffect(() => {
+    if (!stateTokenAdmin) return location.href = "/#/login/admin"
+    if (!user) return location.href = "/#/login/admin"
+
+  }, [user]); */
+
 
   const data = {
     stateTokenAdmin,

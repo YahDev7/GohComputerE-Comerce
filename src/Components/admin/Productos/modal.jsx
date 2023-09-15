@@ -19,9 +19,7 @@ const ModalProduct = () => {
         handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal,
         handleEliminarEspecificacion,
         handleEspecificacionChange,
-        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd } = UseProdAdmin()
-
-
+        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd, uploadfiles, handleAgregarImg, handleEliminarImg,imgsView,EliminarImg,resetForm } = UseProdAdmin()
     const {
         codfabricante,
         codigo,
@@ -70,6 +68,16 @@ const ModalProduct = () => {
             selector: row => row.nombre,
             sortable: true,
         },
+    /*     {
+            name: 'CAT',
+            selector: row => row.nombre,
+            sortable: true,
+        },
+        {
+            name: 'SUB',
+            selector: row => row.nombre,
+            sortable: true,
+        }, */
         {
             name: 'IMG',
             selector: row => (
@@ -108,7 +116,8 @@ const ModalProduct = () => {
             <Card>
 
                 {loaderProd && <Loader></Loader>}
-                <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Productos</h2>
+                <button onClick={() => { resetForm() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     <div className="flex">
 
                         <p className="pr-2">Nuevo</p>
@@ -121,7 +130,7 @@ const ModalProduct = () => {
                     <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50 top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100% - 1rem)]max-h-full">
                         <input type="hidden" name="_id" id="_id" />
                         <div className="relative bg-white rounded-lg p-2 w-[80%]">
-                            <button onClick={() => { setform(formInit); toggleModal() }} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
+                            <button onClick={() => { resetForm() }} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
 
                             {/*   <TabList defaultValue="1" onValueChange={(value) => setcardProd(value === "1")} className="mt-6"  >
                             <Tab value="1" text="Detalle Prod" />
@@ -376,12 +385,28 @@ const ModalProduct = () => {
                                                 </label>
                                                 <span className="pl-2 ">*</span>
                                             </div>
-                                            <div className="grid md:grid-cols-4 gap-4 ">
 
-                                                <input type="file" multiple onChange={(e) => handleImagenChange(e)} name="imagenes" className="relative col-start-1 col-end-4 m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
-                                                {/* <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div> */}
-                                                <button type="button" className="col-end-5 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center ">        Agregar      </button>
-                                            </div>
+                                            {uploadfiles.length >= 1 && uploadfiles?.map((especificacion, index) =>
+                                                <div className="grid grid-cols-3 gap-4 pb-2  max-md:grid-cols-1 ">
+                                                    <input type="file" onChange={(e) => handleImagenChange(e)} name="imagenes" className="relative col-start-1 col-end-4 m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
+                                                    <button onClick={() => handleEliminarImg(index)} type="button" className="block mb-3 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">Eliminar</button>
+
+                                                </div>
+                                            )}
+
+                                            {imgsView.length >= 1 && imgsView?.map((imgs, index) =>
+                                                <div className="grid grid-cols-3 gap-4 pb-2  max-md:grid-cols-1 ">
+                                                    <img width="50px" src={imgs.URL} alt={imgs.nombre} />
+                                                    <button onClick={() => EliminarImg(imgs.public_id)} type="button" className="h-11 block mb-3 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center">Eliminar</button>
+
+                                                </div>
+                                            )}
+
+                                            <button type="button" onClick={(e) => handleAgregarImg(e)} className="col-end-5 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center ">        Agregar      </button>
+
+
+
+
 
                                         </div>
 

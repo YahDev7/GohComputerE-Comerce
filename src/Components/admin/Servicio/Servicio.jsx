@@ -37,14 +37,10 @@ const ServicioAdmin = () => {
     if(!stateTokenAdmin) return location.href="/#/login/admin"
   }, [stateTokenAdmin]); 
 
-
-  
-
-
-
   return (
   
       <div className="w-100 p-5">
+        <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Servicios</h2>
         <Grid numCols={1} numColsSm={2} numColsLg={4} className="gap-2">
           <Col /* numColSpan={1} numColSpanLg={2} */>
             <Card>

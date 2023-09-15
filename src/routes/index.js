@@ -33,6 +33,12 @@ export const ROUTES_BACK = {
       POST: `/documento/enterprise`,
       POSTANULAR: (id) => `/documento/enterprise/anular/${id}`,
     },
+    COMPRA: {
+      GET: '/documento/enterprise/compra',
+      GETID: (id) => `/documento/enterprise/compra/${id}`,
+      POST: `/documento/enterprise/compra`,
+      POSTANULAR: (id) => `/documento/enterprise/anular/${id}`,
+    },
     USER: {
       GET: `/user/enterprise`,
       GETID: (id) => `/user/enterprise/${id}`,
@@ -50,6 +56,7 @@ export const ROUTES_BACK = {
     PROMOCIONES: {
       GET: `/promociones/enterprise`,
       POST: `/promociones/enterprise`,
+      ACTIVAR:(id)=> `/promociones/enterprise/activar/${id}`,
       GETBYID: (id) => `/promociones/enterprise/${id}`,
       PUT: (id) => `/promociones/enterprise/${id}`,
       DELETE: (id) => `/promociones/enterprise/${id}`,
@@ -60,10 +67,13 @@ export const ROUTES_BACK = {
   },
     PRODUCTOS: {
       GET: `/products/enterprise`,
+      POSTSTOCK:(id)=> `/products/enterprise/stock/${id}`,
+      GETWITHSTOCK: `/products/enterprise/withstock`,
       POST: `/products/enterprise`,
       GETBYID: (id) => `/products/enterprise/${id}`,
       PUT: (id) => `/products/enterprise/${id}`,
       DELETE: (id) => `/products/enterprise/${id}`,
+      DELETEONEIMG: `/products/enterprise/img`,
 
 
 
@@ -164,6 +174,7 @@ export const ROUTES = {
   CATEGORIA_ADMIN: "/dashadmin/gohcomputer/Categoria",
   SUBCATEGORIA_ADMIN: "/dashadmin/gohcomputer/Subcategoria",
   DOCUMENTOS_ADMIN: "/dashadmin/gohcomputer/Documentos",
+  COMPRAS_ADMIN: "/dashadmin/gohcomputer/Compras",
   MOVIMIENTOS_ADMIN: "/dashadmin/gohcomputer/Movimientos",
   CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
   SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",

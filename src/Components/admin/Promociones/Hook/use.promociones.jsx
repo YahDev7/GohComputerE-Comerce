@@ -6,7 +6,8 @@ import TokenAdminContext from "../../../../context/tokenAdmin";
 const MySwal = withReactContent(Swal)
 
 export const UsePromocionesAdmin = () => {
-  const [loaderPromo, setloaderPromo] = useState(false);
+
+
 
   let formInit = {
     producto_id: null,
@@ -21,7 +22,44 @@ export const UsePromocionesAdmin = () => {
     valor_dolar: 0,
   }
 
+ 
+
+
+
   const [form, setform] = useState(formInit)
+
+  const [loaderPromo, setloaderPromo] = useState(false);
+  const [selectProductPromo, setselectProductPromo] = useState(null);
+  const [StateModalProducto, setStateModalProducto] = useState(false);
+  const toggleModalProducto = () => {
+    if (StateModalProducto) return setStateModalProducto(false)
+    if (!StateModalProducto) return setStateModalProducto(true)
+    setform(formInit)
+  }
+
+  const handleSelectProductPromo = () => {
+
+    let { nombre, _id } = selectProductPromo
+    setform({ ...form,producto_id:_id });
+
+    toggleModalProducto()
+    // setToggleClearRows(!toggledClearRows);
+  }
+
+
+  const handleChangeTableProductoPromo =async ({ selectedRows }) => {
+    // You can set state or dispatch with something like Redux so we can use the retrieved data
+    if (selectedRows.length > 1)  return  await Swal.fire({
+        icon: 'success',
+        title: 'Seleccione un producto',
+    }) 
+    setselectProductPromo(selectedRows[0])
+};
+
+
+
+
+
   const { stateTokenAdmin } = useContext(TokenAdminContext)
 
   const getpromocionesEdit = async (id) => {
@@ -30,6 +68,20 @@ export const UsePromocionesAdmin = () => {
     setform(res)
     setGanancia(res.ganancia_promo)
     setloaderPromo(false)
+  }
+
+  const ActivarPromo = async (id) => {
+    setloaderPromo(true)
+    
+    let res = await PromocionesFetch.activar(id, stateTokenAdmin)
+    console.log(res)
+    setloaderPromo(false)
+    if (!res.err) return Swal.fire(
+      'Activado!',
+      'El registro fue activado con exito',
+      'success'
+    )
+    getpromociones()
   }
 
   const deletePromociones = async (id) => {
@@ -111,7 +163,6 @@ export const UsePromocionesAdmin = () => {
     //ENVIAR EL TOKEN PARA LAS APIS
     let newform = { ...form }
     let res = await PromocionesFetch.post(newform, stateTokenAdmin)
-    console.log(res)
     setloaderPromo(false)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
@@ -264,6 +315,9 @@ export const UsePromocionesAdmin = () => {
   useEffect(() => {
     getpromociones()
   }, []);
+  useEffect(() => {
+    if (!stateTokenAdmin) return location.href = "/#/login/admin"
+}, [stateTokenAdmin]);
   return {
     fabibra,
     deletePromociones,
@@ -277,6 +331,16 @@ export const UsePromocionesAdmin = () => {
     calcularValorTotalSoles,
     /* setformEdit, */
     calcularValorTotalSoles_singanacia, StateModal, toggleModal,
-    promociones, handleChange, SubmirForm, form, setform, loaderPromo
+    promociones, handleChange, SubmirForm, form, setform, loaderPromo,
+
+    loaderPromo,
+setloaderPromo,
+selectProductPromo,
+setselectProductPromo,
+StateModalProducto,
+setStateModalProducto,
+toggleModalProducto,
+handleSelectProductPromo,
+handleChangeTableProductoPromo,ActivarPromo
   }
 }

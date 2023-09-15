@@ -28,7 +28,13 @@ export const PromocionesFetch={
      
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.POST,body,headers)
         return res
-    }, 
+    },
+    activar: async(id,token)=> {
+      let body={};
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.ACTIVAR(id),body,headers)
+        return res
+    },
     put: async(id,body,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
         let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PROMOCIONES.PUT(id),body,headers)

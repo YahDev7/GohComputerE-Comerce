@@ -15,7 +15,6 @@ export const method={
             body: JSON.stringify(body),
             headers
           }
-
         const res = await fetch(url,options)
         const res2 =await res.json();    
         return res2;

@@ -3,6 +3,7 @@ import { Fetchs, uploadFilesFetch } from "../../../../api/fetchs";
 import TokenAdminContext from "../../../../context/tokenAdmin";
 import withReactContent from "sweetalert2-react-content";
 import { ProductosFetch } from "../../../../api/productos";
+import Swal from "sweetalert2";
 const MySwal = withReactContent(Swal)
 
 export const UseProdAdmin = () => {
@@ -48,18 +49,21 @@ export const UseProdAdmin = () => {
     ],
   }
 
-  let initfiles = null
+//  let initfiles = null
 
-  /*   let initfiles = [
-      { Nombre: "", URL: "" }
+     let initfiles = [
+      { nombre: "", URL: "" }
     ]
-   */
-    const [loaderProd, setloaderProd] = useState(false);
+   
+  const [loaderProd, setloaderProd] = useState(false);
 
   const [form, setform] = useState(formInit)
   const [uploadfiles, setuploadfiles] = useState(initfiles);
+  const [imgsView, setimgsView] = useState([]);
+
+  const [imgs, setimgs] = useState([]);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
-//  if(!user) return location.href="/#/login/admin"
+  if (!user) return location.href = "/#/login/admin"
   let datauser = JSON.parse(user)
   const { usuario_id, enterprise_id } = datauser
 
@@ -67,6 +71,7 @@ export const UseProdAdmin = () => {
     setloaderProd(true)
     let res = await Fetchs.getOne(id, stateTokenAdmin)
     setform(res)
+    setimgsView(res?.imagenes)
     setloaderProd(false)
   }
 
@@ -107,7 +112,7 @@ export const UseProdAdmin = () => {
         'success'
       )
       getprod(stateTokenAdmin)
-      return 
+      return
     }
   }
 
@@ -122,12 +127,17 @@ export const UseProdAdmin = () => {
 
 
   const SubmirForm = async (e) => {
+     
     setloaderProd(true)
-
+    /* 
+        if(uploadfiles){
+          let resimgs= await Fetchs.getOne(id, stateTokenAdmin)
+        }
+     */
     if (form._id) {
       const { __v, _id, imagenes, ...form2 } = form
       let res3 = await ProductosFetch.put(_id, form2, stateTokenAdmin)
-      
+
       setloaderProd(false)
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
         title: `${res3.message}`,
@@ -138,8 +148,10 @@ export const UseProdAdmin = () => {
         title: `${res3.message}`,
         icon: 'warning'
       });
-      if (uploadfiles) {
-        let res4 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, _id)
+      if (imgs.length) {
+        //  let res4 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, _id)
+        let res4 = imgs.map(async (el) => await uploadFilesFetch.saveProducto(el, stateTokenAdmin, _id))
+
       }
 
       await Swal.fire({
@@ -166,9 +178,10 @@ export const UseProdAdmin = () => {
     });
 
 
-    if (uploadfiles) {
-
-      let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
+    if (imgs.length) {
+     
+      let resupload = imgs.map(async (el) => await uploadFilesFetch.saveProducto(el, stateTokenAdmin, res._id))
+      //let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
     }
 
     let resalert = await Swal.fire({
@@ -177,6 +190,7 @@ export const UseProdAdmin = () => {
     })
     setform(formInit)
     setuploadfiles(initfiles)
+    setimgs([])
     getprod(stateTokenAdmin)
     return;
   }
@@ -187,9 +201,11 @@ export const UseProdAdmin = () => {
     setform(formInit)
   }
 
+
+
   const getprod = async () => {
     setloaderProd(true)
-    let res = await ProductosFetch.get(stateTokenAdmin)
+    let res = await ProductosFetch.getwithstock(stateTokenAdmin)
     setProdc(res)
     setloaderProd(false)
   }
@@ -245,6 +261,23 @@ export const UseProdAdmin = () => {
     });
   };
 
+  const handleAgregarImg = () => {
+    if(uploadfiles.length===3) return MySwal.fire({
+      title: <h2>No se puede agregar mas imagenes</h2>,
+      icon: 'warning'
+    }) 
+    if(uploadfiles.length+imgsView.length===3)return MySwal.fire({
+      title: <h2>No se puede agregar mas imagenes</h2>,
+      icon: 'warning'
+    }) 
+
+    setuploadfiles([
+      ...uploadfiles,
+      { nombre: '', URL: '' },
+
+    ]);
+  };
+
   const handleEliminarEspecificacion = (index) => {
     setform((prevForm) => {
       const newEspecificaciones = [...prevForm.especificaciones];
@@ -254,6 +287,55 @@ export const UseProdAdmin = () => {
         especificaciones: newEspecificaciones,
       };
     });
+  };
+
+  const handleEliminarImg = (index) => {
+/* let imgsall= uploadfiles;
+
+
+imgsall.splice(index, 1);
+
+console.log(imgsall)
+    return setuploadfiles(imgsall)
+ */
+    setuploadfiles((prevForm) => {
+      const newEspecificaciones = [...prevForm];
+      newEspecificaciones.splice(index, 1);
+      return newEspecificaciones
+    });
+  };
+
+  const EliminarImg = async(public_id) => {
+    let res = await MySwal.fire({
+      title: '¿Estas seguro de eliminar este registro?',
+      text: "Se eliminara de manera permanente!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    })
+    if (res.isConfirmed) {
+      setloaderProd(true)
+      let deleteOneImg= await ProductosFetch.deleteOneImg({public_id},stateTokenAdmin)
+      setloaderProd(false)
+      if(deleteOneImg.statusCode===404||deleteOneImg.status===404)  return MySwal.fire({
+        title: `${deleteOneImg.message}`,
+        icon: 'warning'
+      });
+     
+      getprod(stateTokenAdmin) 
+      getprod()
+      if (!res.err) return Swal.fire(
+        'Eliminado!',
+        'El registro fue eliminado con exito',
+        'success'
+      )
+       
+      return
+    }
+      
+      
   };
 
   const handleEspecificacionChange = (index, field, value) => {
@@ -272,14 +354,21 @@ export const UseProdAdmin = () => {
   const handleImagenChange = (e) => {
 
     const { files } = e.target;
-    //const imagenesArray = Array.from(files).map((file) => file);
+    if(imgs.length>=3) return  MySwal.fire({
+      title: <h2>No se puede agregar mas imagenes</h2>,
+      icon: 'warning'
+    }) 
+    setimgs([...imgs,files[0]])
+
+   // const imagenesArray = Array.from(files).map((file) => file);
     // const imagenesArray = Array.from(files).map((file) => URL.createObjectURL(file));
     /*   setform((prevForm) => ({
         ...prevForm,
         imagenes: imagenesArray,
       })); */
-    // setuploadfiles(imagenesArray)
-    setuploadfiles(files[0])
+
+//    setuploadfiles(imagenesArray)
+    //setuploadfiles(files[0])
   };
 
   const calculosTotales = (value) => {
@@ -308,7 +397,12 @@ export const UseProdAdmin = () => {
 
   }
 
-
+  const resetForm =()=>{
+    setform(formInit); 
+    toggleModal();
+    setuploadfiles(initfiles)
+    setimgsView([])
+  }
   const calcularIGV = (value) => {
     //if (fabibra) {
     const valorIGV = parseFloat(value) * 0.18;
@@ -358,9 +452,10 @@ export const UseProdAdmin = () => {
     getprod()
   }, []);
   useEffect(() => {
+
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
-}, [stateTokenAdmin]);
- 
+  }, [stateTokenAdmin]);
+
   return {
     fabibra,
     deleteProd,
@@ -376,7 +471,7 @@ export const UseProdAdmin = () => {
     calcularValorIncluyendoIGV,
     calcularValorTotalSoles,
     /* setformEdit, */
-    calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion, handleEliminarEspecificacion, handleEspecificacionChange
-    ,loaderProd
+    calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion,handleAgregarImg, handleEliminarEspecificacion, handleEspecificacionChange
+    , loaderProd,uploadfiles,handleEliminarImg,imgsView,EliminarImg,resetForm,getprod
   }
 }

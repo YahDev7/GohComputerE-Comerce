@@ -8,6 +8,17 @@ export const ProductosFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GET,headers)
         return res
     }, 
+    postStock: async(token,id,body)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+     
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.POSTSTOCK(id),body,headers)
+        return res
+    }, 
+    getwithstock: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETWITHSTOCK,headers)
+        return res
+    }, 
     getPromoWebBySubcat: async(id)=> {
      //   let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GETWEBPROMO(id)/* ,headers */)
@@ -29,11 +40,13 @@ export const ProductosFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CATEGORIA.GETID(id),headers)
         return res
     },
+*/
+    deleteOneImg: async(body,token)=> { //IDENTIFICAR EL ERROR
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
 
-    delete: async(id,token)=> { //IDENTIFICAR EL ERROR
-        let headers={ Authorization: `Bearer ${token}`}
-        let res= await method.delete(BaseURLAPI2+ROUTES_BACK.ADMIN.CATEGORIA.DELETE(id),headers)
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.DELETEONEIMG,body,headers)
+
         return res
-    },   */
+    },   
 
 } 

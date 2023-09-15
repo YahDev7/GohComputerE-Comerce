@@ -21,6 +21,7 @@ const AdminSidebar = () => {
         { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg" },
         { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg" },
         { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg" },
+        { title: "Compras", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg" },
         { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/flujo-de-fondos_1_qoetj8.svg",icon:"https://www.flaticon.es/iconos-gratis/base-de-datos"},
        // { title: "Caja", src: "User" },
         //{ title: "Fechas ", src: "Calendar" },

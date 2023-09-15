@@ -141,6 +141,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
   }, [stateTokenAdmin]);
+  
   return {
     categoria,
     formInit,

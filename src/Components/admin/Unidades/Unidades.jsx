@@ -42,6 +42,7 @@ const Unidad = () => {
 
 
     <div className="w-100 p-5">
+        <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Unidades</h2>
 
       <div className="grid  md:grid-cols-2 gap-4">
 

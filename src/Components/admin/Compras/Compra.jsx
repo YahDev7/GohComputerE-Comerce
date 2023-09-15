@@ -5,10 +5,9 @@ import {
 } from "@tremor/react";
 import { data } from "./data/data";
 import TokenAdminContext from "../../../context/tokenAdmin";
-import { DocumentoFetch } from "../../../api/documento.fetch";
 import DataTable from "react-data-table-component";
 import { UseToggle } from "../hook/use.toggle";
-import { UseDocumento } from "./hook/use.documento";
+import { UseCompra } from "./hook/use.compra";
 import { UseCustomer } from "../Customer/hook/use.customer";
 import { UseProdAdmin } from "../Productos/Hook/use.products";
 import ModalMovimiento from "../Movimientos/modal";
@@ -16,71 +15,79 @@ import { UseMovimiento } from "../Movimientos/hook/use.movimiento";
 import { UseIcons } from "../hook/icons";
 import Loader from "../../public/Loader";
 
-const Documento = () => {
+const Compra = () => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { iconpagar,
     iconAnular, iconNew } = UseIcons()
+
     const {
       prodc,getprod
     } = UseProdAdmin(stateTokenAdmin)
   
+
+    const { compra,
+      formInit,
+      form,
+      setform,
+      handleChange,
+      handleSubmit, formCustomer, formProducto,
+       importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
+      toggleModalcliente,
+      toggleModalProducto,
+      StateModalCliente,
+      StateModalProducto,
+      handleChangeTableCustomer,
+      handleChangeTableProducto,
+      handleSelect,
+      handleSelectProduct,
+      toggleModalMovimiento,
+      StateModalMovimiento,
+      anular,
+      loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable
+    } = UseCompra(stateTokenAdmin,getprod)
+  
+    let {
+      nombre,
+      precio_venta,
+      stock } = formProducto
+
+    let { /* user_id,
+      customer_id,
+      provider_id,
+      caja_id,
+      enterprise_id, */
+      tipo_documento,
+      serie,
+      nro_documento,
+      fecha,
+      sub_total,
+      descuento_total,
+      igv,
+      total_pagar,
+      estado,
+      tipo_compra_venta,
+      detalle,
+      dataCustomer,
+      metodo_pago, customer_id } = form;
+
+
+ 
+
   const { StateModal, setStateModal, toggleModal } = UseToggle()
-  const { documento,
-    setdocumento,
-    formInit,
-    reload,
-    form,
-    setform,
-    getdocumento,
-    handleChange,
-    handleSubmit, formCustomer, setformCustomer,
-    formProducto,
-    setformProducto, importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
-    toggleModalcliente,
-    toggleModalProducto,
-    StateModalCliente,
-    StateModalProducto,
-    handleChangeTableCustomer,
-    handleChangeTableProducto,
-    handleSelect,
-    handleSelectProduct,
-    toggleModalMovimiento,
-    StateModalMovimiento,
-    anular,
-    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, setdetalleTable
-  } = UseDocumento(stateTokenAdmin,getprod)
 
   const {
     customer,
   } = UseCustomer(stateTokenAdmin)
- 
-  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
-
-  let { /* user_id,
-    customer_id,
-    provider_id,
-    caja_id,
-    enterprise_id, */
-    tipo_documento,
-    serie,
-    nro_documento,
-    fecha,
-    sub_total,
-    descuento_total,
-    igv,
-    total_pagar,
-    estado,
-    tipo_compra_venta,
-    detalle,
-    dataCustomer,
-    metodo_pago, customer_id } = form;
   let {
     nombres,
     dni_ruc } = formCustomer
-  let {
-    nombre,
-    precio_venta,
-    stock } = formProducto
+  const {  formMov, handleChangeMov, handleSubmitMov, setformMov, loaderMov,getdocumentoCompraid } = UseMovimiento(stateTokenAdmin)
+
+
+
+ 
+
+ 
 
   const columns = [
     {
@@ -91,7 +98,7 @@ const Documento = () => {
         {row.estado === "CANCELADO" ? <span className="inline-flex h-6 mt-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Cancelado</span>
           : row.estado === "ANULADO" ? <span className="inline-flex h-6 mt-3 items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10">Anulado</span>
             : <div className="flex max-md:flex-col pt-2">
-              <button type="button" onClick={() => { getdocumentoid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconpagar} width="18px" alt="" /></button>
+              <button type="button" onClick={() => { getdocumentoCompraid(row._id); toggleModalMovimiento() }} className="mr-2 block mb-3 mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconpagar} width="18px" alt="" /></button>
               <button type="button" onClick={() => anular(row._id)} className="block mb-3 mt-3  text-white bg-red-900 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconAnular} width="18px" alt="" /></button>
 
             </div>
@@ -310,7 +317,7 @@ const Documento = () => {
 
 
       <Card>
-        <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Documentos</h2>
+        <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Compras</h2>
 
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
@@ -660,7 +667,7 @@ const Documento = () => {
         
         <DataTable
           columns={columns}
-          data={documento}
+          data={compra.length?compra:[]}
           pagination
           selectableRows
           striped
@@ -674,7 +681,7 @@ const Documento = () => {
 
       {StateModalCliente &&
         <Card>
-          <Title>Documento</Title>
+          <Title>Compras</Title>
           <button className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
             Nuevo
           </button>
@@ -800,4 +807,4 @@ const Documento = () => {
   );
 }
 
-export default Documento;
+export default Compra;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { DocumentoFetch } from "../../../../api/documento.fetch";
-import { ProductosFetch } from "../../../../api/productos";
+import { CompraFetch } from "../../../../api/compra.fetch";
 const MySwal = withReactContent(Swal)
 
 let formInit = {
@@ -18,7 +18,7 @@ let formInit = {
     igv: 0,
     total_pagar: 0,
     estado: 'PENDIENTE',
-    tipo_compra_venta: 'VENTA',
+    tipo_compra_venta: 'COMPRA',
     detalle: [],
     dataCustomer: [],
     metodo_pago: '',
@@ -37,7 +37,7 @@ let formInitProduct = {
     stock: ""
 }
 
-export const UseDocumento = (stateTokenAdmin,getprod) => {
+export const UseCompra = (stateTokenAdmin,getprod) => {
 
     const [loaderDoc, setloaderDoc] = useState(false);
     const [detalleTable, setdetalleTable] = useState([])
@@ -45,7 +45,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
     const [importe, setimporte] = useState(null);
     const [cantidad, setcantidad] = useState(0);
     const [descuento, setdescuento] = useState(0);
-    const [documento, setdocumento] = useState([]);
+    const [compra, setcompra] = useState([]);
     const [form, setform] = useState(formInit)
     const [formCustomer, setformCustomer] = useState(formInitCustomer)
     const [formProducto, setformProducto] = useState(formInitProduct)
@@ -84,16 +84,17 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
     const getDetalleDoc = async (id) => {
         setloaderDoc(true)
 
-        let res = await DocumentoFetch.getOne(id, stateTokenAdmin)
+        let res = await CompraFetch.getOne(id, stateTokenAdmin)
         setdetalleTable(res.detalle[0] || res.detalle)
         setloaderDoc(false)
 
     }
 
-    const getdocumento = async (token) => {
+    const getcompra = async (token) => {
         setloaderDoc(true)
-        let res = await DocumentoFetch.get(token)
-        setdocumento(res)
+        let res = await CompraFetch.get(token)
+        console.log(res)
+        setcompra(res)
         setloaderDoc(false)
 
     }
@@ -113,7 +114,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
         if (res2.isConfirmed) {
             setloaderDoc(true)
 
-            let res = await DocumentoFetch.postAnaular(stateTokenAdmin, id)
+            let res = await CompraFetch.postAnaular(stateTokenAdmin, id)
             setloaderDoc(false)
 
             if (res.status) return Swal.fire(
@@ -134,7 +135,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
                 'El registro fue eliminado con exito',
                 'success'
             )
-            getdocumento(stateTokenAdmin)
+            getcompra(stateTokenAdmin)
         }
 
 
@@ -262,7 +263,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
         })
         let formtodo = { ...form, detalle: detalleDoc, customer_id: _id }
 
-        let res = await DocumentoFetch.post(stateTokenAdmin, formtodo)
+        let res = await CompraFetch.post(stateTokenAdmin, formtodo)
         setloaderDoc(false)
 
         if (res.statusCode) return await Swal.fire({
@@ -373,7 +374,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
       }, [cantidad]); */
 
     useEffect(() => {
-        getdocumento(stateTokenAdmin)
+        getcompra(stateTokenAdmin)
     }, []);
 
     useEffect(() => {
@@ -381,11 +382,11 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
     }, [stateTokenAdmin]);
     return {
         formInit,
-        documento,
-        setdocumento,
+        compra,
+        setcompra,
         form,
         setform,
-        getdocumento,
+        getcompra,
         handleChange,
         handleSubmit,
         formCustomer,

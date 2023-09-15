@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import { MovimientoFetch } from "../../../../api/movimiento.fetch";
 import { DocumentoFetch } from "../../../../api/documento.fetch";
+import { CompraFetch } from "../../../../api/compra.fetch";
 const MySwal = withReactContent(Swal)
 
 let formInit = {
@@ -88,6 +89,17 @@ export const UseMovimiento = (stateTokenAdmin) => {
         setloaderMov(false)
     }
 
+    const getdocumentoCompraid = async (id) => {
+        setloaderMov(true)
+
+        let res = await CompraFetch.getOne(id, stateTokenAdmin)
+        let { _id, metodo_pago, total_pagar, tipo_compra_venta, tipo_documento, estado } = res
+        setformMov({
+            documento_id: _id, metodo_pago, monto_pagar: total_pagar, tipo_compra_venta, tipo: tipo_documento, estado
+        })
+        setloaderMov(false)
+    }
+
 
     const vuelto = async (value) => {
         let valueNumber = Number(value).toFixed(2)
@@ -126,6 +138,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         handleChangeMov,
         handleSubmitMov,
         getdocumentoid,
-        loaderMov,getDetalle
+        loaderMov,getDetalle,
+        getdocumentoCompraid
     };
 }
