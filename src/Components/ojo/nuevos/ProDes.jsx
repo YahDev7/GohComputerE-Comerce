@@ -1,8 +1,8 @@
-import Slider from "react-slick";
+/* import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useContext } from "react";
-import CarritoContext from "../../Context/carr";
+import CarritoContext from "../../../Context/carr";
 import { UseProDest } from "./Hooks/UsePorDes";
 
 const ProDes = () => {
@@ -35,4 +35,4 @@ const ProDes = () => {
     );
 }
 
-export default ProDes;
+export default ProDes; */

@@ -2,7 +2,6 @@
 import { useContext, useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import CarritoContext from "../../../context/carrito";
-import { FetchCompra } from "../../../api/fetchs";
 import TokenContext from "../../../context/token";
 import { FetchsPedidos } from "../../../api/pedidos";
 

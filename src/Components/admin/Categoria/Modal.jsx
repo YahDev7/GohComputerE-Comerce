@@ -195,7 +195,7 @@ cardProd === true ?{ */}
             <div>
                 <DataTable
                     columns={columns}
-                    data={categoria}
+                    data={categoria.length?categoria:[]}
                     pagination
                     selectableRows
                     striped

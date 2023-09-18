@@ -1,12 +1,10 @@
 
 import { UseDesc } from "./Hooks/UseDesc";
 import { useParams } from "react-router-dom"
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import Loader from "../public/Loader";
 import CarritoContext from "../../context/carrito";
 import ProductContext from "../../context/products";
-import { PromocionesFetch } from "../../api/Promociones";
-import { Fetchs } from "../../api/fetchs";
 
 let initalProd = {
     id: "",

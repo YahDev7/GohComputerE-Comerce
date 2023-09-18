@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { FetchsPedidos } from "../../../api/pedidos";
-import CarritoContext from "../../../context/carr";
 import TokenContext from "../../../context/token";
 import Loader from "../../../Components/public/Loader";
 

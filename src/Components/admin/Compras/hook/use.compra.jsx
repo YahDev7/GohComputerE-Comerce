@@ -37,7 +37,7 @@ let formInitProduct = {
     stock: ""
 }
 
-export const UseCompra = (stateTokenAdmin,getprod) => {
+export const UseCompra = (stateTokenAdmin, getprod) => {
 
     const [loaderDoc, setloaderDoc] = useState(false);
     const [detalleTable, setdetalleTable] = useState([])
@@ -93,7 +93,6 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
     const getcompra = async (token) => {
         setloaderDoc(true)
         let res = await CompraFetch.get(token)
-        console.log(res)
         setcompra(res)
         setloaderDoc(false)
 
@@ -136,6 +135,7 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
                 'success'
             )
             getcompra(stateTokenAdmin)
+            getprod()
         }
 
 
@@ -151,9 +151,9 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
     }; */
 
     const addDetalle = async (e) => {
-        
-        const { _id, nombre,stock } = formProducto
-       
+
+        const { _id, nombre, stock } = formProducto
+
         if (!_id) return await Swal.fire({
             icon: 'warning',
             title: 'Seleccione un prod',
@@ -170,39 +170,37 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
             icon: 'warning',
             title: 'Seleccione un prod',
         })
-        if(detalleDoc.length=== 0){
-            if(stock-cantidad<0) return await Swal.fire({
+        if (detalleDoc.length === 0) {
+            if (stock - cantidad < 0) return await Swal.fire({
                 icon: 'warning',
                 title: 'La cantidad supera el stock',
             })
         }
 
-       
-       
 
-        console.log(formProducto,detalleDoc,cantidad)
+
+
 
 
         let res = detalleDoc.find(e => e._id === _id)
 
         if (res) {
-            if(detalleDoc.cantidad-stock===0)return await Swal.fire({
+            if (detalleDoc.cantidad - stock === 0) return await Swal.fire({
                 icon: 'warning',
                 title: 'No hay stock con la suma de los prodcutos que ya tienens en detalle',
             })
-          /*   let getstock = await ProductosFetch.postStock(stateTokenAdmin, _id, { cantidad })
-            console.log(getstock)
-
-            if (getstock.status === 404) return await Swal.fire({
-                icon: 'warning',
-                title: `${getstock.message}`,
-            }) */
+            /*   let getstock = await ProductosFetch.postStock(stateTokenAdmin, _id, { cantidad })
+              console.log(getstock)
+  
+              if (getstock.status === 404) return await Swal.fire({
+                  icon: 'warning',
+                  title: `${getstock.message}`,
+              }) */
             setloaderDoc(true)
-         
-            let newcarr = detalleDoc.map( pro => pro.cantidad-stock===0? {err:true,message:'No hay stock con la suma de los prodcutos que ya tienens en detalle'}: pro._id === _id  ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
-            console.log(newcarr)
+
+            let newcarr = detalleDoc.map(pro => pro.cantidad - stock === 0 ? { err: true, message: 'No hay stock con la suma de los prodcutos que ya tienens en detalle' } : pro._id === _id ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
             setloaderDoc(false)
-            if(newcarr[0]?.err) return  await Swal.fire({
+            if (newcarr[0]?.err) return await Swal.fire({
                 icon: 'warning',
                 title: 'No hay stock con la suma de los prodcutos que ya tienens en detalle',
             })
@@ -216,13 +214,13 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
             return
 
         }
-      /*   let getstock = await ProductosFetch.postStock(stateTokenAdmin, _id, { cantidad })
-        console.log(getstock)
-
-        if (getstock.status === 404) return await Swal.fire({
-            icon: 'warning',
-            title: `${getstock.message}`,
-        }) */
+        /*   let getstock = await ProductosFetch.postStock(stateTokenAdmin, _id, { cantidad })
+          console.log(getstock)
+  
+          if (getstock.status === 404) return await Swal.fire({
+              icon: 'warning',
+              title: `${getstock.message}`,
+          }) */
 
         setDetalleDoc([...detalleDoc, { _id, nombre, cantidad, descuento, importe, precioUnitario }])
 
@@ -280,6 +278,7 @@ export const UseCompra = (stateTokenAdmin,getprod) => {
             title: 'Guardado con éxito',
         })
         getprod()
+        getcompra(stateTokenAdmin)
         setform(formInit)
         setformCustomer(formInitCustomer)
         setformProducto(formInitProduct)

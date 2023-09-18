@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import Loader from "../public/Loader";
-import { Usecat } from "./Hook/UseCat";
 import CategoriaContext from "../../context/categorias";
 import CardCategorias from "./CardCategorias";
 

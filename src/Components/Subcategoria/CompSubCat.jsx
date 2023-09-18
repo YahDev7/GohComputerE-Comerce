@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import CarritoContext from "../../context/carr";
 import Loader from "../public/Loader";
 import { UseSubCats } from "./Hooks/UseSubCat";
 import CategoriaContext from "../../context/categorias";

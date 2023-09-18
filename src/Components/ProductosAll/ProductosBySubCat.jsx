@@ -4,9 +4,9 @@ import { ProductProvider } from "../../context/products";
 import { TokenProvider } from "../../context/token";
 import Footer from "../public/Footer";
 import Header from "../public/header";
-import AllPro from "./all.products";
+import ProdAllBySubCat from "./ProdAllBySubCat";
 
-const All = () => {
+const ProductosBySubCat = () => {
 
     return (
         <>
@@ -17,16 +17,14 @@ const All = () => {
                         <CategoriaProvider>
 
                             <Header></Header>
-                            <AllPro></AllPro>
+                            <ProdAllBySubCat></ProdAllBySubCat>
                             <Footer></Footer>
                         </CategoriaProvider>
-
                     </ProductProvider>
                 </CarritoProvider>
-
             </TokenProvider>
 
         </>);
 }
 
-export default All;
+export default ProductosBySubCat;

@@ -8,6 +8,11 @@ export const ProductosFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GET,headers)
         return res
     }, 
+    getOne: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETBYID(id),headers)
+        return res;  
+    },
     postStock: async(token,id,body)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
      

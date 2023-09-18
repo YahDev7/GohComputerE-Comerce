@@ -37,7 +37,7 @@ export const ROUTES_BACK = {
       GET: '/documento/enterprise/compra',
       GETID: (id) => `/documento/enterprise/compra/${id}`,
       POST: `/documento/enterprise/compra`,
-      POSTANULAR: (id) => `/documento/enterprise/anular/${id}`,
+      POSTANULAR: (id) => `/documento/enterprise/anular/compra/${id}`,
     },
     USER: {
       GET: `/user/enterprise`,
@@ -69,14 +69,17 @@ export const ROUTES_BACK = {
       GET: `/products/enterprise`,
       POSTSTOCK:(id)=> `/products/enterprise/stock/${id}`,
       GETWITHSTOCK: `/products/enterprise/withstock`,
-      POST: `/products/enterprise`,
-      GETBYID: (id) => `/products/enterprise/${id}`,
-      PUT: (id) => `/products/enterprise/${id}`,
-      DELETE: (id) => `/products/enterprise/${id}`,
+      POST: `/products/enterprise/save`,
+      GETBYID: (id) => `/products/enterprise/getone/${id}`,
+      PUT: (id) => `/products/enterprise/update/${id}`,
+      DELETE: (id) => `/products/enterprise/delete/${id}`,
       DELETEONEIMG: `/products/enterprise/img`,
 
 
 
+    }, 
+    CLOUDINARY: {
+      DELETEONEIMG:`/image/product/delete`,
     },
     UNIDAD: {
       SUMAVENTAS: `/movimiento-m/ventas/total`,

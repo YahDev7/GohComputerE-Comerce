@@ -1,4 +1,3 @@
-import { CarrProvider } from "../../../context/carr";
 import { CarritoProvider } from "../../../context/carrito";
 import { CategoriaProvider } from "../../../context/categorias";
 import { ProductProvider } from "../../../context/products";

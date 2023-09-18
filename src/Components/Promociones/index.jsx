@@ -4,9 +4,9 @@ import { ProductProvider } from "../../context/products";
 import { TokenProvider } from "../../context/token";
 import Footer from "../public/Footer";
 import Header from "../public/header";
-import CompProAll from "./CompProAll";
+import Promociones from "./Promociones";
 
-const ProductosAll = () => {
+const IndexPromociones = () => {
 
     return (
         <>
@@ -17,14 +17,16 @@ const ProductosAll = () => {
                         <CategoriaProvider>
 
                             <Header></Header>
-                            <CompProAll></CompProAll>
+                            <Promociones></Promociones>
                             <Footer></Footer>
                         </CategoriaProvider>
+
                     </ProductProvider>
                 </CarritoProvider>
+
             </TokenProvider>
 
         </>);
 }
 
-export default ProductosAll;
+export default IndexPromociones;

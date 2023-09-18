@@ -88,8 +88,8 @@ const Customer = () => {
   return (
 
     <div className="w-100 max-md:!w-[80%]">
-    <Card>
       {loaderCustomer && <Loader />}
+    <Card>
 
       <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Customers</h2>
       <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
@@ -382,7 +382,7 @@ const Customer = () => {
 
       <DataTable
         columns={columns}
-        data={customer}
+        data={customer.length ? customer : []}
         pagination
         selectableRows
         striped

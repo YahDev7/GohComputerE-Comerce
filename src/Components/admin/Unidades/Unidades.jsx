@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Grid, Col, Card, Text, Metric, Title, BarChart, } from "@tremor/react";
 import AdminSidebar from "../sidebar";
 import { UseUnidad } from "./hooks/use.unidad";
+import Loader from "../../public/Loader";
 
 let MesesDelAño=[
   'enero',
@@ -33,7 +34,7 @@ const Unidad = () => {
     mescompra,
     TMescompra,
     TDiaCompra,
-    iMensuales } = UseUnidad()
+    iMensuales,loaderUnidad } = UseUnidad()
 
   let resventas = Tventas ? Tventas : 0
   let rescompras = TCompras ? TCompras : 0
@@ -42,6 +43,8 @@ const Unidad = () => {
 
 
     <div className="w-100 p-5">
+            {loaderUnidad && <Loader></Loader>}
+
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Unidades</h2>
 
       <div className="grid  md:grid-cols-2 gap-4">

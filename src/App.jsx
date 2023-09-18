@@ -8,31 +8,29 @@ import DetailPedi from "./Components/Pedidos/All/DetailPed"
 import Pedidos from "./Components/Pedidos/All/MisPedidos"
 import Confirmado from "./Components/Pedidos/confirm/PedidoConfirm"
 import DepositoPedido from "./Components/Pedidos/deposito/DepositoPedido"
-import ProductosAll from "./Components/ProductosAll/ProductosAll"
 import Search from "./Components/Search/Search"
 import IndexAdmin from "./Components/admin/Login/Index"
 
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
-import All from "./Components/ProductosAll/all"
 import LoginIndex from "./Components/Login/LoginIndex"
 import Register from "./Components/Login/Register"
 import AdminSidebar from "./Components/admin/sidebar"
 import ProductosAdmin from "./Components/admin/Productos/Index"
 import CategoriaAdmin from "./Components/admin/Categoria"
-import SubcatAdmin from "./Components/admin/Subcategoria/Subcategoria"
 import { ROUTES } from "./Routes"
 import ServiciosIndex from "./Components/admin/Servicio"
 import SubCategoriaAdmin from "./Components/admin/Subcategoria"
 import UserAdmin from "./Components/admin/User"
 import UnidadAdmin from "./Components/admin/Unidades"
 import CompraIndex from "./Components/Compra"
-import CompraConfirmada from "./Components/helps/comfirm"
 import IndexDatosEnvio from "./Components/Pedidos/DatosEnvio"
 import CustomerAdmin from "./Components/admin/Customer"
 import DocumentoAdmin from "./Components/admin/Documentos"
 import MovimientoAdmin from "./Components/admin/Movimientos"
 import PromocionesAdmin from "./Components/admin/Promociones/Index"
 import CompraAdmin from "./Components/admin/Compras"
+import IndexPromociones from "./Components/Promociones"
+import ProductosBySubCat from "./Components/ProductosAll/ProductosBySubCat"
 
 function App() {
 
@@ -41,8 +39,8 @@ function App() {
       <Routes>
        <Route path={ROUTES.INDEX} element={<Index />} />
       <Route path={ROUTES.DESCRIPTION} element={<Description />} />
-      <Route path={ROUTES.ALL_PROMO} element={<All />} />
-      <Route path={ROUTES.PRODUCTOS} element={<ProductosAll />} />
+      <Route path={ROUTES.ALL_PROMO} element={<IndexPromociones />} />
+      <Route path={ROUTES.PRODUCTOS} element={<ProductosBySubCat />} />
       <Route path={ROUTES.SUBCATEGORIAS} element={<Subcategoria />} />
       <Route path={ROUTES.CATEGORIAS} element={<Categorias />} />
       <Route path={ROUTES.CARRITO} element={<Carrito />} />

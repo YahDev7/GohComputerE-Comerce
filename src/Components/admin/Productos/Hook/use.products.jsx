@@ -4,6 +4,7 @@ import TokenAdminContext from "../../../../context/tokenAdmin";
 import withReactContent from "sweetalert2-react-content";
 import { ProductosFetch } from "../../../../api/productos";
 import Swal from "sweetalert2";
+import { CloudinaryFetch } from "../../../../api/productos copy";
 const MySwal = withReactContent(Swal)
 
 export const UseProdAdmin = () => {
@@ -69,9 +70,18 @@ export const UseProdAdmin = () => {
 
   const getproductEdit = async (id) => {
     setloaderProd(true)
-    let res = await Fetchs.getOne(id, stateTokenAdmin)
+    let res = await ProductosFetch.getOne(id, stateTokenAdmin)
+    console.log(res)
     setform(res)
     setimgsView(res?.imagenes)
+    setloaderProd(false)
+  }
+
+  const getprod = async () => {
+    setloaderProd(true)
+    console.log(stateTokenAdmin)
+    let res = await ProductosFetch.getwithstock(stateTokenAdmin)
+    setProdc(res)
     setloaderProd(false)
   }
 
@@ -111,7 +121,7 @@ export const UseProdAdmin = () => {
         'El registro fue eliminado con exito',
         'success'
       )
-      getprod(stateTokenAdmin)
+      getprod()
       return
     }
   }
@@ -127,7 +137,6 @@ export const UseProdAdmin = () => {
 
 
   const SubmirForm = async (e) => {
-     
     setloaderProd(true)
     /* 
         if(uploadfiles){
@@ -203,12 +212,7 @@ export const UseProdAdmin = () => {
 
 
 
-  const getprod = async () => {
-    setloaderProd(true)
-    let res = await ProductosFetch.getwithstock(stateTokenAdmin)
-    setProdc(res)
-    setloaderProd(false)
-  }
+
 
   const handleChange = (e) => {
     const numberProperties = [];
@@ -319,10 +323,22 @@ console.log(imgsall)
       setloaderProd(true)
       let deleteOneImg= await ProductosFetch.deleteOneImg({public_id},stateTokenAdmin)
       setloaderProd(false)
+
       if(deleteOneImg.statusCode===404||deleteOneImg.status===404)  return MySwal.fire({
         title: `${deleteOneImg.message}`,
         icon: 'warning'
       });
+
+      setloaderProd(true)
+      let deleteOneImgCloudinary= await CloudinaryFetch.deleteOneImgCloudinary({public_id},stateTokenAdmin)
+      console.log(deleteOneImgCloudinary)
+      setloaderProd(false)
+
+     if(deleteOneImgCloudinary.result!=="ok") return MySwal.fire({
+      title: "No s epudo eliminar esta img",
+      icon: 'warning'
+    });
+    
      
       getprod(stateTokenAdmin) 
       getprod()
@@ -440,7 +456,7 @@ console.log(imgsall)
 
     return setform({
       ...form,
-      valor_dolar: value,
+      valor_dolar: Number(value),
       precio_compra_soles: res,
       precio_venta: res2
     });

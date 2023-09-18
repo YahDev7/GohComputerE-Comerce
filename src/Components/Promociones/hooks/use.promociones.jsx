@@ -1,10 +1,8 @@
 
 import { useEffect, useState } from "react";
-import { Fetchs } from "../../../api/fetchs"
-import CardProducts from "../../productos/CardProducts";
 import { PromocionesFetch } from "../../../api/Promociones";
 
-export const UseProPromo=(id,addcarr,stateDolar,viewpro)=>{
+export const UsePromo=(id)=>{
     
     const [stateProductsPromo, setStateProductsPromo] = useState([]); 
 

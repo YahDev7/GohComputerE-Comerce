@@ -79,9 +79,9 @@ const User = () => {
 
   return (
     <div className="w-100 max-md:!w-[80%]">
+        {loaderUsers && <Loader />}
 
       <Card>
-        {loaderUsers && <Loader />}
 
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Users</h2>
 
@@ -324,8 +324,8 @@ const User = () => {
 
         <DataTable
           columns={columns}
-          data={users}
-          pagination
+        data={users.length ? users : []}
+        pagination
           selectableRows
           striped
           expandOnRowClicked

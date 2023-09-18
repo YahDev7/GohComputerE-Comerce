@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+/* import { useEffect, useState } from "react";
 import { Fetchs } from "../../../api/fetchs";
 import CardProducts from "../../productos/CardProducts";
 
@@ -12,8 +12,7 @@ export const UseProDest=(stateDolar,viewpro,addcarr)=>{
         slidesToShow: 6,
         slidesToScroll: 6,
         initialSlide: 0,
-/*         beforeChange:(curret,next)=> setSlideIndex(next),
- */        responsive: [
+       responsive: [
             {
                 breakpoint: 1024,
                 settings: {
@@ -84,4 +83,4 @@ export const UseProDest=(stateDolar,viewpro,addcarr)=>{
 
    return {settings,prodestacados,prodNuevos}
 
-}
+} */

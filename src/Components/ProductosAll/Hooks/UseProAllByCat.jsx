@@ -1,10 +1,8 @@
 
 import { useEffect, useState } from "react";
-import { Fetchs } from "../../../api/fetchs"
-import CardProducts from "../../productos/CardProducts";
 import { ProductosFetch } from "../../../api/productos";
 
-export const UseProAll=(id)=>{
+export const UseProAllByCat=(id)=>{
     
     const [proAll, setProAll] = useState([]);
 

@@ -20,10 +20,10 @@ const Documento = () => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { iconpagar,
     iconAnular, iconNew } = UseIcons()
-    const {
-      prodc,getprod
-    } = UseProdAdmin(stateTokenAdmin)
-  
+  const {
+    prodc, getprod
+  } = UseProdAdmin(stateTokenAdmin)
+
   const { StateModal, setStateModal, toggleModal } = UseToggle()
   const { documento,
     setdocumento,
@@ -48,12 +48,12 @@ const Documento = () => {
     StateModalMovimiento,
     anular,
     loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, setdetalleTable
-  } = UseDocumento(stateTokenAdmin,getprod)
+  } = UseDocumento(stateTokenAdmin, getprod)
 
   const {
     customer,
   } = UseCustomer(stateTokenAdmin)
- 
+
   const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
 
   let { /* user_id,
@@ -112,8 +112,8 @@ const Documento = () => {
     {
       name: 'Archivo',
       maxWidth: '80px',
-      selector: row =><a className="text-blue-600 font-bold hover:text-blue-400" href="">Archvivo</a> ,
-       sortable: true,
+      selector: row => <a className="text-blue-600 font-bold hover:text-blue-400" href="">Archvivo</a>,
+      sortable: true,
 
     },
 
@@ -252,6 +252,11 @@ const Documento = () => {
     {
       name: 'Precio',
       selector: row => row.precio_venta,
+      sortable: true,
+    },
+    {
+      name: 'Stock',
+      selector: row => row.stock,
       sortable: true,
     },
 
@@ -523,34 +528,35 @@ const Documento = () => {
                   <div>
                     <DataTable
                       columns={columnsDetalleDoc}
-                      data={detalleDoc}
+
+                      data={detalleDoc.length ? detalleDoc : []}
                       pagination
                       selectableRows
                       striped
                       customStyles={{
-                        table:{
+                        table: {
                           style: {
-                            
-                         /*    width:"702px",
-                            
-                            maxWidth: '1002px' // override the row height */
+
+                            /*    width:"702px",
+                               
+                               maxWidth: '1002px' // override the row height */
                           },
                         },
-                       /*  rows: {
-                          style: {
-                            
-                            width:"202px",
-                            maxWidth: '100%' // override the row height
-                          },
-                        },
-                        headRow:{
-                          style: {
-                            width:"202px",
-                            maxWidth: '100%' // override the row height
-                            
-                          },
-                        } */
-                      
+                        /*  rows: {
+                           style: {
+                             
+                             width:"202px",
+                             maxWidth: '100%' // override the row height
+                           },
+                         },
+                         headRow:{
+                           style: {
+                             width:"202px",
+                             maxWidth: '100%' // override the row height
+                             
+                           },
+                         } */
+
                       }}
                       expandableRows
                       expandableRowsHideExpander
@@ -657,10 +663,10 @@ const Documento = () => {
           </div>
         }
 
-        
+
         <DataTable
           columns={columns}
-          data={documento}
+          data={documento.length ? documento : []}
           pagination
           selectableRows
           striped
@@ -679,19 +685,19 @@ const Documento = () => {
             Nuevo
           </button>
           <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-           {/*  <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
+            {/*  <button onClick={() => { toggleModalcliente() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
 
             <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96 ">
-            <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Clientes</p>
+              <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Clientes</p>
 
               <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelect}>
                 Seleccionar
-            <button onClick={() => { toggleModalcliente() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+                <button onClick={() => { toggleModalcliente() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               </button>
               <DataTable
                 //title="CLIENTES"
                 columns={columnsCustomer}
-                data={customer}
+                data={customer.length ? customer : []}
                 dense
                 pagination
                 selectableRows
@@ -700,22 +706,22 @@ const Documento = () => {
                 expandableRowsHideExpander
                 onSelectedRowsChange={handleChangeTableCustomer}
                 customStyles={{
-                  
-                  table:{
+
+                  table: {
                     style: {
-                      width:"100%",
-                     // maxWidth:"80%"
-                     // margin:"0 auto"
+                      width: "100%",
+                      // maxWidth:"80%"
+                      // margin:"0 auto"
                     },
                   },
-                  pagination:{
+                  pagination: {
                     style: {
-                      width:"100%",
+                      width: "100%",
                       //margin:"0 auto"
                     },
                   },
-                 
-                
+
+
                 }}
               />
             </div>
@@ -728,18 +734,18 @@ const Documento = () => {
         <Card>
 
           <div id="defaultModal" className="fixed grid place-items-center inset-0 bg-black bg-opacity-50  z-50  w-full p-4 overflow-x-auto overflow-y-auto md:inset-0 h-[calc(80% - 1rem)]">
-           {/*  <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
+            {/*  <button onClick={() => { toggleModalProducto() }} className="left-2 right-0   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button> */}
 
             <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96 ">
-            <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Productos</p>
+              <p className="text-blue-700 max-md:!text-2xl md:!text-4xl font-bold pb-4 ">Lista de Productos</p>
 
               <button className="bg-blue-700 p-3 rounded-md text-white" onClick={handleSelectProduct}>
                 Seleccionar
               </button>
-            <button onClick={() => { toggleModalProducto() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
+              <button onClick={() => { toggleModalProducto() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               <DataTable
                 columns={columnsProductos}
-                data={prodc}
+                data={prodc.length ? prodc : []}
                 pagination
                 selectableRows
                 striped
@@ -747,21 +753,21 @@ const Documento = () => {
                 expandableRowsHideExpander
                 onSelectedRowsChange={handleChangeTableProducto}
                 customStyles={{
-                  table:{
+                  table: {
                     style: {
-                      width:"100%",
-                     // maxWidth:"80%"
-                     // margin:"0 auto"
+                      width: "100%",
+                      // maxWidth:"80%"
+                      // margin:"0 auto"
                     },
                   },
-                  pagination:{
+                  pagination: {
                     style: {
-                      width:"100%",
+                      width: "100%",
                       //margin:"0 auto"
                     },
                   },
-                 
-                
+
+
                 }}
               />
             </div>

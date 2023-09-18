@@ -368,8 +368,8 @@ const Movimientos = () => {
 
         <DataTable
           columns={columns}
-          data={stateMovimiento}
-          pagination
+        data={stateMovimiento.length ? stateMovimiento : []}
+        pagination
           selectableRows
           striped
           expandOnRowClicked

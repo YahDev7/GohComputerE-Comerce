@@ -1,5 +1,4 @@
 import Banner from "../Banner/Banner";
-import ProDes from "../Destacados/ProDes";
 import Features from "../features/features";
 import Footer from "../public/Footer";
 import Header from "../public/header";

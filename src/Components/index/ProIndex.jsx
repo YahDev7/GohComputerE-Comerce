@@ -5,9 +5,8 @@ import { useContext } from "react";
 import Loader from "../public/Loader";
 import CarritoContext from "../../context/carrito";
 import ProductContext from "../../context/products";
-import CategoriaContext from "../../context/categorias";
 import LoaderContext from "../../context/loader";
-import CardProducts from "../productos/CardProducts";
+import CardProducts from "../Card/CardProducts";
 
 const ProIndex = () => {
     const {addcarr} =useContext(CarritoContext)

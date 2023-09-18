@@ -23,7 +23,7 @@ const ModalPromociones = () => {
         StateModalProducto,
         toggleModalProducto,
         handleSelectProductPromo,
-        handleChangeTableProductoPromo,ActivarPromo } = UsePromocionesAdmin()
+        handleChangeTableProductoPromo, ActivarPromo } = UsePromocionesAdmin()
 
     const {
         producto_id,
@@ -44,12 +44,12 @@ const ModalPromociones = () => {
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
                     <button onClick={() => { toggleModal(); getpromocionesEdit(row._id) }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconEdit} width="15px" alt="" /></button>
-                  
-                  {
-                    row.estado==="A"?<button onClick={() => deletePromociones(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
-                    :<button onClick={() => ActivarPromo(row._id)}  className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img/*  src={iconDelete} */ width="15px" alt="" />Act</button>
-                   
-                  } 
+
+                    {
+                        row.estado === "A" ? <button onClick={() => deletePromociones(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
+                            : <button onClick={() => ActivarPromo(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img/*  src={iconDelete} */ width="15px" alt="" />Act</button>
+
+                    }
                 </div>
             ),
 
@@ -114,7 +114,7 @@ const ModalPromociones = () => {
             selector: row => row.nombre,
             sortable: true,
         },
-      
+
 
 
 
@@ -125,8 +125,8 @@ const ModalPromociones = () => {
     return (
 
         <div className="w-100 max-md:!w-[80%]">
+            {loaderPromo && <Loader />}
             <Card>
-                {loaderPromo && <Loader />}
                 <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Promociones</h2>
 
                 <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
@@ -385,7 +385,7 @@ const ModalPromociones = () => {
                 <div>
                     <DataTable
                         columns={columns}
-                        data={promociones ?? []}
+                        data={promociones.length ? promociones : []}
                         pagination
                         selectableRows
                         striped
@@ -412,7 +412,7 @@ const ModalPromociones = () => {
 
                                 <DataTable
                                     columns={columnsProducto}
-                                    data={prodc ?? []}
+                                    data={prodc.length ? prodc : []}
                                     pagination
                                     selectableRows
                                     striped

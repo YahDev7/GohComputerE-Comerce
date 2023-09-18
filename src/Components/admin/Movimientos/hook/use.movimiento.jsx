@@ -105,7 +105,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         let valueNumber = Number(value).toFixed(2)
         let newvuelto = Number(valueNumber - Number(formMov.monto_pagar).toFixed(2)).toFixed(2)
 
-        setformMov({ ...formMov,monto_deposito:valueNumber, vuelto: newvuelto })
+        setformMov({ ...formMov,monto_deposito:Number(valueNumber), vuelto: Number(newvuelto) })
 
     }
     const getDetalle = async (id) => {

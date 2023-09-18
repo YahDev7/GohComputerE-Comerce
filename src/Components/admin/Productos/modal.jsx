@@ -19,7 +19,7 @@ const ModalProduct = () => {
         handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal,
         handleEliminarEspecificacion,
         handleEspecificacionChange,
-        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd, uploadfiles, handleAgregarImg, handleEliminarImg,imgsView,EliminarImg,resetForm } = UseProdAdmin()
+        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd, uploadfiles, handleAgregarImg, handleEliminarImg, imgsView, EliminarImg, resetForm } = UseProdAdmin()
     const {
         codfabricante,
         codigo,
@@ -68,16 +68,16 @@ const ModalProduct = () => {
             selector: row => row.nombre,
             sortable: true,
         },
-    /*     {
-            name: 'CAT',
-            selector: row => row.nombre,
-            sortable: true,
-        },
-        {
-            name: 'SUB',
-            selector: row => row.nombre,
-            sortable: true,
-        }, */
+        /*     {
+                name: 'CAT',
+                selector: row => row.nombre,
+                sortable: true,
+            },
+            {
+                name: 'SUB',
+                selector: row => row.nombre,
+                sortable: true,
+            }, */
         {
             name: 'IMG',
             selector: row => (
@@ -112,10 +112,10 @@ const ModalProduct = () => {
 
         <div className="w-100 max-md:!w-[80%]">
 
+            {loaderProd && <Loader></Loader>}
 
             <Card>
 
-                {loaderProd && <Loader></Loader>}
                 <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Productos</h2>
                 <button onClick={() => { resetForm() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     <div className="flex">
@@ -636,7 +636,8 @@ const ModalProduct = () => {
                     <DataTable
                         dense
                         columns={columns}
-                        data={prodc}
+
+                        data={prodc.length ? prodc : []}
                         pagination
                         selectableRows
                         striped

@@ -135,6 +135,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
                 'success'
             )
             getdocumento(stateTokenAdmin)
+            getprod()
         }
 
 
@@ -279,6 +280,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
             title: 'Guardado con éxito',
         })
         getprod()
+        getdocumento(stateTokenAdmin)
         setform(formInit)
         setformCustomer(formInitCustomer)
         setformProducto(formInitProduct)

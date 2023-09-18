@@ -1,16 +1,15 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { UseProAll } from "./Hooks/UseProAll";
+import {  UseProAllByCat } from "./Hooks/UseProAllByCat";
 import Loader from "../public/Loader";
 import ProductContext from "../../context/products";
 import CarritoContext from "../../context/carrito";
-import CardProducts from "../productos/CardProducts";
-const CompProAll = () => {
+import CardProducts from "../Card/CardProducts";
+const ProdAllBySubCat = () => {
     const {id}=useParams()
     const { addcarr}=useContext(CarritoContext)
     const {viewpro,loaderprod}=useContext(ProductContext)
-    const {proAll,ProdBysubcat}=  UseProAll(id)
-    
+    const {proAll}=  UseProAllByCat(id)
     return ( 
         <div className="pt-0 pt-sm-4">
         <div id="mainComponentes" className=" ">
@@ -133,4 +132,4 @@ const CompProAll = () => {
      );
 }
  
-export default CompProAll;
+export default ProdAllBySubCat;
