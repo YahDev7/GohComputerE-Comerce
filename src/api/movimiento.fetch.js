@@ -18,5 +18,20 @@ export const MovimientoFetch={
      
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.POST,body,headers)
         return res
-    }
+    },
+    getTotalServicios :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETSERVICIOS,headers)
+    return res
+    }, 
+    getTotalServiciosDia :async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETSERVICIOSDIA,headers)
+    return res
+    }, 
+    getTotalServiciosMes :async(token,mes)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETSERVICIOSMES(mes),headers)
+    return res
+    }, 
 } 

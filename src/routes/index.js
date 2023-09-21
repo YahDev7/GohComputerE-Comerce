@@ -19,12 +19,17 @@ export const ROUTES_BACK = {
     MOVIMIENTO: {
       GET: '/movimiento-m/enterprise',
       GETVENTASDIA: '/movimiento-m/ventas/totaldia',
-      GETVENTASMES: '/movimiento-m/ventas/totalmes',
+      GETVENTASMES:(meses)=> `/movimiento-m/ventas/totalmes/${meses}`,
       GETCOMPRADIA: '/movimiento-m/compras/totaldia',
-      GETCOMPRAMES: '/movimiento-m/compras/totalmes',
+      GETCOMPRAMES:(mes)=> `/movimiento-m/compras/totalmes/${mes}`,
       GETINGRESOSMENSUALES: '/movimiento-m/enterprise/ingresosMensuales',
-      GETID: (id) => `/movimiento-m/enterprise/${id}`,
+      GETID: (id) => `/movimiento-m/enterprise/getone/${id}`,
       POST: `/movimiento-m/enterprise`,
+
+      GETSERVICIOS:"/movimiento-m/enterprise/servicios",
+      GETSERVICIOSMES:(mes)=>`/movimiento-m/enterprise/servicios/${mes}`,
+      GETSERVICIOSDIA:"/movimiento-m/enterprise/servicios/dia"
+
 
     },
     DOCUMENTO: {
@@ -70,8 +75,11 @@ export const ROUTES_BACK = {
       POSTSTOCK:(id)=> `/products/enterprise/stock/${id}`,
       GETWITHSTOCK: `/products/enterprise/withstock`,
       POST: `/products/enterprise/save`,
+      POSTSERVICE: `/products/enterprise/save/service`,
       GETBYID: (id) => `/products/enterprise/getone/${id}`,
+      GETBYIDSERVICE: (id) => `/products/enterprise/getone/service/${id}`,
       PUT: (id) => `/products/enterprise/update/${id}`,
+      PUTSERVICE: (id) => `/products/enterprise/update/service/${id}`,
       DELETE: (id) => `/products/enterprise/delete/${id}`,
       DELETEONEIMG: `/products/enterprise/img`,
 

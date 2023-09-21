@@ -13,6 +13,12 @@ export const ProductosFetch={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETBYID(id),headers)
         return res;  
     },
+
+    getOneService: async(id,token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETBYIDSERVICE(id),headers)
+        return res;  
+    },
     postStock: async(token,id,body)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
      
@@ -35,9 +41,20 @@ export const ProductosFetch={
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.POST,body,headers)
         return res
     }, 
+    postService: async(body,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+     
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.POSTSERVICE,body,headers)
+        return res
+    }, 
     put: async(id,body,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
         let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.PUT(id),body,headers)
+        return res
+    },
+    putService: async(id,body,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.PUTSERVICE(id),body,headers)
         return res
     }, 
    /*  getOne: async(id,token)=> {

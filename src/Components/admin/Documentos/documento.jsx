@@ -24,18 +24,18 @@ const Documento = () => {
     prodc, getprod
   } = UseProdAdmin(stateTokenAdmin)
 
-  const { StateModal, setStateModal, toggleModal } = UseToggle()
+  const { StateModal,  toggleModal } = UseToggle()
   const { documento,
-    setdocumento,
+    
     formInit,
-    reload,
+    
     form,
     setform,
-    getdocumento,
+    
     handleChange,
-    handleSubmit, formCustomer, setformCustomer,
+    handleSubmit, formCustomer, 
     formProducto,
-    setformProducto, importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
+     importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
     toggleModalcliente,
     toggleModalProducto,
     StateModalCliente,
@@ -47,7 +47,7 @@ const Documento = () => {
     toggleModalMovimiento,
     StateModalMovimiento,
     anular,
-    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, setdetalleTable
+    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable
   } = UseDocumento(stateTokenAdmin, getprod)
 
   const {
@@ -69,11 +69,8 @@ const Documento = () => {
     descuento_total,
     igv,
     total_pagar,
-    estado,
-    tipo_compra_venta,
-    detalle,
-    dataCustomer,
-    metodo_pago, customer_id } = form;
+  
+    metodo_pago } = form;
   let {
     nombres,
     dni_ruc } = formCustomer
@@ -197,6 +194,11 @@ const Documento = () => {
       sortable: true,
     },
     {
+      name: 'Unidad',
+      selector: row => row.unidad,
+      sortable: true,
+    },
+    {
       name: 'Importe',
       selector: row => row.importe,
       sortable: true,
@@ -232,11 +234,13 @@ const Documento = () => {
     {
       name: 'ID',
       selector: row => row._id,
+      maxWidth: '200px',
       sortable: true,
     },
 
     {
       name: 'IMG',
+      maxWidth: '100px',
       selector: row => (
         <div >
           <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
@@ -246,17 +250,27 @@ const Documento = () => {
     },
     {
       name: 'Nombre',
+      maxWidth: '300px',
       selector: row => row.nombre,
       sortable: true,
     },
     {
       name: 'Precio',
       selector: row => row.precio_venta,
+      maxWidth: '100px',
       sortable: true,
     },
     {
       name: 'Stock',
       selector: row => row.stock,
+      maxWidth: '100px',
+      sortable: true,
+    },
+    {
+      name: 'Unidad',
+      selector: row =>  <span className="inline-flex h-6 mt-3 items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-700/10">{row.unidad}</span>,
+      maxWidth: '100px',
+      
       sortable: true,
     },
 

@@ -38,7 +38,6 @@ const Unidad = () => {
 
   let resventas = Tventas ? Tventas : 0
   let rescompras = TCompras ? TCompras : 0
-
   return (
 
 
@@ -108,7 +107,7 @@ const Unidad = () => {
           <Col>
             <Card>
               <Text>Ganacias Totales</Text>
-              <Metric>{resventas - rescompras}</Metric>
+              <Metric>{(resventas - rescompras).toFixed(2)}</Metric>
             </Card>
           </Col>
 

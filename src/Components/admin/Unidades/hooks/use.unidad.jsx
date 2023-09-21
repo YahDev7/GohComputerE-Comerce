@@ -47,6 +47,61 @@ export const UseUnidad = () => {
   const getTotalMeses = async () => {
 
     setloaderUnidad(true)
+    let meses=new Date().getMonth()+1;
+    let arrventasmes=[]
+    let arrComprames=[]
+    for (let i = 1; i <= meses; i++) {
+      let res = await FetchMov.getTotalMes(stateTokenAdmin,i)
+      arrventasmes.push(res)
+      let res2 = await FetchMov.getTotalMesCompra(stateTokenAdmin,i)
+      arrComprames.push(res2)
+      
+    }
+
+    //let mes = arrventasmes.map(el => el.mes)
+ // setmes(mes)
+    const resultventa = arrventasmes.reduce((acc, x) => {
+      acc[x.mes] = x.total;
+      return acc;
+    }, {});
+  
+    setTMes(resultventa)
+
+    const resultcompra = arrComprames.reduce((acc, x) => {
+      acc[x.mes] = x.total;
+      return acc;
+    }, {});
+    setTMescompra(resultcompra)
+
+//    { 9: 32.16 }
+
+
+  /*   let mes = res.map(el => el._id)
+    const result = res.reduce((acc, x) => {
+      acc[x._id] = x.Totalmes;
+      return acc;
+    }, {});
+    setmes(mes)
+    setTMes(result)
+
+
+    let res2 = await FetchMov.getTotalMesCompra(stateTokenAdmin)
+    let mescompra = res2.map(el => el._id)
+    const resultcompra = res2.reduce((acc, x) => {
+      acc[x._id] = x.Totalmes;
+      return acc;
+    }, {});
+    setmescompra(mescompra)
+    setTMescompra(resultcompra) */
+
+   
+
+    setloaderUnidad(false)
+  
+  }
+ /*  const getTotalMeses = async () => {
+
+    setloaderUnidad(true)
     let res = await FetchMov.getTotalMes(stateTokenAdmin)
     let mes = res.map(el => el._id)
     const result = res.reduce((acc, x) => {
@@ -67,21 +122,42 @@ export const UseUnidad = () => {
     setTMescompra(resultcompra)
     setloaderUnidad(false)
   
-  }
+  } */
   
 
   const getIngresosMensuales = async () => {
     setloaderUnidad(true)
+    let resventas={...TMes};
+    let resCompras={...TMescompra};
+      console.log(TMes)
+   
+
+  for (const key in resventas) {
+   // if (resventas[key] !== resCompras[key]) {
+      resventas[key] = resventas[key] - resCompras[key];
+    //} else {
+     // resventas[key] = 0;
+   // }
+  }
+  console.log(resventas)
+  setiMensuales(resventas)
+  
+  setloaderUnidad(false) 
+   /*  setloaderUnidad(true)
     let res = await FetchMov.getIngresosMensuales(stateTokenAdmin)
+    console.log(res)
     const result = res.reduce((acc, x) => {
       acc[x._id] = x.Total;
       return acc;
     }, {});
     setiMensuales(result)
-    setloaderUnidad(false)
+    setloaderUnidad(false) */
 
   }
-
+  useEffect(() => {
+    getIngresosMensuales()
+  }, [TMes,TMescompra]);
+  
   useEffect(() => {
     getTCompras()
     getTventas()

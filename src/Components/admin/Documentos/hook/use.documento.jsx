@@ -152,7 +152,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
 
     const addDetalle = async (e) => {
         
-        const { _id, nombre,stock } = formProducto
+        const { _id, nombre,stock,unidad } = formProducto
        
         if (!_id) return await Swal.fire({
             icon: 'warning',
@@ -164,11 +164,11 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
         })
         if (!cantidad) return await Swal.fire({
             icon: 'warning',
-            title: 'Seleccione un prod',
+            title: 'Agregue una cantidad',
         })
         if (!importe) return await Swal.fire({
             icon: 'warning',
-            title: 'Seleccione un prod',
+            title: 'Falta agregar el importe',
         })
         if(detalleDoc.length=== 0){
             if(stock-cantidad<0) return await Swal.fire({
@@ -180,7 +180,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
        
        
 
-        console.log(formProducto,detalleDoc,cantidad)
+        console.log(importe)
 
 
         let res = detalleDoc.find(e => e._id === _id)
@@ -199,7 +199,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
             }) */
             setloaderDoc(true)
          
-            let newcarr = detalleDoc.map( pro => pro.cantidad-stock===0? {err:true,message:'No hay stock con la suma de los prodcutos que ya tienens en detalle'}: pro._id === _id  ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(pro.cantidad + cantidad) * Number(pro.precioUnitario) } : pro);
+            let newcarr = detalleDoc.map( pro => pro.cantidad-stock===0? {err:true,message:'No hay stock con la suma de los prodcutos que ya tienens en detalle'}: pro._id === _id  ? { ...pro, cantidad: pro.cantidad + cantidad, importe: Number(Number(pro.cantidad + cantidad) * Number(pro.precioUnitario)),unidad } : pro);
             console.log(newcarr)
             setloaderDoc(false)
             if(newcarr[0]?.err) return  await Swal.fire({
@@ -224,7 +224,7 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
             title: `${getstock.message}`,
         }) */
 
-        setDetalleDoc([...detalleDoc, { _id, nombre, cantidad, descuento, importe, precioUnitario }])
+        setDetalleDoc([...detalleDoc, { _id, nombre, cantidad, descuento, importe:Number(importe), precioUnitario,unidad }])
 
         // const sumAges = detalleDoc.map(obj => obj.importe).reduce((a, b) => a + b);
 
@@ -350,9 +350,9 @@ export const UseDocumento = (stateTokenAdmin,getprod) => {
 
     const handleSelectProduct = () => {
 
-        let { nombre, precio_venta, _id, stock } = selectProduct
-
-        setformProducto({ ...formProducto, nombre, precio_venta, stock, _id });
+        let { nombre, precio_venta, _id, stock,unidad } = selectProduct
+        console.log(selectProduct)
+        setformProducto({ ...formProducto, nombre, precio_venta, stock, _id,unidad });
 
         toggleModalProducto()
         // setToggleClearRows(!toggledClearRows);

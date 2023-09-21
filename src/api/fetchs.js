@@ -263,9 +263,9 @@ export const FetchMov={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETVENTASDIA,headers)
     return res
     }, 
-    getTotalMes :async(token)=> {
+    getTotalMes :async(token,meses)=> {
         let headers={ Authorization: `Bearer ${token}`,}
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETVENTASMES ,headers)
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETVENTASMES(meses) ,headers)
     return res
     }, 
 
@@ -274,9 +274,9 @@ export const FetchMov={
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETCOMPRADIA,headers)
     return res
     }, 
-    getTotalMesCompra :async(token)=> {
+    getTotalMesCompra :async(token,mes)=> {
         let headers={ Authorization: `Bearer ${token}`,}
-        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETCOMPRAMES ,headers)
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.MOVIMIENTO.GETCOMPRAMES(mes) ,headers)
     return res
     },
     getIngresosMensuales :async(token)=> {
