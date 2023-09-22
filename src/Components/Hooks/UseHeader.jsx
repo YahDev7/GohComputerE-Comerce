@@ -46,22 +46,22 @@ export const useHeader = (navigate, itemsCarr, stateCategorias, pluscarr, minusc
         let box = [];
         if (itemsCarr.length) {
             for (let i = 0; i < itemsCarr.length; i++) {
-                box.push(<CarrItemsSide key={itemsCarr[i].id} btnremovepro={btnremovepro} pluscarr={pluscarr} minuscarr={minuscarr} itemsCarr={itemsCarr[i]}></CarrItemsSide>)
+                box.push(<CarrItemsSide key={itemsCarr[i]._id} btnremovepro={btnremovepro} pluscarr={pluscarr} minuscarr={minuscarr} itemsCarr={itemsCarr[i]}></CarrItemsSide>)
             }
 
             box.push(
                 <>
                     <div>
-                        <div>Hayarticulos</div>
+                        <div className="font-semibold">Hay articulos</div>
                     </div>
                     <div className="row">
-                        <label className="col-6 text-start" >Sub total</label>
-                        <span className="col-6 text-end" >S/{subtotal}</span>
+                        <label className="col-6 text-start font-semibold" >Sub total</label>
+                        <span className="col-6 text-end font-semibold" >S/{subtotal}</span>
                     </div>
 
                     <div className="row" id="idTotal">
-                        <label className="col-6 text-start">Total</label>
-                        <span className="col-6 text-end">S/{subtotal}</span>
+                        <label className="col-6 text-start font-semibold">Total</label>
+                        <span className="col-6 text-end font-semibold text-blue-800 !text-[20px]">S/{subtotal}</span>
                     </div>
                     {/*    <div className="p-4 w-100" >
                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

@@ -32,7 +32,6 @@ const Confirm = () => {
     const depositopedido=()=>{
         location.href="#/depositopedido/"+idpedido;
     }
-
     return ( 
         <>
         {/*   {propedido
@@ -58,7 +57,9 @@ const Confirm = () => {
                     <option value="transferencia">Transferencia</option>
                   </select>
             </div> */}
+            {propedido.estado==="ANULADO"?<h3 className=" !text-red-600 pb-3 font-bold">Este pedido se encutra Anulado</h3>:
             <button className="btn btnpedido !bg-blue-800 mt-3 mb-3 w-40" onClick={()=>depositopedido()}>Pagar Pedido</button>
+            }
 
             <h3 className=" font-bold">Detalles del Pedido</h3>
             <CompDetallePedido idpedido={idpedido} stateToken={stateToken}></CompDetallePedido>

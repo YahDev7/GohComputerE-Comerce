@@ -31,9 +31,10 @@ const Header = () => {
                     <div id="fi" className="" >
                         <div className="grid grid-cols-7  gap-4 mt-4  m-auto container">
 
-                            <div className="..."> <button className="navbar-toggler btn text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="offcanvasNavbar">
+                            <div className="...">{/*  <button className="navbar-toggler btn text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="offcanvasNavbar">
                                 <i className="fas fa-bars"></i>
-                            </button>
+                            </button> */}
+
                             </div>
                             <div className="max-sm:col-start-2 max-sm:col-end-6  col-start-3 col-end-6">
                                 <form onSubmit={(e) => {
@@ -41,8 +42,8 @@ const Header = () => {
                                     searchnav(e)
                                 }} className="d-flex" id="frmSearch">
                                     <div className="input-group mb-3">
-                                        <input className="form-control w-50" name="search" type="search" placeholder="Search" aria-label="Search" />
-                                        <button className="btn btn-search" > <i className="fas fa-search"></i></button>
+                                        <input className="form-control !rounded-xl  w-50" name="search" type="search" placeholder="Search" aria-label="Search" />
+                                        <button className="btn bg-none border-spacing-0 outline-0  text-white !rounded-xl right-1" > <i className="fas fa-search"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -156,7 +157,7 @@ const Header = () => {
                                 </div>
 
                                 <div className="text-center pt-2">
-                                    <a href="#/carrito" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <a href="#/carrito" type="button" className="text-white bg-blue-950 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-900 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Ver detalle de mi carrito
                                         <svg aria-hidden="true" className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" ></path></svg>
                                     </a>

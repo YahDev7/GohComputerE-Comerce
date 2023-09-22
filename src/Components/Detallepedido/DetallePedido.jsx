@@ -23,6 +23,7 @@ const CompDetallePedido = ({ idpedido, stateToken }) => {
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
+                        <th>Importe</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,9 +31,11 @@ const CompDetallePedido = ({ idpedido, stateToken }) => {
                         propedido?.detalle.map((el) =>
                             <tr >
                                 <td><img width="70px" height="70px" src={el?.img} /> </td>
-                                <td><a href={`#/description/${el.id}`} > {el.nombre}</a></td>
-                                <td>{el.precio}</td>
-                                <td>{el.unidad}</td>
+                                <td><a href={`#/description/${el._id}`} > {el.nombre}</a></td>
+                                <td>{el.precioUnitario}</td>
+                                <td>{el.cantidad}</td>
+                                <td className="text-blue-800 font-bold">{el.importe}</td>
+
                             </tr>
                         )
                     }

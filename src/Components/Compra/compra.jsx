@@ -129,17 +129,17 @@ const Compra = () => {
                   </div>
                   <div className="col-start-2 col-end-4 ">
                     <div className="nombre">
-                      <a href={`#/description/${el.id}`}>
+                      <a href={`#/description/${el._id}`}>
                         {el.nombre}
                       </a>
                     </div>
                     <div className="precio grid grid-cols-5 ">
 
-                      <p className="col-start-2 col-end-5 ">x{el.unidad} </p>
+                      <p className="col-start-2 col-end-5 ">x{el.cantidad} </p>
                     </div>
                   </div>
                   <div className="justify-self-center" style={{ alignSelf: "center" }} >
-                    <p className="col-start-2 col-end-5 ">{el.precio * el.unidad} </p>
+                    <p className="col-start-2 col-end-5 ">{el.importe} </p>
                   </div>
                 </div>
               )

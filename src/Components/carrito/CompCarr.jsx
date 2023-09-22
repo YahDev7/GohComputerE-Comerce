@@ -6,17 +6,17 @@ import Loader from "../public/Loader";
 
 const CompCarr = () => {
 
-    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, CantidadTotal,CatitadTo,loaderCarrito } = useContext(CarritoContext)
+    const { itemsCarr, pluscarr, minuscarr, subtotal, btnremovepro, CantidadTotal, CatitadTo, loaderCarrito } = useContext(CarritoContext)
     const { stateToken } = useContext(TokenContext)
 
 
-    const { productCarr, confirmPedido, idsprod } = UseCarr(itemsCarr, pluscarr, minuscarr, btnremovepro, stateToken,CantidadTotal)
+    const { productCarr, confirmPedido, idsprod } = UseCarr(itemsCarr, pluscarr, minuscarr, btnremovepro, stateToken, CantidadTotal)
     return (
 
-        
+
         <div className="container pt-5">
 
-{loaderCarrito && <Loader></Loader>}
+            {loaderCarrito && <Loader></Loader>}
 
             {productCarr().err ?
                 <>
@@ -42,23 +42,23 @@ const CompCarr = () => {
 
                         <div className="TPagar  mt-4 col-12 col-lg-4 text-center" >
                             <div>
-                                <div>Hay {CatitadTo} articulos</div>
+                                <div className="font-semibold !text-[18px]">Hay {CatitadTo} articulos</div>
                             </div>
                             <div className="row">
-                                <label className="col-6 text-start" >Sub total</label>
-                                <span className="col-6 text-end" >S/{subtotal}</span>
+                                <label className="col-6 text-start font-semibold" >Sub total</label>
+                                <span className="col-6 text-end font-semibold" >S/{subtotal}</span>
                             </div>
 
                             <div className="row" id="idTotal">
-                                <label className="col-6 text-start">Total</label>
-                                <span className="col-6 text-end">S/{subtotal}</span>
+                                <label className="col-6 text-start font-semibold">Total</label>
+                                <span className="col-6 text-end font-semibold text-blue-800 !text-[18px] ">S/{subtotal}</span>
                             </div>
                             <div className="p-4 w-100" >
                                 <a href={`https://wa.me/932069271?text=¡Hola! Estoy interesado en estos produtos "${idsprod}". Por favor, envíame más información`} target="_blank" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Comprar por Whatsapp</a>
 
                                 <a href="/#/compraWeb/datosEnvio">
                                     <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                       /*  onClick={() => confirmPedido(tokcarr, subtotal)} */
+                                    /*  onClick={() => confirmPedido(tokcarr, subtotal)} */
                                     >Comprar por Web</button>
                                 </a>
 

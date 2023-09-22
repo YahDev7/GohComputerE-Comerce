@@ -293,6 +293,19 @@ input[type="number"]::-webkit-outer-spin-button{
         text-overflow:ellipsis
     }
 }
+
+
+@media(max-width:520px){
+   
+    .prodAll{
+        grid-template-columns: repeat(1,1fr) !important;
+    }
+   /*  .imgProAll{
+        width: 64% !important;
+    } */
+    /*FOOTER*/
+   
+}
 /* @media(max-width:540px){
     .prodAll{
        display: flex !important;

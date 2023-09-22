@@ -15,6 +15,7 @@ const AllPedidos = () => {
     const allpedi = async () => {
         setloader(true)
         let res = await FetchsPedidos.getallpedidosByEnterprise(stateToken);
+        
         setPedidosAll(res)
         setloader(false)
     }
@@ -38,7 +39,7 @@ const AllPedidos = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {pedidosAll.length?
                             pedidosAll.map((el) =>
                                 <tr >
                                     <td><a style={{ textDecoration: "none", cursor: "pointer" }} onClick={() => { location.href = "#/detallepedido/" + el?._id }} >{el?._id}</a></td>
@@ -48,7 +49,9 @@ const AllPedidos = () => {
                                     {/*  <td>{el.persona_id}</td> */}
                                 </tr>
                             )
-                        }
+                            :
+                <h2 >No tiene pedidos que mostrar</h2>
+            }
                     </tbody>
                 </table>
 

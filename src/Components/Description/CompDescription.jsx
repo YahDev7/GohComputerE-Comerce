@@ -1,10 +1,16 @@
 
 import { UseDesc } from "./Hooks/UseDesc";
 import { useParams } from "react-router-dom"
-import { useContext} from "react";
+import { useContext } from "react";
 import Loader from "../public/Loader";
 import CarritoContext from "../../context/carrito";
 import ProductContext from "../../context/products";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
+
 
 let initalProd = {
     id: "",
@@ -18,12 +24,33 @@ let initalProd = {
 }
 
 const CompDescription = () => {
+    const settings = {
+       
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        /*  appendDots: dots => (
+           <div className="!bottom-0"
+             style={{
+               bottom:0,
+               backgroundColor: "#ddd",
+               borderRadius: "10px",
+               padding: "10px"
+             }}
+           >
+             <ul style={{ margin: "0px" }}> {dots} </ul>
+           </div>
+         ), */
+    };
+
     const { id } = useParams()
-    const {  loaderprod, setloaderprod } = useContext(ProductContext)
-   const { stateonepro, setcantProd, cantProd } = UseDesc(id, setloaderprod)
+    const { loaderprod, setloaderprod } = useContext(ProductContext)
+    const { stateonepro, setcantProd, cantProd } = UseDesc(id, setloaderprod)
     const { addcarr } = useContext(CarritoContext)
 
-    let metodosPago=[
+    let metodosPago = [
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/plin-logo-967A4AF583-seeklogo.com_gb3evx.png",
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/yape-logo-3E473EE7E5-seeklogo.com_ypnk28.png",
         "https://res.cloudinary.com/dq3fragzr/image/upload/v1688850926/GOHComputer/Public/interbank_uqsza8.png",
@@ -65,19 +92,33 @@ const CompDescription = () => {
                 </div>
                 <div style={{ position: "relative" }}>
                     {loaderprod && <Loader></Loader>}
-                    <div id="mainDescription" className="pt-5  containerDes pb-4 pt-ms-5 "/* pt-md-0  */>
+                    <div id="mainDescription" className="pt-5  containerDes pb-4 pt-ms-5 ">
 
 
                         <div className="row imgAndDescri">
                             <div className="imgDescripSlider  col-lg-7 col-12 col-md-7 " >
                                 <div className="boxDescrip">
-                                    {
-                                        stateonepro?.imagenes.length>0&& 
-                                    <img src={stateonepro?.imagenes[0]?.URL||stateonepro?.imagenes[0][0]?.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
 
-                                    }
- 
-                                    {/*  <img src={stateonepro.url_imagencom} className="imgProDescrip" alt="" /> */}
+                                    <div className=" w-100">
+                                        <Slider {...settings}>
+                                          
+                                                {
+                                                    stateonepro?.imagenes.length > 0 &&
+                                                    stateonepro.imagenes.map(el=>
+                                                        <div>
+                                                        <img src={el.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
+                                                        </div>
+                                                        )
+
+                                                }
+
+                                          
+                                           
+
+                                        </Slider>
+                                    </div>
+
+
                                 </div>
                             </div>
 
@@ -93,8 +134,8 @@ const CompDescription = () => {
                                 <p className="pb-3 desc"> {stateonepro.descripcomp} </p>
 
                                 <div className="row">
-                                    <p className="col-3" >Stock: {stateonepro.stock}</p>
-                                    <p className="col-3" >Garantia:{stateonepro.garantia}</p>
+                                    <p className="col-3 text-blue-800 font-semibold !text-[18px] pb-4" >Stock: {stateonepro.stock}</p>
+                                    <p className="col-3 text-blue-800 font-semibold !text-[18px] pb-4" >Garantia:{stateonepro.garantia}</p>
                                 </div>
                                 <div className="row">
                                     <div className="col-2 divcant ">
@@ -111,14 +152,25 @@ const CompDescription = () => {
                                     </div>
 
                                 </div>
-                                <p className="pb-3 pt-3 precioVentaPro col font-bold !text-4xl max-sm:!text-2x1"> S/{stateonepro?.precio_promoventa || stateonepro.precio_venta}</p>
+                                {stateonepro?.precio_antes ?
+                                    <div className="flex flex-col">
+
+
+                                        <p className="pb-3 pt-3 text-red-700 font-bold"> ANTES:<strong className="font-semibold !text-[20px] line-through decoration-2">S/{stateonepro?.precio_antes || ""}</strong></p>
+                                        <p className="pb-3 pt-3 !text-[20px] text-blue-800 font-bold"> AHORA: <strong className="font-bold !text-[30px]">S/{stateonepro?.precio_promoventa || stateonepro.precio_venta}</strong></p>
+
+                                    </div>
+                                    :
+                                    <p className="pb-3 pt-3 !text-[20px] text-blue-800 font-bold"> PRECIO: <strong className="font-bold !text-[30px]">S/{stateonepro?.precio_promoventa || stateonepro.precio_venta}</strong></p>
+                                }
+
 
                                 <div className="divbtndesc">
                                     <button type="button" className="addCarr btn-description btn p-2" onClick={() => addcarr(stateonepro.idcomp, cantProd)} > Agregar al carrito o comprar</button>
                                 </div>
 
                                 <div className="flex space-x-4 mb-4 mt-4">
-                                            {metodosPago.map((el)=> <img src={el} className="w-12 h-12 rounded-full" alt="" /> )}
+                                    {metodosPago.map((el) => <img src={el} className="w-12 h-12 rounded-full" alt="" />)}
 
 
                                 </div>

@@ -2,15 +2,17 @@ import { createContext, useEffect, useState } from "react";
 import { FetchCarrito, FetchCat, Fetchs } from "../api/fetchs";
 import { BaseURLAPI2 } from "../config/Base_URL";
 import { PromocionesFetch } from "../api/Promociones";
+import withReactContent from "sweetalert2-react-content";
 
 
 const CarritoContext = createContext()
 let initalcarr = []
+const MySwal = withReactContent(Swal)
 
 const CarritoProvider = ({ children }) => {
 
     let tokencarr = localStorage.getItem("tokencarr")
-  
+
     const [loaderCarrito, setloaderCarrito] = useState(false);
 
 
@@ -20,8 +22,8 @@ const CarritoProvider = ({ children }) => {
     const [statesidebarCarr, statesetSidebarCarr] = useState(false);
     const [tokcarr, setTokcarr] = useState(tokencarr === null ? [] : tokencarr);
 
-    const btnremovepro = async (id) => {
-        let carrremoveitem = itemsCarr.filter(pro => pro.id !== id);
+    const btnremovepro = async (_id) => {
+        let carrremoveitem = itemsCarr.filter(pro => pro._id !== _id);
         jwtcarr(carrremoveitem)
 
     }
@@ -37,7 +39,7 @@ const CarritoProvider = ({ children }) => {
             localStorage.removeItem("tokencarr")
             return [];
         }
-        let prodarr = res3.map(el => (el.precio * el.unidad));
+        let prodarr = res3.map(el => (el.importe));
 
         let totalpagar = 0;
         if (prodarr.length > 0) totalpagar = prodarr.reduce((a, b) => a + b);
@@ -48,29 +50,58 @@ const CarritoProvider = ({ children }) => {
     }
 
     const addcarr = async (id, cantidad) => {
+        cantidad=Number(cantidad)
         let res;
         const resPromo = await PromocionesFetch.getOneWeb(id);
-        if (resPromo.status!==404) {
-            res=resPromo;
-        }else{
+        if (resPromo.status !== 404) {
+            res = resPromo;
+        } else {
             const resnormal = await Fetchs.getOneGoh(id);
             if (resnormal.message) return alert(resnormal.message)
-            res= resnormal
+            res = resnormal
         }
+        if(cantidad>res.stock)  return await MySwal.fire({
+            title: <h2>Cantidad superior al stock</h2>,
+            icon: 'warning'
+          })
 
-        let verifypro = itemsCarr.find(pro => pro.id === res.idcomp)
+        let verifypro = itemsCarr.find(pro => pro._id === res.idcomp)
         if (verifypro) {
-            let newcarr = itemsCarr.map(pro => pro.id === res.idcomp ? { ...pro, unidad: pro.unidad + cantidad } : pro);
+            if(cantidad>res.stock)  return await MySwal.fire({
+                title: <h2>Cantidad superior al stock</h2>,
+                icon: 'warning'
+              })
+
+              let newcarr = itemsCarr.map(pro => {
+                if (pro._id === res.idcomp) {
+                  // Validar que la cantidad no sea mayor que cero
+                  if (pro.cantidad + cantidad >res.stock) {
+                    return  MySwal.fire({
+                        title: <h2>Cantidad superior al stock</h2>,
+                        icon: 'warning'
+                      })
+                  } else {
+                    return { ...pro, cantidad: pro.cantidad + cantidad,importe:Number(pro.precioUnitario)*(Number(pro.cantidad) + cantidad) };
+                  }
+                } else {
+                  return pro;
+                }
+              });
+
+
+           // let newcarr = itemsCarr.map(pro => pro._id === res.idcomp ? { ...pro, cantidad: pro.cantidad + cantidad,importe:Number(pro.precioUnitario)*(Number(pro.cantidad) + cantidad) } : pro);
             jwtcarr(newcarr)
         }
         else {
             let firstCarr = [...itemsCarr,
             {
-                id: res.idcomp,
+                _id: res.idcomp,
                 img: res.imagenes[0]?.URL || "https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
                 nombre: res.nomcomp,
-                unidad: cantidad,
-                precio: res?.precio_promoventa || res.precio_venta
+                cantidad,
+                descuento:0,
+                precioUnitario: res?.precio_promoventa || res.precio_venta,
+                importe: Number(res?.precio_promoventa)* Number(cantidad) || Number(res.precio_venta)*Number(cantidad)
             }];
             jwtcarr(firstCarr)
         }
@@ -78,13 +109,40 @@ const CarritoProvider = ({ children }) => {
 
     }
 
-    const pluscarr = (id) => {
-        let newcarrplus = itemsCarr.map(pro => pro.id === id ? { ...pro, unidad: pro.unidad + 1 } : pro);
+    const pluscarr =async (_id) => {
+      //  let newcarrplus = itemsCarr.map(pro => pro._id === _id ? { ...pro, cantidad: pro.cantidad + 1,importe:Number(pro.precioUnitario)*(Number(pro.cantidad) + 1) } : pro);
+      let res;
+      const resPromo = await PromocionesFetch.getOneWeb(_id);
+      if (resPromo.status !== 404) {
+          res = resPromo;
+      } else {
+          const resnormal = await Fetchs.getOneGoh(_id);
+          if (resnormal.message) return alert(resnormal.message)
+          res = resnormal
+      }
+      //NECESITO HACVER UN IF DENTRO Y DEVOLVER UN ERROR VARA VALIDARLO Y ARROJAR LA ALERTA
+        let newcarrplus = itemsCarr.map(pro => {
+            if (pro._id === _id) {
+              // Validar que la cantidad no sea mayor que cero
+              if (pro.cantidad + 1 >res.stock) {
+                return  MySwal.fire({
+                    title: <h2>Cantidad superior al stock</h2>,
+                    icon: 'warning'
+                  })
+              } else {
+                return { ...pro, cantidad: pro.cantidad + 1,importe:Number(pro.precioUnitario)*(Number(pro.cantidad) + 1) };
+              }
+            } else {
+              return pro;
+            }
+          });
+
         jwtcarr(newcarrplus)
     }
-    const minuscarr = (id) => {
-        let newcarrminus = itemsCarr.map(pro => pro.id === id ? { ...pro, unidad: pro.unidad - 1 } : pro);
-        let sin0 = newcarrminus.filter(pro => pro.unidad !== 0);
+    const minuscarr = (_id) => {
+        let newcarrminus = itemsCarr.map(pro => pro._id === _id ? { ...pro, cantidad: pro.cantidad - 1,importe:Number(pro.precioUnitario)*(Number(pro.cantidad) - 1) } : pro);
+        
+        let sin0 = newcarrminus.filter(pro => pro.cantidad !== 0);
 
         jwtcarr(sin0)
 
@@ -93,10 +151,10 @@ const CarritoProvider = ({ children }) => {
     const CantidadTotal = (array) => {
         let cantidad = 0;
         itemsCarr.forEach((producto) => {
-          cantidad += producto.unidad;
+            cantidad += producto.cantidad;
         });
         setCatitadTo(cantidad);
-      };
+    };
 
 
     useEffect(() => {
