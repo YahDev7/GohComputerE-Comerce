@@ -4,12 +4,11 @@ import { useContext } from "react";
 import { UseToggle } from "../hook/use.toggle";
 import { UseMovimiento } from "./hook/use.movimiento";
 
-const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento, formMov,setformMov }) => {
+const ModalMovimiento = ({ handleSubmitMov, handleChangeMov, toggleModalMovimiento, formMov, setformMov,handleFileChange }) => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
 
   const { formInit,
-    getdocumento,
-    } = UseMovimiento(stateTokenAdmin)
+  } = UseMovimiento(stateTokenAdmin)
 
   //const {handleSubmitMov}= UseMovimiento(stateTokenAdmin)
   let { documento_id,
@@ -23,8 +22,7 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
     vuelto,
     observacion,
     tipo_compra_venta,
-    estado,
-    fileAdjunto } = formMov;
+    estado } = formMov;
 
 
   return (
@@ -151,9 +149,9 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
 
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="vuelto">Vuelto</label>
-                <p id="vuelto" className=" pt-3">{vuelto||0}</p>
+                <p id="vuelto" className=" pt-3">{vuelto || 0}</p>
 
-              {/*   <input
+                {/*   <input
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                   placeholder="s"
                   onChange={handleChangeMov}
@@ -194,7 +192,16 @@ const ModalMovimiento = ({handleSubmitMov,handleChangeMov, toggleModalMovimiento
                 <p id="tipo_compra_venta" className=" pt-3">{tipo_compra_venta}</p>
 
               </div>
-
+              <div className="w-full px-3 md:col-start-1 md:col-end-2  ">
+                      <div className="flex">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Imagenes">
+                          Constancia de Pago
+                        </label>
+                      </div>
+                      <div className="grid grid-cols-3 gap-4 pb-2  max-md:grid-cols-1 ">
+                        <input type="file" onChange={(e) => handleFileChange(e)} name="imagenes" className="relative col-start-1 col-end-4 m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
+                      </div>
+                    </div>
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="estado">Estado</label>
                 {/*  <input

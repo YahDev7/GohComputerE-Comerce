@@ -3,6 +3,7 @@ import withReactContent from "sweetalert2-react-content";
 import { MovimientoFetch } from "../../../../api/movimiento.fetch";
 import { DocumentoFetch } from "../../../../api/documento.fetch";
 import { CompraFetch } from "../../../../api/compra.fetch";
+import { uploadFilesFetch } from "../../../../api/fetchs";
 const MySwal = withReactContent(Swal)
 
 let formInit = {
@@ -21,14 +22,22 @@ let formInit = {
     estado: '',
     fileAdjunto: {},
 }
+let initfiles = [
+    { nombre: "", URL: "" }
+]
 export const UseMovimiento = (stateTokenAdmin) => {
     const [loaderMov, setloaderMov] = useState(false);
 
     const [stateMovimiento, setstateMovimiento] = useState([]);
     const [formMov, setformMov] = useState(formInit)
-    const [ftemproral, setftemproral] = useState(formInit)
+    const [uploadfileMovAd, setuploadfileMovAd] = useState(null)
     const [detalle, setdetalle] = useState(formInit)
 
+
+    const handleFileChange = (e) => {
+        const { files } = e.target;
+        setuploadfileMovAd([files[0]])
+    };
 
     const getdocumento = async (token) => {
         setloaderMov(true)
@@ -44,6 +53,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
 
     const handleSubmitMov = async (e) => {
         e.preventDefault();
+
         setloaderMov(true)
         if (formMov.vuelto < 0) {
             setloaderMov(false)
@@ -54,8 +64,21 @@ export const UseMovimiento = (stateTokenAdmin) => {
             })
             return
         }
-        let res = await MovimientoFetch.post(stateTokenAdmin, {...formMov,vuelto:Number(formMov.vuelto),monto_deposito:Number(formMov.monto_deposito)})
+        let res = await MovimientoFetch.post(stateTokenAdmin, { ...formMov, vuelto: Number(formMov.vuelto), monto_deposito: Number(formMov.monto_deposito) })
         setloaderMov(false)
+        if (uploadfileMovAd) {
+            setloaderMov(true)
+
+            let res2 = await uploadFilesFetch.saveBilleteraVirtualAdmin(uploadfileMovAd, stateTokenAdmin, res.data);
+            setloaderMov(false)
+
+            if (res2.statusCode === 500) return MySwal.fire({
+                title: <h2>Error de servidor</h2>,
+                icon: 'warning'
+            })
+            if (!res2) return alert("no se consigui subir el archivo")
+        }
+
 
 
         if (res.statusCode) return await MySwal.fire({
@@ -105,13 +128,13 @@ export const UseMovimiento = (stateTokenAdmin) => {
         let valueNumber = Number(value).toFixed(2)
         let newvuelto = Number(valueNumber - Number(formMov.monto_pagar).toFixed(2)).toFixed(2)
 
-        setformMov({ ...formMov,monto_deposito:Number(valueNumber), vuelto: Number(newvuelto) })
+        setformMov({ ...formMov, monto_deposito: Number(valueNumber), vuelto: Number(newvuelto) })
 
     }
     const getDetalle = async (id) => {
         setloaderMov(true)
 
-        let res= await MovimientoFetch.getOne(id,stateTokenAdmin)
+        let res = await MovimientoFetch.getOne(id, stateTokenAdmin)
         console.log(res)
         setdetalle(res)
         setloaderMov(false)
@@ -138,7 +161,8 @@ export const UseMovimiento = (stateTokenAdmin) => {
         handleChangeMov,
         handleSubmitMov,
         getdocumentoid,
-        loaderMov,getDetalle,
-        getdocumentoCompraid
+        loaderMov, getDetalle,
+        getdocumentoCompraid,
+        handleFileChange
     };
 }

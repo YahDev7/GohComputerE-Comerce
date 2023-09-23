@@ -53,7 +53,9 @@ export const ROUTES_BACK = {
     },
     CUSTOMER: {
       GET: `/customer/enterprise`,
-      GETID: (id) => `/customer/enterprise/${id}`,
+      GETDNI: `/customer/enterprise/dni`,
+      GETRUC: `/customer/enterprise/ruc`,
+      GETID: (id) => `/customer/enterprise/getone/${id}`,
       POST: `/customer/enterprise`,
       PUT: (id) => `/customer/enterprise/${id}`,
       DELETE: (id) => `/customer/enterprise/${id}`
@@ -142,6 +144,7 @@ export const ROUTES_BACK = {
     SAVECATEGORIA: (id) => `/image/upload/categoria/${id}`,
     SAVESUBCATEGORIA: (id) => `/image/upload/subcategoria/${id}`,
     SAVEBILLETERAVIRTUAL: (id) => `/image/upload/billeteravirtual/${id}`,
+    SAVEBILLETERAVIRTUALADMIN: (id) => `/image/upload/admin/billeteravirtual/${id}`,
   },
   DOCUMENTO: {
     GET: `/documento/web/enterprise`,

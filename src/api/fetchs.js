@@ -240,6 +240,22 @@ export const uploadFilesFetch={
         const res2 = await res.json();
         return res2
     },
+
+    saveBilleteraVirtualAdmin:async (file,token,idMovi)=>{
+        const formData = new FormData();
+        formData.append('file', file[0]); // Suponiendo que `files` es el archivo o archivos que deseas cargar
+
+        const options = {
+            method: "POST",
+            body: formData,
+            headers: {"Authorization": `Bearer ${token}` }
+        };
+        console.log(options)
+
+        const res = await fetch(BaseURLAPI2+ROUTES_BACK.IMG.SAVEBILLETERAVIRTUALADMIN(idMovi), options);
+        const res2 = await res.json();
+        return res2
+    },
 }
 
 

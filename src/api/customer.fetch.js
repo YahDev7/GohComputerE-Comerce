@@ -7,7 +7,18 @@ export const CustomerFetch={
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GET,headers)
         return res
-    }, 
+    },
+    
+    getDNI: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GETDNI,headers)
+        return res
+    },
+    getRUC: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GETRUC,headers)
+        return res
+    },
     getOne: async(id,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.CUSTOMER.GETID(id),headers)

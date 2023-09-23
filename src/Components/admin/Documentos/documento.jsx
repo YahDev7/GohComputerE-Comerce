@@ -51,16 +51,12 @@ const Documento = () => {
   } = UseDocumento(stateTokenAdmin, getprod)
 
   const {
-    customer,
+    customerDNI,
+    customerRUC
   } = UseCustomer(stateTokenAdmin)
+  const { getdocumentoid, formMov, handleChangeMov,handleFileChange, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
 
-  const { getdocumentoid, formMov, handleChangeMov, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
-
-  let { /* user_id,
-    customer_id,
-    provider_id,
-    caja_id,
-    enterprise_id, */
+  let { 
     tipo_documento,
     serie,
     nro_documento,
@@ -105,15 +101,6 @@ const Documento = () => {
       sortable: true,
 
     },
-
-    {
-      name: 'Archivo',
-      maxWidth: '80px',
-      selector: row => <a className="text-blue-600 font-bold hover:text-blue-400" href="">Archvivo</a>,
-      sortable: true,
-
-    },
-
     {
       name: 'ID',
       selector: row => row._id,
@@ -215,6 +202,11 @@ const Documento = () => {
     {
       name: 'Nombre',
       selector: row => row.nombres,
+      sortable: true,
+    },
+    {
+      name: 'Tipo Doc',
+      selector: row => row.tipo_doc,
       sortable: true,
     },
     {
@@ -324,7 +316,7 @@ const Documento = () => {
       {loaderMov && <Loader />}
       {
         StateModalMovimiento &&
-        <ModalMovimiento /* handleChange={handleChange}  */ setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
+        <ModalMovimiento /* handleChange={handleChange}  */handleFileChange={handleFileChange} setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
       }
 
 
@@ -364,7 +356,7 @@ const Documento = () => {
                         id="tipo_documento"
                       >
                         <option value="">Seleccione</option>
-                        <option value="Boleta">Boleta</option>
+                        <option value="BOLETA">Boleta</option>
                         <option value="FACTURA">Factura</option>
                         <option value="TICKED">Ticked</option>
 
@@ -423,7 +415,27 @@ const Documento = () => {
 
                   <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
                     {/*  <input value={customer_id} type="text" name="customer_id" id="customer_id" /> */}
+{/* 
+                    <div className="w-full px-3">
+                      <div className="flex">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Tipo Doc">
+                          Tipo Doc
+                        </label>
+                      </div>
+                      <select
+                        onChange={(e) => handleChange(e)}
+                        className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                        name="tipo_doc"
+                        id="tipo_doc"
+                      >
+                        <option value="">Seleccione</option>
+                        <option value="DNI">DNI</option>
+                        <option value="RUC">RUC</option>
+                       
+                      </select>
 
+
+                    </div> */}
                     <div className="w-full px-3">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">DNI/RUC</label>
                       <div className="grid grid-cols-5">
@@ -653,6 +665,7 @@ const Documento = () => {
                       >
                         <option value="">Seleccione</option>
                         <option value="BCP">BCP</option>
+                        <option value="EFECTIVO">EFECTIVO</option>
                         <option value="INTERBANK">INTERBANK</option>
                         <option value="YAPE">YAPE</option>
                         <option value="PLIN">PLIN</option>
@@ -711,7 +724,9 @@ const Documento = () => {
               <DataTable
                 //title="CLIENTES"
                 columns={columnsCustomer}
-                data={customer.length ? customer : []}
+                data={
+                  (tipo_documento==="BOLETA" || tipo_documento==="TICKED" && customerDNI.length) ? customerDNI :  (tipo_documento==="FACTURA"&& customerRUC.length)?customerRUC:[]
+                }
                 dense
                 pagination
                 selectableRows

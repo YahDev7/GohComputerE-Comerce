@@ -23,13 +23,12 @@ const Movimientos = () => {
   const { iconNew } = UseIcons()
   const { formInit,
     stateMovimiento,
-    setstateMovimiento,
     formMov,
     setformMov,
-    getdocumento,
+    handleFileChange,
     handleChange,
     handleSubmitMov, loaderMov, getDetalle } = UseMovimiento(stateTokenAdmin)
-
+    console.log(stateMovimiento)
 
 
   let { documento_id,
@@ -45,7 +44,7 @@ const Movimientos = () => {
     observacion,
     tipo_compra_venta,
     estado,
-    fileAdjunto } = formMov;
+    } = formMov;
   const columns = [
     {
       name: 'Actions',
@@ -67,6 +66,14 @@ const Movimientos = () => {
       name: 'Documento',
       selector: row => row.documento_id,
       sortable: true,
+    },
+    
+    {
+      name: 'Archivo',
+      maxWidth: '80px',
+      selector: row => (row?.fileAdjunto ? <a className="text-blue-600 font-bold hover:text-blue-400" href={row.fileAdjunto.URL}>Archivo</a>:""),
+      sortable: true,
+
     },
     {
       name: 'Estado',
@@ -324,6 +331,16 @@ const Movimientos = () => {
                       />
                     </div>
 
+                    <div className="w-full px-3 md:col-start-1 md:col-end-2  ">
+                      <div className="flex">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Imagenes">
+                          Constancia de Pago
+                        </label>
+                      </div>
+                      <div className="grid grid-cols-3 gap-4 pb-2  max-md:grid-cols-1 ">
+                        <input type="file" onChange={(e) => handleFileChange(e)} name="imagenes" className="relative col-start-1 col-end-4 m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 cursor-pointer file:cursor-pointer file:border-solid file:border-inherit file:bg-neutral-100 file:px-2.5 file:py-3.5 file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none " />
+                      </div>
+                    </div>
                     <div className="w-full px-3">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="estado">Estado</label>
                       <input
@@ -368,8 +385,8 @@ const Movimientos = () => {
 
         <DataTable
           columns={columns}
-        data={stateMovimiento.length ? stateMovimiento : []}
-        pagination
+          data={stateMovimiento.length ? stateMovimiento : []}
+          pagination
           selectableRows
           striped
           expandOnRowClicked

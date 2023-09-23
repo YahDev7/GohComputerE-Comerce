@@ -115,15 +115,6 @@ const Compra = () => {
       sortable: true,
 
     },
-
-    {
-      name: 'Archivo',
-      maxWidth: '80px',
-      selector: row => <a className="text-blue-600 font-bold hover:text-blue-400" href="">Archvivo</a>,
-      sortable: true,
-
-    },
-
     {
       name: 'ID',
       selector: row => row._id,

@@ -12,6 +12,7 @@ let formInit = {
   distrito: '',
   direccion: '',
   dni_ruc: '',
+  tipo_doc: '',
   email: '',
   password: '',
   telefono: '',
@@ -24,6 +25,8 @@ export const UseCustomer = (stateTokenAdmin) => {
   const [loaderCustomer, setloaderCustomer] = useState(false);
   
   const [customer, setcustomer] = useState([]);
+  const [customerDNI, setcustomerDNI] = useState([]);
+  const [customerRUC, setcustomerRUC] = useState([]);
   const [form, setform] = useState(formInit)
 
   const getEdit = async (id) => {
@@ -78,12 +81,27 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   const getcustomer = async (token) => {
     setloaderCustomer(true)
-
     let res = await CustomerFetch.get(token);
     setcustomer(res)
     setloaderCustomer(false)
-
   }
+
+  
+  const getcustomerDNI = async (token) => {
+    setloaderCustomer(true)
+    let res = await CustomerFetch.getDNI(token);
+    setcustomerDNI(res)
+    setloaderCustomer(false)
+  }
+
+  
+  const getcustomerRUC = async (token) => {
+    setloaderCustomer(true)
+    let res = await CustomerFetch.getRUC(token);
+    setcustomerRUC(res)
+    setloaderCustomer(false)
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setform({ ...form, [name]: value });
@@ -148,6 +166,8 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   useEffect(() => {
     getcustomer(stateTokenAdmin)
+    getcustomerDNI(stateTokenAdmin)
+    getcustomerRUC(stateTokenAdmin)
   }, []);
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -163,7 +183,9 @@ export const UseCustomer = (stateTokenAdmin) => {
     handleSubmit,
     getEdit,
     deletecustomer,
-    loaderCustomer
+    loaderCustomer,
+    customerDNI,
+    customerRUC
 
   };
 }

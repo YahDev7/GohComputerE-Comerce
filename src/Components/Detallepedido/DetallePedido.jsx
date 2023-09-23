@@ -27,7 +27,7 @@ const CompDetallePedido = ({ idpedido, stateToken }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    {propedido&&
                         propedido?.detalle.map((el) =>
                             <tr >
                                 <td><img width="70px" height="70px" src={el?.img} /> </td>
