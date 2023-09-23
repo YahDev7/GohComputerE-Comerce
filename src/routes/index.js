@@ -74,6 +74,7 @@ export const ROUTES_BACK = {
       GET: `/products/enterprise`,
       POSTSTOCK:(id)=> `/products/enterprise/stock/${id}`,
       GETWITHSTOCK: `/products/enterprise/withstock`,
+      GETALL: `/products/enterprise/all`,
       POST: `/products/enterprise/save`,
       POSTSERVICE: `/products/enterprise/save/service`,
       GETBYID: (id) => `/products/enterprise/getone/${id}`,

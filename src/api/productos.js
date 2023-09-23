@@ -29,7 +29,13 @@ export const ProductosFetch={
         let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETWITHSTOCK,headers)
         return res
-    }, 
+    },
+    
+    getAll: async(token)=> {
+        let headers={ Authorization: `Bearer ${token}`,}
+        let res= await method.get(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.GETALL,headers)
+        return res
+    },
     getPromoWebBySubcat: async(id)=> {
      //   let headers={ Authorization: `Bearer ${token}`,}
         let res= await method.get(BaseURLAPI2+ROUTES_BACK.PRODUCTOS.GETWEBPROMO(id)/* ,headers */)

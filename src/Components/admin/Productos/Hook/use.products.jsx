@@ -40,7 +40,7 @@ export const UseProdAdmin = () => {
     precio_venta: 0,
     /*  promocion: '', */
     stock: 0,
-//    unidad: '',
+    //    unidad: '',
     url_fab: '',
     url_pro: '',
     valor_dolar: 0,
@@ -57,25 +57,19 @@ export const UseProdAdmin = () => {
     usuario_id: '',
     subcategoria_id: '',
     estado: 'A',
-    /* fechafinpromo: '', */
     garantia: '',
-    /*  igv: 0,
-     igvpromo: 0, */
-    /*   imagenes: [
-        { Nombre: "", URL: "" }
-      ], */
     nombre: '',
     precio_venta: 0,
     stock: 0,
-    
+
   }
 
-//  let initfiles = null
+  //  let initfiles = null
 
-     let initfiles = [
-      { nombre: "", URL: "" }
-    ]
-   
+  let initfiles = [
+    { nombre: "", URL: "" }
+  ]
+
   const [loaderProd, setloaderProd] = useState(false);
   const [unidadServicio, setunidadServicio] = useState("UNIDAD");
 
@@ -90,29 +84,44 @@ export const UseProdAdmin = () => {
   let datauser = JSON.parse(user)
   const { usuario_id, enterprise_id } = datauser
 
-  const handleUnidadService=(e)=>{
-     setunidadServicio(e.target.value)
+  const handleUnidadService = (e) => {
+    setunidadServicio(e.target.value)
   }
   const getproductEdit = async (id) => {
     setloaderProd(true)
     let res = await ProductosFetch.getOne(id, stateTokenAdmin)
+    if (res.unidad === "SERVICIO") {
+      setunidadServicio(res.unidad)
+      setloaderProd(false)
+      setformService(res)
+      return
+    }
+    setunidadServicio(res.unidad)
+
     setform(res)
     setimgsView(res?.imagenes)
     setloaderProd(false)
   }
 
-/*   const getproductEditService = async (id) => {
-    setloaderProd(true)
-    let res = await ProductosFetch.getOne(id, stateTokenAdmin)
-    setform(res)
-    setimgsView(res?.imagenes)
-    setloaderProd(false)
-  } */
+  /*   const getproductEditService = async (id) => {
+      setloaderProd(true)
+      let res = await ProductosFetch.getOne(id, stateTokenAdmin)
+      setform(res)
+      setimgsView(res?.imagenes)
+      setloaderProd(false)
+    } */
 
   const getprod = async () => {
     setloaderProd(true)
     let res = await ProductosFetch.getwithstock(stateTokenAdmin)
     setProdc(res)
+    setloaderProd(false)
+  }
+
+  const getprodAll = async () => {
+    setloaderProd(true)
+    let res = await ProductosFetch.getAll(stateTokenAdmin)
+    setProdAll(res)
     setloaderProd(false)
   }
 
@@ -152,7 +161,7 @@ export const UseProdAdmin = () => {
         'El registro fue eliminado con exito',
         'success'
       )
-      getprod()
+      getprod(stateTokenAdmin)
       return
     }
   }
@@ -162,16 +171,19 @@ export const UseProdAdmin = () => {
   const [StateModal, setStateModal] = useState(false);
 
   const [prodc, setProdc] = useState([]);
+  const [prodAll, setProdAll] = useState([]);
   const [fabibra, setFabibra] = useState("");
   const [ganancia, setGanancia] = useState("");
   const [dolar, setDolar] = useState("");
 
   const SubmirFormService = async (e) => {
 
- 
+
     setloaderProd(true)
-     if (formService._id) {
-      const { __v, _id, imagenes, ...form2 } = formService
+    if (formService._id) {
+      const { __v, _id, imagenes,especificaciones, ...form2 } = formService
+      form2.stock=Number(form2.stock)
+      console.log(formService)
       let res3 = await ProductosFetch.putService(_id, form2, stateTokenAdmin)
 
       setloaderProd(false)
@@ -184,18 +196,18 @@ export const UseProdAdmin = () => {
         title: `${res3.message}`,
         icon: 'warning'
       });
-     
+
       await Swal.fire({
         icon: 'success',
         title: 'Actualizado con éxito',
       })
       setformService(formInit)
       return;
-    } 
+    }
 
-    
-    let newform = { ...formService, usuario_id, enterprise_id,unidad:unidadServicio }
-    newform={...newform,stock:Number(newform.stock),precio_venta:Number(newform.precio_venta)}
+
+    let newform = { ...formService, usuario_id, enterprise_id, unidad: unidadServicio }
+    newform = { ...newform, stock: Number(newform.stock), precio_venta: Number(newform.precio_venta) }
     console.log(newform)
     let res = await ProductosFetch.postService(newform, stateTokenAdmin)
 
@@ -224,7 +236,7 @@ export const UseProdAdmin = () => {
   const SubmirForm = async (e) => {
     console.log("profucto")
     setloaderProd(true)
-   
+
     if (form._id) {
       const { __v, _id, imagenes, ...form2 } = form
       let res3 = await ProductosFetch.put(_id, form2, stateTokenAdmin)
@@ -254,7 +266,7 @@ export const UseProdAdmin = () => {
     }
 
     //ENVIAR EL TOKEN PARA LAS APIS
-    let newform = { ...form, usuario_id, enterprise_id,unidad:unidadServicio }
+    let newform = { ...form, usuario_id, enterprise_id, unidad: unidadServicio }
     let res = await ProductosFetch.post(newform, stateTokenAdmin)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     setloaderProd(false)
@@ -270,7 +282,7 @@ export const UseProdAdmin = () => {
 
 
     if (imgs.length) {
-     
+
       let resupload = imgs.map(async (el) => await uploadFilesFetch.saveProducto(el, stateTokenAdmin, res._id))
       //let res3 = await uploadFilesFetch.saveProducto(uploadfiles, stateTokenAdmin, res._id)
     }
@@ -294,15 +306,15 @@ export const UseProdAdmin = () => {
 
 
 
-const handleChangeService=(e)=>{
-  
-  const { name, value } = e.target;
+  const handleChangeService = (e) => {
 
-   return setformService( {
+    const { name, value } = e.target;
+
+    return setformService({
       ...formService,
       [name]: value
     })
-}
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -357,14 +369,14 @@ const handleChangeService=(e)=>{
   };
 
   const handleAgregarImg = () => {
-    if(uploadfiles.length===3) return MySwal.fire({
+    if (uploadfiles.length === 3) return MySwal.fire({
       title: <h2>No se puede agregar mas imagenes</h2>,
       icon: 'warning'
-    }) 
-    if(uploadfiles.length+imgsView.length===3)return MySwal.fire({
+    })
+    if (uploadfiles.length + imgsView.length === 3) return MySwal.fire({
       title: <h2>No se puede agregar mas imagenes</h2>,
       icon: 'warning'
-    }) 
+    })
 
     setuploadfiles([
       ...uploadfiles,
@@ -385,14 +397,14 @@ const handleChangeService=(e)=>{
   };
 
   const handleEliminarImg = (index) => {
-/* let imgsall= uploadfiles;
-
-
-imgsall.splice(index, 1);
-
-console.log(imgsall)
-    return setuploadfiles(imgsall)
- */
+    /* let imgsall= uploadfiles;
+    
+    
+    imgsall.splice(index, 1);
+    
+    console.log(imgsall)
+        return setuploadfiles(imgsall)
+     */
     setuploadfiles((prevForm) => {
       const newEspecificaciones = [...prevForm];
       newEspecificaciones.splice(index, 1);
@@ -400,7 +412,7 @@ console.log(imgsall)
     });
   };
 
-  const EliminarImg = async(public_id) => {
+  const EliminarImg = async (public_id) => {
     let res = await MySwal.fire({
       title: '¿Estas seguro de eliminar este registro?',
       text: "Se eliminara de manera permanente!",
@@ -410,40 +422,40 @@ console.log(imgsall)
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar'
     })
-    
+
     if (res.isConfirmed) {
       setloaderProd(true)
-      let deleteOneImg= await ProductosFetch.deleteOneImg({public_id},stateTokenAdmin)
+      let deleteOneImg = await ProductosFetch.deleteOneImg({ public_id }, stateTokenAdmin)
       setloaderProd(false)
 
-      if(deleteOneImg.statusCode===404||deleteOneImg.status===404)  return MySwal.fire({
+      if (deleteOneImg.statusCode === 404 || deleteOneImg.status === 404) return MySwal.fire({
         title: `${deleteOneImg.message}`,
         icon: 'warning'
       });
 
       setloaderProd(true)
-      let deleteOneImgCloudinary= await CloudinaryFetch.deleteOneImgCloudinary({public_id},stateTokenAdmin)
+      let deleteOneImgCloudinary = await CloudinaryFetch.deleteOneImgCloudinary({ public_id }, stateTokenAdmin)
       console.log(deleteOneImgCloudinary)
       setloaderProd(false)
 
-     if(deleteOneImgCloudinary.result!=="ok") return MySwal.fire({
-      title: "No s epudo eliminar esta img",
-      icon: 'warning'
-    });
-    
-     
-      getprod(stateTokenAdmin) 
+      if (deleteOneImgCloudinary.result !== "ok") return MySwal.fire({
+        title: "No s epudo eliminar esta img",
+        icon: 'warning'
+      });
+
+
+      getprod(stateTokenAdmin)
       getprod()
       if (!res.err) return Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
-       
+
       return
     }
-      
-      
+
+
   };
 
   const handleEspecificacionChange = (index, field, value) => {
@@ -462,20 +474,20 @@ console.log(imgsall)
   const handleImagenChange = (e) => {
 
     const { files } = e.target;
-    if(imgs.length>=3) return  MySwal.fire({
+    if (imgs.length >= 3) return MySwal.fire({
       title: <h2>No se puede agregar mas imagenes</h2>,
       icon: 'warning'
-    }) 
-    setimgs([...imgs,files[0]])
+    })
+    setimgs([...imgs, files[0]])
 
-   // const imagenesArray = Array.from(files).map((file) => file);
+    // const imagenesArray = Array.from(files).map((file) => file);
     // const imagenesArray = Array.from(files).map((file) => URL.createObjectURL(file));
     /*   setform((prevForm) => ({
         ...prevForm,
         imagenes: imagenesArray,
       })); */
 
-//    setuploadfiles(imagenesArray)
+    //    setuploadfiles(imagenesArray)
     //setuploadfiles(files[0])
   };
 
@@ -505,8 +517,9 @@ console.log(imgsall)
 
   }
 
-  const resetForm =()=>{
-    setform(formInit); 
+  const resetForm = () => {
+    setformService(formInitService)
+    setform(formInit);
     toggleModal();
     setuploadfiles(initfiles)
     setimgsView([])
@@ -558,6 +571,7 @@ console.log(imgsall)
 
   useEffect(() => {
     getprod()
+    getprodAll()
   }, []);
   useEffect(() => {
 
@@ -579,7 +593,7 @@ console.log(imgsall)
     calcularValorIncluyendoIGV,
     calcularValorTotalSoles,
     /* setformEdit, */
-    calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion,handleAgregarImg, handleEliminarEspecificacion, handleEspecificacionChange
-    , loaderProd,uploadfiles,handleEliminarImg,imgsView,EliminarImg,resetForm,getprod,handleUnidadService,unidadServicio,formService,handleChangeService,SubmirFormService
+    calcularValorTotalSoles_singanacia, StateModal, toggleModal, showCard, cardProd, prodc, setcardProd, handleChange, SubmirForm, form, setform, handleAgregarEspecificacion, handleAgregarImg, handleEliminarEspecificacion, handleEspecificacionChange
+    , loaderProd, uploadfiles, handleEliminarImg, imgsView, EliminarImg, resetForm, getprod, handleUnidadService, unidadServicio, formService, handleChangeService, SubmirFormService,prodAll
   }
 }

@@ -16,10 +16,10 @@ const ModalProduct = () => {
     const {
         handleImagenChange,
         setGanancia, prodc,
-        handleAgregarEspecificacion, setform, StateModal, form, formInit, toggleModal,
+        handleAgregarEspecificacion, StateModal, form, toggleModal,
         handleEliminarEspecificacion,
         handleEspecificacionChange,
-        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd, uploadfiles, handleAgregarImg, handleEliminarImg, imgsView, EliminarImg, resetForm, handleUnidadService, unidadServicio, formService, handleChangeService, SubmirFormService } = UseProdAdmin()
+        SubmirForm, handleChange, getproductEdit, deleteProd, loaderProd, uploadfiles, handleAgregarImg, handleEliminarImg, imgsView, EliminarImg, resetForm, handleUnidadService, unidadServicio, formService, handleChangeService, SubmirFormService, prodAll } = UseProdAdmin()
     const {
         codfabricante,
         codigo,
@@ -36,7 +36,6 @@ const ModalProduct = () => {
         precio_compra_dolar_con,
         precio_compra_soles,
         ganancia,
-        precio_venta,
         stock,
         url_fab,
         url_pro,
@@ -97,6 +96,11 @@ const ModalProduct = () => {
             sortable: true,
         },
         {
+            name: 'Stock',
+            selector: row => row.stock,
+            sortable: true,
+        },
+        {
             name: 'Precio Comp',
             selector: row => row.precio_compra_soles,
             sortable: true,
@@ -104,6 +108,11 @@ const ModalProduct = () => {
         {
             name: 'URL',
             selector: row => (<a href={row.url_fab}>link</a>),
+            sortable: true,
+        },
+        {
+            name: 'Estado',
+            selector: row => row.estado,
             sortable: true,
         },
 
@@ -178,7 +187,7 @@ const ModalProduct = () => {
 
                                             <div className="w-full px-3">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="codigo">
                                                         Codigo
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -303,13 +312,13 @@ const ModalProduct = () => {
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                                     name="stock"
                                                     id="stock"
-                                                    type="text"
+                                                    type="number"
                                                     placeholder="Stock"
                                                 />
                                             </div>
                                             <div className="w-full px-3">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Descripcion">
                                                         Descripcion
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -326,7 +335,7 @@ const ModalProduct = () => {
                                             </div>
                                             <div className="w-full px-3">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Garantia">
                                                         Garantia
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -351,7 +360,7 @@ const ModalProduct = () => {
                                         <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
                                             <div className="w-full px-3">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="marca">
                                                         Marca
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -390,7 +399,7 @@ const ModalProduct = () => {
                                         <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
                                             <div className="w-full px-3 md:col-start-1 md:col-end-2  ">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Imagenes">
                                                         Imagenes
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -422,7 +431,7 @@ const ModalProduct = () => {
 
                                             <div className="w-full px-3 md:col-start-2 md:col-end-4">
                                                 <div className="flex">
-                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Especificaciones">
                                                         Especificaciones
                                                     </label>
                                                     <span className="pl-2 ">*</span>
@@ -459,36 +468,36 @@ const ModalProduct = () => {
                                     </Card>
                                     <Card >
 
-{/*  <Title className="pb-3 font-bold ">Precios</Title> */}
+                                        {/*  <Title className="pb-3 font-bold ">Precios</Title> */}
 
-<div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Precio compra dolar
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <input
-            value={precio_compra_dolar}
-            onChange={(e) => { handleChange(e) }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            name="precio_compra_dolar"
-            id="precio_compra_dolar"
-            type="text"
-            placeholder="Precio Compra Dolar"
-        />
-    </div>
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Precio compra Dolar IGV
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <p id="precio_compra_dolar_igv" className=" pt-3">${form.precio_compra_dolar_igv}</p>
+                                        <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Precio compra dolar">
+                                                        Precio compra dolar
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <input
+                                                    value={precio_compra_dolar}
+                                                    onChange={(e) => { handleChange(e) }}
+                                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                                    name="precio_compra_dolar"
+                                                    id="precio_compra_dolar"
+                                                    type="text"
+                                                    placeholder="Precio Compra Dolar"
+                                                />
+                                            </div>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor=" Precio compra Dolar IGV">
+                                                        Precio compra Dolar IGV
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <p id="precio_compra_dolar_igv" className=" pt-3">${form.precio_compra_dolar_igv}</p>
 
-        {/*  <input
+                                                {/*  <input
         onChange={(e) => handleChange(e)}
         value={form.precio_compra_dolar_igv}
         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -497,17 +506,17 @@ const ModalProduct = () => {
         type="text"
         placeholder="Precio Compra Dolar IGV"
     /> */}
-    </div>
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                PRecio compra Dolar con IGV
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <p id="precio_compra_dolar_con_IGV">${form.precio_compra_dolar_con_IGV}</p>
+                                            </div>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        PRecio compra Dolar con IGV
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <p id="precio_compra_dolar_con_IGV">${form.precio_compra_dolar_con_IGV}</p>
 
-        {/*     <input
+                                                {/*     <input
                 onChange={(e) => {handleChange(e)}}
                 value={form.precio_compra_dolar_con_IGV}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -516,18 +525,18 @@ const ModalProduct = () => {
                 type="text"
                 placeholder="Precio Compra Dolar con IGV"
             /> * */}
-    </div>
+                                            </div>
 
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Precio compra soles
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <p id="precio_compra_soles" className=" pt-3">S/{form.precio_compra_soles}</p>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        Precio compra soles
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <p id="precio_compra_soles" className=" pt-3">S/{form.precio_compra_soles}</p>
 
-        {/*   <input
+                                                {/*   <input
                 onChange={(e) =>{ handleChange(e)}}
                 value={calcularValorTotalSoles_singanacia()}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -536,45 +545,45 @@ const ModalProduct = () => {
                 type="text"
                 placeholder="Precio Compra Soles"
             /> */}
-    </div>
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Ganancia
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <input
-            value={ganancia}
-            onChange={(e) => { handleChange(e); setGanancia(e.target.value) }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            name="ganancia"
-            id="ganancia"
-            type="text"
-            placeholder="Ganancia"
-        />
-    </div>
+                                            </div>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        Ganancia
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <input
+                                                    value={ganancia}
+                                                    onChange={(e) => { handleChange(e); setGanancia(e.target.value) }}
+                                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                                    name="ganancia"
+                                                    id="ganancia"
+                                                    type="text"
+                                                    placeholder="Ganancia"
+                                                />
+                                            </div>
 
 
-    <input name="usuario_id" id="usuario_id" type="hidden" />
+                                            <input name="usuario_id" id="usuario_id" type="hidden" />
 
-</div>
-
-
-
-<div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+                                        </div>
 
 
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Precio venta
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <p id="precio_venta" name="precio_venta"
-            className=" pt-3">${form.precio_venta}</p>
-        {/*    <input
+
+                                        <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+
+
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        Precio venta
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <p id="precio_venta" name="precio_venta"
+                                                    className=" pt-3">${form.precio_venta}</p>
+                                                {/*    <input
                 onChange={(e) => {handleChange(e)}}
                 value={calcularValorTotalSoles()}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -583,53 +592,53 @@ const ModalProduct = () => {
                 type="text"
                 placeholder="Precio Venta"
             /> */}
-    </div>
+                                            </div>
 
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Valor del dolar
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <input
-            value={valor_dolar}
-            onChange={(e) => { handleChange(e); /* setDolar(e.target.value) | */ }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-            name="valor_dolar"
-            id="valor_dolar"
-            type="number"
-            placeholder="Valor del Dólar"
-        />
-    </div>
-    <div className="w-full px-3">
-        <div className="flex">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                Estado
-            </label>
-            <span className="pl-2 ">*</span>
-        </div>
-        <select
-            value={estado}
-            onChange={(e) => handleChange(e)}
-            className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-            name="estado"
-            id="estado"
-        >
-            <option value="A">A</option>
-            <option value="D">D</option>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        Valor del dolar
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <input
+                                                    value={valor_dolar}
+                                                    onChange={(e) => { handleChange(e); /* setDolar(e.target.value) | */ }}
+                                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                                    name="valor_dolar"
+                                                    id="valor_dolar"
+                                                    type="number"
+                                                    placeholder="Valor del Dólar"
+                                                />
+                                            </div>
+                                            <div className="w-full px-3">
+                                                <div className="flex">
+                                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                                                        Estado
+                                                    </label>
+                                                    <span className="pl-2 ">*</span>
+                                                </div>
+                                                <select
+                                                    value={estado}
+                                                    onChange={(e) => handleChange(e)}
+                                                    className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                                                    name="estado"
+                                                    id="estado"
+                                                >
+                                                    <option value="A">A</option>
+                                                    <option value="D">D</option>
 
-            {/* Agrega más opciones aquí */}
-        </select>
-
-
-    </div>
-
-</div>
+                                                    {/* Agrega más opciones aquí */}
+                                                </select>
 
 
+                                            </div>
 
-</Card>
+                                        </div>
+
+
+
+                                    </Card>
 
 
 
@@ -704,7 +713,7 @@ const ModalProduct = () => {
                                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                                     name="stock"
                                                     id="stock"
-                                                    type="text"
+                                                    type="number"
                                                     placeholder="Stock"
                                                 />
                                             </div>
@@ -818,7 +827,7 @@ const ModalProduct = () => {
                         dense
                         columns={columns}
 
-                        data={prodc.length ? prodc : []}
+                        data={prodAll.length ? prodAll : []}
                         pagination
                         selectableRows
                         striped
