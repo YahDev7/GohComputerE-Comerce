@@ -107,7 +107,7 @@ const ModalProduct = () => {
         },
         {
             name: 'URL',
-            selector: row => (<a href={row.url_fab}>link</a>),
+            selector: row => (<a target="_black" href={row.url_fab}>link</a>),
             sortable: true,
         },
         {

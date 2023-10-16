@@ -1,41 +1,41 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import {  UseProAllByCat } from "./Hooks/UseProAllByCat";
+import { UseProAllByCat } from "./Hooks/UseProAllByCat";
 import Loader from "../public/Loader";
 import ProductContext from "../../context/products";
 import CarritoContext from "../../context/carrito";
 import CardProducts from "../Card/CardProducts";
 const ProdAllBySubCat = () => {
-    const {id}=useParams()
-    const { addcarr}=useContext(CarritoContext)
-    const {viewpro,loaderprod}=useContext(ProductContext)
-    const {proAll}=  UseProAllByCat(id)
-    return ( 
+    const { id } = useParams()
+    const { addcarr } = useContext(CarritoContext)
+    const { viewpro, loaderprod } = useContext(ProductContext)
+    const { proAll } = UseProAllByCat(id)
+    return (
         <div className="pt-0 pt-sm-4">
-        <div id="mainComponentes" className=" ">
+            <div id="mainComponentes" className=" ">
 
-            <div className="navegacion mb-4 m-sm-0 ">
-                <nav aria-label="breadcrumb" className="ps-3 container">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#/gohcomputer">Home</a></li>
-                        <li className="breadcrumb-item"><a href="#/categorias">Categorias</a></li>
-                        <li className="breadcrumb-item"><a href={`#/subcategorias/${proAll.length!==0&&proAll[0]?.idcat}`}>{proAll.length!==0&&proAll[0]?.nomcat}</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">{proAll.length!==0&&proAll[0]?.subcatnombre}</li>
-                    </ol>
-                </nav>
-            </div>
-
-            <div className="produts pb-5 container">
-                <h2 className="text-center pb-3 text-4x1 !font-bold" >{proAll.length!==0&&proAll[0]?.subcatnombre}</h2>
-                <div className="mt-3  d-lg-none filter-btn">
-                    <button className="btn btn-warning navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNavBarCali" aria-controls="offcanvasNavbar">
-                        <span className="">Filtrar</span>
-                    </button>
+                <div className="navegacion mb-4 m-sm-0 ">
+                    <nav aria-label="breadcrumb" className="ps-3 container">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item"><a href="#/gohcomputer">Home</a></li>
+                            <li className="breadcrumb-item"><a href="#/categorias">Categorias</a></li>
+                            <li className="breadcrumb-item"><a href={`#/subcategorias/${proAll.length !== 0 && proAll[0]?.idcat}`}>{proAll.length !== 0 && proAll[0]?.nomcat}</a></li>
+                            <li className="breadcrumb-item active" aria-current="page">{proAll.length !== 0 && proAll[0]?.subcatnombre}</li>
+                        </ol>
+                    </nav>
                 </div>
 
-                <div className="text-center pt-3">
+                <div className="produts pb-5 container">
+                    <h2 className="text-center pb-3 text-4x1 !font-bold" >{proAll.length !== 0 && proAll[0]?.subcatnombre}</h2>
+                    <div className="mt-3  d-lg-none filter-btn">
+                        <button className="btn btn-warning navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNavBarCali" aria-controls="offcanvasNavbar">
+                            <span className="">Filtrar</span>
+                        </button>
+                    </div>
 
-          {/*            <div className="row divfilter ">
+                    <div className="text-center pt-3">
+
+                        {/*            <div className="row divfilter ">
                         <div className="col row">
                             <label htmlFor="" className=" col">ordenar por:</label>
                             <select className="form-select col" id="selectOrder" aria-label="Default select example">
@@ -68,7 +68,7 @@ const ProdAllBySubCat = () => {
                         </div>
                     </div> */}
 
-              {/*       <div className="mt-4">
+                        {/*       <div className="mt-4">
                         <nav aria-label="Page navigation example">
                             <ul className="pagination justify-content-center mt-3">
                                 <li className="page-item ">
@@ -84,30 +84,30 @@ const ProdAllBySubCat = () => {
                         </nav>
                     </div>  */}
 
-                </div>
-
-                <div style={{position:"relative"}}>
-                    {loaderprod&& <Loader></Loader>}
-                <section className="sectionProductosAll ">
-
-                    <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">
-
-                        {proAll.length>=1?
-                            proAll.map(el=>
-                                <CardProducts viewpro={viewpro} key={el.idcomp} addcarr={addcarr} laptops={el}></CardProducts>)
-                :
-                <p>{proAll.response}</p>
-
-                        }
-
                     </div>
 
+                    <div style={{ position: "relative" }}>
+                        {loaderprod && <Loader></Loader>}
+                        <section className="sectionProductosAll ">
+
+                            <div className="grid grid-cols-5 max-xl:grid-cols-4  max-sm:grid-cols-1 max-md:grid-cols-3">
+
+                                {proAll.length >= 1 ?
+                                    proAll.map(el =>
+                                        <CardProducts viewpro={viewpro} key={el.idcomp} addcarr={addcarr} laptops={el}></CardProducts>)
+                                    :
+                                    <p>{proAll.response}</p>
+
+                                }
+
+                            </div>
 
 
-                </section>
 
-                </div>
-{/* 
+                        </section>
+
+                    </div>
+                    {/* 
                 <div className="mt-4" >
                     <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-center mt-3">
@@ -123,13 +123,13 @@ const ProdAllBySubCat = () => {
                         </ul>
                     </nav>
                 </div> */}
+                </div>
+
+
             </div>
 
-
-        </div>        
-
-    </div>
-     );
+        </div>
+    );
 }
- 
+
 export default ProdAllBySubCat;

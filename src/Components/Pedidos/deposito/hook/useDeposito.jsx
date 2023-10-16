@@ -48,6 +48,10 @@ const [uploadfile, setuploadfile] = useState(null);
         setenviado({ state: true, text: resdepopedi.message, data: resdepopedi.data })
 
       let res2= await uploadFilesFetch.saveBilleteraVirtual(uploadfile,tokencustomer, resdepopedi.data );
+      if(res2.statusCode){
+        alert("no se consigui subir el archivo, verifique que sea PNG, JPG")
+        
+      } 
 
         if(!res2) return alert("no se consigui subir el archivo")
 
@@ -95,13 +99,16 @@ const [uploadfile, setuploadfile] = useState(null);
           "monto_pagar": statePedido?.total_pagar,
           "vuelto": 0,
           "tipo_compra_venta": "VENTA",
-          "estado": "PENDIENTE"
+          "estado": "CANCELADO"
         }
     
         let resdepopedi = await FetchsPedidos.depositopedido(arrsavede);
         if (resdepopedi.err) return alert(resdepopedi.message)
-    
+        
         setenviado({ state: true, text: resdepopedi.message, data: resdepopedi.data })
+        let res2= await uploadFilesFetch.saveBilleteraVirtual(uploadfile,tokencustomer, resdepopedi.data );
+      if(!res2) return alert("no se consigui subir el archivo")
+
         /*    for(let ind of e.target){
              if(ind.value){
                let  na=ind.name;

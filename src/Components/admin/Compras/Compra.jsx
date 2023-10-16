@@ -21,7 +21,7 @@ const Compra = () => {
     iconAnular, iconNew } = UseIcons()
 
   const {
-    prodc, getprod
+    prodc, getprod,prodAll
   } = UseProdAdmin(stateTokenAdmin)
 
 
@@ -45,7 +45,6 @@ const Compra = () => {
     anular,
     loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable
   } = UseCompra(stateTokenAdmin, getprod)
-  console.log(detalleTable)
   let {
     nombre,
     precio_venta,
@@ -194,6 +193,8 @@ const Compra = () => {
       selector: row => row.descuento,
       sortable: true,
     },
+
+   
     {
       name: 'Importe',
       selector: row => row.importe,
@@ -249,7 +250,7 @@ const Compra = () => {
     },
     {
       name: 'Precio',
-      selector: row => row.precio_venta,
+      selector: row => row.precio_compra_soles,
       sortable: true,
     },
 
@@ -258,7 +259,11 @@ const Compra = () => {
       selector: row => row.stock,
       sortable: true,
     },
-
+    {
+      name: 'Unidad',
+      selector: row => row.unidad,
+      sortable: true,
+    },
 
   ];
 
@@ -335,7 +340,32 @@ const Compra = () => {
                 <button type="submit" className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Enviar</button>
 
                 <Card>
-                  <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
+                  
+                  <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
+                  <div className="w-full px-3">
+                      <div className="flex">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
+                          Metodo de pago
+                        </label>
+                        <span className="pl-2 ">*</span>
+                      </div>
+                      <select
+                        value={metodo_pago}
+                        onChange={(e) => handleChange(e)}
+                        className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
+                        name="metodo_pago"
+                        id="metodo_pago"
+                      >
+                        <option value="">Seleccione</option>
+                        <option value="BCP">BCP</option>
+                        <option value="INTERBANK">INTERBANK</option>
+                        <option value="YAPE">YAPE</option>
+                        <option value="PLIN">PLIN</option>
+                        {/* Agrega más opciones aquí */}
+                      </select>
+
+
+                    </div>
                     <div className="w-full px-3">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipo_documento">
                         Tipo de Documento
@@ -392,6 +422,7 @@ const Compra = () => {
                         Fecha
                       </label>
                       <input
+                      
                         onChange={handleChange}
                         value={fecha}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -621,30 +652,7 @@ const Compra = () => {
                         placeholder="Total a Pagar"
                       />
                     </div>
-                    <div className="w-full px-3">
-                      <div className="flex">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
-                          Metodo de pago
-                        </label>
-                        <span className="pl-2 ">*</span>
-                      </div>
-                      <select
-                        value={metodo_pago}
-                        onChange={(e) => handleChange(e)}
-                        className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-                        name="metodo_pago"
-                        id="metodo_pago"
-                      >
-                        <option value="">Seleccione</option>
-                        <option value="BCP">BCP</option>
-                        <option value="INTERBANK">INTERBANK</option>
-                        <option value="YAPE">YAPE</option>
-                        <option value="PLIN">PLIN</option>
-                        {/* Agrega más opciones aquí */}
-                      </select>
-
-
-                    </div>
+                   
 
 
                   </div>
@@ -743,7 +751,7 @@ const Compra = () => {
               <button onClick={() => { toggleModalProducto() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               <DataTable
                 columns={columnsProductos}
-          data={prodc.length ? prodc : []}
+          data={prodAll.length ? prodAll : []}
                 pagination
                 selectableRows
                 striped

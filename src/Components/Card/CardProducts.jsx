@@ -18,7 +18,13 @@ const CardProducts = ({ laptops, addcarr, viewpro }) => {
 
                 {laptops.precio_antes ?
                     <div className="row">
-                        <p className="PrecioDolar text-[#403f3f] font-semibold"><strike>S/{laptops.precio_venta&& laptops.precio_antes? Number(laptops.precio_antes):""} </strike> - <span className="text-red-600 !text-[18px] font-bold">S/{laptops.precio_venta|| laptops.precio_antes}</span></p>
+                        <p className="PrecioDolar text-[#403f3f] font-semibold">
+                            {(laptops.precio_venta && laptops.precio_antes)&&
+                            <strike>S/{Number(laptops.precio_antes)} -</strike> 
+                            }
+                             
+                            <span className="text-red-600 !text-[18px] font-bold">S/{laptops.precio_venta|| laptops.precio_antes}</span>
+                            </p>
                     </div>
 
 

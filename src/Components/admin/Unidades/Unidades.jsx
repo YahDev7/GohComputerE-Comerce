@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Grid, Col, Card, Text, Metric, Title, BarChart, } from "@tremor/react";
-import AdminSidebar from "../sidebar";
 import { UseUnidad } from "./hooks/use.unidad";
 import Loader from "../../public/Loader";
 
@@ -49,7 +46,7 @@ const Unidad = () => {
       <div className="grid  md:grid-cols-2 gap-4">
 
         <Card className=" w-100">
-          <Title>Ingresos Mensuales</Title>
+          <Title  className="text-blue-800 font-bold !text-[20px]" >Ingresos Mensuales</Title>
           <BarChart
             className="mt-6"
             data={[iMensuales]||[]}
@@ -64,18 +61,18 @@ const Unidad = () => {
         <Grid numCols={1} numColsSm={4} numColsLg={2} className="gap-2">
           <Col >
             <Card>
-              <Text>Productos Registrados totales</Text>
-              <Metric>0</Metric>
+              <Text className="!text-[16px]">Productos Registrados totales</Text>
+              <Metric className="font-bold !text-[20px] pt-2">0</Metric>
             </Card>
           </Col>
           <Card>
-            <Text>Ventas de dia</Text>
-            <Metric>{TDia} </Metric>
+            <Text className="!text-[16px]">Ventas de dia</Text>
+            <Metric className="font-bold !text-[20px] pt-2">{TDia} </Metric>
           </Card>
           <Col>
             <Card>
-              <Text> Total de ventas  </Text>
-              <Metric>{resventas}</Metric>
+              <Text className="!text-[16px]"> Total de ventas  </Text>
+              <Metric className="font-bold !text-[20px] pt-2">{resventas}</Metric>
             </Card>
           </Col>
 
@@ -88,33 +85,33 @@ const Unidad = () => {
  */}
           <Col>
             <Card>
-              <Text>Total de efectivo</Text>
-              <Metric> 0</Metric>
+              <Text className="!text-[16px]">Total de efectivo</Text>
+              <Metric className="font-bold !text-[20px] pt-2"> 0</Metric>
             </Card>
           </Col>
           <Col>
             <Card>
-              <Text>Total deudas</Text>
-              <Metric>0</Metric>
+              <Text className="!text-[16px]">Total deudas</Text>
+              <Metric className="font-bold !text-[20px] pt-2">0</Metric>
             </Card>
           </Col>
           <Col>
             <Card>
-              <Text>Total de Compras</Text>
-              <Metric>{rescompras}</Metric>
+              <Text className="!text-[16px]">Total de Compras</Text>
+              <Metric className="font-bold !text-[20px] pt-2">{rescompras}</Metric>
             </Card>
           </Col>
           <Col>
             <Card>
-              <Text>Ganacias Totales</Text>
-              <Metric>{(resventas - rescompras).toFixed(2)}</Metric>
+              <Text className="!text-[16px]">Ganacias Totales</Text>
+              <Metric className="font-bold !text-[20px] pt-2">{(resventas - rescompras).toFixed(2)}</Metric>
             </Card>
           </Col>
 
         </Grid>
 
         <Card className=" w-100">
-          <Title>Compras Mensuales</Title>
+          <Title className="text-blue-800 font-bold !text-[20px]" >Compras Mensuales</Title>
           <BarChart
             className="mt-6"
             data={[TMescompra]||[]}
@@ -128,7 +125,7 @@ const Unidad = () => {
         </Card>
 
         <Card className=" w-100">
-          <Title>Ingresos Mensuales</Title>
+          <Title className="text-blue-800 font-bold !text-[20px]">Ventas Mensuales</Title>
           <BarChart
             className="mt-6"
             data={[TMes]||[]}

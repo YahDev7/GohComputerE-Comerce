@@ -174,7 +174,7 @@ const CarritoProvider = ({ children }) => {
         tokcarr,
         CantidadTotal,
         CatitadTo,
-        loaderCarrito
+        loaderCarrito,
     }
 
     return (

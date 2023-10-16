@@ -127,9 +127,9 @@ export const UseUnidad = () => {
 
   const getIngresosMensuales = async () => {
     setloaderUnidad(true)
+    console.log(TMes,TMescompra)
     let resventas={...TMes};
     let resCompras={...TMescompra};
-      console.log(TMes)
    
 
   for (const key in resventas) {
@@ -139,7 +139,6 @@ export const UseUnidad = () => {
      // resventas[key] = 0;
    // }
   }
-  console.log(resventas)
   setiMensuales(resventas)
   
   setloaderUnidad(false) 

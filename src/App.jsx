@@ -31,6 +31,7 @@ import PromocionesAdmin from "./Components/admin/Promociones/Index"
 import CompraAdmin from "./Components/admin/Compras"
 import IndexPromociones from "./Components/Promociones"
 import ProductosBySubCat from "./Components/ProductosAll/ProductosBySubCat"
+import FormPrueba from "./Components/formpruebas/form"
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
       <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} />
       <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
+      <Route path={ROUTES.FORM} element={<FormPrueba />} />
       
       <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
       <Route path='*'   element={ <> <Navigate to="/gohcomputer" /> </> } />

@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='w-5/12 min-h-screen grid place-items-center w-sm-8/12 m-auto text-center'>
+      <div className='w-[50%] min-h-screen grid place-items-center max-md:w-[90%]  m-auto text-center'>
         <div className='w-full'>
           <div className='w-full flex flex-col'>
             <h3 className='!text-3xl font-semibold mb-4 text-[#0d1a44]'>Login</h3>

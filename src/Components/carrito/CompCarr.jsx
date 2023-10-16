@@ -30,8 +30,9 @@ const CompCarr = () => {
                     <div className="carrContent row m-auto mb-4 " >
                         <div className="col-lg-12">
                             <h2 className=" !text-4xl font-extrabold text-[#2F466E]" >Carrito de compras</h2>
-                            <button type="button" className="mt-4 limpiarCarr focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Limpiar carrito</button>
-                        </div>
+            
+{/*                             <button type="button"className="mt-4 limpiarCarr focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Limpiar carrito</button>
+ */}                        </div>
 
 
                         <div className="carr m-auto mt-4 p-2 col-12 col-lg-8 mb-4 mb-lg-0" >

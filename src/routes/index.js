@@ -197,6 +197,8 @@ export const ROUTES = {
   COMPRA: {
     WEB: `compraWeb/datosEnvio`,
     CORREO: `compraCorreo`,
-  }
+  },
+  FORM: "/prueba/form",
+
 };
 
