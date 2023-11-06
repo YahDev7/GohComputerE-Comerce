@@ -6,7 +6,8 @@ import Compra from "./Compra";
 const CompraAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+       <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <Compra/>
     </div>

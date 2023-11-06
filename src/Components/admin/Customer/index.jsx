@@ -6,7 +6,8 @@ import Customer from "./customer";
 const CustomerAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+      <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <Customer/>
     </div>

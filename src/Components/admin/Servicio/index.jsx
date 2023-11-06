@@ -4,7 +4,8 @@ import ServicioAdmin from "./Servicio";
 
 function ServiciosIndex() {
     return (
-        <div className="flex ">
+        <div className="flex h-[100vh]">
+
         <TokenAdminProvider>
             <AdminSidebar></AdminSidebar>
             <ServicioAdmin></ServicioAdmin>

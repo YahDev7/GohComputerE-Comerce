@@ -194,6 +194,7 @@ export const ROUTES = {
   CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
   SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
   CONFIRMADO_CORREO: "/confrimado_correo",
+  IMAGENES: "/imagenes",
   COMPRA: {
     WEB: `compraWeb/datosEnvio`,
     CORREO: `compraCorreo`,

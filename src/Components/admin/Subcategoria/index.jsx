@@ -6,7 +6,8 @@ import Subcategoria from "./Subcategoria";
 const SubCategoriaAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+       <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <ModalSubCategoria></ModalSubCategoria>
      {/*  <Subcategoria/> */}

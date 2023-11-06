@@ -121,7 +121,6 @@ const ModalProduct = () => {
 
     ];
 
-    console.log(unidadServicio)
     return (
 
         <div className="w-100 max-md:!w-[80%]">

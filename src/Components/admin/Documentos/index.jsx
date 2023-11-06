@@ -6,7 +6,8 @@ import Documento from "./documento";
 const DocumentoAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+      <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <Documento/>
     </div>

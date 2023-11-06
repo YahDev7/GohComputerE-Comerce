@@ -6,7 +6,8 @@ import User from "./users";
 const UserAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+       <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <User/>
     </div>

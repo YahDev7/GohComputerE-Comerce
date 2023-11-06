@@ -6,7 +6,7 @@ import ModalCategoria from "./Modal";
 const CategoriaAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+    <div className="flex h-[100vh]">
       <AdminSidebar></AdminSidebar>
       <ModalCategoria></ModalCategoria>
    

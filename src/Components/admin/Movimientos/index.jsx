@@ -6,7 +6,8 @@ import Movimientos from "./movimientos";
 const MovimientoAdmin = () => {
   return (
     <TokenAdminProvider>
-    <div className="flex">
+       <div className="flex h-[100vh]">
+
       <AdminSidebar></AdminSidebar>
       <Movimientos/>
     </div>
