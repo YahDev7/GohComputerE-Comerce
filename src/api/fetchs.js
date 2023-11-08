@@ -130,7 +130,7 @@ export const fetchLogin={
 
 export const fetchLoginAdmin={
     login:async (body,token)=>{
-        let headers={ "Content-Type": "application/json", Authorization: `Bearer ${token}`}
+        let headers={ "Content-Type": "application/json"/* , Authorization: `Bearer ${token}` */}
        let res= await method.post(BaseURLAPI2+ROUTES_BACK.USER.LOGIN,body,headers)
        return res
     },

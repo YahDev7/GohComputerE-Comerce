@@ -1,17 +1,14 @@
-import { TokenAdminProvider } from "../../../context/tokenAdmin";
 import AdminSidebar from "../sidebar";
 import ServicioAdmin from "./Servicio";
 
 function ServiciosIndex() {
     return (
+        
         <div className="flex h-[100vh]">
-
-        <TokenAdminProvider>
-            <AdminSidebar></AdminSidebar>
+        <AdminSidebar></AdminSidebar>
             <ServicioAdmin></ServicioAdmin>
-        </TokenAdminProvider>
+          </div>
 
-        </div>
     );
 }
 

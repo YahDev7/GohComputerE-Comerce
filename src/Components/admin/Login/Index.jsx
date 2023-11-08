@@ -1,14 +1,10 @@
-
-import { TokenAdminProvider } from "../../../context/tokenAdmin";
 import Login from "./Login";
-const Index = () => {
+const IndexAdmin = ({setStateTokenAdmin,setuser}) => {
     return (
         <>
-        <TokenAdminProvider>
-            <Login></Login>
-        </TokenAdminProvider>
+            <Login setStateTokenAdmin={setStateTokenAdmin} setuser={setuser} ></Login>
         </>
     );
 }
 
-export default Index;
+export default IndexAdmin;

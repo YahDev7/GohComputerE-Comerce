@@ -9,6 +9,7 @@ export const UseIcons = () => {
     const [iconAnular, seticonAnular] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1694103341/Dashboard/rechazar-_1__1_1_tnddtb.svg");
     const [iconDetalle, seticonDetalle] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1694272035/Dashboard/ver-detalles_w2r9pg.svg");
     const [iconNew, seticonNew] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1694272036/Dashboard/archivo-nuevo_1_xmr63a.svg");
+    const [iconLoad, seticonLoad] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1699416618/Dashboard/TablerReload_m84sqw.svg");
    
     
   return {iconEdit,
@@ -17,6 +18,7 @@ export const UseIcons = () => {
     iconpagar,
     iconAnular,
     iconDetalle,
-    iconNew
+    iconNew,iconLoad
+    
 };
 }

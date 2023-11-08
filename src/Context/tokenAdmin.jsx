@@ -7,15 +7,16 @@ const TokenAdminProvider = ({ children }) => {
 
   let tokenAdmin = localStorage.getItem("tokenadmin")
   let infoUser = localStorage.getItem("user")
+    let userJson = JSON.parse(infoUser)
 
   const [stateTokenAdmin, setStateTokenAdmin] = useState(tokenAdmin === null ? null : tokenAdmin);
-  const [user, setuser] = useState(infoUser === null ? null : infoUser);
+  const [user, setuser] = useState(userJson === null ? null : userJson);
+
 
   //OBTENER EL USER A TRAVEZ DEL TOKEN
-  let navigate = useNavigate()
-  let getUser = async () => {
+  //let navigate = useNavigate()
+ /*  let getUser = async () => {
     if(!stateTokenAdmin) return
-   
     let res = await UserFetch.getDataUserToken(stateTokenAdmin)
     if (res.status === 404){
       localStorage.removeItem("tokenadmin")
@@ -23,14 +24,12 @@ const TokenAdminProvider = ({ children }) => {
 
       setStateTokenAdmin(null)
     }
-
-   
-  }
+  } */
   //if (!user) return location.href = "/#/login/admin"
 
-  useEffect(() => {
+ /*  useEffect(() => {
     getUser()
-  }, []);
+  }, []); */
 
   /* useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
@@ -44,7 +43,7 @@ const TokenAdminProvider = ({ children }) => {
     setStateTokenAdmin,
     user,
     setuser,
-    getUser
+   /*  getUser */
   }
 
   return (

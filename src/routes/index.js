@@ -1,6 +1,13 @@
 // routes.js
 export const ROUTES_BACK = {
   ADMIN: {
+    IMAGES:{
+        GET: '/images/enterprise',
+     //   GETID: (id) => `/subcategoria/enterprise/${id}`,
+       GETLABEL: `/images/enterprise/bylabel`,
+        POST: `/image/upload/images/only`,
+        DELETE: (id) => `/image/images/enterprise//${id}`
+  },
     SUBCATEGORIA: {
       GET: '/subcategoria/enterprise',
       GETID: (id) => `/subcategoria/enterprise/${id}`,
@@ -194,7 +201,7 @@ export const ROUTES = {
   CAJA_ADMIN: "/dashadmin/gohcomputer/Caja",
   SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
   CONFIRMADO_CORREO: "/confrimado_correo",
-  IMAGENES: "/imagenes",
+  IMAGENES: "dashadmin/gohcomputer/Imagenes",
   COMPRA: {
     WEB: `compraWeb/datosEnvio`,
     CORREO: `compraCorreo`,

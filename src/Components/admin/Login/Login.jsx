@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { UseLogin } from "./Hook/UseLogin";
 import TokenAdminContext from "../../../context/tokenAdmin";
+import { Navigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setStateTokenAdmin,setuser}) => {
 
     const {handleChange,send} = UseLogin()
-    const{stateTokenAdmin, user}=useContext(TokenAdminContext)
-
-    if(stateTokenAdmin) return location.href="/#/dashadmin/gohcomputer/Servicios"
+     const{stateTokenAdmin}=useContext(TokenAdminContext)
+    if(stateTokenAdmin) return <Navigate to="/dashadmin/gohcomputer/Servicios"  />
 
     
 
@@ -19,7 +19,7 @@ const Login = () => {
             <h3 className='!text-3xl font-semibold mb-4 text-[#0d1a44]'>Login</h3>
             <p className='text-sm mb-2'>ADMIN</p>
           </div>
-          <form action="" onSubmit={(e)=>{e.preventDefault();send(e)}}>
+          <form action="" onSubmit={(e)=>{e.preventDefault();send(e,setStateTokenAdmin,setuser)}}>
 
             <div className='w-full'>
               <input type="email" placeholder='Email' id="email" name="email" onChange={(e)=>handleChange(e)}

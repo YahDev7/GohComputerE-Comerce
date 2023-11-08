@@ -1,13 +1,9 @@
-import { Button, Tab, TabList, Title, Card } from "@tremor/react";
-import { UseSubCatAdmin } from "../Subcategoria/hook/use.subcategoria";
+import { Button, Card } from "@tremor/react";
 import DataTable from "react-data-table-component";
-import { useContext } from "react";
-import TokenAdminContext from "../../../context/tokenAdmin";
 import { UsePromocionesAdmin } from "./Hook/use.promociones";
 import { UseProdAdmin } from "../Productos/Hook/use.products";
 import { UseIcons } from "../hook/icons";
 import Loader from "../../public/Loader";
-import { UseLoader } from "../hook/loader";
 
 const ModalPromociones = () => {
 

@@ -315,9 +315,9 @@ export const UsePromocionesAdmin = () => {
   useEffect(() => {
     getpromociones()
   }, []);
-  useEffect(() => {
+/*   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
-}, [stateTokenAdmin]);
+}, [stateTokenAdmin]); */
   return {
     fabibra,
     deletePromociones,

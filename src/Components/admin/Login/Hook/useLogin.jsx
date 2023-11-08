@@ -3,7 +3,6 @@ import withReactContent from "sweetalert2-react-content";
 import { useContext, useEffect, useState } from "react";
 
 import { fetchLogin, fetchLoginAdmin } from "../../../../api/fetchs";
-import TokenAdminContext from "../../../../context/tokenAdmin";
 
 
 const MySwal = withReactContent(Swal) 
@@ -13,11 +12,7 @@ let frmlogin = {
 }
 
 export const UseLogin = () => {
-
-    const [form, setform] = useState(frmlogin);
-    const {stateTokenAdmin,user,setuser} =useContext(TokenAdminContext)
-
-  
+    const [form, setform] = useState(frmlogin); 
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -28,8 +23,9 @@ export const UseLogin = () => {
   
     }
 
-    const send = async (e) => {
-     let res=await fetchLoginAdmin.login(form,stateTokenAdmin)
+    const send = async (e,setStateTokenAdmin,setuser) => {
+
+      let res=await fetchLoginAdmin.login(form)
       if(res.statusCode) return MySwal.fire({
           title: <h2>{res.message}</h2>,
           icon: 'error'
@@ -39,15 +35,26 @@ export const UseLogin = () => {
           icon: 'error'
         }) 
   
-        MySwal.fire({
-          title: <h2>Bienvenido {res.user.nombre}</h2>,
-          icon: 'success'
+        localStorage.setItem("tokenadmin",res.token)
+        localStorage.setItem("user",JSON.stringify(res.user))
+        setStateTokenAdmin(res.token)
+        setuser(res.user)
+        /* setTimeout(() => {
+          return location.href="/#/dashadmin/gohcomputer/Servicios";
+        }, 5000); */
+
+        
+         MySwal.fire({
+          title: <h2 className="!text-3xl">Bienvenido {res.user.nombre}</h2>,
+         /*  icon: 'success' */
         })        
 
        // document.cookie=`token=${res.token}`
-      localStorage.setItem("tokenadmin",res.token)
-      localStorage.setItem("user",JSON.stringify(res.user))
-      location.href="/#/dashadmin/gohcomputer/Servicios";   
+     
+
+      //return <Navigate to="/dashadmin/gohcomputer/Servicios"  />
+    
+      
     }
     return {
         handleChange,

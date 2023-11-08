@@ -8,7 +8,6 @@ let formInit = {
   nombre: '',
   estado: 'A'
 }
-
 let initfiles = null
 
 export const UseCatAdmin = (stateTokenAdmin) => {
@@ -138,9 +137,9 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     getcategoria(stateTokenAdmin)
   }, []);
 
-  useEffect(() => {
+ /*  useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
-  }, [stateTokenAdmin]);
+  }, [stateTokenAdmin]); */
   
   return {
     categoria,

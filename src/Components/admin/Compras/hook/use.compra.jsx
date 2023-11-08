@@ -36,7 +36,7 @@ let formInitProduct = {
     precio_compra_soles: '',
     stock: ""
 }
-console.log( new Date().toLocaleDateString('es-ES'))
+//console.log( new Date().toLocaleDateString('es-ES'))
 export const UseCompra = (stateTokenAdmin, getprod) => {
 
     const [loaderDoc, setloaderDoc] = useState(false);

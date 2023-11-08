@@ -81,7 +81,7 @@ export const UseProdAdmin = () => {
   const [imgs, setimgs] = useState([]);
   const { user, stateTokenAdmin } = useContext(TokenAdminContext)
   if (!user) return location.href = "/#/login/admin"
-  let datauser = JSON.parse(user)
+  let datauser = user
   const { usuario_id, enterprise_id } = datauser
 
   const handleUnidadService = (e) => {

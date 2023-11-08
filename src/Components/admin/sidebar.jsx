@@ -1,33 +1,40 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import TokenAdminContext from "../../context/tokenAdmin";
 
 
 
 const AdminSidebar = () => {
-    const { user } = useContext(TokenAdminContext)
-    if (!user) return location.href = "/#/login/admin"
-    let userJson = JSON.parse(user)
+    const { user,setStateTokenAdmin,stateTokenAdmin } = useContext(TokenAdminContext)
+   // let userJson = JSON.parse(user)
+    let userJson = user
+    console.log(userJson)
 
     const [open, setOpen] = useState(false);
     const query = useLocation();
     let initCat = query.pathname.split("/")[3];
     const [cat, setcat] = useState(initCat);
 
+    /*   useEffect(() => {
+         let initCat2 = query.pathname.split("/")[3];
+         setcat(initCat2)
+     }, [query]);  */
+
     const Menus = [
         { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
         { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
-        { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/usuario_1_xedpvr.svg", gap: true, rol: "ADMIN" },
-        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/grupo_1_rnbcez.svg", rol: "CUSTOMER" },
+        { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413078/Dashboard/PhUser_yeinnd.svg", gap: true, rol: "ADMIN" },
+        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413113/Dashboard/PhUsersThree_kso3xu.svg", rol: "CUSTOMER" },
         { title: "Promociones", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/promocion_1_duczxv.svg", rol: "CUSTOMER" },
-        { title: "Imagenes", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/promocion_1_duczxv.svg", rol: "CUSTOMER" },
+        { title: "Imagenes", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699412866/Dashboard/MaterialSymbolsImageOutlineRounded_utrnkr.svg", rol: "CUSTOMER" },
         //{ title: "Providers", src: "User" },
         { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/caja_1_ycmuvg.svg", rol: "CUSTOMER" },
         { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg", rol: "CUSTOMER" },
         { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg", rol: "CUSTOMER" },
         { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
-        { title: "Compras", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
-        { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/flujo-de-fondos_1_qoetj8.svg", icon: "https://www.flaticon.es/iconos-gratis/base-de-datos", rol: "CUSTOMER" },
+        { title: "Compras", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413308/Dashboard/PhShoppingCart_umwjve.svg", rol: "CUSTOMER" },
+        { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413451/Dashboard/FluentShiftsAvailability20Regular_qkvcbr.svg", icon: "https://www.flaticon.es/iconos-gratis/base-de-datos", rol: "CUSTOMER" },
+        { title: "Cerrar Sesion", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699294748/Dashboard/MaterialSymbolsLogout_aienrj.svg", logout: true, rol: "CUSTOMER" },
         // { title: "Caja", src: "User" },
         //{ title: "Fechas ", src: "Calendar" },
         //{ title: "Search", src: "Search" },
@@ -60,7 +67,11 @@ const AdminSidebar = () => {
                     {userJson.rol === "ADMIN" && Menus.map((Menu, index) => (
 
                         <li key={index}>
-                            <a href={`/#/dashadmin/gohcomputer/${Menu.title}`} title={Menu.title} className={` flex rounded-md p-2 cursor-pointer  hover:bg-light-white hover:text-white text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"} ${Menu.title === cat && "bg-light-white"} `}>
+                            <a href={Menu.logout ? "/#/login/admin" : `/#/dashadmin/gohcomputer/${Menu.title}`} title={Menu.title} onClick={Menu.logout ? () => {
+                                setStateTokenAdmin(null)
+                                localStorage.removeItem("tokenadmin");
+                                localStorage.removeItem("user")
+                            } : undefined} className={` flex rounded-md p-2 cursor-pointer  hover:bg-light-white hover:text-white text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"} ${Menu.title === cat && "bg-light-white"} `}>
                                 <img src={`${Menu.src}`} width="20px" />
 
                                 <span className={`${!open && "hidden"} origin-left duration-200`}>
@@ -68,11 +79,12 @@ const AdminSidebar = () => {
                                 </span>
                             </a>
                         </li>
+
                     ))}
 
                     {userJson.rol === "COMUN" && Menus.map((Menu) => (
 
-Menu.rol==="CUSTOMER"&&
+                        Menu.rol === "CUSTOMER" &&
                         <li >
                             <a href={`/#/dashadmin/gohcomputer/${Menu.title}`} title={Menu.title} className={` flex rounded-md p-2 cursor-pointer  hover:bg-light-white hover:text-white text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"} ${Menu.title === cat && "bg-light-white"} `}>
                                 <img src={`${Menu.src}`} width="20px" />

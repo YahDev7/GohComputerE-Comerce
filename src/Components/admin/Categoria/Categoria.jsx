@@ -3,12 +3,12 @@ import TokenAdminContext from "../../../context/tokenAdmin";
 import ModalCategoria from "./Modal";
 
 const Categoria = () => {
-
+/* 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
 
   useEffect(() => {
     if (!stateTokenAdmin) return location.href = "/#/login/admin"
-  }, [stateTokenAdmin]);
+  }, [stateTokenAdmin]); */
 
   return (
 

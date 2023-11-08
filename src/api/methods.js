@@ -19,6 +19,16 @@ export const method={
         const res2 =await res.json();    
         return res2;
     },
+    postImg:async(url,body,headers={ "Content-Type": "application/json"})=>{
+        let options= {
+            method: "POST",
+            body,
+            headers
+          }
+        const res = await fetch(url,options)
+        const res2 =await res.json();    
+        return res2;
+    },
     put:async(url,body,headers={ "Content-Type": "application/json"})=>{
         let options= {
             method: "PUT",

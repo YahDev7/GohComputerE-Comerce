@@ -32,15 +32,18 @@ import CompraAdmin from "./Components/admin/Compras"
 import IndexPromociones from "./Components/Promociones"
 import ProductosBySubCat from "./Components/ProductosAll/ProductosBySubCat"
 import FormPrueba from "./Components/formpruebas/form"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import TokenAdminContext from "./context/tokenAdmin"
+import { GuardRoute } from "./Components/admin/Guard/guard"
+import ImagesIndex from "./Components/admin/Images"
 
 function App() {
-
+  const { stateTokenAdmin,setStateTokenAdmin, user,setuser } = useContext(TokenAdminContext)
 
   return (
     <div>
       <Routes>
+        <Route path={ROUTES.LOGIN_ADMIN} element={<IndexAdmin setuser={setuser} setStateTokenAdmin={setStateTokenAdmin}/>} />
         <Route path={ROUTES.INDEX} element={<Index />} />
         <Route path={ROUTES.DESCRIPTION} element={<Description />} />
         <Route path={ROUTES.ALL_PROMO} element={<IndexPromociones />} />
@@ -57,36 +60,39 @@ function App() {
         <Route path={ROUTES.CONFIRMADO} element={<Confirmado />} />
         <Route path={ROUTES.DEPOSITO_PEDIDO} element={<DepositoPedido />} />
         <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
+      
 
-        <Route path={ROUTES.LOGIN_ADMIN} element={<IndexAdmin />} />
-        {/*    <Route path={ROUTES.REGISTER_ADMIN} element={<Register />} /> */}
+        <Route element={<GuardRoute  user={user} tokenAdmin={stateTokenAdmin} redirecto="login/admin" />}>
+          <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
+           <Route path={ROUTES.IMAGENES} element={<ImagesIndex />} /> 
+          <Route path={ROUTES.SERVICIO_ADMIN} element={<ServiciosIndex />} />
+          <Route path={ROUTES.USER_ADMIN} element={<UserAdmin />} />
+          <Route path={ROUTES.CUSTOMERS_ADMIN} element={<CustomerAdmin />} />
+          {/* <Route path={ROUTES.PROVIDERS_ADMIN} element={<AdminSidebar />} /> */}
+          <Route path={ROUTES.PRODUCTOS_ADMIN} element={<ProductosAdmin />} />
+          <Route path={ROUTES.CATEGORIA_ADMIN} element={<CategoriaAdmin />} />
+          <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubCategoriaAdmin />} />
+          <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<DocumentoAdmin />} />
+          <Route path={ROUTES.COMPRAS_ADMIN} element={<CompraAdmin />} />
+          <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<MovimientoAdmin />} />
+          <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
+        </Route>
 
+        <Route path='*' element={<> <Navigate to="/gohcomputer" /> </>} />
+        <Route path='/dashadmin/*' element={<> <Navigate to="/dashadmin/gohcomputer/Servicios" /> </>} />
 
-        <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
-        <Route path={ROUTES.IMAGENES} element={<UnidadAdmin />} />
-        <Route path={ROUTES.SERVICIO_ADMIN} element={<ServiciosIndex />} />
-        <Route path={ROUTES.USER_ADMIN} element={<UserAdmin />} />
-        <Route path={ROUTES.CUSTOMERS_ADMIN} element={<CustomerAdmin />} />
-        <Route path={ROUTES.PROVIDERS_ADMIN} element={<AdminSidebar />} />
-        <Route path={ROUTES.PRODUCTOS_ADMIN} element={<ProductosAdmin />} />
-        <Route path={ROUTES.CATEGORIA_ADMIN} element={<CategoriaAdmin />} />
-        <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubCategoriaAdmin />} />
-        <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<DocumentoAdmin />} />
-        <Route path={ROUTES.COMPRAS_ADMIN} element={<CompraAdmin />} />
-        <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<MovimientoAdmin />} />
-        <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
-
+        {/*  
+       
 
         <Route path={ROUTES.FORM} element={<FormPrueba />} />
 
 
-        {/*   <Route path={ROUTES.CAJA_ADMIN} element={<AdminSidebar />} />
-      <Route path={ROUTES.SETTING_ADMIN} element={<AdminSidebar />} /> */}
-        <Route path='*' element={<> <Navigate to="/gohcomputer" /> </>} />
-        <Route path='/dashadmin/*' element={<> <Navigate to="/dashadmin/gohcomputer/Servicios" /> </>} />
-
+ 
+      
+ */}
       </Routes>
     </div>
+
   )
 }
 
