@@ -39,7 +39,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         setuploadfileMovAd([files[0]])
     };
 
-    const getdocumento = async (token) => {
+    const getMovimiento = async (token) => {
         setloaderMov(true)
         let res = await MovimientoFetch.get(token)
         setstateMovimiento(res)
@@ -141,7 +141,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
     }
 
     useEffect(() => {
-        getdocumento(stateTokenAdmin)
+        getMovimiento(stateTokenAdmin)
     }, []);
 
 
@@ -157,7 +157,7 @@ export const UseMovimiento = (stateTokenAdmin) => {
         setstateMovimiento,
         formMov,
         setformMov,
-        getdocumento,
+        getMovimiento,
         handleChangeMov,
         handleSubmitMov,
         getdocumentoid,

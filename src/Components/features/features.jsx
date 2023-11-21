@@ -1,7 +1,7 @@
 const Features = () => {
 
     return (
-      <section className="features-section">
+      <section className="features-section !bg-[#e7f4ff] !text-blue-950">
         <div className="container">
           <div className="row">
             <div className="fea col-lg col-md-6">

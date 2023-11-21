@@ -74,7 +74,9 @@ const CompDescription = () => {
         return box
     }
 
-    return (<div>
+    return (
+    
+    <div>
 
         {stateonepro.err ? <h2>{stateonepro.statusText}</h2> :
             <div className="pt-0 pt-sm-4">
@@ -106,7 +108,7 @@ const CompDescription = () => {
                                                     stateonepro?.imagenes.length > 0 &&
                                                     stateonepro.imagenes.map(el=>
                                                         <div>
-                                                        <img src={el.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
+                                                        <img src={el.URL ||el.secure_url || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProDescrip" alt="" />
                                                         </div>
                                                         )
 

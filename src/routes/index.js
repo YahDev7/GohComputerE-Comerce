@@ -3,10 +3,11 @@ export const ROUTES_BACK = {
   ADMIN: {
     IMAGES:{
         GET: '/images/enterprise',
-     //   GETID: (id) => `/subcategoria/enterprise/${id}`,
+       GETID: (id) => `/images/enterprise/${id}`,
        GETLABEL: `/images/enterprise/bylabel`,
         POST: `/image/upload/images/only`,
-        DELETE: (id) => `/image/images/enterprise//${id}`
+        PUT: (id) =>`/images/update/enterprise/${id}`,
+        DELETE: (id) => `/image/images/enterprise/${id}`
   },
     SUBCATEGORIA: {
       GET: '/subcategoria/enterprise',
@@ -85,10 +86,14 @@ export const ROUTES_BACK = {
       GETWITHSTOCK: `/products/enterprise/withstock`,
       GETALL: `/products/enterprise/all`,
       POST: `/products/enterprise/save`,
+      POSTIMG: `/products/enterprise/save/img`,
+
+      
       POSTSERVICE: `/products/enterprise/save/service`,
       GETBYID: (id) => `/products/enterprise/getone/${id}`,
       GETBYIDSERVICE: (id) => `/products/enterprise/getone/service/${id}`,
       PUT: (id) => `/products/enterprise/update/${id}`,
+      PUTIMG: (id) => `/products/enterprise/update/img/${id}`,
       PUTSERVICE: (id) => `/products/enterprise/update/service/${id}`,
       DELETE: (id) => `/products/enterprise/delete/${id}`,
       DELETEONEIMG: `/products/enterprise/img`,

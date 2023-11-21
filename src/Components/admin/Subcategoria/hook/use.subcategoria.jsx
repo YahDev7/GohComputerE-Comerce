@@ -142,6 +142,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
 
   return {
     subcategoria,
+    getsubcategoria,
     formInit,
     form,
     handleSubmit,

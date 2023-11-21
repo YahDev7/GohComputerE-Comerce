@@ -320,6 +320,7 @@ export const UsePromocionesAdmin = () => {
 }, [stateTokenAdmin]); */
   return {
     fabibra,
+    getpromociones,
     deletePromociones,
     formInit,
     getpromocionesEdit,

@@ -6,7 +6,7 @@ function ImagesIndex() {
 
         <div className="flex h-[100vh]">
             <AdminSidebar></AdminSidebar>
-            <ImagenesAdmin></ImagenesAdmin>
+            <ImagenesAdmin/>
         </div>
 
     );

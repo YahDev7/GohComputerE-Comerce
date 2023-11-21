@@ -7,36 +7,90 @@ import { ImageFetch } from "../../../../api/Image.fetch";
 const MySwal = withReactContent(Swal)
 
 export const UseImagesAdmin = () => {
-  let formInitImage = {
-    label: [],
-    estado: "A",
-  }
+
   const [loaderImage, setloaderImage] = useState(false);
-  const [formImage, setformImage] = useState(formInitImage)
-  const [StateImage, setStateImage] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [tagsId, setTagsId] = useState(null);
+  const { stateTokenAdmin } = useContext(TokenAdminContext)
   let initfilesImage = null
   const [Images, setImages] = useState([]);
-
+  const [SelectImg, setSelectImg] = useState(null);
   const [uploadfileImage, setuploadfileImage] = useState(initfilesImage);
+  const [StateModalImage, setStateModalImage] = useState(false);
 
-  const handleChangeImage = (e) => {
-    const { files } = e.target;
-    setuploadfile(files[0])
-  };
+  const [selectImage, setselectImage] = useState([]);
+  const [selectedImg, setselectedImg] = useState([]);
 
-  const toggleModalImage = () => {
-    if (StateImage) return setStateImage(false)
-    if (!StateImage) return setStateImage(true)
-    setform(formInit)
+  const addTags = (e) => {
+    let { value } = e.target;
+    if (e.key === ",") {
+      const newString = value.replace(",", "");
+      if (newString === "") return e.target.value = ""
+      setTags([...tags, newString])
+      e.target.value = ""
+    }
   }
 
+  const getId = async (id) => {
+    setloaderImage(true)
 
-  const { stateTokenAdmin } = useContext(TokenAdminContext)
+    let resById = await ImageFetch.getOne(id, stateTokenAdmin);
+    setloaderImage(false)
+
+    let { label, _id } = resById
+    console.log(resById)
+    setTags(label)
+    setTagsId(_id)
+
+  }
+
+  const ImagehandleSelect = () => {
+    setselectedImg(selectImage)
+    /*     selectImage.map()
+        let {  _id, secure_url } = selectImage
+        setselectedImg([
+           ...selectedImg,
+           { _id, secure_url }
+              ]);
+              toggleModalImage()
+        */
+    toggleModalImage()
+
+  }
+
+  const ImageDeleteSelect = (id) =>  setselectedImg(selectedImg.filter((el) => el._id !== id))
+  
+/*   const getImagesEdit=()=>{
+
+  } */
+  const imageSelectTable = async ({ selectedRows }) => {
+    if (selectedImg.length === 3) return await Swal.fire({
+      icon: 'warning',
+      title: 'Seleccione como maximo 3',
+    })
+
+    if (selectedRows.length > 3) return await Swal.fire({
+      icon: 'warning',
+      title: 'Seleccione como maximo 3',
+    })
+    setselectImage(selectedRows)
+  };
+
+  const removeTag = (indexRemove) => setTags(tags.filter((el, index) => index !== indexRemove))
+
+  const deleteImage = (e) => setSelectImg(null)
+
+  const handleFileChangeImage = (e) => {
+    const { files } = e.target;
+    let fileOnly = files[0]
+    setuploadfileImage(fileOnly)
+    setSelectImg(URL.createObjectURL(fileOnly))
+
+  };
 
   const getImages = async () => {
     setloaderImage(true)
     let res = await ImageFetch.get(stateTokenAdmin)
-    console.log(res)
     setImages(res)
     setloaderImage(false)
   }
@@ -63,16 +117,10 @@ export const UseImagesAdmin = () => {
           }) */
 
     if (res2.isConfirmed) {
-
+      setloaderImage(true)
       let res = await ImageFetch.delete(id, stateTokenAdmin)
       setloaderImage(false)
-      /*  if(res.message) return  Swal.fire(
-         'Alerta!',
-         res.message,
-         'warning'
-       ) */
-
-       getImages(stateTokenAdmin)
+      getImages(stateTokenAdmin)
 
       if (!res.err) return Swal.fire(
         'Eliminado!',
@@ -83,14 +131,13 @@ export const UseImagesAdmin = () => {
     }
   }
 
-  const [StateModalImage, setStateModalImage] = useState(false);
 
-  const SubmirForm = async (e) => {
+  const SubmirFormImage = async (e) => {
+
     setloaderImage(true)
 
-    /* if (form._id) {
-      const { __v, _id, enterprise_id, ...form2 } = form
-      let res3 = await PromocionesFetch.put(_id, form2, stateTokenAdmin)
+    if (tagsId) {
+      let res3 = await ImageFetch.put(stateTokenAdmin, tags, tagsId)
 
       setloaderImage(false)
       if (res3.statusCode === 400 || res3.statusCode === 500) return MySwal.fire({
@@ -103,19 +150,18 @@ export const UseImagesAdmin = () => {
         icon: 'warning'
       });
 
-
+      getImages(stateTokenAdmin)
+      toggleModalImage()
       await Swal.fire({
         icon: 'success',
         title: 'Actualizado con éxito',
       })
-      setform(formInit)
 
       return;
-    } */
+    }
 
     //ENVIAR EL TOKEN PARA LAS APIS
-    let newform = { ...formImage }
-    let res = await ImageFetch.post(stateTokenAdmin,uploadfileImage,newform)
+    let res = await ImageFetch.post(stateTokenAdmin, uploadfileImage, tags)
     setloaderImage(false)
     // if (res.statusCode) return alert(res.message.map((el) => el))   
     if (res.statusCode === 400 || res.statusCode === 500) return MySwal.fire({
@@ -128,26 +174,23 @@ export const UseImagesAdmin = () => {
       icon: 'warning'
     });
 
-    setformImage(formInitImage)
     getImages(stateTokenAdmin)
-
+    toggleModalImage()
     let resalert = await Swal.fire({
       icon: 'success',
       title: 'Guardado con éxito',
     })
-   
+
     return;
   }
 
-  const toggleModal = () => {
+  const toggleModalImage = () => {
     if (StateModalImage) return setStateModalImage(false)
     if (!StateModalImage) return setStateModalImage(true)
-    setform(formInit)
+    resetFormImage()
   }
 
-  
-
-  const handleChange = (e) => {
+  const handleChangeImage = (e) => {
     const { name, value } = e.target;
 
     let newform = {
@@ -159,9 +202,11 @@ export const UseImagesAdmin = () => {
     setformImage(newform)
   }
 
-  
-
-
+  const resetFormImage = () => {
+    setSelectImg(null);
+    setTags([])
+    setTagsId(null)
+  }
 
   useEffect(() => {
     getImages()
@@ -172,6 +217,23 @@ export const UseImagesAdmin = () => {
     getImages,
     loaderImage,
     StateModalImage,
-    Images
+    Images,
+    toggleModalImage,
+    SubmirFormImage,
+    handleFileChangeImage,
+    handleChangeImage,
+    addTags,
+    tags,
+    removeTag,
+    SelectImg,
+    deleteImage,
+    resetFormImage,
+    getId,
+    deletePromociones,
+    ImagehandleSelect,
+    imageSelectTable,
+    selectedImg,
+    ImageDeleteSelect,
+    setselectedImg
   }
 }

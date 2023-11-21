@@ -20,15 +20,14 @@ const Movimientos = () => {
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
-  const { iconNew } = UseIcons()
+  const { iconNew,iconLoad  } = UseIcons()
   const { formInit,
     stateMovimiento,
     formMov,
     setformMov,
     handleFileChange,
     handleChange,
-    handleSubmitMov, loaderMov, getDetalle } = UseMovimiento(stateTokenAdmin)
-    console.log(stateMovimiento)
+    handleSubmitMov, loaderMov, getDetalle,getMovimiento  } = UseMovimiento(stateTokenAdmin)
 
 
   let { documento_id,
@@ -77,7 +76,7 @@ const Movimientos = () => {
     },
     {
       name: 'Estado',
-      selector: row => <span class={`inline-flex items-center rounded-md bg-${row.estado === "PENDIENTE" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.estado === "PENDIENTE" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.estado === "PENDIENTE" ? "yellow" : "green"}-600/20`}>{row.estado}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.estado === "PENDIENTE" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.estado === "PENDIENTE" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.estado === "PENDIENTE" ? "yellow" : "green"}-600/20`}>{row.estado}</span>,
       sortable: true,
     },
     {
@@ -90,7 +89,7 @@ const Movimientos = () => {
     },
     {
       name: 'Metodo Pago',
-      selector: row => <span class={`inline-flex items-center rounded-md bg-${row.metodo_pago === "deposito" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.metodo_pago === "deposito" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-700 ring-1 ring-inset ring-${row.metodo_pago === "COMPRA" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-600/20`}>{row.metodo_pago}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.metodo_pago === "deposito" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.metodo_pago === "deposito" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-700 ring-1 ring-inset ring-${row.metodo_pago === "COMPRA" ? "red" : row.metodo_pago === "YAPE" ? "purple" : "green"}-600/20`}>{row.metodo_pago}</span>,
       sortable: true,
     },
     {
@@ -110,7 +109,7 @@ const Movimientos = () => {
     },
     {
       name: 'TipoMov',
-      selector: row => <span class={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-600/20`}>{row.tipo_compra_venta}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.tipo_compra_venta === "COMPRA" ? "yellow" : "green"}-600/20`}>{row.tipo_compra_venta}</span>,
       sortable: true,
     },
 
@@ -124,7 +123,13 @@ const Movimientos = () => {
         {loaderMov && <Loader />}
 
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Movimientos</h2>
+        <button onClick={() => { getMovimiento(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+          <div className="flex">
 
+            <img src={iconLoad} width="20px" alt="" />
+
+          </div>
+        </button>
         <button onClick={() => { setformMov(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
 

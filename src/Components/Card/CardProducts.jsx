@@ -4,7 +4,7 @@ const CardProducts = ({ laptops, addcarr, viewpro }) => {
         <div className="boxProAll">
             <div className="contentimg">
                 {laptops?.imagenes.length>=1&&
-                <img src={laptops?.imagenes[0]?.URL || laptops?.imagenes[0][0]?.URL || 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProAll" alt="" />
+                <img src={laptops?.imagenes[0]?.URL || laptops?.imagenes[0][0]?.URL || laptops?.imagenes[0].secure_url|| 'https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg'} className="imgProAll" alt="" />
 }
                 <div onClick={(e) => viewpro(laptops.idcomp)} className="btncomprar" style={{ cursor: "pointer" }}>
                     <button onClick={(e) => (e.stopPropagation(), addcarr(laptops.idcomp, 1))} className="addCarr btn btn-danger p-2">Comprar</button>

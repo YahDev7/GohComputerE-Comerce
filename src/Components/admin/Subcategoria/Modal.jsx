@@ -10,14 +10,14 @@ import { UseIcons } from "../hook/icons";
 import Loader from "../../public/Loader";
 const ModalSubCategoria = () => {
 
-    const { iconEdit, iconDelete, iconNew } = UseIcons()
+    const { iconEdit, iconDelete, iconNew,iconLoad } = UseIcons()
 
     const { StateModal, setStateModal, toggleModal } = UseToggle()
     const { stateTokenAdmin } = useContext(TokenAdminContext)
 
     const { handleSubmit, handleChange, subcategoria,
         form, setform, formInit, getEdit,
-        deleteUser, handleImagenChange, loaderSubCat } = UseSubCatAdmin(stateTokenAdmin)
+        deleteUser, handleImagenChange, loaderSubCat,getsubcategoria } = UseSubCatAdmin(stateTokenAdmin)
 
     const { categoria } = UseCatAdmin(stateTokenAdmin)
     let { nombre,
@@ -67,7 +67,13 @@ const ModalSubCategoria = () => {
             <Card>
 
                 <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Sub Categorias</h2>
+                <button onClick={() => { getsubcategoria(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                    <div className="flex">
 
+                        <img src={iconLoad} width="20px" alt="" />
+
+                    </div>
+                </button>
                 <button onClick={() => toggleModal()} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     <div className="flex">
 

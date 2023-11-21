@@ -1,4 +1,4 @@
-import {Card,Title,} from "@tremor/react";
+/* import {Card,Title,} from "@tremor/react";
 
 import ModalProduct from "./Modal";
 import { UseProdAdmin } from "./Hook/use.products";
@@ -25,4 +25,4 @@ const Productos = () => {
     );
 }
 
-export default Productos;
+export default Productos; */

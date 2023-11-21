@@ -18,8 +18,7 @@ import Loader from "../../public/Loader";
 
 const Documento = () => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  const { iconpagar,
-    iconAnular, iconNew } = UseIcons()
+  const { iconpagar,  iconAnular, iconNew,iconLoad  } = UseIcons()
   const {
     prodc, getprod
   } = UseProdAdmin(stateTokenAdmin)
@@ -47,7 +46,7 @@ const Documento = () => {
     toggleModalMovimiento,
     StateModalMovimiento,
     anular,
-    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable
+    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable,getdocumento,
   } = UseDocumento(stateTokenAdmin, getprod)
 
   const {
@@ -322,7 +321,13 @@ const Documento = () => {
 
       <Card>
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Documentos</h2>
+        <button onClick={() => { getdocumento(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+          <div className="flex">
 
+            <img src={iconLoad} width="20px" alt="" />
+
+          </div>
+        </button>
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
 

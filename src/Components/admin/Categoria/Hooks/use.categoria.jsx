@@ -68,13 +68,13 @@ export const UseCatAdmin = (stateTokenAdmin) => {
         'warning'
       )
 
+      getcategoria(stateTokenAdmin)
+      setloaderCat(false)
       Swal.fire(
         'Eliminado!',
         'El registro fue eliminado con exito',
         'success'
       )
-      getcategoria(stateTokenAdmin)
-      setloaderCat(false)
 
       return
     }
@@ -103,12 +103,12 @@ export const UseCatAdmin = (stateTokenAdmin) => {
         title: <h2>{res3.message}</h2>,
         icon: 'error'
       })
-
+      getcategoria(stateTokenAdmin)
+      setform(formInit)
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,
         icon: 'success'
       })
-      setform(formInit)
 
       return;
     }
@@ -122,13 +122,13 @@ export const UseCatAdmin = (stateTokenAdmin) => {
       let res3 = await uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin, res._id)
     }
 
+    setform(formInit)
+    getcategoria(stateTokenAdmin)
     setloaderCat(false)
     let resalert = await Swal.fire({
       icon: 'success',
       title: 'Guardado con éxito',
     })
-    setform(formInit)
-    getcategoria(stateTokenAdmin)
 
     return;
   }

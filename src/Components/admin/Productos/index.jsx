@@ -1,12 +1,12 @@
 import AdminSidebar from "../sidebar";
-import ModalProduct from "./Modal";
+import Product from "./product";
 
 const ProductosAdmin = () => {
   return (
     <div className="flex h-[100vh]">
     <AdminSidebar></AdminSidebar>
     
-      <ModalProduct ></ModalProduct>
+      <Product ></Product>
       </div>
       
       

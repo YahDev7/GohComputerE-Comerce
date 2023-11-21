@@ -18,10 +18,10 @@ import Loader from "../../public/Loader";
 const Compra = () => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { iconpagar,
-    iconAnular, iconNew } = UseIcons()
+    iconAnular, iconNew, iconLoad } = UseIcons()
 
   const {
-    prodc, getprod,prodAll
+    prodc, getprod, prodAll
   } = UseProdAdmin(stateTokenAdmin)
 
 
@@ -43,7 +43,7 @@ const Compra = () => {
     toggleModalMovimiento,
     StateModalMovimiento,
     anular,
-    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable
+    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, getcompra
   } = UseCompra(stateTokenAdmin, getprod)
   let {
     nombre,
@@ -194,7 +194,7 @@ const Compra = () => {
       sortable: true,
     },
 
-   
+
     {
       name: 'Importe',
       selector: row => row.importe,
@@ -320,7 +320,13 @@ const Compra = () => {
 
       <Card>
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Compras</h2>
+        <button onClick={() => { getcompra(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+          <div className="flex">
 
+            <img src={iconLoad} width="20px" alt="" />
+
+          </div>
+        </button>
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
 
@@ -340,9 +346,9 @@ const Compra = () => {
                 <button type="submit" className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Enviar</button>
 
                 <Card>
-                  
+
                   <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-                  <div className="w-full px-3">
+                    <div className="w-full px-3">
                       <div className="flex">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stock">
                           Metodo de pago
@@ -422,7 +428,7 @@ const Compra = () => {
                         Fecha
                       </label>
                       <input
-                      
+
                         onChange={handleChange}
                         value={fecha}
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -652,7 +658,7 @@ const Compra = () => {
                         placeholder="Total a Pagar"
                       />
                     </div>
-                   
+
 
 
                   </div>
@@ -751,7 +757,7 @@ const Compra = () => {
               <button onClick={() => { toggleModalProducto() }} className=" top-0 right-0 z-10  position-absolute  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  " type="button">X</button>
               <DataTable
                 columns={columnsProductos}
-          data={prodAll.length ? prodAll : []}
+                data={prodAll.length ? prodAll : []}
                 pagination
                 selectableRows
                 striped

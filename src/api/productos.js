@@ -46,7 +46,14 @@ export const ProductosFetch={
      
         let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.POST,body,headers)
         return res
-    }, 
+    },
+    
+    postImg: async(body,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+     
+        let res= await method.post(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.POSTIMG,body,headers)
+        return res
+    },
     postService: async(body,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
      
@@ -54,6 +61,11 @@ export const ProductosFetch={
         return res
     }, 
     put: async(id,body,token)=> {
+        let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
+        let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.PUT(id),body,headers)
+        return res
+    },
+    putImg: async(id,body,token)=> {
         let headers={ Authorization: `Bearer ${token}`, "Content-Type": "application/json"}
         let res= await method.put(BaseURLAPI2+ROUTES_BACK.ADMIN.PRODUCTOS.PUT(id),body,headers)
         return res

@@ -13,7 +13,7 @@ import Loader from "../../public/Loader";
 
 
 const User = () => {
-  const { iconEdit, iconDelete, iconNew } = UseIcons()
+  const { iconEdit, iconDelete,iconLoad, iconNew } = UseIcons()
 
   const { StateModal, toggleModal } = UseToggle()
   const { stateTokenAdmin } = useContext(TokenAdminContext)
@@ -23,7 +23,7 @@ const User = () => {
     setform,
     deleteUser,
     handleChange,
-    handleSubmit,
+    handleSubmit,getusers,
     loaderUsers } = UseUser(stateTokenAdmin)
 
   let {/*  enterprise_id,
@@ -89,7 +89,13 @@ const User = () => {
       <Card>
 
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Users</h2>
+        <button onClick={() => { getusers(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                    <div className="flex">
 
+                        <img src={iconLoad} width="20px" alt="" />
+
+                    </div>
+                </button>
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
 
