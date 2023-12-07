@@ -93,10 +93,11 @@ const CarritoProvider = ({ children }) => {
             jwtcarr(newcarr)
         }
         else {
+          console.log(res)
             let firstCarr = [...itemsCarr,
             {
                 _id: res.idcomp,
-                img: res.imagenes[0]?.URL || "https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
+                img: res.imagenes[0]?.URL ||res.imagenes[0].secure_url || "https://res.cloudinary.com/dq3fragzr/image/upload/v1663966406/cld-sample.jpg",
                 nombre: res.nomcomp,
                 cantidad,
                 descuento:0,

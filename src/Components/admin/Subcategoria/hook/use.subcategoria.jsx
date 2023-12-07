@@ -29,12 +29,13 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     setloaderSubCat(false)
 
   }
-  const getEdit = async (id) => {
+  const getEdit = async (id,setselectedImg) => {
     setloaderSubCat(true)
 
     let res = await SubCategoriaFetch.getOne(id, stateTokenAdmin)
     let {__v,enterprise_id,usuario_id,...res2} = res
     setform(res2)
+    setselectedImg(res2.imagen)
     setloaderSubCat(false)
 
   }
@@ -90,12 +91,12 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
     setuploadfile(files[0]) 
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e,selectedImg,setselectedImg) => {
     setloaderSubCat(true)
 
     if (form?._id) {
       const { _id, ...form2 } = form
-      let res3 = await SubCategoriaFetch.put(_id, form2, stateTokenAdmin)
+      let res3 = await SubCategoriaFetch.put(_id, {...form2,imagen:selectedImg}, stateTokenAdmin)
       if (uploadfile) uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,_id)
       
     if (res3.statusCode) return alert(res3.message.map((el) => el))
@@ -104,6 +105,7 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
       icon: 'error'
     })  
     setloaderSubCat(false)
+    setselectedImg([])
 
     await MySwal.fire({
       title: <h2>{res3.message}</h2>,
@@ -113,15 +115,17 @@ export const UseSubCatAdmin = (stateTokenAdmin) => {
       return;
     }
 
-    let res = await SubCategoriaFetch.post(stateTokenAdmin, form)
+    let res = await SubCategoriaFetch.post(stateTokenAdmin, {...form,imagen:selectedImg})
 
     if (res.statusCode) return alert(res.message.map((el) => el))
     if (res.status) return alert(res.message)
 
-    if (uploadfile){
+  /*   if (uploadfile){
       let res3=await uploadFilesFetch.saveSubCategoria(uploadfile, stateTokenAdmin,res._id)
-    } 
+    }  */
     setloaderSubCat(false)
+    setselectedImg([])
+
 
     let resalert = await Swal.fire({
       icon: 'success',

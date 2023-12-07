@@ -1,6 +1,6 @@
 
 import AdminSidebar from "../sidebar";
-import ModalCategoria from "./Modal";
+import ModalCategoria from "./Categoria";
 
 const CategoriaAdmin = () => {
   return (

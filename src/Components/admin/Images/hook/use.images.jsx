@@ -38,7 +38,7 @@ export const UseImagesAdmin = () => {
     setloaderImage(false)
 
     let { label, _id } = resById
-    console.log(resById)
+    setSelectImg(resById.secure_url)    
     setTags(label)
     setTagsId(_id)
 

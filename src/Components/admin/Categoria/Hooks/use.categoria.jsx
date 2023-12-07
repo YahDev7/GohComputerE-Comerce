@@ -25,11 +25,12 @@ export const UseCatAdmin = (stateTokenAdmin) => {
 
   }
 
-  const getEdit = async (id) => {
+  const getEdit = async (id,setselectedImgCat) => {
     setloaderCat(true)
 
     let res = await CategoriaFetch.getOne(id, stateTokenAdmin)
     let { __v, enterprise_id, usuario_id, ...res2 } = res
+    setselectedImgCat(res2.imagen)
     setform(res2)
     setloaderCat(false)
 
@@ -85,15 +86,15 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     setform({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e,selectedImg,setselectedImg) => {
     setloaderCat(true)
 
 
     if (form?._id) {
       const { _id, ...form2 } = form
-      let res3 = await CategoriaFetch.put(_id, form2, stateTokenAdmin)
+      let res3 = await CategoriaFetch.put(_id, {...form2,imagen:selectedImg}, stateTokenAdmin)
       setloaderCat(false)
-      if (uploadfile) uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin, _id)
+     // if (uploadfile) uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin, _id)
 
       if (res3.statusCode) return await MySwal.fire({
         title: <h2>{res3.message}</h2>,
@@ -105,6 +106,7 @@ export const UseCatAdmin = (stateTokenAdmin) => {
       })
       getcategoria(stateTokenAdmin)
       setform(formInit)
+      setselectedImg([])
       await MySwal.fire({
         title: <h2>{res3.message}</h2>,
         icon: 'success'
@@ -114,17 +116,18 @@ export const UseCatAdmin = (stateTokenAdmin) => {
     }
 
 
-    let res = await CategoriaFetch.post(stateTokenAdmin, form)
+    let res = await CategoriaFetch.post(stateTokenAdmin, {...form,imagen:selectedImg})
 
     if (res.statusCode) return alert(res.message.map((el) => el))
     if (res.status) return alert(res.message)
-    if (uploadfile) {
+  /*   if (uploadfile) {
       let res3 = await uploadFilesFetch.saveCategoria(uploadfile, stateTokenAdmin, res._id)
-    }
+    } */
 
     setform(formInit)
     getcategoria(stateTokenAdmin)
     setloaderCat(false)
+    setselectedImg([])
     let resalert = await Swal.fire({
       icon: 'success',
       title: 'Guardado con éxito',

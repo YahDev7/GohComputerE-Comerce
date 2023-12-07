@@ -76,7 +76,7 @@ const Movimientos = () => {
     },
     {
       name: 'Estado',
-      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.estado === "PENDIENTE" ? "yellow" : "green"}-50 px-2 py-1 text-xs font-medium text-${row.estado === "PENDIENTE" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.estado === "PENDIENTE" ? "yellow" : "green"}-600/20`}>{row.estado}</span>,
+      selector: row => <span className={`inline-flex items-center rounded-md bg-${row.estado === "PENDIENTE" ? "yellow" : "green"}-100 px-2 py-1 text-xs font-medium text-${row.estado === "PENDIENTE" ? "yellow" : "green"}-700 ring-1 ring-inset ring-${row.estado === "PENDIENTE" ? "yellow" : "green"}-600/20`}>{row.estado}</span>,
       sortable: true,
     },
     {

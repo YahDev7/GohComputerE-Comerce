@@ -6,13 +6,13 @@ const CardCategorias = ({cat,handleCatActive,btnactive,opcion}) => {
         );
     }
     return <div className="card m-3" >
-        <a href={"#/subcategorias/"+cat._id} className="grid grid-cols-2" >
+        <a href={"#/subcategorias/"+cat._id} className="flex" >
             <div className="">
-                <img src={cat.url_imagen} className="w-100" alt="..." />
+                <img src={cat.url_imagen||cat.imagen[0]?.secure_url} className="w-[70px]" alt="..." />
 
             </div>
             <div className="pt-3 pr-3 bottom-0 self-center pl-3 ">
-                <p className="md:!text-[16px] !text-[12px] h-10 font-semibold text-center ">{cat.nombre}</p>
+                <p className="md:!text-[14px] !text-[12px] h-10 font-semibold text-center ">{cat.nombre}</p>
             </div>
         </a>
     </div>

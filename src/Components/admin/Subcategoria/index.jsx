@@ -1,12 +1,11 @@
 import AdminSidebar from "../sidebar";
-import ModalSubCategoria from "./Modal";
+import SubCategoria from "./Subcategoria";
 
 const SubCategoriaAdmin = () => {
   return (
     <div className="flex h-[100vh]">
     <AdminSidebar></AdminSidebar>
-      
-      <ModalSubCategoria></ModalSubCategoria>
+      <SubCategoria></SubCategoria>
       </div>
   );
 }
