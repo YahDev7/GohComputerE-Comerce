@@ -14,7 +14,6 @@ import IndexAdmin from "./Components/admin/Login/Index"
 import Subcategoria from "./Components/Subcategoria/Subcategoria"
 import LoginIndex from "./Components/Login/LoginIndex"
 import Register from "./Components/Login/Register"
-import AdminSidebar from "./Components/admin/sidebar"
 import ProductosAdmin from "./Components/admin/Productos/Index"
 import CategoriaAdmin from "./Components/admin/Categoria"
 import { ROUTES } from "./Routes"
@@ -31,11 +30,12 @@ import PromocionesAdmin from "./Components/admin/Promociones/Index"
 import CompraAdmin from "./Components/admin/Compras"
 import IndexPromociones from "./Components/Promociones"
 import ProductosBySubCat from "./Components/ProductosAll/ProductosBySubCat"
-import FormPrueba from "./Components/formpruebas/form"
 import { useContext, useEffect } from "react"
 import TokenAdminContext from "./context/tokenAdmin"
 import { GuardRoute } from "./Components/admin/Guard/guard"
 import ImagesIndex from "./Components/admin/Images"
+import GuiaAdmin from "./Components/admin/Guia"
+import CalendarAdmin from "./Components/admin/Calendar"
 
 function App() {
   const { stateTokenAdmin,setStateTokenAdmin, user,setuser } = useContext(TokenAdminContext)
@@ -64,6 +64,7 @@ function App() {
 
         <Route element={<GuardRoute  user={user} tokenAdmin={stateTokenAdmin} redirecto="login/admin" />}>
           <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
+          <Route path={ROUTES.GUIA} element={<GuiaAdmin/>} />
            <Route path={ROUTES.IMAGENES} element={<ImagesIndex />} /> 
           <Route path={ROUTES.SERVICIO_ADMIN} element={<ServiciosIndex />} />
           <Route path={ROUTES.USER_ADMIN} element={<UserAdmin />} />
@@ -76,6 +77,7 @@ function App() {
           <Route path={ROUTES.COMPRAS_ADMIN} element={<CompraAdmin />} />
           <Route path={ROUTES.MOVIMIENTOS_ADMIN} element={<MovimientoAdmin />} />
           <Route path={ROUTES.PROMOCIONES_ADMIN} element={<PromocionesAdmin />} />
+          <Route path={ROUTES.CALENDAR} element={<CalendarAdmin />} />
         </Route>
 
         <Route path='*' element={<> <Navigate to="/gohcomputer" /> </>} />

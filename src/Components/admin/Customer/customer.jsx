@@ -17,7 +17,7 @@ import Loader from "../../public/Loader";
 
 
 const Customer = () => {
-  const { iconEdit, iconDelete, iconsave, iconNew,iconLoad } = UseIcons()
+  const { iconEdit, iconDelete, iconsave, iconNew, iconLoad } = UseIcons()
 
   const { stateTokenAdmin } = useContext(TokenAdminContext)
   const { StateModal, setStateModal, toggleModal } = UseToggle()
@@ -102,12 +102,12 @@ const Customer = () => {
 
         <h2 className="!text-3xl text-blue-900 pb-4 font-bold">Customers</h2>
         <button onClick={() => { getcustomer(stateTokenAdmin) }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
-                    <div className="flex">
+          <div className="flex">
 
-                        <img src={iconLoad} width="20px" alt="" />
+            <img src={iconLoad} width="20px" alt="" />
 
-                    </div>
-                </button>
+          </div>
+        </button>
         <button onClick={() => { setform(formInit); toggleModal() }} className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
           <div className="flex">
 
@@ -189,7 +189,7 @@ const Customer = () => {
 
                       <div className="flex">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipo_doc">
-                        Tipo_doc
+                          Tipo_doc
                         </label>
                         <span className="pl-2 ">*</span>
                       </div>
@@ -241,7 +241,7 @@ const Customer = () => {
                         type="text"
                         placeholder="telefono"
                       />
-                      
+
                     </div>
 
                     <div className="w-full px-3">
@@ -319,7 +319,7 @@ const Customer = () => {
 
                   </div>
                   <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-                   
+
                     <div className="w-full px-3">
                       <div className="flex">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_paterno">
@@ -375,43 +375,9 @@ const Customer = () => {
                       </select>
 
                     </div>
-
-
-
-                    {/*         <div className="w-full px-3">
-                    <div className="flex">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="rol">
-                        rol
-                      </label>
-                      <span className="pl-2 ">*</span>
-                    </div>
-                    <select
-                      value={rol}
-                      onChange={(e) => handleChange(e)}
-                      className="bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg focus:!ring-blue-500 focus:!border-blue-500 block w-full p-2.5 py-3 px-4 "
-                      name="estado"
-                      id="estado"
-                    >
-                      <option value="">Seleccione</option>
-                      <option value="ADMIN">Admin</option>
-                      <option value="COMUN">Comun</option>
-
-                    </select>
-                  </div> */}
-
-
-
-
                   </div>
-
-
-
                   <div className="grid md:grid-cols-5 gap-4 -mx-3 mb-6">
-                   
-
-
                   </div>
-
 
                 </Card>
               </form>

@@ -18,23 +18,23 @@ import Loader from "../../public/Loader";
 
 const Documento = () => {
   const { stateTokenAdmin } = useContext(TokenAdminContext)
-  const { iconpagar,  iconAnular, iconNew,iconLoad  } = UseIcons()
+  const { iconpagar, iconAnular, iconNew, iconLoad } = UseIcons()
   const {
     prodc, getprod
   } = UseProdAdmin(stateTokenAdmin)
 
-  const { StateModal,  toggleModal } = UseToggle()
+  const { StateModal, toggleModal } = UseToggle()
   const { documento,
-    
+
     formInit,
-    
+
     form,
     setform,
-    
+
     handleChange,
-    handleSubmit, formCustomer, 
+    handleSubmit, formCustomer,
     formProducto,
-     importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
+    importe, handle, descuento, addDetalle, detalleDoc, cantidad, removedetalle, setDetalleDoc,
     toggleModalcliente,
     toggleModalProducto,
     StateModalCliente,
@@ -46,16 +46,16 @@ const Documento = () => {
     toggleModalMovimiento,
     StateModalMovimiento,
     anular,
-    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable,getdocumento,
+    loaderDoc, getDetalleDoc, StateModalDetalleDoc, toggleModalDetalleDoc, detalleTable, getdocumento,
   } = UseDocumento(stateTokenAdmin, getprod)
 
   const {
     customerDNI,
     customerRUC
   } = UseCustomer(stateTokenAdmin)
-  const { getdocumentoid, formMov, handleChangeMov,handleFileChange, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
+  const { getdocumentoid, formMov, handleChangeMov, handleFileChange, handleSubmitMov, setformMov, loaderMov } = UseMovimiento(stateTokenAdmin)
 
-  let { 
+  let {
     tipo_documento,
     serie,
     nro_documento,
@@ -64,7 +64,7 @@ const Documento = () => {
     descuento_total,
     igv,
     total_pagar,
-  
+
     metodo_pago } = form;
   let {
     nombres,
@@ -234,7 +234,7 @@ const Documento = () => {
       maxWidth: '100px',
       selector: row => (
         <div >
-          <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
+          <img className="w-20" src={row?.imagenes[0]?.URL||row?.imagenes[0]?.secure_url} alt="" />
         </div>
       ),
       sortable: true,
@@ -259,9 +259,9 @@ const Documento = () => {
     },
     {
       name: 'Unidad',
-      selector: row =>  <span className="inline-flex h-6 mt-3 items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-700/10">{row.unidad}</span>,
+      selector: row => <span className="inline-flex h-6 mt-3 items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-700/10">{row.unidad}</span>,
       maxWidth: '100px',
-      
+
       sortable: true,
     },
 
@@ -315,7 +315,7 @@ const Documento = () => {
       {loaderMov && <Loader />}
       {
         StateModalMovimiento &&
-        <ModalMovimiento /* handleChange={handleChange}  */handleFileChange={handleFileChange} setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
+        <ModalMovimiento /* handleChange={handleChange}  */ handleFileChange={handleFileChange} setformMov={setformMov} handleSubmitMov={handleSubmitMov} handleChangeMov={handleChangeMov} formMov={formMov} toggleModalMovimiento={toggleModalMovimiento} form={form}></ModalMovimiento>
       }
 
 
@@ -420,7 +420,7 @@ const Documento = () => {
 
                   <div className="grid md:grid-cols-4 gap-4 -mx-3 mb-6">
                     {/*  <input value={customer_id} type="text" name="customer_id" id="customer_id" /> */}
-{/* 
+                    {/* 
                     <div className="w-full px-3">
                       <div className="flex">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Tipo Doc">
@@ -676,19 +676,8 @@ const Documento = () => {
                         <option value="PLIN">PLIN</option>
                         {/* Agrega más opciones aquí */}
                       </select>
-
-
                     </div>
-
-
                   </div>
-
-
-
-
-
-
-
                 </Card>
               </form>
             </div>
@@ -730,7 +719,7 @@ const Documento = () => {
                 //title="CLIENTES"
                 columns={columnsCustomer}
                 data={
-                  (tipo_documento==="BOLETA" || tipo_documento==="TICKED" && customerDNI.length) ? customerDNI :  (tipo_documento==="FACTURA"&& customerRUC.length)?customerRUC:[]
+                  (tipo_documento === "BOLETA" || tipo_documento === "TICKED" && customerDNI.length) ? customerDNI : (tipo_documento === "FACTURA" && customerRUC.length) ? customerRUC : []
                 }
                 dense
                 pagination

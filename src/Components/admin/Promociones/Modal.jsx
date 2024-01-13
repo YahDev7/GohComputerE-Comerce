@@ -66,7 +66,7 @@ const ModalPromociones = () => {
             name: 'IMG',
             selector: row => (
                 <div >
-                    <img className="w-20" src={row?.imagenes[0][0]?.URL} alt="" />
+                    <img className="w-20" src={row?.imagenes[0][0]?.URL||row?.imagenes[0]?.secure_url} alt="" />
                 </div>
             ),
             sortable: true,
@@ -102,7 +102,7 @@ const ModalPromociones = () => {
             name: 'IMG',
             selector: row => (
                 <div >
-                    <img className="w-20" src={row?.imagenes[0]?.URL} alt="" />
+                    <img className="w-20" src={row?.imagenes[0]?.URL||row?.imagenes[0]?.secure_url  } alt="" />
                 </div>
             ),
             sortable: true,

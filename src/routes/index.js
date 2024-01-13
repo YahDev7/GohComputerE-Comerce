@@ -16,6 +16,14 @@ export const ROUTES_BACK = {
       PUT: (id) => `/subcategoria/enterprise/${id}`,
       DELETE: (id) => `/subcategoria/enterprise/${id}`
     },
+
+    GUIA: {
+      GET: '/guia/enterprise',
+      GETID: (id) => `/guia/enterprise/${id}`,
+      POST: `/guia/enterprise`,
+      PUT: (id) => `/guia/enterprise/${id}`,
+      DELETE: (id) => `/guia/enterprise/${id}`
+    },
     CATEGORIA: {
       GET: '/categoria/enterprise',
       GETID: (id) => `/categoria/enterprise/${id}`,
@@ -207,6 +215,8 @@ export const ROUTES = {
   SETTING_ADMIN: "/dashadmin/gohcomputer/Setting",
   CONFIRMADO_CORREO: "/confrimado_correo",
   IMAGENES: "dashadmin/gohcomputer/Imagenes",
+  GUIA: "dashadmin/gohcomputer/Guia",
+  CALENDAR: "dashadmin/gohcomputer/Calendar",
   COMPRA: {
     WEB: `compraWeb/datosEnvio`,
     CORREO: `compraCorreo`,
