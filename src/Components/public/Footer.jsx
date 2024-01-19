@@ -15,7 +15,7 @@ const Footer = () => {
                             {
                                 INFORMACION.map((el) =>
                                     <li key="s">
-                                        <a className="text-gray-400 hover:text-teal-400 duration-300  text-sm cursor-pointer leading-6" href=""   >
+                                        <a className="text-gray-400 hover:text-teal-400 duration-300  text-sm cursor-pointer leading-6" href={el.link}   >
                                             {el.name}
                                         </a>
                                     </li>)
@@ -33,7 +33,6 @@ const Footer = () => {
                                     </li>)
                             }
                         </ul>
-
 
                     </div>
 

@@ -175,6 +175,12 @@ export const ROUTES_BACK = {
     GET: `/movimiento-m`,
     GETID: (id) => `/movimiento-m/enterprise/${id}`,
 
+  },
+  LIBRO: {
+    GET: `/libro-recla/enterprise`,
+    GETID: (id) => `/libro-recla/enterprise/byid/${id}`,
+    POST: `/libro-recla/enterprise/save`,
+
   }
 
 }
@@ -193,6 +199,7 @@ export const ROUTES = {
   PRUEBA: "/prueba",
   PEDIDOS: "/pedidos",
   DETALLE_PEDIDO: "/detallepedido/:idpedido",
+  LIBRO: "/Libro_reclcamaciones",
   LOGIN: "/login",
   LOGIN_ADMIN: "/login/admin",
   /* REGISTER_ADMIN: "/register/admin", */

@@ -25,12 +25,9 @@ const Documento = () => {
 
   const { StateModal, toggleModal } = UseToggle()
   const { documento,
-
     formInit,
-
     form,
     setform,
-
     handleChange,
     handleSubmit, formCustomer,
     formProducto,

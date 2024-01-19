@@ -1,6 +1,7 @@
 export const INFORMACION = [
     { name: "Nosotros", link: "#" },
     { name: "Contacto", link: "#" },
+    { name: "Libro de Reclamaciones", link: "#/Libro_reclcamaciones" },
   ];
   export const CONTACTO = [
     { name: "932 069 271 - 936 411 677", link: "#" },

@@ -36,6 +36,7 @@ import { GuardRoute } from "./Components/admin/Guard/guard"
 import ImagesIndex from "./Components/admin/Images"
 import GuiaAdmin from "./Components/admin/Guia"
 import CalendarAdmin from "./Components/admin/Calendar"
+import IndexLibroRecla from "./Components/LReclamaciones/LibroRecla"
 
 function App() {
   const { stateTokenAdmin,setStateTokenAdmin, user,setuser } = useContext(TokenAdminContext)
@@ -60,7 +61,8 @@ function App() {
         <Route path={ROUTES.CONFIRMADO} element={<Confirmado />} />
         <Route path={ROUTES.DEPOSITO_PEDIDO} element={<DepositoPedido />} />
         <Route path={ROUTES.COMPRA.WEB} element={<IndexDatosEnvio />} />
-      
+        <Route path={ROUTES.LIBRO} element={<IndexLibroRecla />} />
+        
 
         <Route element={<GuardRoute  user={user} tokenAdmin={stateTokenAdmin} redirecto="login/admin" />}>
           <Route path={ROUTES.UNIDAD_ADMIN} element={<UnidadAdmin />} />
