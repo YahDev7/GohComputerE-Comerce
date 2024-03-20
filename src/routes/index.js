@@ -1,12 +1,10 @@
 // routes.js
 export const ROUTES_BACK = {
   ADMIN: {
+ 
     IMAGES:{
-        GET: '/images/enterprise',
-       GETID: (id) => `/images/enterprise/${id}`,
-       GETLABEL: `/images/enterprise/bylabel`,
-        POST: `/image/upload/images/only`,
-        PUT: (id) =>`/images/update/enterprise/${id}`,
+       GETID: (id) => `/guia/enterprise/${id}`,
+        PUT: (id) =>`/guia/enterprise/equipo/${id}`,
         DELETE: (id) => `/image/images/enterprise/${id}`
   },
     SUBCATEGORIA: {
@@ -19,10 +17,17 @@ export const ROUTES_BACK = {
 
     GUIA: {
       GET: '/guia/enterprise',
-      GETID: (id) => `/guia/enterprise/${id}`,
+      GETIDGUIA: (id) => `/guia/enterprise/byidguia/${id}`,
+      GETIDEQUIPO: (id) => `/guia/enterprise/${id}`,
+      GETID: (id) => `/guia/enterprise/equipos/${id}`,
       POST: `/guia/enterprise`,
-      PUT: (id) => `/guia/enterprise/${id}`,
-      DELETE: (id) => `/guia/enterprise/${id}`
+      POSTEQUIPO: (id)=>`/guia/enterprise/equipo/create/${id}`,
+      PUT: (id) => `/guia/enterprise/equipo/${id}`,
+      PUTDIAGNOSTICO: (id) => `/guia/enterprise/equipo/diagnostico/${id}`,
+      PUTCOTIZACION: (id) => `/guia/enterprise/equipo/cotizacion/${id}`,
+      PUTPRUEBAS: (id) => `/guia/enterprise/equipo/pruebas_finales/${id}`,
+      DELETE: (id) => `/guia/enterprise/guia/delete/${id}`,
+      DELETEEQUIPO: (id) => `/guia/enterprise/delete/equipo/${id}`
     },
     CATEGORIA: {
       GET: '/categoria/enterprise',
@@ -209,6 +214,7 @@ export const ROUTES = {
   UNIDAD_ADMIN: "/dashadmin/gohcomputer/Unidades",
   SERVICIO_ADMIN: "/dashadmin/gohcomputer/Servicios",
   USER_ADMIN: "/dashadmin/gohcomputer/Users",
+  GENERAR_GUIA: "/dashadmin/gohcomputer/generar_guia",
   CUSTOMERS_ADMIN: "/dashadmin/gohcomputer/Customers",
   PROVIDERS_ADMIN: "/dashadmin/gohcomputer/Providers",
   PRODUCTOS_ADMIN: "/dashadmin/gohcomputer/Productos",

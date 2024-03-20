@@ -127,7 +127,6 @@ export const UseProdAdmin = () => {
       const { __v, _id, imagenes, especificaciones, ...form2 } = formService
       form2.stock = Number(form2.stock)
       form2.precio_venta = Number(form2.precio_venta)
-
       
       let res3 = await ProductosFetch.putService(_id, form2, stateTokenAdmin)
 
@@ -153,7 +152,6 @@ export const UseProdAdmin = () => {
       return;
     }
 
-
     let newform = { ...formService, usuario_id, enterprise_id, unidad: unidadServicio }
     newform = { ...newform, stock: Number(newform.stock), precio_venta: Number(newform.precio_venta) }
 
@@ -177,8 +175,6 @@ export const UseProdAdmin = () => {
       icon: 'success',
       title: 'Guardado con éxito',
     })
-
-  
     return;
   }
 
@@ -318,11 +314,11 @@ export const UseProdAdmin = () => {
     });
   };
 
-  const handleEspecificacionChange = (index, field, value) => {
+  const handleEspecificacionChange = (index, key, value) => {
     const newEspecificaciones = [...form.especificaciones];
     newEspecificaciones[index] = {
       ...newEspecificaciones[index],
-      [field]: value,
+      [key]: value,
     };
     setform({
       ...form,

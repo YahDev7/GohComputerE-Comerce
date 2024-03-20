@@ -22,6 +22,7 @@ const AdminSidebar = () => {
     const Menus = [
         { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
         { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
+        { title: "Generar_Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1709164809/Dashboard/plus_ld0cew.svg", gap: true, rol: "CUSTOMER" },
         { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413078/Dashboard/PhUser_yeinnd.svg", gap: true, rol: "ADMIN" },
         { title: "Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
         { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413113/Dashboard/PhUsersThree_kso3xu.svg", rol: "CUSTOMER" },

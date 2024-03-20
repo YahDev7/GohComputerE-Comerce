@@ -1,6 +1,7 @@
 import { Card } from "@tremor/react";
 import { useState } from "react";
 import { LibroFetch } from "../../api/libro.fetch";
+import Loader from "../public/Loader";
 
 let initReclamo = {
   dni_ruc: "",
@@ -15,6 +16,7 @@ let initReclamo = {
 
 const LibroRecla = () => {
   const [stateReclamo, setstateReclamo] = useState(initReclamo)
+  const [loaderLibro, setloaderLibro] = useState(false);
 
   let { dni_ruc,
     nombres,
@@ -31,6 +33,8 @@ const LibroRecla = () => {
 
   const handleSubmitRecla = async (e) => {
     //setloaderDoc(true)
+
+    setloaderLibro(true)
     e.preventDefault();
 
 
@@ -44,12 +48,17 @@ const LibroRecla = () => {
 
     }
     let res = await LibroFetch.post(stateReclamo)
+    setloaderLibro(false)
+
     if (res?._id) {
 
       let resalert = await Swal.fire({
         icon: 'success',
         title: `Tu codigo de atencion <strong className="!text-[30px]" >${res._id}</strong> `,
-        text: `Tambien puedes ver tu codigo en la bandeja de tu correo ${res.email}`,
+        text: `
+          Tambien puedes ver tu codigo en la bandeja de tu correo ${res.email}
+        el seguimiento se hace via Whatsapp: 932 069 271 - 936 411 677
+        `,
       })
       setstateReclamo(initReclamo)
 
@@ -64,9 +73,11 @@ const LibroRecla = () => {
   };
 
   return (
-
+    
     <div>
-
+{
+  loaderLibro && <Loader />
+}
       <div className="relative bg-white rounded-lg p-2 w-[80%] max-md:w-96 m-auto mt-5 ">
 
         <div className="flex justify-between">

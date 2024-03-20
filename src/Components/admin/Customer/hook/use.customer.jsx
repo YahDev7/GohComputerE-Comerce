@@ -78,7 +78,6 @@ export const UseCustomer = (stateTokenAdmin) => {
     }
   }
 
-
   const getcustomer = async (token) => {
     setloaderCustomer(true)
     let res = await CustomerFetch.get(token);
@@ -104,6 +103,7 @@ export const UseCustomer = (stateTokenAdmin) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value)
     setform({ ...form, [name]: value });
   };
 
