@@ -38,6 +38,7 @@ import GuiaAdmin from "./Components/admin/Guia"
 import CalendarAdmin from "./Components/admin/Calendar"
 import IndexLibroRecla from "./Components/LReclamaciones/LibroRecla"
 import GenerarGuiaAdmin from "./Components/admin/Generar_guia"
+import Comprobante_ClienteAdmin from "./Components/admin/Comprobante_cliente"
 
 function App() {
   const { stateTokenAdmin,setStateTokenAdmin, user,setuser } = useContext(TokenAdminContext)
@@ -75,6 +76,7 @@ function App() {
           {/* <Route path={ROUTES.PROVIDERS_ADMIN} element={<AdminSidebar />} /> */}
           <Route path={ROUTES.PRODUCTOS_ADMIN} element={<ProductosAdmin />} />
           <Route path={ROUTES.GENERAR_GUIA} element={< GenerarGuiaAdmin/>} />
+          <Route path={ROUTES.COMPROBANTE_CLIENTE} element={< Comprobante_ClienteAdmin/>} />
           <Route path={ROUTES.CATEGORIA_ADMIN} element={<CategoriaAdmin />} />
           <Route path={ROUTES.SUBCATEGORIA_ADMIN} element={<SubCategoriaAdmin />} />
           <Route path={ROUTES.DOCUMENTOS_ADMIN} element={<DocumentoAdmin />} />

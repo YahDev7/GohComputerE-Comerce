@@ -142,6 +142,7 @@ export const UseCustomer = (stateTokenAdmin) => {
     let res = await CustomerFetch.postByEnterprise(stateTokenAdmin, form)
     setloaderCustomer(false)
 
+    
     if (res.statusCode) return MySwal.fire({
       title: <h2>{res.message}</h2>,
       icon: 'error'
@@ -151,9 +152,9 @@ export const UseCustomer = (stateTokenAdmin) => {
       title: <h2>{res.message}</h2>,
       icon: 'error'
     })
+    getcustomer(stateTokenAdmin)
 
-  
-
+    
     MySwal.fire({
       title: <h2>{res.message}</h2>,
       icon: 'success'
@@ -161,7 +162,7 @@ export const UseCustomer = (stateTokenAdmin) => {
 
     setform(formInit)
 
-    return
+    return true
   };
 
   useEffect(() => {

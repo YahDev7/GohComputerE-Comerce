@@ -1,12 +1,12 @@
 // routes.js
 export const ROUTES_BACK = {
   ADMIN: {
- 
-    IMAGES:{
-       GETID: (id) => `/guia/enterprise/${id}`,
-        PUT: (id) =>`/guia/enterprise/equipo/${id}`,
-        DELETE: (id) => `/image/images/enterprise/${id}`
-  },
+
+    IMAGES: {
+      GETID: (id) => `/guia/enterprise/${id}`,
+      PUT: (id) => `/guia/enterprise/equipo/${id}`,
+      DELETE: (id) => `/image/images/enterprise/${id}`
+    },
     SUBCATEGORIA: {
       GET: '/subcategoria/enterprise',
       GETID: (id) => `/subcategoria/enterprise/${id}`,
@@ -21,7 +21,7 @@ export const ROUTES_BACK = {
       GETIDEQUIPO: (id) => `/guia/enterprise/${id}`,
       GETID: (id) => `/guia/enterprise/equipos/${id}`,
       POST: `/guia/enterprise`,
-      POSTEQUIPO: (id)=>`/guia/enterprise/equipo/create/${id}`,
+      POSTEQUIPO: (id) => `/guia/enterprise/equipo/create/${id}`,
       PUT: (id) => `/guia/enterprise/equipo/${id}`,
       PUTDIAGNOSTICO: (id) => `/guia/enterprise/equipo/diagnostico/${id}`,
       PUTCOTIZACION: (id) => `/guia/enterprise/equipo/cotizacion/${id}`,
@@ -29,27 +29,36 @@ export const ROUTES_BACK = {
       DELETE: (id) => `/guia/enterprise/guia/delete/${id}`,
       DELETEEQUIPO: (id) => `/guia/enterprise/delete/equipo/${id}`
     },
+
+    COMPROBANTE: {
+      GET: '/comprobante',
+      GETID: (id) => `/comprobante/${id}`,
+      POST: `/comprobante`,
+      PUT: (id) => `/comprobante/${id}`,
+      DELETE: '',
+    },
+
     CATEGORIA: {
       GET: '/categoria/enterprise',
       GETID: (id) => `/categoria/enterprise/${id}`,
       POST: `/categoria/enterprise`,
       PUT: (id) => `/categoria/enterprise/${id}`,
       DELETE: (id) => `/categoria/enterprise/${id}`
-
     },
+
     MOVIMIENTO: {
       GET: '/movimiento-m/enterprise',
       GETVENTASDIA: '/movimiento-m/ventas/totaldia',
-      GETVENTASMES:(meses)=> `/movimiento-m/ventas/totalmes/${meses}`,
+      GETVENTASMES: (meses) => `/movimiento-m/ventas/totalmes/${meses}`,
       GETCOMPRADIA: '/movimiento-m/compras/totaldia',
-      GETCOMPRAMES:(mes)=> `/movimiento-m/compras/totalmes/${mes}`,
+      GETCOMPRAMES: (mes) => `/movimiento-m/compras/totalmes/${mes}`,
       GETINGRESOSMENSUALES: '/movimiento-m/enterprise/ingresosMensuales',
       GETID: (id) => `/movimiento-m/enterprise/getone/${id}`,
       POST: `/movimiento-m/enterprise`,
 
-      GETSERVICIOS:"/movimiento-m/enterprise/servicios",
-      GETSERVICIOSMES:(mes)=>`/movimiento-m/enterprise/servicios/${mes}`,
-      GETSERVICIOSDIA:"/movimiento-m/enterprise/servicios/dia"
+      GETSERVICIOS: "/movimiento-m/enterprise/servicios",
+      GETSERVICIOSMES: (mes) => `/movimiento-m/enterprise/servicios/${mes}`,
+      GETSERVICIOSDIA: "/movimiento-m/enterprise/servicios/dia"
 
 
     },
@@ -84,24 +93,24 @@ export const ROUTES_BACK = {
     PROMOCIONES: {
       GET: `/promociones/enterprise`,
       POST: `/promociones/enterprise`,
-      ACTIVAR:(id)=> `/promociones/enterprise/activar/${id}`,
+      ACTIVAR: (id) => `/promociones/enterprise/activar/${id}`,
       GETBYID: (id) => `/promociones/enterprise/${id}`,
       PUT: (id) => `/promociones/enterprise/${id}`,
       DELETE: (id) => `/promociones/enterprise/${id}`,
-      
+
       GETWEB: `/promociones/webpromo`,
       GETBYIDPROMO: (id) => `/promociones/promo/${id}`,
       GET_BY_SUBCATPROMO: (id) => `/promociones/enterprise/getBySubcat/${id}`,
-  },
+    },
     PRODUCTOS: {
       GET: `/products/enterprise`,
-      POSTSTOCK:(id)=> `/products/enterprise/stock/${id}`,
+      POSTSTOCK: (id) => `/products/enterprise/stock/${id}`,
       GETWITHSTOCK: `/products/enterprise/withstock`,
       GETALL: `/products/enterprise/all`,
       POST: `/products/enterprise/save`,
       POSTIMG: `/products/enterprise/save/img`,
 
-      
+
       POSTSERVICE: `/products/enterprise/save/service`,
       GETBYID: (id) => `/products/enterprise/getone/${id}`,
       GETBYIDSERVICE: (id) => `/products/enterprise/getone/service/${id}`,
@@ -113,9 +122,9 @@ export const ROUTES_BACK = {
 
 
 
-    }, 
+    },
     CLOUDINARY: {
-      DELETEONEIMG:`/image/product/delete`,
+      DELETEONEIMG: `/image/product/delete`,
     },
     UNIDAD: {
       SUMAVENTAS: `/movimiento-m/ventas/total`,
@@ -125,8 +134,9 @@ export const ROUTES_BACK = {
 
     }
   },
+  
   PRODUCTOS: {
-    GETWEBPROMO:(id)=>`/products/enterprise/getBySubcat/${id}`,
+    GETWEBPROMO: (id) => `/products/enterprise/getBySubcat/${id}`,
     GET_ALL_PROMO: `/promociones/gohcomputer/allpromo`,
     GET_MAIN: `/products/gohcomputer/main`,
     GET_DESTACADOS: `/products/gohcomputer/destacados`,
@@ -215,6 +225,7 @@ export const ROUTES = {
   SERVICIO_ADMIN: "/dashadmin/gohcomputer/Servicios",
   USER_ADMIN: "/dashadmin/gohcomputer/Users",
   GENERAR_GUIA: "/dashadmin/gohcomputer/generar_guia",
+  COMPROBANTE_CLIENTE: "/dashadmin/gohcomputer/comprobante_cliente",
   CUSTOMERS_ADMIN: "/dashadmin/gohcomputer/Customers",
   PROVIDERS_ADMIN: "/dashadmin/gohcomputer/Providers",
   PRODUCTOS_ADMIN: "/dashadmin/gohcomputer/Productos",

@@ -9,14 +9,7 @@ const ModalCustomer = ({ form, handleChange, setform, formInit, toggleModal,
     ap_paterno,
     ap_materno,
     dni_ruc,
-    email,
-    password,
-    departamento,
-    provincia,
-    distrito,
-    direccion,
     telefono,
-    estado,
     tipo_doc } = form;
 
   return (
@@ -24,7 +17,7 @@ const ModalCustomer = ({ form, handleChange, setform, formInit, toggleModal,
       <input type="hidden" name="_id" id="_id" />
       <div className="relative bg-white rounded-lg p-2 w-[70%]">
         <button onClick={() => { setform(formInit); toggleModal() }} className="absolute top-5 right-10 font-bold text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg text-sm px-2.5 py-2.5 mr-2 mb-2">X</button>
-        <form className="w-full" onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
+        <form className="w-full" onSubmit={(e) => { e.preventDefault();handleSubmit(e);/* toggleModal()  */}}>
 
           <button type="submit" className="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" >Enviar</button>
 
