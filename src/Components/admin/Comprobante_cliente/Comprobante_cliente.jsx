@@ -18,7 +18,9 @@ const ComprobanteCliente = () => {
     const { stateTokenAdmin } = useContext(TokenAdminContext)
 
     const {
-        deleteComprobante, Comprobante_one, changeComprobante, handleUpdate,campoPendiente,handleTotalPagado,
+        deleteComprobante, Comprobante_one, changeComprobante, handleUpdate, CPendiente, handleRestar,
+        Cpagado,
+        Ctotal,handleEstado,
 
         customer_now, addEquipo, deleteEquipo,
         getComprobante,
@@ -112,12 +114,13 @@ const ComprobanteCliente = () => {
             selector: row => row.modelo,
             sortable: true,
         },
+        
 
-        /* {
-            name: 'Dni/Ruc',
-            selector: row => row.dni_ruc,
+       {
+            name: <div className="font-bold uppercase text-[#0C1D79]  !text-2xl">Problema</div>,
+            selector: row => row.problema,
             sortable: true,
-        }, */
+        },
 
 
         {
@@ -134,16 +137,43 @@ const ComprobanteCliente = () => {
             format: (row) => {
                 return <span className={`
              inline-flex  items-center  rounded-md bg-gray-800 px-2 py-2 !text-[13px]  text-white  ring-inset ring-600/20`
-                }>{new Date(row.fecha).toLocaleDateString()}</span>
+                }>{new Date(row.fecha).toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                }).replace(/\//g, '-')}</span>
             }
         },
         {
             name: <div className="font-bold uppercase text-[#0C1D79]  !text-2xl">estado</div>,
-            selector: row =>
-                <span className={`
-             inline-flex  items-center  rounded-md bg-[#9FC5E8] px-2 py-2 !text-[12px] font-bold text-white  ring-inset ring-600/20`
-                }>{row.estado}</span>,
+            selector: row => row.estado,
             sortable: true,
+            format: (row) => {
+                return (row.estado != "PAGADO") ?
+                    <span >
+
+                        <select  onChange={(e) => handleEstado(row._id,e)}  value={row.estado} className="inline-flex w- items-center  rounded-md bg-[#9FC5E8] px-2 py-2 !text-[12px] font-bold text-white ring-inset ring-600/20">
+                            <option value="">Seleccione</option>
+                            <option value="PENDIENTE">PENDIENTE</option>
+                            <option value="EN REPARACION">EN REPARACION</option>
+                            <option value="CONCLUIDO">TERMINADO</option>
+                            <option value="ENTREGADO">ENTREGADO</option>
+                           {/*  <option value="ENTREGADO_FALTA_CANCELAR">ENTREGADO FALTA CANCELAR</option> */}
+                            <option value="PAGADO">PAGADO</option>
+
+                        </select>
+                    </span>
+
+
+                    /*   <span className={`
+                         inline-flex  items-center  rounded-md bg-[#9FC5E8] px-2 py-2 !text-[12px] font-bold text-white  ring-inset ring-600/20`
+                     }>{row.estado}</span> */
+                    :
+                    <span className={`
+                    inline-flex  items-center  rounded-md bg-green-500 px-2 py-2 !text-[12px] font-bold text-white  ring-inset ring-600/20`
+                    }>{row.estado}</span>
+
+            }
         },
 
 
@@ -257,9 +287,12 @@ const ComprobanteCliente = () => {
                     ListEquipos={ListEquipos} */
 
                     codigoComprobante={codigoComprobante}
-                    campoPendiente={campoPendiente}
-                    handleTotalPagado={handleTotalPagado}
-                    
+                    CPendiente={CPendiente}
+                    handleRestar={handleRestar}
+                    Cpagado={Cpagado}
+                    Ctotal={Ctotal}
+
+
                     Comprobante_one={Comprobante_one}
                     changeComprobante={changeComprobante}
                     handleUpdate={handleUpdate}

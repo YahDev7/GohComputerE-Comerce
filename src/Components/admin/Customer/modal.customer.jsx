@@ -61,7 +61,7 @@ cardProd === true ?{ */}
                 />
               </div>
 
-              <div className="w-full px-3">
+             {/*  <div className="w-full px-3">
                 <div className="flex">
 
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="ap_materno">
@@ -79,7 +79,7 @@ cardProd === true ?{ */}
                   placeholder="ap_materno"
                 />
 
-              </div>
+              </div> */}
 
               <div className="w-full px-3">
 
@@ -102,7 +102,7 @@ cardProd === true ?{ */}
 
               </div>
 
-              <div className="w-full px-3">
+              {/* <div className="w-full px-3">
 
                 <div className="flex">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="tipo_doc">
@@ -121,13 +121,13 @@ cardProd === true ?{ */}
                   <option value="DNI">DNI</option>
                   <option value="RUC">RUC</option>
 
-                  {/* Agrega más opciones aquí */}
+                
                 </select>
 
               </div>
+ */}
 
-
-              <div className="w-full px-3">
+            {/*   <div className="w-full px-3">
                 <div className="flex">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="dni_ruc">
                     dni_ruc
@@ -143,7 +143,7 @@ cardProd === true ?{ */}
                   type="text"
                   placeholder="URL del Fabricante"
                 />
-              </div>
+              </div> */}
 
 
             </div>
