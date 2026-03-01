@@ -1,60 +1,63 @@
-import { useEffect, useState } from "react";
-import { FetchsPedidos } from "../../../Fetchs/pedidos";
+import { useContext, useEffect, useState } from "react";
+import { FetchsPedidos } from "../../../api/pedidos";
+import TokenContext from "../../../context/token";
+import Loader from "../../../Components/public/Loader";
 
 
 const AllPedidos = () => {
     const [pedidosAll, setPedidosAll] = useState([]);
+    //if(!tokensession) return location.href='/#/gohcomputer'
+    const [loader, setloader] = useState(false);
 
-    const allpedi=async()=>{
-          let res= await FetchsPedidos.getallpedidos();
-        console.log(res);
+    const { stateToken, setStateToken } = useContext(TokenContext)
+    if (!stateToken) return location.href = "#/gohcomputer"
+
+    const allpedi = async () => {
+        setloader(true)
+        let res = await FetchsPedidos.getallpedidosByEnterprise(stateToken);
+        
         setPedidosAll(res)
+        setloader(false)
     }
     useEffect(() => {
         allpedi()
     }, []);
-
-
-    const getpropedido = () => {
-        let box=[];
-        for (let i = 0; i < pedidosAll.length; i++) {
-           
-           box.push( 
-            <tr  key={pedidosAll[i].id*Math.random()*100}>
-                <td><a style={{textDecoration:"none",cursor:"pointer"}} onClick={()=>{location.href="#/detallepedido/"+pedidosAll[i].id}} >{pedidosAll[i].id}</a></td>
-                <td><span class="badge rounded-pill bg-primary">{pedidosAll[i].estado}</span></td>
-                <td>{pedidosAll[i].fecha}</td>
-                <td>{pedidosAll[i].total}</td>
-                <td>{pedidosAll[i].persona_id}</td>
-            </tr>
-               )
-       }
-
-       if(box.length===0) return <tr><td className="text-center" colSpan="5">Aun no tiene ningun pedido</td></tr> 
-       return box
-   }
-    return ( 
+    return (
         <>
-        <div className="containerAllPedidos">
-            <h2 >Todos tus pedidos</h2>
-            <table className="table">
-            <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                        <th>Total</th>
-                        <th>Usuario</th>
-                    </tr>
-            </thead>
-            <tbody>
-                {getpropedido()}
-            </tbody>
-           </table>
+            <div className="containerAllPedidos">
+                <h2 >Todos tus pedidos</h2>
+                {loader && <Loader></Loader>}
 
-        </div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            {/*   <th>Usuario</th> */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pedidosAll.length?
+                            pedidosAll.map((el) =>
+                                <tr >
+                                    <td><a style={{ textDecoration: "none", cursor: "pointer" }} onClick={() => { location.href = "#/detallepedido/" + el?._id }} >{el?._id}</a></td>
+                                    <td><span className="badge rounded-pill bg-primary">{el?.estado}</span></td>
+                                    <td>{el?.fecha}</td>
+                                    <td className="text-blue-800 font-bold">{el?.total_pagar}</td>
+                                    {/*  <td>{el.persona_id}</td> */}
+                                </tr>
+                            )
+                            :
+                <h2 >No tiene pedidos que mostrar</h2>
+            }
+                    </tbody>
+                </table>
+
+            </div>
         </>
-     );
+    );
 }
- 
+
 export default AllPedidos;
