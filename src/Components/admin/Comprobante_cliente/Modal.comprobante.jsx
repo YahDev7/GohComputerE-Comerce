@@ -1,4 +1,6 @@
 
+import PDF_Comprobante from "../pdf/PDF_Comprobante";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 
 const ModalComprobante = ({
     toggleModalComprobante, resetComprobante,
@@ -38,21 +40,20 @@ const ModalComprobante = ({
                     <div className="flex col-span-1">
                         <p className="pl-3 mt-2 !text-[15px] text-[#19191C] font-semibold pr-2">Entrada:</p>
 
-                        <img width="20px" src="https://res.cloudinary.com/dq3fragzr/image/upload/v1709315286/Dashboard/fecha_azul_nshnkk.svg" alt="" />
-                        <span className="pl-3 mt-2 !text-[15px] text-[#19191C] font-semibold"> {
+                        <img width="18px" src="https://res.cloudinary.com/dq3fragzr/image/upload/v1709315286/Dashboard/fecha_azul_nshnkk.svg" alt="" />
+                        <span className="pl-1 mt-2.5 !text-[14px] text-[#19191C] font-semibold"> {
                             new Date(fecha).toLocaleDateString('es-ES', {
                                 day: '2-digit',
                                 month: '2-digit',
                                 year: 'numeric'
                             }).replace(/\//g, '-')
                         }</span>
-
                     </div>
 
                     <div className="flex col-span-1">
                         <p className="pl-3 mt-2 !text-[15px] text-[#19191C] font-semibold pr-2">Salida:</p>
-                        <img width="20px" src="https://res.cloudinary.com/dq3fragzr/image/upload/v1709315286/Dashboard/fecha_azul_nshnkk.svg" alt="" />
-                        <span className="  pl-3 mt-2 !text-[15px] text-[#19191C] font-semibold"> {
+                        <img width="18px" src="https://res.cloudinary.com/dq3fragzr/image/upload/v1709315286/Dashboard/fecha_azul_nshnkk.svg" alt="" />
+                        <span className="  pl-1 mt-2.5 !text-[14px] text-[#19191C] font-semibold"> {
                             (fecha_retiro && !isNaN(new Date(fecha_retiro).getTime()))
                                 ? new Date(fecha_retiro).toLocaleDateString('es-ES', {
                                     day: '2-digit',
@@ -64,9 +65,21 @@ const ModalComprobante = ({
 
                     </div>
                     <div className=" pl-40  col-span-2">
-                        <button /* onClick={() => } */ className=" text-white !text-[20px] bg-[#0C1D79] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3.5 text-center " type="button">
+
+                        <PDFDownloadLink document={
+                            <PDF_Comprobante  />} fileName='mypdf.pdf' >
+                        {
+                            ({ url, loading, error, blob }) => loading ? <button> Cargando...</button> : <button className=" text-white !text-[20px] bg-[#0C1D79] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3.5 text-center " type="button">
                             Generar PDF
-                        </button>
+                        </button> 
+
+                        }
+                    </PDFDownloadLink>
+
+
+                        {/* <button className=" text-white !text-[20px] bg-[#0C1D79] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3.5 text-center " type="button">
+                            Generar PDF
+                        </button> */}
                     </div>
                 </div>
                 <div className="mt-2">

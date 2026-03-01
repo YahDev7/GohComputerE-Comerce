@@ -10,9 +10,12 @@ import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from "@material-tailwind/re
 import { UseComprobanteAdmin } from "./Hooks/use.comprobante";
 import ModalComprobante from "./Modal.comprobante";
 
+import PDF_Comprobante from "../pdf/PDF_Comprobante";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+
 const ComprobanteCliente = () => {
     const { StateModal, toggleModal } = UseToggle()
-    const { iconEdit, iconDelete, iconDetalle, iconLoad } = UseIcons()
+    const { iconEdit, iconDelete, iconDetalle, iconLoad, iconPdf } = UseIcons()
     const [activeTab, setActiveTab] = useState("1");
 
     const { stateTokenAdmin } = useContext(TokenAdminContext)
@@ -20,7 +23,7 @@ const ComprobanteCliente = () => {
     const {
         deleteComprobante, Comprobante_one, changeComprobante, handleUpdate, CPendiente, handleRestar,
         Cpagado,
-        Ctotal,handleEstado,
+        Ctotal, handleEstado,
 
         customer_now, addEquipo, deleteEquipo,
         getComprobante,
@@ -92,11 +95,18 @@ const ComprobanteCliente = () => {
             maxWidth: '200px',
             cell: row => (
                 <div className="flex max-md:flex-col pt-2">
-                    <button onClick={() => { toggleModalComprobante(); getEditComprobante(row._id); }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDetalle} width="15px" alt="" /></button>
-                    <button onClick={() => deleteComprobante(row._id)} className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center "><img src={iconDelete} width="15px" alt="" /></button>
+                    <button onClick={() => { toggleModalComprobante(); getEditComprobante(row._id); }} className="mr-2 block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center "><img src={iconDetalle} width="20px" alt="" /></button>
+                    <button onClick={() => deleteComprobante(row._id)} className="block mb-3 mr-2 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center "><img src={iconDelete} width="20px" alt="" /></button>
+
+                    <PDFDownloadLink document={<PDF_Comprobante />} fileName='mypdf.pdf' >
+                        {
+                            ({ url, loading, error, blob }) => loading ? <button> Cargando...</button> : < button /* onClick={() => deleteComprobante(row._id)}  */ className="block mb-3 text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 text-center "><img src={iconPdf} width="20px" alt="" /></button>
+
+                        }
+                    </PDFDownloadLink>
+
                 </div>
             ),
-
         },
         {
             name: <div className="font-bold uppercase text-[#0C1D79]  !text-2xl">Comprobante</div>,
@@ -114,9 +124,9 @@ const ComprobanteCliente = () => {
             selector: row => row.modelo,
             sortable: true,
         },
-        
 
-       {
+
+        {
             name: <div className="font-bold uppercase text-[#0C1D79]  !text-2xl">Problema</div>,
             selector: row => row.problema,
             sortable: true,
@@ -152,13 +162,13 @@ const ComprobanteCliente = () => {
                 return (row.estado != "PAGADO") ?
                     <span >
 
-                        <select  onChange={(e) => handleEstado(row._id,e)}  value={row.estado} className="inline-flex w- items-center  rounded-md bg-[#9FC5E8] px-2 py-2 !text-[12px] font-bold text-white ring-inset ring-600/20">
+                        <select onChange={(e) => handleEstado(row._id, e)} value={row.estado} className="inline-flex w- items-center  rounded-md bg-[#9FC5E8] px-2 py-2 !text-[12px] font-bold text-white ring-inset ring-600/20">
                             <option value="">Seleccione</option>
                             <option value="PENDIENTE">PENDIENTE</option>
                             <option value="EN REPARACION">EN REPARACION</option>
                             <option value="CONCLUIDO">TERMINADO</option>
                             <option value="ENTREGADO">ENTREGADO</option>
-                           {/*  <option value="ENTREGADO_FALTA_CANCELAR">ENTREGADO FALTA CANCELAR</option> */}
+                            {/*  <option value="ENTREGADO_FALTA_CANCELAR">ENTREGADO FALTA CANCELAR</option> */}
                             <option value="PAGADO">PAGADO</option>
 
                         </select>
@@ -198,6 +208,9 @@ const ComprobanteCliente = () => {
                 </div>
             </div>
 
+
+            <PDFViewer className="h-[100%] w-[100%]"> <PDF_Comprobante ></PDF_Comprobante></PDFViewer>
+
             <Tabs value={1} className="">
                 <div className="w-[100px] ml-10 pl-4">
 
@@ -233,7 +246,6 @@ const ComprobanteCliente = () => {
                             <button onClick={() => { setform(formInit); toggleModal() }} className=" mb-4 !text-[18px] text-[#0C1D79] !font-bold bg-white border-3 border-[#0C1D79] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-full text-sm px-8 py-3.5 text-center " type="button">
                                 Nuevo cliente
                             </button>
-                            {/*  <h2 className="pt-5 pb-5 text-[#0C1D79]  !text-4xl font-bold">Clientes</h2> */}
                             <DataTable
                                 columns={columnsCustomers}
                                 data={customer.length ? customer : []}
@@ -253,11 +265,7 @@ const ComprobanteCliente = () => {
                         <div className="ml-10">
 
                             <div className="flex mb-4">
-                                {/*       <button onClick={() => generarComprobante()}   className=" mb-4 !text-[18px] text-[#0C1D79] !font-bold bg-white border-3 border-[#0C1D79] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-full text-sm px-8  py-2.5 text-center" type="button">
-                                        <div className="flex items-center">
-                                            <h4 className="font-semibold !text-2xl mr-3">Cargar</h4>{ <img width="30px" src={iconLoad} alt="" /> }
-                                        </div>
-                                    </button> */}
+
                                 <button onClick={() => getComprobante(stateTokenAdmin)} className=" ml-3 rounded-[10px] bg-[#0C1D79] p-2">
                                     <div className="flex">
                                         <h4 className="!text-2xl text-white">Actualizar</h4>
@@ -279,12 +287,7 @@ const ComprobanteCliente = () => {
 
             {ModalComprobanteDetalle &&
                 <ModalComprobante
-                    /* deleteEquipo={deleteEquipo}
-                    stateTokenAdmin={stateTokenAdmin}
-                    addEquipo={addEquipo}
-                    customer_now={customer_now}
-                    Loader={Loader}
-                    ListEquipos={ListEquipos} */
+
 
                     codigoComprobante={codigoComprobante}
                     CPendiente={CPendiente}
@@ -312,6 +315,9 @@ const ComprobanteCliente = () => {
 
                 />
             }
+
+
+
         </div>
     );
 }

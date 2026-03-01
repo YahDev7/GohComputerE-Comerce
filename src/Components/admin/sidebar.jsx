@@ -20,29 +20,29 @@ const AdminSidebar = () => {
      }, [query]);  */
 
     const Menus = [
-/*         { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
-        { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" }, */
-        /* { title: "Generar_Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1709164809/Dashboard/plus_ld0cew.svg", gap: true, rol: "CUSTOMER" }, */
+      /*    { title: "Unidades", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" },
+        { title: "Servicios", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100991/Dashboard/grafico-de-barras_1_1_deuuxz.svg", rol: "CUSTOMER" }, 
+         { title: "Generar_Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1709164809/Dashboard/plus_ld0cew.svg", gap: true, rol: "CUSTOMER" }, */
         { title: "Comprobante_Cliente", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1709164809/Dashboard/plus_ld0cew.svg", gap: true, rol: "CUSTOMER" },
-      /*   { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413078/Dashboard/PhUser_yeinnd.svg", gap: true, rol: "ADMIN" },
-        { title: "Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
-        { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413113/Dashboard/PhUsersThree_kso3xu.svg", rol: "CUSTOMER" },
+       //  { title: "Users", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413078/Dashboard/PhUser_yeinnd.svg", gap: true, rol: "ADMIN" }, 
+      //  { title: "Guia", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
+        /* { title: "Customers", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413113/Dashboard/PhUsersThree_kso3xu.svg", rol: "CUSTOMER" },
         { title: "Promociones", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/promocion_1_duczxv.svg", rol: "CUSTOMER" },
         { title: "Imagenes", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699412866/Dashboard/MaterialSymbolsImageOutlineRounded_utrnkr.svg", rol: "CUSTOMER" },
-        { title: "Calendar", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1704823960/Dashboard/MaterialSymbolsCalendarToday_l2axof.svg", rol: "CUSTOMER" }, */
-        //{ title: "Providers", src: "User" },
-      /*   { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/caja_1_ycmuvg.svg", rol: "CUSTOMER" },
+        { title: "Calendar", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1704823960/Dashboard/MaterialSymbolsCalendarToday_l2axof.svg", rol: "CUSTOMER" }, 
+        */ //{ title: "Providers", src: "User" },
+      /*    { title: "Productos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/caja_1_ycmuvg.svg", rol: "CUSTOMER" },
         { title: "Categoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg", rol: "CUSTOMER" },
         { title: "Subcategoria", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100735/Dashboard/categorizacion_1_mkvjxw.svg", rol: "CUSTOMER" },
         { title: "Documentos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1694100736/Dashboard/documento_1_bnkguh.svg", rol: "CUSTOMER" },
         { title: "Compras", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413308/Dashboard/PhShoppingCart_umwjve.svg", rol: "CUSTOMER" },
         { title: "Movimientos", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699413451/Dashboard/FluentShiftsAvailability20Regular_qkvcbr.svg", icon: "https://www.flaticon.es/iconos-gratis/base-de-datos", rol: "CUSTOMER" },
         { title: "Cerrar Sesion", src: "https://res.cloudinary.com/dq3fragzr/image/upload/v1699294748/Dashboard/MaterialSymbolsLogout_aienrj.svg", logout: true, rol: "CUSTOMER" },
-        */ // { title: "Caja", src: "User" },
+         */ // { title: "Caja", src: "User" },
         //{ title: "Fechas ", src: "Calendar" },
         //{ title: "Search", src: "Search" },
-        /* { title: "Analytics", src: "Chart" },
-        { title: "Files ", src: "Folder", gap: true }, */
+        // { title: "Analytics", src: "Chart" },
+        //{ title: "Files ", src: "Folder", gap: true }, 
         // { title: "Setting", src: "Setting" },
     ];
     return (

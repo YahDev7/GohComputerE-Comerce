@@ -10,6 +10,7 @@ export const UseIcons = () => {
     const [iconDetalle, seticonDetalle] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1694272035/Dashboard/ver-detalles_w2r9pg.svg");
     const [iconNew, seticonNew] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1694272036/Dashboard/archivo-nuevo_1_xmr63a.svg");
     const [iconLoad, seticonLoad] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1699416618/Dashboard/TablerReload_m84sqw.svg");
+    const [iconPdf, seticonPdf] = useState("https://res.cloudinary.com/dq3fragzr/image/upload/v1772311982/Dashboard/IxPdfDocument_1_jwjiik.svg");
    
     
   return {iconEdit,
@@ -18,7 +19,7 @@ export const UseIcons = () => {
     iconpagar,
     iconAnular,
     iconDetalle,
-    iconNew,iconLoad
+    iconNew,iconLoad,iconPdf
     
 };
 }
